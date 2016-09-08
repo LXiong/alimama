@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -94,7 +95,7 @@ public class Main {
 			keyss = "昭通,龙江,交代,选出,回答者,状况,言情,版本,马尔康,我来,上天,山水,后期,板块,乐清,武义,什么时候,星期四,最后登陆,将有,发型,涉县,激烈,球员,四十,之多,是我国,呻吟,半导体,温泉,才可以,风光,芷江,骑兵,不认识,就此,文科,期刊,部门,运动,临夏市,现已,本报,扎实,并与,分别为,差距,护肤,呈现出,好友列表,谁说,乖乖,发现自己,长城,之外,玉环,并以,年轻,门源,两地,大幅,能看,注意到,公司简介,你是,脸颊,溆浦,灵活,模板,嘴里,通辽,持股,奉新,之星,蠡县,赣榆,乌鲁木齐,参照,昭觉,虚假,姐姐,例子,我又,房地产,这件事,男生,不信,到您,最初,融合,鱼鳞病,法庭,显现,惊奇,蔬菜,情人节,一页,是因为,此刻,停车场"
 					.split(",");
 		}
-		System.out.println("keys=" + keyss);
+		System.out.println("keys=" + Arrays.toString(keyss));
 		System.out.println("all size = " + keyss.length);
 
 		for (String key : keyss) {
@@ -410,7 +411,7 @@ public class Main {
 
 		String pages = webDriver.getPageSource();
 
-		System.out.println(pages);
+		//System.out.println(pages);
 
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 
