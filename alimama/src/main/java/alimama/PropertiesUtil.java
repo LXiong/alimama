@@ -27,10 +27,14 @@ public class PropertiesUtil {
 		//Properties systemConfig = PropertiesUtil.getProperty("/configParameterSys.properties");
 		Properties systemConfig=null;
 		try {
+			File file = new File("c:\\configParameterSys.properties");
+			if(!file.exists()){
+				System.err.println("load /configParameterSys.properties >>>>>>>>>>>>>>>>>>>>>>>>>>");
+				file = new File("/configParameterSys.properties");
+			}
 			systemConfig = PropertiesUtil.getProperty(FileUtils.openInputStream(
-					new File("c:\\configParameterSys.properties")));
+					file));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

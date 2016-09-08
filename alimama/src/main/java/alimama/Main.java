@@ -15,9 +15,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Main {
-
+    //用户名
 	static String uname = PropertiesUtil.getPropertiesMap("alimama.uname");
+	//密码
 	static String pwd = PropertiesUtil.getPropertiesMap("alimama.pwd");
+	
+	//27220956
+	static String qq = PropertiesUtil.getPropertiesMap("alimama.qq");
 
 	public static WebDriver webDriver = null;
 	
@@ -67,7 +71,7 @@ public class Main {
 
 	// 分组名称
 	public static String getFenzuName() {
-		String fenzuNameF = "dateQ群打造爆款联系77662857";
+		String fenzuNameF = "dateQ群打造爆款联系"+qq;
 		String date = DateFormatUtils.format(new Date(), "HH:mm:ss");
 		fenzuName = fenzuNameF.replace("date", date);
 		return fenzuName;
@@ -104,10 +108,9 @@ public class Main {
 			}
 
 		}
-		// faqizhaoshang("8.16.072Q群打造爆款联系7766285782");
 	}
 
-	static String fenzuName = "8.16.072Q群打造爆款联系77662857";
+	static String fenzuName = "8.16.072Q群打造爆款联系"+qq;
 
 	static int maxSize = 198;
 
@@ -311,7 +314,7 @@ public class Main {
 		// 招商活动名称
 		element = webDriver.findElement(By.id("J_title"));
 		element.click();
-		element.sendKeys("Q群淘客打造爆款联系QQ77662857");
+		element.sendKeys("Q群淘客打造爆款联系QQ"+qq);
 		Thread.sleep(1000);
 
 		// 旺旺号 边花生
