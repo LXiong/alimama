@@ -337,8 +337,15 @@ public class Main {
 		Date nextEndDate = DateUtils.addDays(new Date(), 3);
 		String nextEndDateStr  = DateFormatUtils.format(nextEndDate, "yyyy-MM-dd");
 		
-		//卖家报名时间   joinEndTime
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+		
+		
+		//卖家报名时间  joinStartTime
+		js.executeScript("document.getElementsByName('joinStartTime')[0].value='"+dataStr+"'");
+		Thread.sleep(1000);
+		
+		//卖家报名时间   joinEndTime
+		
 
 		//element = webDriver.findElement(By.name("joinEndTime"));
 		//element.sendKeys(dataStr);
