@@ -26,6 +26,9 @@ public class Main {
 	//27220956
 	static String qq = PropertiesUtil.getPropertiesMap("alimama.qq");
 
+	//设置百分比
+	static String baifenbi = PropertiesUtil.getPropertiesMap("alimama.baifenbi");
+
 	public static WebDriver webDriver = null;
 	
 
@@ -324,32 +327,37 @@ public class Main {
 		
 		//报名 活动日期
 		
-		String dataStr = DateFormatUtils.format(new Date(), "yyyy-MM-dd");
+		String dataStr = DateFormatUtils.format(DateUtils.addDays(new Date(), 1), "yyyy-MM-dd");
 		
 		//活动开始日期
-		Date nextDate = DateUtils.addDays(new Date(), 1);
+		Date nextDate = DateUtils.addDays(new Date(), 2);
 		String nextDateStr  = DateFormatUtils.format(nextDate, "yyyy-MM-dd");
 		
 		//活动截止日期
-		Date nextEndDate = DateUtils.addDays(new Date(), 2);
+		Date nextEndDate = DateUtils.addDays(new Date(), 3);
 		String nextEndDateStr  = DateFormatUtils.format(nextEndDate, "yyyy-MM-dd");
 		
 		//卖家报名时间   joinEndTime
-		element = webDriver.findElement(By.name("joinEndTime"));
-		//element.click();
-		element.sendKeys(dataStr);
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+
+		//element = webDriver.findElement(By.name("joinEndTime"));
+		//element.sendKeys(dataStr);
+		
+		js.executeScript("document.getElementsByName('joinEndTime')[0].value='"+dataStr+"'");
 		Thread.sleep(1000);
 		
 		//活动起止时间  startTime
-		element = webDriver.findElement(By.name("startTime"));
-		//element.click();
-		element.sendKeys(nextDateStr);
+		//element = webDriver.findElement(By.name("startTime"));
+		//element.sendKeys(nextDateStr);
+		js.executeScript("document.getElementsByName('startTime')[0].value='"+nextDateStr+"'");
+		
 		Thread.sleep(1000);
 		
 		//活动起止时间 endTime
-		element = webDriver.findElement(By.name("endTime"));
-		//element.click();
-		element.sendKeys(nextEndDateStr);
+//		element = webDriver.findElement(By.name("endTime"));
+		//element.sendKeys(nextEndDateStr);
+		js.executeScript("document.getElementsByName('endTime')[0].value='"+nextEndDateStr+"'");
+		
 		Thread.sleep(1000);
 		
 		
@@ -374,7 +382,7 @@ public class Main {
 		// 设置百分比 input w100
 		element = webDriver.findElement(By.xpath("//input[@class='input w100']"));
 		element.click();
-		element.sendKeys("35");
+		element.sendKeys(baifenbi);
 		Thread.sleep(1000);
 
 		// 应用 btn btn-brand w100
