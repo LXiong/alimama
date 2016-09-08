@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 public class PropertiesUtil {
 	public static final Map<String, String> propertiesMap = new HashMap<String, String>();
@@ -39,6 +40,7 @@ public class PropertiesUtil {
 		}
 		
 		propertiesMap.putAll((Hashtable) systemConfig);
+		System.out.println("propertiesMap :"+propertiesMap);
 	}
 
 	public static String getPropertiesMap(String key) {
