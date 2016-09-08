@@ -66,7 +66,8 @@ public class Main {
 		 * DateFormatUtils.format(new Date(), "HH:mm:ss");
 		 * System.out.println(fenzuName.replace("date", date));
 		 */
-		if(validate()){
+		//if(validate()){
+		if(true){
 			System.out.println("验证成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			execute();
 		}else{
@@ -330,44 +331,69 @@ public class Main {
 		String dataStr = DateFormatUtils.format(DateUtils.addDays(new Date(), 1), "yyyy-MM-dd");
 		
 		//活动开始日期
-		Date nextDate = DateUtils.addDays(new Date(), 2);
+		Date nextDate = DateUtils.addDays(new Date(), 3);
 		String nextDateStr  = DateFormatUtils.format(nextDate, "yyyy-MM-dd");
 		
 		//活动截止日期
-		Date nextEndDate = DateUtils.addDays(new Date(), 3);
+		Date nextEndDate = DateUtils.addDays(new Date(), 4);
 		String nextEndDateStr  = DateFormatUtils.format(nextEndDate, "yyyy-MM-dd");
 		
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		
 		
 		//卖家报名时间  joinStartTime
-		js.executeScript("document.getElementsByName('joinStartTime')[0].value='"+dataStr+"'");
-		Thread.sleep(1000);
+		//js.executeScript("document.getElementsByName('joinStartTime')[0].value='"+dataStr+"'");
+		//Thread.sleep(1000);
 		
 		//卖家报名时间   joinEndTime
+		//btn btn-common btn-calendar
+		List<WebElement> webElementsDates=webDriver.findElements(By.xpath("//button[@class='btn btn-common btn-calendar']"));
 		
 
-		//element = webDriver.findElement(By.name("joinEndTime"));
-		//element.sendKeys(dataStr);
-		
-		js.executeScript("document.getElementsByName('joinEndTime')[0].value='"+dataStr+"'");
+		element = webElementsDates.get(0);
+		element.click();
 		Thread.sleep(1000);
+		element = webDriver.findElement(By.xpath("//span[@data-value='10']"));
+		element.click();
+		Thread.sleep(1000);
+		
+		//js.executeScript("document.getElementsByName('joinEndTime')[0].value='"+dataStr+"'");
+		//Thread.sleep(1000);
 		
 		//活动起止时间  startTime
 		//element = webDriver.findElement(By.name("startTime"));
 		//element.sendKeys(nextDateStr);
-		js.executeScript("document.getElementsByName('startTime')[0].value='"+nextDateStr+"'");
 		
+		element = webElementsDates.get(1);
+		element.click();
 		Thread.sleep(1000);
+		element = webDriver.findElement(By.xpath("//span[@data-value='10']"));
+		element.click();
+		Thread.sleep(1000);
+		
+		//js.executeScript("document.getElementsByName('startTime')[0].value='"+nextDateStr+"'");
+		//Thread.sleep(1000);
 		
 		//活动起止时间 endTime
 //		element = webDriver.findElement(By.name("endTime"));
 		//element.sendKeys(nextEndDateStr);
-		js.executeScript("document.getElementsByName('endTime')[0].value='"+nextEndDateStr+"'");
 		
+		element = webElementsDates.get(2);
+		element.click();
+		Thread.sleep(1000);
+		element = webDriver.findElement(By.xpath("//span[@data-value='12']"));
+		element.click();
 		Thread.sleep(1000);
 		
+		//js.executeScript("document.getElementsByName('endTime')[0].value='"+nextEndDateStr+"'");
+		//Thread.sleep(1000);
 		
+		element = webElementsDates.get(3);
+		element.click();
+		Thread.sleep(1000);
+		element = webDriver.findElement(By.xpath("//span[@data-value='13']"));
+		element.click();
+		Thread.sleep(1000);
 
 		// 旺旺号 边花生
 		element = webDriver.findElement(By.name("wangwangName"));
