@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.By;
@@ -113,7 +114,8 @@ public class Main {
 
 	static String fenzuName = "8.16.072Q群打造爆款联系"+qq;
 
-	static int maxSize = 198;
+	//最大数
+	static int maxSize = StringUtils.isBlank(PropertiesUtil.getPropertiesMap("alimama.maxSize")) ? 198 :Integer.valueOf(PropertiesUtil.getPropertiesMap("alimama.maxSize"));
 
 	/**
 	 * 添加商品
