@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -316,6 +317,39 @@ public class Main {
 		element.click();
 		element.sendKeys("Q群淘客打造爆款联系QQ"+qq);
 		Thread.sleep(1000);
+		
+		
+		//报名 活动日期
+		
+		String dataStr = DateFormatUtils.format(new Date(), "yyyy-MM-dd");
+		
+		//活动开始日期
+		Date nextDate = DateUtils.addDays(new Date(), 1);
+		String nextDateStr  = DateFormatUtils.format(nextDate, "yyyy-MM-dd");
+		
+		//活动截止日期
+		Date nextEndDate = DateUtils.addDays(new Date(), 2);
+		String nextEndDateStr  = DateFormatUtils.format(nextEndDate, "yyyy-MM-dd");
+		
+		//卖家报名时间   joinEndTime
+		element = webDriver.findElement(By.name("joinEndTime"));
+		//element.click();
+		element.sendKeys(dataStr);
+		Thread.sleep(1000);
+		
+		//活动起止时间  startTime
+		element = webDriver.findElement(By.name("startTime"));
+		//element.click();
+		element.sendKeys(nextDateStr);
+		Thread.sleep(1000);
+		
+		//活动起止时间 endTime
+		element = webDriver.findElement(By.name("endTime"));
+		//element.click();
+		element.sendKeys(nextEndDateStr);
+		Thread.sleep(1000);
+		
+		
 
 		// 旺旺号 边花生
 		element = webDriver.findElement(By.name("wangwangName"));
