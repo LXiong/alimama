@@ -312,9 +312,11 @@ public class Main {
 		try{
 		webDriver.get("http://pub.alimama.com/manage/selection/list.htm");
 		Thread.sleep(5000);
+		WebElement element =null;
+		try{
 		// link-area
 		List<WebElement> elements = webDriver.findElements(By.xpath("//a[@class='link-area']"));
-		WebElement element = elements.get(0);
+		element= elements.get(0);
 		String text = element.getText();
 		if (text.contains(name)) {
 			System.out.println("招商选择正确>>>>>>>>>>>>>>>>>>>>");
@@ -324,6 +326,11 @@ public class Main {
 		element.click();
 		Thread.sleep(1000);
 
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("已经超过招商数>>>>>>>>>>>>>>>>>>>>>>>>");
+			System.exit(0);
+		}
 		// Q群淘客打造爆款联系QQ77662857
 
 		// 招商活动名称
