@@ -356,7 +356,7 @@ public class Main {
 		//Thread.sleep(1000);
 		//element = webDriver.findElement(By.xpath("//span[@data-value='10']"));
 		//element.click();
-		Object o =js.executeScript("return document.querySelector(\"span[data-value='10']\").getAttribute('data-value');");
+		//Object o =js.executeScript("return document.querySelector(\"span[data-value='10']\").getAttribute('data-value');");
 		
 		//js.executeScript("document.querySelectorAll(\"span[data-value='10']\")[1].click();");
 		//Thread.sleep(1000);
