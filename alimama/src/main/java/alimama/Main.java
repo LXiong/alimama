@@ -49,10 +49,10 @@ public class Main {
 	}
 
 	public static void init() {
-		// webDriver
-		// =SeleniumUtil.initWebDriver("http://192.168.1.120:4444/wd/hub");
+		
 		System.out.println("webDriver init start >>>>>>>>>>>>>>>>>");
-		webDriver = new FirefoxDriver();
+		//webDriver = new FirefoxDriver();
+		webDriver =SeleniumUtil.initWebDriver("http://192.168.1.120:4444/wd/hub");
 		webDriver.manage().window().maximize();
 
 		System.out.println("webDriver init end <<<<<<<<<<<<<<<<<<<<<<<<<<<<");
@@ -353,8 +353,11 @@ public class Main {
 		element = webElementsDates.get(0);
 		element.click();
 		Thread.sleep(1000);
-		element = webDriver.findElement(By.xpath("//span[@data-value='10']"));
-		element.click();
+		//element = webDriver.findElement(By.xpath("//span[@data-value='10']"));
+		//element.click();
+		Object o =js.executeScript("return document.querySelector(\"span[data-value='10']\").getAttribute('data-value');");
+		
+		js.executeScript("document.querySelector(\"span[data-value='10']\").onclick();");
 		Thread.sleep(1000);
 		
 		//js.executeScript("document.getElementsByName('joinEndTime')[0].value='"+dataStr+"'");
@@ -367,8 +370,9 @@ public class Main {
 		element = webElementsDates.get(1);
 		element.click();
 		Thread.sleep(1000);
-		element = webDriver.findElement(By.xpath("//span[@data-value='10']"));
-		element.click();
+		js.executeScript("document.querySelector(\"span[data-value='10']\").click;");
+		//element = webDriver.findElement(By.xpath("//span[@data-value='10']"));
+		//element.click();
 		Thread.sleep(1000);
 		
 		//js.executeScript("document.getElementsByName('startTime')[0].value='"+nextDateStr+"'");
@@ -381,8 +385,9 @@ public class Main {
 		element = webElementsDates.get(2);
 		element.click();
 		Thread.sleep(1000);
-		element = webDriver.findElement(By.xpath("//span[@data-value='12']"));
-		element.click();
+		js.executeScript("document.querySelector(\"span[data-value='12']\").click;");
+		//element = webDriver.findElement(By.xpath("//span[@data-value='12']"));
+		//element.click();
 		Thread.sleep(1000);
 		
 		//js.executeScript("document.getElementsByName('endTime')[0].value='"+nextEndDateStr+"'");
@@ -391,8 +396,9 @@ public class Main {
 		element = webElementsDates.get(3);
 		element.click();
 		Thread.sleep(1000);
-		element = webDriver.findElement(By.xpath("//span[@data-value='13']"));
-		element.click();
+		js.executeScript("document.querySelector(\"span[data-value='13']\").click;");
+		//element = webDriver.findElement(By.xpath("//span[@data-value='13']"));
+		//element.click();
 		Thread.sleep(1000);
 
 		// 旺旺号 边花生
