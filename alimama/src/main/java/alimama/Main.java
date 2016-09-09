@@ -52,8 +52,13 @@ public class Main {
 	public static void init() {
 		
 		System.out.println("webDriver init start >>>>>>>>>>>>>>>>>");
-		//webDriver = new FirefoxDriver();
-		webDriver =SeleniumUtil.initWebDriver("http://192.168.1.120:4444/wd/hub");
+		
+		String localWebDriver=PropertiesUtil.getPropertiesMap("localWebDriver");
+		if("true".equals(localWebDriver)){
+			webDriver = new FirefoxDriver();
+		}else{
+			webDriver =SeleniumUtil.initWebDriver("http://192.168.1.120:4444/wd/hub");
+		}
 		webDriver.manage().window().maximize();
 
 		System.out.println("webDriver init end <<<<<<<<<<<<<<<<<<<<<<<<<<<<");
