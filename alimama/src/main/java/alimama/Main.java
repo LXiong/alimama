@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -394,11 +395,16 @@ public class Main {
 		//js.executeScript("document.getElementsByName('endTime')[0].value='"+nextEndDateStr+"'");
 		//Thread.sleep(1000);
 		
-		String endTime = DateFormatUtils.format(DateUtils.addDays(new Date(), 6), "yyyy-MM-dd");
+        Date date =DateUtils.addDays(new Date(), 6);
+		
+		long endDay = DateUtils.getFragmentInDays(date, Calendar.MONTH);
 		element = webElementsDates.get(3);
 		element.click();
 		Thread.sleep(1000);
-		js.executeScript("document.querySelectorAll(\"span[data-value='"+endTime+"']\")[3].click();");
+		//document.querySelectorAll("span[data-value='12']")[document.querySelectorAll("span[data-value='12']").length-1].click();
+		//js.executeScript("document.querySelectorAll(\"span[data-value='"+endTime+"']\")[7].click();");
+		js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
+		
 		//element = webDriver.findElement(By.xpath("//span[@data-value='13']"));
 		//element.click();
 		Thread.sleep(1000);
