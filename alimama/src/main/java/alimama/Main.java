@@ -303,6 +303,7 @@ public class Main {
 	 * @throws Exception
 	 */
 	public static void faqizhaoshang(String name) throws Exception {
+		try{
 		webDriver.get("http://pub.alimama.com/manage/selection/list.htm");
 		Thread.sleep(5000);
 		// link-area
@@ -351,14 +352,14 @@ public class Main {
 		
 
 		element = webElementsDates.get(0);
-		element.click();
-		Thread.sleep(1000);
+		//element.click();
+		//Thread.sleep(1000);
 		//element = webDriver.findElement(By.xpath("//span[@data-value='10']"));
 		//element.click();
 		Object o =js.executeScript("return document.querySelector(\"span[data-value='10']\").getAttribute('data-value');");
 		
-		js.executeScript("document.querySelector(\"span[data-value='10']\").onclick();");
-		Thread.sleep(1000);
+		//js.executeScript("document.querySelectorAll(\"span[data-value='10']\")[1].click();");
+		//Thread.sleep(1000);
 		
 		//js.executeScript("document.getElementsByName('joinEndTime')[0].value='"+dataStr+"'");
 		//Thread.sleep(1000);
@@ -368,9 +369,9 @@ public class Main {
 		//element.sendKeys(nextDateStr);
 		
 		element = webElementsDates.get(1);
-		element.click();
-		Thread.sleep(1000);
-		js.executeScript("document.querySelector(\"span[data-value='10']\").click;");
+		//element.click();
+		//Thread.sleep(1000);
+		//js.executeScript("document.querySelectorAll(\"span[data-value='10']\")[3].click();");
 		//element = webDriver.findElement(By.xpath("//span[@data-value='10']"));
 		//element.click();
 		Thread.sleep(1000);
@@ -383,9 +384,9 @@ public class Main {
 		//element.sendKeys(nextEndDateStr);
 		
 		element = webElementsDates.get(2);
-		element.click();
-		Thread.sleep(1000);
-		js.executeScript("document.querySelector(\"span[data-value='12']\").click;");
+		//element.click();
+		//Thread.sleep(1000); 
+		//js.executeScript("document.querySelectorAll(\"span[data-value='12']\")[5].click();");
 		//element = webDriver.findElement(By.xpath("//span[@data-value='12']"));
 		//element.click();
 		Thread.sleep(1000);
@@ -393,10 +394,11 @@ public class Main {
 		//js.executeScript("document.getElementsByName('endTime')[0].value='"+nextEndDateStr+"'");
 		//Thread.sleep(1000);
 		
+		String endTime = DateFormatUtils.format(DateUtils.addDays(new Date(), 6), "yyyy-MM-dd");
 		element = webElementsDates.get(3);
 		element.click();
 		Thread.sleep(1000);
-		js.executeScript("document.querySelector(\"span[data-value='13']\").click;");
+		js.executeScript("document.querySelectorAll(\"span[data-value='"+endTime+"']\")[3].click();");
 		//element = webDriver.findElement(By.xpath("//span[@data-value='13']"));
 		//element.click();
 		Thread.sleep(1000);
@@ -437,6 +439,10 @@ public class Main {
 		String page = webDriver.getPageSource();
 		if (page.contains("招商需求创建成功")) {
 			System.out.println("招商需求创建成功 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		}
+		
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 
 	}
