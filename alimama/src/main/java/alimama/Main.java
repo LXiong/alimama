@@ -631,11 +631,11 @@ public class Main {
 		Thread.sleep(5000);
 
 		String pageStr = webDriver.getPageSource();
+		Thread.sleep(30000);
 		if (!pageStr.contains(uname)) {
 			System.out.println("登陆失败>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			return true;
 		}
-		Thread.sleep(30000);
 		return true;
 	}
 
