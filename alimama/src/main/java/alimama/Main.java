@@ -168,7 +168,7 @@ public class Main {
 			String text = elementQuery.getText();
 			System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text);
 			
-			text = text.replace("0/", "").replace("1/", "");
+			text = text.split("/")[1];
 			Integer maxPage = null;
 			try{
 				maxPage = Integer.valueOf(text);
@@ -204,7 +204,7 @@ public class Main {
 				String text2 = elementQuery.getText();
 				System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text2);
 				
-				text = text.replace("0/", "").replace("1/", "");
+				text2 = text2.split("/")[1];
 				Integer maxPage2 = null;
 				try{
 					maxPage2 = Integer.valueOf(text2);
