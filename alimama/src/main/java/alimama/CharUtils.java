@@ -1,4 +1,4 @@
-package alimama;
+/*package alimama;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -7,12 +7,12 @@ import java.util.Random;
 
 public class CharUtils {
 	
-	/**
+	*//**
      * 画随机汉字
      * 
      * @param g
      * @return
-     */
+     *//*
     private static  String drawRandomNum() {
         StringBuffer sb = new StringBuffer();
         // 准备常用汉字集
@@ -39,11 +39,11 @@ public class CharUtils {
 		return list;
 	}
 	
-	 /**
+	 *//**
      * 获取指定长度随机简体中文
      * @param len int
      * @return String
-     */
+     *//*
     public static String getRandomJianHan(int len)
     {
         String ret="";
@@ -70,3 +70,4 @@ public class CharUtils {
     }
 
 }
+*/

@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -112,7 +113,8 @@ public class Main {
 			System.out.println("key :" + key);
 			// 添加商品
 			try {
-				boolean addflag = addshangpingAll(key);
+				//boolean addflag = addshangpingAll(key);
+				boolean addflag = addshangpingAll2(key);
 				if (addflag) {
 					faqizhaoshang(fenzuName);
 				}
@@ -128,6 +130,116 @@ public class Main {
 	//最大数
 	static int maxSize = StringUtils.isBlank(PropertiesUtil.getPropertiesMap("alimama.maxSize")) ? 198 :Integer.valueOf(PropertiesUtil.getPropertiesMap("alimama.maxSize"));
 
+	
+	public static int getRandom(int min, int max) {
+		Random random = new Random();
+		int s = random.nextInt(max) % (max - min + 1) + min;
+		return s;
+
+	}
+
+
+
+	
+	/**
+	 * 添加商品 页数随机
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static boolean addshangpingAll2(String queryName) throws Exception {
+
+		try {
+			webDriver.get("http://pub.alimama.com/promo/search/index.htm");
+			Thread.sleep(4000);
+
+			//获取最大页数  
+			WebElement elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
+			String text = elementQuery.getText();
+			System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text);
+			text = text.replace("0/", "");
+			Integer maxPage = Integer.valueOf(text);
+			if(maxPage <= 3 ){
+				System.out.println("页数太少跳出>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				return false;
+			}
+			
+			//默认开始为第一页
+			int cPage = 1;
+			
+			if(maxPage > 50){
+				cPage = getRandom(1, maxPage-5);
+			}
+			
+			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40";
+			System.out.println("queryURL :"+queryURL);
+			webDriver.get(queryURL);
+			Thread.sleep(4000);
+			
+			// 已选数据 <span p-id="110">1</span>
+			String size = "0";
+			System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
+
+			while (Integer.valueOf(size) < maxSize) {
+				//选择
+				WebElement elements = webDriver.findElement(By.xpath("//*[@class='select-btn select-all ']"));
+				elements.click();
+				Thread.sleep(1000);
+
+				// 已选数
+				elementQuery = webDriver.findElement(By.xpath("//*[@class='color-brand']"));
+				size = elementQuery.getText();
+				System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
+				if (!(Integer.valueOf(size) < maxSize)) {
+					break;
+				}
+
+				cPage++;
+				// 下一页 btn-last btn btn-xlarge btn-white
+				queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40";
+				System.out.println("queryURL :"+queryURL);
+				webDriver.get(queryURL);
+				Thread.sleep(3000);
+			}
+
+			Thread.sleep(1000);
+			// 加入选品库 btn-brand add-selection
+			WebElement element = webDriver.findElement(By.xpath("//a[@class='btn-brand add-selection']"));
+			element.click();
+
+			Thread.sleep(1000);
+			// 新建普通分组 btn btn-common w140
+			element = webDriver.findElement(By.xpath("//*[@class='btn btn-common w140']"));
+			element.click();
+
+			Thread.sleep(1000);
+			// 分组输入框 J_groupTitle
+			element = webDriver.findElement(By.id("J_groupTitle"));
+			element.click();
+			// 设置分组名称
+			getFenzuName();
+			element.sendKeys(fenzuName);
+			Thread.sleep(1000);
+
+			// 点击创建 btn btn-brand w80 mr10
+			element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w80 mr10']"));
+			element.click();
+			Thread.sleep(1000);
+
+			// 点击加入 btn btn-brand w100 mr10
+			element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w100 mr10 ']"));
+			element.click();
+			Thread.sleep(1000);
+			System.out.println("加入成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("失败>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			return false;
+		}
+		return true;
+	}
+	
+	
 	/**
 	 * 添加商品
 	 * 
