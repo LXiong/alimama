@@ -157,10 +157,11 @@ public class Main {
 			WebElement elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
 			String text = elementQuery.getText();
 			System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text);
-			text = text.replace("0/", "");
+			
+			text = text.replace("0/", "").replace("1/", "");
 			Integer maxPage = Integer.valueOf(text);
 			if(maxPage <= 3 ){
-				System.out.println("页数太少跳出>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				System.out.println("页数太少跳出>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>》");
 				return false;
 			}
 			
