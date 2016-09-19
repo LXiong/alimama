@@ -161,7 +161,7 @@ public class Main {
 			// 搜索 btn btn-brand search-btn
 			elementQuery = webDriver.findElement(By.xpath("//*[@class='btn btn-brand search-btn']"));
 			elementQuery.click();
-			Thread.sleep(2000);
+			Thread.sleep(5000);
 
 			//获取最大页数  
 			elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
@@ -198,6 +198,25 @@ public class Main {
 			System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
 
 			while (Integer.valueOf(size) < maxSize) {
+				
+				//获取最大页数  检测
+				elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
+				String text2 = elementQuery.getText();
+				System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text2);
+				
+				text = text.replace("0/", "").replace("1/", "");
+				Integer maxPage2 = null;
+				try{
+					maxPage2 = Integer.valueOf(text2);
+				}catch(Exception e){
+					maxPage2 = 1;
+				}
+					
+				if(maxPage2 <= 3 ){
+					System.out.println("页数太少跳出>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>》");
+					return false;
+				}
+				
 				//选择
 				WebElement elements = webDriver.findElement(By.xpath("//*[@class='select-btn select-all ']"));
 				elements.click();
