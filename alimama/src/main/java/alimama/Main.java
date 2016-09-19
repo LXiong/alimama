@@ -159,7 +159,13 @@ public class Main {
 			System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text);
 			
 			text = text.replace("0/", "").replace("1/", "");
-			Integer maxPage = Integer.valueOf(text);
+			Integer maxPage = null;
+			try{
+				maxPage = Integer.valueOf(text);
+			}catch(Exception e){
+				maxPage = 1;
+			}
+				
 			if(maxPage <= 3 ){
 				System.out.println("页数太少跳出>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>》");
 				return false;
@@ -631,7 +637,7 @@ public class Main {
 		Thread.sleep(5000);
 
 		String pageStr = webDriver.getPageSource();
-		Thread.sleep(30000);
+		System.in.read();
 		if (!pageStr.contains(uname)) {
 			System.out.println("登陆失败>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			return true;
