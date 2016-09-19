@@ -635,6 +635,7 @@ public class Main {
 			System.out.println("登陆失败>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			return true;
 		}
+		Thread.sleep(30000);
 		return true;
 	}
 
