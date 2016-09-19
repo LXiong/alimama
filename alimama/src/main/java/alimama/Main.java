@@ -152,9 +152,19 @@ public class Main {
 		try {
 			webDriver.get("http://pub.alimama.com/promo/search/index.htm");
 			Thread.sleep(4000);
+			
+			// 搜索
+			WebElement elementQuery = webDriver.findElement(By.id("q"));
+			elementQuery.click();
+			elementQuery.sendKeys(queryName);
+
+			// 搜索 btn btn-brand search-btn
+			elementQuery = webDriver.findElement(By.xpath("//*[@class='btn btn-brand search-btn']"));
+			elementQuery.click();
+			Thread.sleep(2000);
 
 			//获取最大页数  
-			WebElement elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
+			elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
 			String text = elementQuery.getText();
 			System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text);
 			
