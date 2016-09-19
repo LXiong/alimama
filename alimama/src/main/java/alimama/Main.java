@@ -184,7 +184,7 @@ public class Main {
 			//默认开始为第一页
 			int cPage = 1;
 			
-			if(maxPage > 50){
+			if(maxPage > 10){
 				cPage = getRandom(1, maxPage-5);
 			}
 			
