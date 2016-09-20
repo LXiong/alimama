@@ -626,11 +626,10 @@ public class Main {
 			webDriver.get("https://login.taobao.com/member/login.jhtml?style=minisimple&from=alimama&qq-pf-to=pcqq.c2c");
 			Thread.sleep(5000);
 			// webDriver.get("https://login.taobao.com/member/login.jhtml?style=mini&amp;newMini2=true&amp;from=alimama&amp;redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&amp;full_redirect=true&amp;disableQuickLogin=true");
-			webDriver.switchTo().frame("taobaoLoginIfr");
-			System.in.read();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		System.in.read();
 		return true;
 	}
 
