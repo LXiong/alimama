@@ -1,6 +1,5 @@
 package alimama;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -12,6 +11,9 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.Augmenter;
@@ -19,7 +21,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 /**
- * 浏览器util
+ * 娴忚鍣╱til
  */
 
 public class SeleniumUtil {
@@ -28,21 +30,20 @@ public class SeleniumUtil {
 
 	private static FirefoxProfile profile = null;
 	private static DesiredCapabilities capability = null;
-	
-	
-	public static void setDesiredCapabilities(){
+
+	public static void setDesiredCapabilities() {
 		logger.info("start init Firefox profile!");
 		String plugin = SeleniumUtil.class.getResource(
 				"/plugin/killspinners-1.2.1-fx.xpi").getPath();
 		try {
 			profile = new FirefoxProfile();
-			//profile = new ProfilesIni().getProfile("default");
+			// profile = new ProfilesIni().getProfile("default");
 			profile.addExtension(new File(plugin));
-			// 去掉css
-			//profile.setPreference("permissions.default.stylesheet", 2);
-			// 去掉图片
-			//profile.setPreference("permissions.default.image", 2);
-			// 去掉flash
+			// 鍘绘帀css
+			// profile.setPreference("permissions.default.stylesheet", 2);
+			// 鍘绘帀鍥剧墖
+			// profile.setPreference("permissions.default.image", 2);
+			// 鍘绘帀flash
 			profile.setPreference("dom.ipc.plugins.enabled.libflashplayer.so",
 					false);
 			capability = DesiredCapabilities.firefox();
@@ -55,14 +56,40 @@ public class SeleniumUtil {
 	}
 
 	/**
-	 * 初始化浏览器的profile文件
+	 * 鍒濆鍖栨祻瑙堝櫒鐨刾rofile鏂囦欢
 	 */
 	static {
 		setDesiredCapabilities();
 	}
 
+	public static WebDriver initChromeDriver() {
+		logger.info("start init WebDriver!");
+		WebDriver driver = null;
+		try {
+			ChromeDriverService service = new ChromeDriverService.Builder()
+					.usingDriverExecutable(
+							new File("e:\\app\\chromedriver\\chromedriver.exe"))
+					.usingAnyFreePort().build();
+			service.start();
+			ChromeOptions options = new ChromeOptions();
+			// options.addArguments(“–user-data-dir=C:/Users/xxx/AppData/Local/Google/Chrome/User
+			// Data/Default”);
+			String userDateDir = "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data";
+			options.addArguments("--user-data-dir=" + userDateDir);
+			// 璁剧疆璁块棶ChromeDriver鐨勮矾寰�
+			System.setProperty("webdriver.chrome.driver",
+					"e:\\app\\chromedriver\\chromedriver.exe");
+			driver = new ChromeDriver(options);
+		} catch (Exception e) {
+			logger.error("Init WebDriver is error!", e);
+			throw new RuntimeException(e);
+		}
+		logger.info("init WebDriver is success!");
+		return driver;
+	}
+
 	/**
-	 * 初始化浏览器
+	 * 鍒濆鍖栨祻瑙堝櫒
 	 * 
 	 * @param server
 	 * @return
@@ -82,9 +109,9 @@ public class SeleniumUtil {
 		logger.info("init WebDriver is success!");
 		return driver;
 	}
-	
+
 	/**
-	 * 初始化浏览器
+	 * 鍒濆鍖栨祻瑙堝櫒
 	 * 
 	 * @param server
 	 * @return
@@ -93,9 +120,7 @@ public class SeleniumUtil {
 		logger.info("start init WebDriver!");
 		WebDriver driver = null;
 		try {
-			 driver = new RemoteWebDriver(new
-			 URL(url),
-			 capability);
+			driver = new RemoteWebDriver(new URL(url), capability);
 		} catch (Exception e) {
 			logger.error("Init WebDriver is error!", e);
 			throw new RuntimeException(e);
@@ -108,32 +133,32 @@ public class SeleniumUtil {
 		DesiredCapabilities capability = DesiredCapabilities.chrome();
 		capability.setJavascriptEnabled(true);
 		FirefoxProfile firefoxProfile = new FirefoxProfile();
-		// 去掉css
-		//firefoxProfile.setPreference("permissions.default.stylesheet", 2);
-		// 去掉图片
-		//firefoxProfile.setPreference("permissions.default.image", 2);
-		// 去掉flash
+		// 鍘绘帀css
+		// firefoxProfile.setPreference("permissions.default.stylesheet", 2);
+		// 鍘绘帀鍥剧墖
+		// firefoxProfile.setPreference("permissions.default.image", 2);
+		// 鍘绘帀flash
 		firefoxProfile.setPreference(
 				"dom.ipc.plugins.enabled.libflashplayer.so", false);
 
 		capability.setCapability("firefox_profile", firefoxProfile);
 		WebDriver driver = new FirefoxDriver(capability);
-		
-		//WebDriver driver = new HtmlUnitDriver();
+
 		// WebDriver driver = new HtmlUnitDriver();
-		// 如果3s内还定位不到则抛出异�?
+		// WebDriver driver = new HtmlUnitDriver();
+		// 濡傛灉3s鍐呰繕瀹氫綅涓嶅埌鍒欐姏鍑哄紓甯?
 		// driver.manage().timeouts().implicitlyWait(IMPLICITLYWAIT,
 		// TimeUnit.SECONDS);
-		// 页面加载超时时间设置�?5s
+		// 椤甸潰鍔犺浇瓒呮椂鏃堕棿璁剧疆涓?5s
 		// driver.manage().timeouts().pageLoadTimeout(PAGELOADTIMEOUT,
 		// TimeUnit.SECONDS);
-		 //driver.manage().timeouts().setScriptTimeout(60,TimeUnit.SECONDS);
+		// driver.manage().timeouts().setScriptTimeout(60,TimeUnit.SECONDS);
 		return driver;
 
 	}
 
 	/**
-	 * 截图
+	 * 鎴浘
 	 * 
 	 * @param driver
 	 * @param url
@@ -167,7 +192,7 @@ public class SeleniumUtil {
 	}
 
 	/**
-	 * 截图
+	 * 鎴浘
 	 * 
 	 * @param driver
 	 * @param url
@@ -223,7 +248,7 @@ public class SeleniumUtil {
 	}
 
 	/**
-	 * 关闭浏览�?
+	 * 鍏抽棴娴忚鍣?
 	 * 
 	 * @param driver
 	 */
