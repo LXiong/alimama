@@ -38,6 +38,7 @@ public class Main {
 		String url = "https://github.com/xiaomin0322/alimama/releases/download/int/validate.txt";
 		try {
 			java.util.Properties properties = PropertiesUtil.getProperty(new URL(url).openStream());
+			System.out.println("测试词典："+DicUtils.getDic());
 			System.out.println("properties："+properties);
 			String flag  = properties.getProperty("validate");
 			System.out.println("flag:"+flag);
