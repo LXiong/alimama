@@ -52,6 +52,8 @@ public class Main {
 	}
 
 	public static void init() {
+		System.out.println("Test getKey = "+DicUtils.getDic());
+
 		
 		System.out.println("webDriver init start >>>>>>>>>>>>>>>>>");
 		
@@ -111,8 +113,7 @@ public class Main {
 		System.out.println("keys=" + Arrays.toString(keyss));
 		System.out.println("all size = " + keyss.length);
 		
-		System.out.println("Test getKey = "+DicUtils.getDic());
-
+		
 		for (String key : keyss) {
 			System.out.println("key :" + key);
 			// 添加商品
