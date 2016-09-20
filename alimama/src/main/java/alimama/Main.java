@@ -94,7 +94,7 @@ public class Main {
 
 	public static void execute() throws Exception {
 		init();
-		if (!login()) {
+		if (!login2()) {
 			System.out.println("登陆失败>>>>>>>>>>>>>>>>>>>>>>>>>>>.");
 			return;
 		}
@@ -612,6 +612,22 @@ public class Main {
 			e.printStackTrace();
 		}
 
+	}
+	
+
+	/**
+	 * 登陆
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static boolean login2() throws Exception {
+		webDriver.get("https://login.taobao.com/member/login.jhtml?style=minisimple&from=alimama&qq-pf-to=pcqq.c2c");
+		Thread.sleep(5000);
+		// webDriver.get("https://login.taobao.com/member/login.jhtml?style=mini&amp;newMini2=true&amp;from=alimama&amp;redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&amp;full_redirect=true&amp;disableQuickLogin=true");
+		webDriver.switchTo().frame("taobaoLoginIfr");
+		System.in.read();
+		return true;
 	}
 
 	/**
