@@ -16,13 +16,13 @@ public class Test2 {
 			long endDay = DateUtils.getFragmentInDays(date, Calendar.MONTH);
 			System.out.println(endDay);
 			
-			InputStream inputStream = PropertiesUtil.class.getClassLoader().getResourceAsStream("/main.dic");
+			/*InputStream inputStream = PropertiesUtil.class.getClassLoader().getResourceAsStream("/main.dic");
 			List<String> list = IOUtils.readLines(inputStream);
 		
 			for(String s : list){
 				System.out.println(s);
 			}
-			System.out.println(list.size());
+			System.out.println(list.size());*/
 	}
 
 }
