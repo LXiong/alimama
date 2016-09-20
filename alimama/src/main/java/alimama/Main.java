@@ -115,7 +115,7 @@ public class Main {
 			// 添加商品
 			try {
 				//boolean addflag = addshangpingAll(key);
-				boolean addflag = addshangpingAll2(key);
+				boolean addflag = addshangpingAll2(DicUtils.getDic());
 				if (addflag) {
 					faqizhaoshang(fenzuName);
 				}
