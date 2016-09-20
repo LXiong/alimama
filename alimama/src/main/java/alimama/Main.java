@@ -453,7 +453,15 @@ public class Main {
 	}
 
 	/**
-	 * 发起招商
+	 * 
+	 * document.querySelectorAll("button[class='btn btn-common btn-calendar']")[
+	 * 3].click();
+	 * 
+	 * document.querySelectorAll("a[class='minus']")[document.querySelectorAll(
+	 * "a[class='minus']").length-1].click();
+	 * 
+	 * document.querySelectorAll("span[data-value='26']")[document.
+	 * querySelectorAll("span[data-value='26']").length-1].click(); 发起招商
 	 * 
 	 * @throws Exception
 	 */
