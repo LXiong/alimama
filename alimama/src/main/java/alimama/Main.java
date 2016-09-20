@@ -94,6 +94,19 @@ public class Main {
 		fenzuName = fenzuNameF.replace("date", date);
 		return fenzuName;
 	}
+	
+	public static void deleteXuanPingKu() throws Exception {
+		init();
+		if (!login2()) {
+			System.out.println("登陆失败>>>>>>>>>>>>>>>>>>>>>>>>>>>.");
+			return;
+		}
+		
+		webDriver.get("http://pub.alimama.com/manage/selection/list.htm");
+		Thread.sleep(5000);
+		
+		
+	}
 
 	public static void execute() throws Exception {
 		init();
