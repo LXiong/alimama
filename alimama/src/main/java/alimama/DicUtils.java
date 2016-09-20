@@ -13,18 +13,18 @@ public class DicUtils {
 	static List<String> list =  null;
 	
 	static{
-		System.out.println("¼ÓÔØ´Êµä>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		InputStream inputStream = DicUtils.class.getClassLoader().getResourceAsStream("main.dic");
+		System.out.println("start ciku>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		InputStream inputStream = DicUtils.class.getClassLoader().getResourceAsStream("taobaociku.txt");
 	    try {
 			list = IOUtils.readLines(inputStream,Charset.forName("utf-8"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    System.out.println("´Êµä¼ÓÔØÍê³É>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+	    System.out.println("end ciku >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 	}
 	
 	/**
-	 * Ëæ»ú»ñÈ¡µ¥´Ê
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	public static String getDic(){
