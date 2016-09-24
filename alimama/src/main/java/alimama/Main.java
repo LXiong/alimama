@@ -30,6 +30,11 @@ public class Main {
 
 	//设置百分比
 	static String baifenbi = PropertiesUtil.getPropertiesMap("alimama.baifenbi");
+	
+	
+	static String queryStr = PropertiesUtil.getPropertiesMap("alimama.queryStr");
+
+	
 
 	public static WebDriver webDriver = null;
 	
@@ -170,7 +175,7 @@ public class Main {
 	public static boolean addshangpingAll2(String queryName) throws Exception {
 
 		try {
-			webDriver.get("http://pub.alimama.com/promo/search/index.htm");
+			/*webDriver.get("http://pub.alimama.com/promo/search/index.htm");
 			Thread.sleep(4000);
 			
 			// 搜索
@@ -181,8 +186,17 @@ public class Main {
 			// 搜索 btn btn-brand search-btn
 			elementQuery = webDriver.findElement(By.xpath("//*[@class='btn btn-brand search-btn']"));
 			elementQuery.click();
-			Thread.sleep(5000);
+			Thread.sleep(5000);*/
 
+			
+			
+			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr;
+			webDriver.get(queryURL);
+			Thread.sleep(6000);
+			
+			// 搜索
+			WebElement elementQuery = null;
+			
 			//获取最大页数  
 			elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
 			String text = elementQuery.getText();
@@ -208,7 +222,7 @@ public class Main {
 				cPage = getRandom(1, maxPage-5);
 			}
 			
-			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40";
+			 queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40"+queryStr;
 			System.out.println("queryURL :"+queryURL);
 			webDriver.get(queryURL);
 			Thread.sleep(4000);
