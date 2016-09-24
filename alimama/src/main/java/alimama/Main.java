@@ -266,7 +266,7 @@ public class Main {
 
 				cPage++;
 				// 下一页 btn-last btn btn-xlarge btn-white
-				queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40"+queryURL;
+				queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40"+queryStr;
 				System.out.println("queryURL :"+queryURL);
 				webDriver.get(queryURL);
 				Thread.sleep(3000);
