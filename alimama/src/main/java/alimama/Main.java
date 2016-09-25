@@ -618,7 +618,7 @@ public class Main {
 		System.out.println("inputDateStr 输入的结束日期:"+inputDateStr);
 		
 		//校验选择的日期对不丢
-		if(!dataStr.equalsIgnoreCase(inputDateStr)){
+		if(!dateStr.equalsIgnoreCase(inputDateStr)){
 			//点击日期弹出框
 			js.executeScript("document.querySelectorAll(\"button[class='btn btn-common btn-calendar']\")[3].click();");
 			Thread.sleep(500);
