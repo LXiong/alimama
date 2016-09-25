@@ -17,7 +17,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Main {
     //用户名
@@ -133,20 +132,26 @@ public class Main {
 		
 		
 		for (String key : keyss) {
-			System.out.println("key :" + key);
-			// 添加商品
-			try {
-				//boolean addflag = addshangpingAll(key);
-				key = DicUtils.getDic();
-				System.out.println("sousuokey :"+key);
-				boolean addflag = addshangpingAll2(key);
-				if (addflag) {
-					faqizhaoshang(fenzuName);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			run(key);
+		}
+		
+		for(;;){
+			run(DicUtils.getDic());
+		}
+	}
+	
+	public static void run(String key){
+		System.out.println("key :" + key);
+		// 添加商品
+		try {
+			//boolean addflag = addshangpingAll(key);
+			System.out.println("sousuokey :"+key);
+			boolean addflag = addshangpingAll2(key);
+			if (addflag) {
+				faqizhaoshang(fenzuName);
 			}
-
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
