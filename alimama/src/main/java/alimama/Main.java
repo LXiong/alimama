@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -99,16 +100,66 @@ public class Main {
 		return fenzuName;
 	}
 	
-	public static void deleteXuanPingKu() throws Exception {
-		init();
-		if (!login2()) {
-			System.out.println("登陆失败>>>>>>>>>>>>>>>>>>>>>>>>>>>.");
-			return;
-		}
-		
+	
+	/**
+	 * 删除结束招商信息>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	 * @throws Exception
+	 */
+	public static void deleteYixuanZhaoshang() throws Exception {
 		webDriver.get("http://pub.alimama.com/manage/selection/list.htm");
 		Thread.sleep(5000);
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+		while(true){
+			try{
+				Long  longLen = (Long)js.executeScript("return document.querySelectorAll(\"a[class='close']\").length;");
+				System.out.println("已选择招商数====="+longLen);
+				if(longLen!=null && longLen > 0){
+					js.executeScript("document.querySelectorAll(\"a[class='close']\")[0].click();");
+					Thread.sleep(1000);
+					js.executeScript("document.querySelectorAll(\"button[class='btn btn-brand w100']\")[0].click();");
+					System.out.println("已选择招商删除成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					Thread.sleep(800);
+				}else{
+					System.out.println("没有活动结束的招商信息了>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					return ;
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+			
+		}
 		
+	}
+	
+	/**
+	 * 删除结束招商信息>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	 * @throws Exception
+	 */
+	public static void deleteXuanPingKu() throws Exception {
+		webDriver.get("http://pub.alimama.com/manage/zhaoshang/list.htm?status=5&pageIndex=1");
+		Thread.sleep(5000);
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+		while(true){
+			try{
+				Long  longLen = (Long)js.executeScript("return document.querySelectorAll(\"button[class='btn btn-gray btn-small w80']\").length");
+				System.out.println("活动结束招商数====="+longLen);
+				if(longLen!=null && longLen > 0){
+					js.executeScript("document.querySelectorAll(\"button[class='btn btn-gray btn-small w80']\")[0].click();");
+					Thread.sleep(1000);
+					js.executeScript("document.querySelectorAll(\"button[class='btn btn-brand w100']\")[0].click();");
+					System.out.println("活动结束招商删除成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					Thread.sleep(800);
+				}else{
+					System.out.println("没有活动结束的招商信息了>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					return ;
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+			
+		}
 		
 	}
 
@@ -130,9 +181,17 @@ public class Main {
 		System.out.println("keys=" + Arrays.toString(keyss));
 		System.out.println("all size = " + keyss.length);
 		
+		System.out.println("开始检测活动招商》》》》》》》》》》》》》》》》》》》》》》》");
 		
-		for (String key : keyss) {
-			run(key);
+		if("true".equalsIgnoreCase(PropertiesUtil.getPropertiesMap(""))){
+			deleteXuanPingKu();
+		}
+		
+		if(ArrayUtils.isNotEmpty(keyss)){
+			for (String key : keyss) {
+				run(key);
+			}
+			
 		}
 		
 		for(;;){
