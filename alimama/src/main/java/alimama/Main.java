@@ -184,7 +184,7 @@ public class Main {
 		System.out.println("开始检测活动招商》》》》》》》》》》》》》》》》》》》》》》》");
 		
 		if("true".equalsIgnoreCase(PropertiesUtil.getPropertiesMap("alimama.deleteXuanPingKu"))){
-			deleteXuanPingKu();
+			deleteYixuanZhaoshang();
 		}
 		
 		if(ArrayUtils.isNotEmpty(keyss)){
