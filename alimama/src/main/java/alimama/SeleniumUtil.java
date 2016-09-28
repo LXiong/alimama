@@ -79,6 +79,9 @@ public class SeleniumUtil {
 			// options.addArguments(“–user-data-dir=C:/Users/xxx/AppData/Local/Google/Chrome/User
 			// Data/Default”);
 			String userDateDir = "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data";
+			if(StringUtils.isNotBlank(PropertiesUtil.getPropertiesMap("alimama.userDateDir"))){
+				userDateDir = PropertiesUtil.getPropertiesMap("alimama.userDateDir");
+			}
 			options.addArguments("--user-data-dir=" + userDateDir);
 			// 璁剧疆璁块棶ChromeDriver鐨勮矾寰�
 			System.setProperty("webdriver.chrome.driver", "e:\\app\\chromedriver\\chromedriver.exe");
