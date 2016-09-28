@@ -33,8 +33,7 @@ public class SeleniumUtil {
 
 	public static void setDesiredCapabilities() {
 		logger.info("start init Firefox profile!");
-		String plugin = SeleniumUtil.class.getResource(
-				"/plugin/killspinners-1.2.1-fx.xpi").getPath();
+		String plugin = SeleniumUtil.class.getResource("/plugin/killspinners-1.2.1-fx.xpi").getPath();
 		try {
 			profile = new FirefoxProfile();
 			// profile = new ProfilesIni().getProfile("default");
@@ -44,8 +43,7 @@ public class SeleniumUtil {
 			// 鍘绘帀鍥剧墖
 			// profile.setPreference("permissions.default.image", 2);
 			// 鍘绘帀flash
-			profile.setPreference("dom.ipc.plugins.enabled.libflashplayer.so",
-					false);
+			profile.setPreference("dom.ipc.plugins.enabled.libflashplayer.so", false);
 			capability = DesiredCapabilities.firefox();
 			capability.setCapability("firefox_profile", profile);
 
@@ -62,14 +60,20 @@ public class SeleniumUtil {
 		setDesiredCapabilities();
 	}
 
+	/**
+	 * 如果你没找到 NPAPI 项，试试输入：chrome://flags/#enable-npapi 如果仍然没找到，那么，你需要升级你的
+	 * Chrome 浏览器到最新版，我的原来是 40.0版本，升级到42.0版本，结果就出现了。 按“启用”后，关闭 Chrome
+	 * 程序，然后再重新打开，就可以正常呼出阿里旺旺了。
+	 * 
+	 * @return
+	 */
 	public static WebDriver initChromeDriver() {
 		logger.info("start init WebDriver!");
 		WebDriver driver = null;
 		try {
 			ChromeDriverService service = new ChromeDriverService.Builder()
-					.usingDriverExecutable(
-							new File("e:\\app\\chromedriver\\chromedriver.exe"))
-					.usingAnyFreePort().build();
+					.usingDriverExecutable(new File("e:\\app\\chromedriver\\chromedriver.exe")).usingAnyFreePort()
+					.build();
 			service.start();
 			ChromeOptions options = new ChromeOptions();
 			// options.addArguments(“–user-data-dir=C:/Users/xxx/AppData/Local/Google/Chrome/User
@@ -77,8 +81,7 @@ public class SeleniumUtil {
 			String userDateDir = "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data";
 			options.addArguments("--user-data-dir=" + userDateDir);
 			// 璁剧疆璁块棶ChromeDriver鐨勮矾寰�
-			System.setProperty("webdriver.chrome.driver",
-					"e:\\app\\chromedriver\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "e:\\app\\chromedriver\\chromedriver.exe");
 			driver = new ChromeDriver(options);
 		} catch (Exception e) {
 			logger.error("Init WebDriver is error!", e);
@@ -138,8 +141,7 @@ public class SeleniumUtil {
 		// 鍘绘帀鍥剧墖
 		// firefoxProfile.setPreference("permissions.default.image", 2);
 		// 鍘绘帀flash
-		firefoxProfile.setPreference(
-				"dom.ipc.plugins.enabled.libflashplayer.so", false);
+		firefoxProfile.setPreference("dom.ipc.plugins.enabled.libflashplayer.so", false);
 
 		capability.setCapability("firefox_profile", firefoxProfile);
 		WebDriver driver = new FirefoxDriver(capability);
@@ -178,8 +180,7 @@ public class SeleniumUtil {
 		try {
 			driver.get(url);
 			WebDriver augmentedDriver = new Augmenter().augment(driver);
-			File screenshot = ((TakesScreenshot) augmentedDriver)
-					.getScreenshotAs(OutputType.FILE);
+			File screenshot = ((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.FILE);
 			File file = new File(filePath);
 			FileUtils.copyFile(screenshot, file);
 			logger.info("capture success!");
