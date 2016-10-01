@@ -253,7 +253,7 @@ public class Main {
 			Thread.sleep(5000);*/
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 			
-			webDriver.navigate().refresh();
+		    //webDriver.navigate().refresh();
 			
 			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr;
 			webDriver.get(queryURL);
@@ -583,7 +583,7 @@ public class Main {
 	 */
 	public static void faqizhaoshang(String name) throws Exception {
 		try{
-		webDriver.navigate().refresh();	
+		//webDriver.navigate().refresh();	
 		webDriver.get("http://pub.alimama.com/manage/selection/list.htm");
 		Thread.sleep(5000);
 		WebElement element =null;
