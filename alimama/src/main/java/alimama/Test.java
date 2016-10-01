@@ -58,7 +58,7 @@ public class Test {
 
 		System.in.read();
 		for (int i = 0; i < 55; i++) {
-			System.out.println(Main.getRandom(1, 95));
+			System.out.println(MainBak.getRandom(1, 95));
 		}
 	}
 

@@ -19,7 +19,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class Main {
+public class MainBak {
     //用户名
 	static String uname = PropertiesUtil.getPropertiesMap("alimama.uname");
 	//密码
@@ -251,9 +251,8 @@ public class Main {
 			elementQuery = webDriver.findElement(By.xpath("//*[@class='btn btn-brand search-btn']"));
 			elementQuery.click();
 			Thread.sleep(5000);*/
-			JavascriptExecutor js = (JavascriptExecutor) webDriver;
+
 			
-			webDriver.navigate().refresh();
 			
 			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr;
 			webDriver.get(queryURL);
@@ -317,12 +316,8 @@ public class Main {
 				}
 				
 				//选择
-				//WebElement elements = webDriver.findElement(By.xpath("//a[@class='select-btn select-all ']"));
-				//elements.click();
-				
-				js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
-				
-				
+				WebElement elements = webDriver.findElement(By.xpath("//*[@class='select-btn select-all ']"));
+				elements.click();
 				Thread.sleep(1000);
 
 				// 已选数
@@ -342,23 +337,15 @@ public class Main {
 			}
 
 			Thread.sleep(1000);
-			WebElement element = null;
 			// 加入选品库 btn-brand add-selection
-			/*WebElement element = webDriver.findElement(By.xpath("//a[@class='btn-brand add-selection']"));
+			WebElement element = webDriver.findElement(By.xpath("//a[@class='btn-brand add-selection']"));
 			element.click();
-*/
-			js.executeScript("document.querySelectorAll(\"a[class='btn-brand add-selection']\")[0].click();");
-						
-			
+
 			Thread.sleep(1000);
 			// 新建普通分组 btn btn-common w140
-			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-common w140']"));
+			element = webDriver.findElement(By.xpath("//*[@class='btn btn-common w140']"));
 			element.click();
-*/
-			
-			js.executeScript("document.querySelectorAll(\"*[class='btn btn-common w140']\")[0].click();");
-			
-			
+
 			Thread.sleep(1000);
 			// 分组输入框 J_groupTitle
 			element = webDriver.findElement(By.id("J_groupTitle"));
@@ -369,19 +356,13 @@ public class Main {
 			Thread.sleep(1000);
 
 			// 点击创建 btn btn-brand w80 mr10
-			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w80 mr10']"));
+			element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w80 mr10']"));
 			element.click();
-			*/
-			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w80 mr10']\")[0].click();");
-			
 			Thread.sleep(1000);
 
 			// 点击加入 btn btn-brand w100 mr10
-			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w100 mr10 ']"));
+			element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w100 mr10 ']"));
 			element.click();
-			*/
-			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w100 mr10 ']\")[0].click();");
-			
 			Thread.sleep(1000);
 			System.out.println("加入成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		} catch (Exception e) {
@@ -583,7 +564,6 @@ public class Main {
 	 */
 	public static void faqizhaoshang(String name) throws Exception {
 		try{
-		webDriver.navigate().refresh();	
 		webDriver.get("http://pub.alimama.com/manage/selection/list.htm");
 		Thread.sleep(5000);
 		WebElement element =null;
@@ -595,18 +575,11 @@ public class Main {
 		if (text.contains(name)) {
 			System.out.println("招商选择正确>>>>>>>>>>>>>>>>>>>>");
 		}
-		JavascriptExecutor js = (JavascriptExecutor) webDriver;
-		js.executeScript("document.querySelectorAll(\"a[class='btn btn-white']\")[0].click();");
-		
-		
 		// 发起招商 btn btn-white
-		/*element = webDriver.findElement(By.xpath("//a[@class='btn btn-white']"));
+		element = webDriver.findElement(By.xpath("//a[@class='btn btn-white']"));
 		element.click();
-		*/
 		Thread.sleep(1000);
 
-		
-		
 		}catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("已经超过招商数>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -668,7 +641,7 @@ public class Main {
 		//js.executeScript("document.querySelectorAll(\"span[data-value='10']\")[3].click();");
 		//element = webDriver.findElement(By.xpath("//span[@data-value='10']"));
 		//element.click();
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		
 		//js.executeScript("document.getElementsByName('startTime')[0].value='"+nextDateStr+"'");
 		//Thread.sleep(1000);
@@ -683,7 +656,7 @@ public class Main {
 		//js.executeScript("document.querySelectorAll(\"span[data-value='12']\")[5].click();");
 		//element = webDriver.findElement(By.xpath("//span[@data-value='12']"));
 		//element.click();
-		//Thread.sleep(1000);
+		Thread.sleep(1000);
 		
 		//js.executeScript("document.getElementsByName('endTime')[0].value='"+nextEndDateStr+"'");
 		//Thread.sleep(1000);
@@ -694,12 +667,10 @@ public class Main {
 		//获得 日
 		long endDay = DateUtils.getFragmentInDays(date, Calendar.MONTH);
 		element = webElementsDates.get(3);
-		//element.click();
-		//Thread.sleep(1000);
-		//document.querySelectorAll("span[data-value='12']")[document.querySelectorAll("span[data-value='12']").length-1].click();
-		js.executeScript("document.querySelectorAll(\"*[class='btn btn-common btn-calendar']\")[3].click();");
+		element.click();
 		Thread.sleep(1000);
-		
+		//document.querySelectorAll("span[data-value='12']")[document.querySelectorAll("span[data-value='12']").length-1].click();
+		//js.executeScript("document.querySelectorAll(\"span[data-value='"+endTime+"']\")[7].click();");
 		js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
 		
 		//element = webDriver.findElement(By.xpath("//span[@data-value='13']"));
@@ -734,38 +705,30 @@ public class Main {
 
 		// 全选商品 <input type="checkbox" class="checkbox" data-linkage-name="all"
 		// p-id="382">
-		/*element = webDriver.findElement(By.xpath("//input[@data-linkage-name='all']"));
+		element = webDriver.findElement(By.xpath("//input[@data-linkage-name='all']"));
 		element.click();
-		*/
-		js.executeScript("document.querySelectorAll(\"input[data-linkage-name='all']\")[0].click();");
-		
 		Thread.sleep(1000);
 
 		// 批量设置 btn btn-gray w100 mr5
-/*		element = webDriver.findElement(By.xpath("//*[@class='btn btn-gray w100 mr5']"));
+		element = webDriver.findElement(By.xpath("//*[@class='btn btn-gray w100 mr5']"));
 		element.click();
-*/		
-		js.executeScript("document.querySelectorAll(\"*[class='btn btn-gray w100 mr5']\")[0].click();");
 		Thread.sleep(1000);
 
 		// 设置百分比 input w100
 		element = webDriver.findElement(By.xpath("//input[@class='input w100']"));
+		element.click();
 		element.sendKeys(baifenbi);
 		Thread.sleep(1000);
 
 		// 应用 btn btn-brand w100
-/*		element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w100']"));
+		element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w100']"));
 		element.click();
-*/		
-		js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w100']\")[0].click();");
 		Thread.sleep(1000);
 
 		// 完成 btn btn-brand w120
-		/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w120']"));
+		element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w120']"));
 		element.click();
-		*/
-		js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w120']\")[0].click();");
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 
 		String page = webDriver.getPageSource();
 		if (page.contains("招商需求创建成功")) {

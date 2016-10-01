@@ -23,6 +23,9 @@ public class Test2 {
 				System.out.println(s);
 			}
 			System.out.println(list.size());*/
+			
+			
+	   System.out.print("131231");
 	}
 
 }

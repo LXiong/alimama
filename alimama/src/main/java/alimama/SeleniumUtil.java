@@ -71,10 +71,10 @@ public class SeleniumUtil {
 		logger.info("start init WebDriver!");
 		WebDriver driver = null;
 		try {
-			ChromeDriverService service = new ChromeDriverService.Builder()
+			/*ChromeDriverService service = new ChromeDriverService.Builder()
 					.usingDriverExecutable(new File("e:\\app\\chromedriver\\chromedriver.exe")).usingAnyFreePort()
 					.build();
-			service.start();
+			service.start();*/
 			ChromeOptions options = new ChromeOptions();
 			// options.addArguments(“–user-data-dir=C:/Users/xxx/AppData/Local/Google/Chrome/User
 			// Data/Default”);
