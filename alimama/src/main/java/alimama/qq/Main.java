@@ -30,7 +30,7 @@ public class Main {
 	static String pwd = PropertiesUtil.getPropertiesMap("alimama.pwd");
 	
 	//27220956
-	static String qq = PropertiesUtil.getPropertiesMap("alimama.qq");
+	static String qq = PropertiesUtil.getPropertiesMap("alimama.search.qq");
 
 	//设置百分比
 	static String baifenbi = PropertiesUtil.getPropertiesMap("alimama.baifenbi");
