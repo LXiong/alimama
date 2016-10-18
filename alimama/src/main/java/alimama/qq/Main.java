@@ -237,6 +237,11 @@ public class Main {
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 			for (String url : urls) {
+				String queryURL = "http://pub.alimama.com/promo/search/index.htm?q=" + url;
+				webDriver.get(queryURL);
+				
+				Thread.sleep(3000);
+				
 				// 已选数
 				WebElement elementQuery = webDriver.findElement(By.xpath("//*[@class='color-brand']"));
 				String size = elementQuery.getText();
@@ -245,11 +250,10 @@ public class Main {
 					break;
 				}
 				
-				String queryURL = "http://pub.alimama.com/promo/search/index.htm?q=" + url;
-				webDriver.get(queryURL);
-				Thread.sleep(3000);
+				
 				js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
 				Thread.sleep(1000);
+				
 			}
 
 		    Thread.sleep(1000);
