@@ -250,7 +250,7 @@ public class Main {
 				
 				webDriver.get(queryURL);
 				
-				Thread.sleep(3000);
+				Thread.sleep(2000);
 				
 				// 已选数
 				WebElement elementQuery = webDriver.findElement(By.xpath("//*[@class='color-brand']"));
