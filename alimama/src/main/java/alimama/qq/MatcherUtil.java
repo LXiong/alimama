@@ -1,6 +1,7 @@
 package alimama.qq;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -20,6 +21,8 @@ public class MatcherUtil {
 	
 	List<List<String>> list  = new ArrayList<List<String>>();
 	
+	
+	System.out.println(URLEncoder.encode("https://item.taobao.com/item.htm?id=537764519790"));
 	
 	
 	}
@@ -106,9 +109,15 @@ public class MatcherUtil {
 		List<String> newList = new ArrayList<String>();
 		for (String str : list) {
 			//if (!str.contains("shop.m.taobao.com")) {
+			
+			if(!str.contains("id")){
+				continue;
+			}
+			
 			if ((str.contains("tmall.com") || str.contains("taobao.com")) 
 					&& !str.contains("shop.m.taobao.com")
-					&& !str.contains("click.taobao.com")) {
+					&& !str.contains("click.taobao.com")
+					&& !str.contains("taoquan.taobao.com")) {
 				newList.add(str);
 			}
 		}

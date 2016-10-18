@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -176,11 +179,14 @@ public class Main {
 		
 		List<String> urls = MatcherUtil.getUrl(FileUtils.readFileToString(new File("d:\\qq.txt")));
 		
+		
+		Set<String> urlsSet = new HashSet<String>(urls);
+		
 		List<List<String>> list  = new ArrayList<List<String>>();
 		
-		System.out.println("urls size :"+urls.size());
+		System.out.println("urls size :"+urlsSet.size());
 		List<String> newUrls  = new ArrayList<String>();;
-		for (String u : urls) {
+		for (String u : urlsSet) {
 			 newUrls.add(u);
 			 if(newUrls.size()>maxSize){
 				list.add(newUrls);
@@ -237,7 +243,11 @@ public class Main {
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 			for (String url : urls) {
+				url = URLEncoder.encode(url);
 				String queryURL = "http://pub.alimama.com/promo/search/index.htm?q=" + url;
+				
+				System.out.println("queryURL=="+queryURL);
+				
 				webDriver.get(queryURL);
 				
 				Thread.sleep(3000);
