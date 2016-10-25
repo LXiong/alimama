@@ -694,13 +694,21 @@ public class Main {
 		//获得 日
 		long endDay = DateUtils.getFragmentInDays(date, Calendar.MONTH);
 		element = webElementsDates.get(3);
+		
 		//element.click();
 		//Thread.sleep(1000);
 		//document.querySelectorAll("span[data-value='12']")[document.querySelectorAll("span[data-value='12']").length-1].click();
-		js.executeScript("document.querySelectorAll(\"*[class='btn btn-common btn-calendar']\")[3].click();");
-		Thread.sleep(1000);
 		
-		js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
+		
+		Long len = (Long)js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\").length;");
+		
+		
+		
+		if(len!=null && len== 4){
+			js.executeScript("document.querySelectorAll(\"*[class='btn btn-common btn-calendar']\")[3].click();");
+			Thread.sleep(1000);
+			js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
+		}
 		
 		//element = webDriver.findElement(By.xpath("//span[@data-value='13']"));
 		//element.click();
@@ -710,11 +718,27 @@ public class Main {
 		
 		System.out.println("inputDateStr 输入的结束日期:"+inputDateStr);
 		
+		try{
+			//校验选择的日期对不丢
+			if(!dateStr.equalsIgnoreCase(inputDateStr)){
+				//点击日期弹出框
+				js.executeScript("document.querySelectorAll(\"button[class='btn btn-common btn-calendar']\")[3].click();");
+				Thread.sleep(500);
+				//点击上个月
+				js.executeScript("document.querySelectorAll(\"a[class='minus']\")[document.querySelectorAll(\"a[class='minus']\").length-1].click();");
+				Thread.sleep(500);
+				js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
+				Thread.sleep(500);
+				
+				inputDateStr = element.getText().replace("\"", "");
+				System.out.println("inputDateStr 确定修改输入的结束日期:"+inputDateStr);
+			}
+		}catch(Exception e){
+			//e.printStackTrace();
+		}
+		
 		//校验选择的日期对不丢
 		if(!dateStr.equalsIgnoreCase(inputDateStr)){
-			//点击日期弹出框
-			js.executeScript("document.querySelectorAll(\"button[class='btn btn-common btn-calendar']\")[3].click();");
-			Thread.sleep(500);
 			//点击上个月
 			js.executeScript("document.querySelectorAll(\"a[class='minus']\")[document.querySelectorAll(\"a[class='minus']\").length-1].click();");
 			Thread.sleep(500);
@@ -771,6 +795,7 @@ public class Main {
 		if (page.contains("招商需求创建成功")) {
 			System.out.println("招商需求创建成功 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		}
+		
 		
 		}catch(Exception e){
 			e.printStackTrace();
