@@ -704,11 +704,11 @@ public class Main {
 		
 		
 		
-		if(len!=null && len== 4){
+		//if(len!=null && len== 4){
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-common btn-calendar']\")[3].click();");
 			Thread.sleep(1000);
 			js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
-		}
+	//	}
 		
 		//element = webDriver.findElement(By.xpath("//span[@data-value='13']"));
 		//element.click();
