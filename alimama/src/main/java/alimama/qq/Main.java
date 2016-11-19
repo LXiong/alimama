@@ -177,7 +177,13 @@ public class Main {
 			return;
 		}
 		
-		List<String> urls = MatcherUtil.getUrl(FileUtils.readFileToString(new File("d:\\qq.txt")));
+		//List<String> urls = MatcherUtil.getUrl(FileUtils.readFileToString(new File("d:\\qq.txt")));
+		List<String> urls =  new ArrayList<String>();
+		
+		for(File file:new File("d:\\qq").listFiles()){
+			urls.addAll( MatcherUtil.getUrl(FileUtils.readFileToString(file)));
+		}
+		
 		
 		
 		Set<String> urlsSet = new HashSet<String>(urls);
