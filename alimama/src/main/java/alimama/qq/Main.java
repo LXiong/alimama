@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -202,6 +203,8 @@ public class Main {
 		
 		System.out.println("分解集合大小为：："+list.size());
 		
+		Collections.shuffle(list);
+		
 		for(List<String> urlss :list){
 			System.out.println(urlss.size());
 			run(urlss);
@@ -318,7 +321,8 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("失败>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			return false;
+			return addshangpingAll2(urls); 
+			//return false;
 		}
 		return true;
 	}
