@@ -256,26 +256,32 @@ public class Main {
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 			for (String url : urls) {
-				url = URLEncoder.encode(url);
-				String queryURL = "http://pub.alimama.com/promo/search/index.htm?q=" + url;
-				
-				System.out.println("queryURL=="+queryURL);
-				
-				webDriver.get(queryURL);
-				
-				Thread.sleep(2000);
-				
-				// 已选数
-				WebElement elementQuery = webDriver.findElement(By.xpath("//*[@class='color-brand']"));
-				String size = elementQuery.getText();
-				System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
-				if (!(Integer.valueOf(size) < maxSize)) {
-					break;
+				try{
+						url = URLEncoder.encode(url);
+						String queryURL = "http://pub.alimama.com/promo/search/index.htm?q=" + url;
+						
+						System.out.println("queryURL=="+queryURL);
+						
+						webDriver.get(queryURL);
+						
+						Thread.sleep(2000);
+						
+						//document.querySelectorAll("*[class='color-brand']")[0].innerText
+						// 已选数
+						//WebElement elementQuery = webDriver.findElement(By.xpath("//*[@class='color-brand']"));
+						//String size = elementQuery.getText();
+						
+							String size = (String)js.executeScript("return document.querySelectorAll(\"*[class='color-brand']\")[0].innerText;");
+							size=size.replace("\"", "");
+							System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
+							if (!(Integer.valueOf(size) < maxSize)) {
+								break;
+							}
+						js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
+				        Thread.sleep(1000);
+                }catch(Exception e){
+					
 				}
-				
-				
-				js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
-				Thread.sleep(1000);
 				
 			}
 
