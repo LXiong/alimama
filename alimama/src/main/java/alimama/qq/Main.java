@@ -186,8 +186,12 @@ public class Main {
 		}
 		
 		
+		Collections.shuffle(urls);
+		
 		
 		Set<String> urlsSet = new HashSet<String>(urls);
+		
+		
 		
 		List<List<String>> list  = new ArrayList<List<String>>();
 		
