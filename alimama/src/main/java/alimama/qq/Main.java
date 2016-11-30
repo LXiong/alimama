@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -177,10 +178,20 @@ public class Main {
 			return;
 		}
 		
-		List<String> urls = MatcherUtil.getUrl(FileUtils.readFileToString(new File("d:\\qq.txt")));
+		//List<String> urls = MatcherUtil.getUrl(FileUtils.readFileToString(new File("d:\\qq.txt")));
+		List<String> urls =  new ArrayList<String>();
+		
+		for(File file:new File("d:\\qq").listFiles()){
+			urls.addAll( MatcherUtil.getUrl(FileUtils.readFileToString(file)));
+		}
+		
+		
+		Collections.shuffle(urls);
 		
 		
 		Set<String> urlsSet = new HashSet<String>(urls);
+		
+		
 		
 		List<List<String>> list  = new ArrayList<List<String>>();
 		
@@ -195,6 +206,8 @@ public class Main {
 		}
 		
 		System.out.println("分解集合大小为：："+list.size());
+		
+		Collections.shuffle(list);
 		
 		for(List<String> urlss :list){
 			System.out.println(urlss.size());
@@ -243,26 +256,32 @@ public class Main {
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 			for (String url : urls) {
-				url = URLEncoder.encode(url);
-				String queryURL = "http://pub.alimama.com/promo/search/index.htm?q=" + url;
-				
-				System.out.println("queryURL=="+queryURL);
-				
-				webDriver.get(queryURL);
-				
-				Thread.sleep(2000);
-				
-				// 已选数
-				WebElement elementQuery = webDriver.findElement(By.xpath("//*[@class='color-brand']"));
-				String size = elementQuery.getText();
-				System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
-				if (!(Integer.valueOf(size) < maxSize)) {
-					break;
+				try{
+						url = URLEncoder.encode(url);
+						String queryURL = "http://pub.alimama.com/promo/search/index.htm?q=" + url;
+						
+						System.out.println("queryURL=="+queryURL);
+						
+						webDriver.get(queryURL);
+						
+						Thread.sleep(2000);
+						
+						//document.querySelectorAll("*[class='color-brand']")[0].innerText
+						// 已选数
+						//WebElement elementQuery = webDriver.findElement(By.xpath("//*[@class='color-brand']"));
+						//String size = elementQuery.getText();
+						
+							String size = (String)js.executeScript("return document.querySelectorAll(\"*[class='color-brand']\")[0].innerText;");
+							size=size.replace("\"", "");
+							System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
+							if (!(Integer.valueOf(size) < maxSize)) {
+								break;
+							}
+						js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
+				        Thread.sleep(1000);
+                }catch(Exception e){
+					
 				}
-				
-				
-				js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
-				Thread.sleep(1000);
 				
 			}
 
@@ -312,7 +331,8 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("失败>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			return false;
+			return addshangpingAll2(urls); 
+			//return false;
 		}
 		return true;
 	}
