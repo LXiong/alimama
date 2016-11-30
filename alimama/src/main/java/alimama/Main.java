@@ -214,7 +214,7 @@ public class Main {
 		}
 	}
 
-	static String fenzuName = "8.16.072Q群打造爆款联系"+qq;
+	static String fenzuName = "8.16.072打造爆款联系"+qq;
 
 	//最大数
 	static int maxSize = StringUtils.isBlank(PropertiesUtil.getPropertiesMap("alimama.maxSize")) ? 198 :Integer.valueOf(PropertiesUtil.getPropertiesMap("alimama.maxSize"));
@@ -617,7 +617,7 @@ public class Main {
 		// 招商活动名称
 		element = webDriver.findElement(By.id("J_title"));
 		element.click();
-		element.sendKeys("Q群淘客打造爆款联系QQ"+qq);
+		element.sendKeys("淘客打造爆款联系QQ"+qq);
 		Thread.sleep(1000);
 		
 		
