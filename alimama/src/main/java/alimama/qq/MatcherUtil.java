@@ -15,9 +15,13 @@ public class MatcherUtil {
 
 	public static void main(String[] args) throws Exception{
 
-	String content =	FileUtils.readFileToString(new File("E:\\我的QQ群.txt"));
+	String content =	FileUtils.readFileToString(new File("G:\\群聊天记录.txt"));
 	
 	List<String> urls = getUrl(content);
+	
+	System.out.println(urls.size());
+	
+	FileUtils.writeLines(new File("g:\\test.txt"), urls);
 	
 	List<List<String>> list  = new ArrayList<List<String>>();
 	
@@ -110,13 +114,13 @@ public class MatcherUtil {
 		for (String str : list) {
 			//if (!str.contains("shop.m.taobao.com")) {
 			
-			if(!str.contains("id")){
+			/*if(!str.contains("id")){
 				continue;
 			}
-			
+			*/
 			if ((str.contains("tmall.com") || str.contains("taobao.com")) 
 					&& !str.contains("shop.m.taobao.com")
-					&& !str.contains("click.taobao.com")
+					//&& !str.contains("click.taobao.com")
 					&& !str.contains("taoquan.taobao.com")) {
 				newList.add(str);
 			}
