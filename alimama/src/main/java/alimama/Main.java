@@ -94,7 +94,7 @@ public class Main {
 
 	// 分组名称
 	public static String getFenzuName() {
-		String fenzuNameF = "dateQ群打造爆款联系"+qq;
+		String fenzuNameF = "date打造爆款联系"+qq;
 		String date = DateFormatUtils.format(new Date(), "HH:mm:ss");
 		fenzuName = fenzuNameF.replace("date", date);
 		return fenzuName;
