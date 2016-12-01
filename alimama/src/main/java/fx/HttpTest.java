@@ -118,9 +118,17 @@ public class HttpTest {
 		HttpGet httpReqgb = new HttpGet("http://gd87397616.cn/ac.php?uid="
 				+ uid + "&aid=" + aid);
 		setHeadergd(httpReqgb);
-		s = getContentByUrl(host, httpReqgb);
+		s = getContentByUrl(host, httpReqgb,getRandomSleep());
 
 		System.out.println(s);
+	}
+	
+	public String getContentByUrl(HttpHost proxy, HttpRequestBase httpReq) {
+		return getContentByUrl(proxy, httpReq, 10);
+	}
+	
+	public long getRandomSleep(){
+		return new Random().nextInt(5000)+1000;
 	}
 	
 	static List<String> androidVersion = new ArrayList<String>();
@@ -183,7 +191,7 @@ public class HttpTest {
 		request.setHeader("Referer", aurl);
 	}
 
-	public String getContentByUrl(HttpHost proxy, HttpRequestBase httpReq) {
+	public String getContentByUrl(HttpHost proxy, HttpRequestBase httpReq,long sleepTime) {
 
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials(new AuthScope("localhost", 8080),
@@ -217,7 +225,8 @@ public class HttpTest {
 		} finally {
 
 			try {
-				Thread.sleep(100);
+				Thread.sleep(sleepTime);
+				//Thread.sleep(new Random().nextInt(5000)+1000);
 				httpclient.close();
 			} catch (Exception e) {
 				e.printStackTrace();

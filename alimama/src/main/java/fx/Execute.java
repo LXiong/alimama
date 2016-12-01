@@ -16,12 +16,14 @@ public class Execute {
 	
 	public static List<HttpHost> getIps(){
 		List<HttpHost> hosts = new ArrayList<HttpHost>();
-		HttpHost e = new HttpHost("12312", 123);
+		HttpHost e = new HttpHost("111.72.126.206", 808);
 		hosts.add(e);
 		return hosts;
 	}
 
 	public static void main(String[] args) {
+		
+		final Main main = new Main();
 
 		Runnable runnable = new Runnable() {
 			public void run() {
@@ -36,8 +38,8 @@ public class Execute {
 							public void run() {
 								try {
 									System.out.println("host : "+host);
-									Thread.sleep(10000);
-									//new Main().executeAll(host);
+									//Thread.sleep(10000);
+									main.executeAll(host);
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
@@ -52,6 +54,6 @@ public class Execute {
 		ScheduledExecutorService service = Executors
 				.newSingleThreadScheduledExecutor();
 		// 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
-		service.scheduleAtFixedRate(runnable, 5, 1, TimeUnit.SECONDS);
+		service.scheduleAtFixedRate(runnable, 2, 1, TimeUnit.SECONDS);
 	}
 }

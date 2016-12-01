@@ -66,23 +66,25 @@ public class Main {
 		return host;
 	}
 	
-	public boolean checkIp(String ip,int prot){
-	    boolean flag = ipDao.containsKey(ip);
-	    if(!flag){
-	    	//checkIp
-	    	HttpGet httpReq = new HttpGet(
-					"http://haitmall.com/login.php");
-			HttpTest http = new HttpTest();
-			HttpHost host = new HttpHost(ip, prot);;
-			String s = http.getContentByUrl(host, httpReq);
-			if(StringUtils.isNotBlank(s)){
-				System.out.println("ip youxiao >>>>>>>>>>>>>>>>>>>>");
-				return true;
-			}else{
-				System.out.println("ip wuxiao >>>>>>>>>>>>>>>>>>>>");
-			}
-	    }
-		return false;
+	public  boolean checkIp(String ip,int prot){
+		synchronized (ip) {
+			   boolean flag = ipDao.containsKey(ip);
+			    if(!flag){
+			    	//checkIp
+			    	HttpGet httpReq = new HttpGet(
+							"http://haitmall.com/login.php");
+					HttpTest http = new HttpTest();
+					HttpHost host = new HttpHost(ip, prot);;
+					String s = http.getContentByUrl(host, httpReq);
+					if(StringUtils.isNotBlank(s)){
+						System.out.println("ip youxiao >>>>>>>>>>>>>>>>>>>>");
+						return true;
+					}else{
+						System.out.println("ip wuxiao >>>>>>>>>>>>>>>>>>>>");
+					}
+			    }
+				return false;
+		}
 	}
 	
 	public void destroy(String ip){
