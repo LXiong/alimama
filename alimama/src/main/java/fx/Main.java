@@ -42,6 +42,8 @@ public class Main {
 	
 	public void executeAll(HttpHost httpHost)throws Exception{
 		System.out.println("httpHost :"+httpHost);
+		String ip  =httpHost.getHostName();
+	synchronized (ip) {
 		boolean flag = checkIp(httpHost.getHostName(), httpHost.getPort());
 		System.out.println("checkIp : "+flag);
 		if(flag){
@@ -51,7 +53,8 @@ public class Main {
 			System.out.println("execute end >>>>>>>>>>>>>>>>>>>>>>>>");
 			destroy(httpHost.getHostName());
 			System.out.println("destroy end >>>>>>>>>>>>>>>>>>>>>>>>");
-		}
+		 }
+		}	
 		
 	}
 	
@@ -67,7 +70,6 @@ public class Main {
 	}
 	
 	public  boolean checkIp(String ip,int prot){
-		synchronized (ip) {
 			   boolean flag = ipDao.containsKey(ip);
 			    if(!flag){
 			    	//checkIp
@@ -84,7 +86,6 @@ public class Main {
 					}
 			    }
 				return false;
-		}
 	}
 	
 	public void destroy(String ip){

@@ -33,14 +33,12 @@ public class IPDao {
 	
 	
 	public void addIp(String ip){
-		synchronized(ipMap.getClass()){
 			ipMap.put(ip, ip);
 			try {
 				FileUtils.write(dbFile, ip+"\r\n",true);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
 	}
 	
 	public boolean containsKey(String ip){
