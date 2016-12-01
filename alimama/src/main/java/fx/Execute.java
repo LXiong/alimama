@@ -16,7 +16,7 @@ public class Execute {
 	
 	public static List<HttpHost> getIps(){
 		List<HttpHost> hosts = new ArrayList<HttpHost>();
-		HttpHost e = new HttpHost("36.32.50.162", 8118);
+		HttpHost e = new HttpHost("183.141.156.227", 3128);
 		hosts.add(e);
 		return hosts;
 	}
@@ -54,6 +54,6 @@ public class Execute {
 		ScheduledExecutorService service = Executors
 				.newSingleThreadScheduledExecutor();
 		// 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
-		service.scheduleAtFixedRate(runnable, 2, 10, TimeUnit.SECONDS);
+		service.scheduleAtFixedRate(runnable, 2, 20, TimeUnit.SECONDS);
 	}
 }
