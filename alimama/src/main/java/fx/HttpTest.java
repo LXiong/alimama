@@ -23,7 +23,7 @@ public class HttpTest {
 
 	// HttpHost host = new HttpHost("103.28.149.118", 8080);
 
-	HttpHost host = new HttpHost("183.24.169.128", 8118);;
+	HttpHost host = new HttpHost("116.27.92.156", 8998);;
 	String aurl = "http://www.qtmzmb.cn/read/182075/1391589.html";
 	
 	String X_Forwarded_For = null;
@@ -51,7 +51,6 @@ public class HttpTest {
 
 	public void executeAll() throws Exception {
 		HttpTest http = new HttpTest();
-		System.out.println(http.ua);
 		http.aurl = "http://www.qtmzmb.cn/read/182151/1391589.html";
 		http.execute();
 	}
