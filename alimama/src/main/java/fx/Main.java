@@ -42,18 +42,16 @@ public class Main {
 		boolean flag = checkIp(httpHost.getHostName(), httpHost.getPort());
 		System.out.println("checkIp : "+flag);
 		if(flag){
-			String url = getUrl();
+			String url = getRandomAurl();
 			System.out.println("aurl : " +url);
 			execute(httpHost.getHostName(), httpHost.getPort(), url);
+			System.out.println("execute end >>>>>>>>>>>>>>>>>>>>>>>>");
 			destroy(httpHost.getHostName());
+			System.out.println("destroy end >>>>>>>>>>>>>>>>>>>>>>>>");
 		}
 		
 	}
 	
-     public String getUrl(){
-		
-		return null;
-	}
 	
 	public HttpHost getIp(){
 		
