@@ -142,7 +142,7 @@ public class HttpTest {
 	public String getUserAgent(){
 		//String ua = "Mozilla/5.0 (Linux; Android 6.0; ALE-TL00 Build/HuaweiALE-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN";
 
-		String ua = androidVersion.get(new Random().nextInt(androidVersion.size()-1));
+		String ua = androidVersion.get(new Random().nextInt(androidVersion.size()));
 		
 		System.out.println("getUserAgent==="+ua);
 		return ua;
