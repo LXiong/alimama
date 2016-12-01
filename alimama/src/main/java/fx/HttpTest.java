@@ -200,7 +200,7 @@ public class HttpTest {
 		CloseableHttpClient httpclient = HttpClients.custom()
 				.setDefaultCredentialsProvider(credsProvider).build();
 	
-		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(4200).setConnectTimeout(42000).build();//设置请求和传输超时时间
+		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(30000).setConnectTimeout(30000).build();//设置请求和传输超时时间
 		httpReq.setConfig(requestConfig);
 		
 		//请求超时
