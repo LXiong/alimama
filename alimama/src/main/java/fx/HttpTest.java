@@ -17,6 +17,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 
 public class HttpTest {
@@ -198,6 +199,16 @@ public class HttpTest {
 				new UsernamePasswordCredentials("username", "password"));
 		CloseableHttpClient httpclient = HttpClients.custom()
 				.setDefaultCredentialsProvider(credsProvider).build();
+		//请求超时
+		httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 60000); 
+		//读取超时
+		httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 60000);
+		
+		//链接超时
+		//httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(60000);  
+		//读取超时
+		//httpClient.getHttpConnectionManager().getParams().setSoTimeout(60000)
+		
 		try {
 			// https://us.fotolia.com/ //https://us.fotolia.com/id/35642224
 			// HttpHost proxy = new HttpHost("117.185.124.77", 8088);
