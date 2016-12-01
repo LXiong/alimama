@@ -40,8 +40,7 @@ public class Main {
 		
 	}
 	
-	public void executeAll()throws Exception{
-		HttpHost httpHost = getIp();
+	public void executeAll(HttpHost httpHost)throws Exception{
 		System.out.println("httpHost :"+httpHost);
 		boolean flag = checkIp(httpHost.getHostName(), httpHost.getPort());
 		System.out.println("checkIp : "+flag);
@@ -56,9 +55,14 @@ public class Main {
 		
 	}
 	
+	public void executeAll()throws Exception{
+		HttpHost httpHost = getIp();
+		executeAll(httpHost);
+	}
+	
 	
 	public HttpHost getIp(){
-		HttpHost host = new HttpHost("115.225.196.254", 8998);
+		HttpHost host = new HttpHost("58.52.249.56", 8998);
 		return host;
 	}
 	
