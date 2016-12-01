@@ -1,5 +1,8 @@
 package fx;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -20,7 +23,7 @@ public class HttpTest {
 
 	// HttpHost host = new HttpHost("103.28.149.118", 8080);
 
-	HttpHost host = new HttpHost("183.163.24.13", 8998);;
+	HttpHost host = new HttpHost("183.24.169.128", 8118);;
 	String aurl = "http://www.qtmzmb.cn/read/182075/1391589.html";
 	
 	String X_Forwarded_For = null;
@@ -28,17 +31,27 @@ public class HttpTest {
 	String aid = "182075";
 
 	String uid = "1391589";
+	
+	String ua = getUserAgent();
 
 	public static void main(String[] args) throws Exception {
-		new HttpTest().test();
+		HttpTest httpTest = new HttpTest();
+		httpTest.test();
+		
 		//new Http().executeAll();
 		// execute();
 		// getAidAndUid();
 		// System.out.println(X_Forwarded_For);
+		
+		
+		for(int i=0;i<100;i++){
+			//System.out.println(new HttpTest().getUserAgent());
+		}
 	}
 
 	public void executeAll() throws Exception {
 		HttpTest http = new HttpTest();
+		System.out.println(http.ua);
 		http.aurl = "http://www.qtmzmb.cn/read/182151/1391589.html";
 		http.execute();
 	}
@@ -110,11 +123,37 @@ public class HttpTest {
 
 		System.out.println(s);
 	}
+	
+	static List<String> androidVersion = new ArrayList<String>();
+	
+	static{
+	androidVersion.add("Mozilla/5.0 (Linux; U; Android 4.0.1; ja-jp; Galaxy Nexus Build/ITL41D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN        ");
+	androidVersion.add("Mozilla/5.0 (Linux; U; Android 4.0.3; ja-jp; URBANO PROGRESSO Build/010.0.3000) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN");
+	androidVersion.add("Mozilla/5.0 (Linux; U; Android 4.0.3; ja-jp; Sony Tablet S Build/TISU0R0110) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Safari/534.30 MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN          ");
+	androidVersion.add("Mozilla/5.0 (Linux; U; Android 4.0.4; ja-jp; SC-06D Build/IMM76D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN              ");
+	androidVersion.add("Mozilla/5.0 (Linux; U; Android 4.1.1; ja-jp; Galaxy Nexus Build/JRO03H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30 MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN        ");
+	androidVersion.add("Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03S) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19 MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN                     ");
+	androidVersion.add("Mozilla/5.0 (iPad; CPU OS 5_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A405 Safari/7534.48.3 MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN                        ");
+	androidVersion.add("Mozilla/5.0 (iPad; CPU OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B206 Safari/7534.48.3 MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN                        ");
+	androidVersion.add("Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A403 Safari/8536.25 MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN                           ");
+	}
+	
+	
+	
+	public String getUserAgent(){
+		//String ua = "Mozilla/5.0 (Linux; Android 6.0; ALE-TL00 Build/HuaweiALE-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN";
+
+		String ua = androidVersion.get(new Random().nextInt(androidVersion.size()-1));
+
+		System.out.println(ua);
+		
+		return ua;
+	}
 
 	public void setHeaderCount(HttpRequestBase request) {
 		request.setHeader(
 				"User-Agent",
-				"Mozilla/5.0 (Linux; Android 6.0; ALE-TL00 Build/HuaweiALE-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN");
+				ua);
 		request.setHeader("Host", "rrz27.t7yb.net");
 		request.setHeader("Accept",
 				"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
@@ -126,8 +165,8 @@ public class HttpTest {
 	public void setHeaderqtmzmb(HttpRequestBase request) {
 		request.setHeader(
 				"User-Agent",
-				"Mozilla/5.0 (Linux; Android 6.0; ALE-TL00 Build/HuaweiALE-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN");
-		request.setHeader("Host", "www.qtmzmb.cn");
+				ua);
+				request.setHeader("Host", "www.qtmzmb.cn");
 		request.setHeader("Accept",
 				"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 		request.setHeader("Accept-encoding", "gzip, deflate");
@@ -137,7 +176,7 @@ public class HttpTest {
 	public void setHeadergd(HttpRequestBase request) {
 		request.setHeader(
 				"User-Agent",
-				"Mozilla/5.0 (Linux; Android 6.0; ALE-TL00 Build/HuaweiALE-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN");
+				ua);
 		request.setHeader("Host", "gd87397616.cn");
 		request.setHeader("Accept",
 				"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
