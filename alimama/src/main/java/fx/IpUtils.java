@@ -18,6 +18,8 @@ public class IpUtils {
 	}
 
 	public  static List<HttpHost> getips(String url) {
+		
+		System.out.println("ip url =="+url);
 
 		try {
 			List<HttpHost> hosts = new ArrayList<HttpHost>();

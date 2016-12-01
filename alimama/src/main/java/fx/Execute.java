@@ -11,7 +11,7 @@ import org.apache.http.HttpHost;
 
 public class Execute {
 
-	public static int poolSize = 5;
+	public static int poolSize = 10;
 	
 	static ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors
 			.newFixedThreadPool(poolSize);
