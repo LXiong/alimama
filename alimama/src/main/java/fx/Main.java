@@ -18,10 +18,12 @@ public class Main {
 	IPDao ipDao = new IPDao(new File(fileName));
 	
 	
-	public static void main(String[] args) {
-		for(int i=0;i<10;i++){
+	public static void main(String[] args)throws Exception {
+		/*for(int i=0;i<10;i++){
 			System.out.println(new Main().getRandomAurl());
-		}
+		}*/
+		new Main().executeAll();
+		
 	}
 	
 	public void execute(String ip,int prot,String url){
@@ -56,8 +58,8 @@ public class Main {
 	
 	
 	public HttpHost getIp(){
-		
-		return null;
+		HttpHost host = new HttpHost("115.225.196.254", 8998);
+		return host;
 	}
 	
 	public boolean checkIp(String ip,int prot){
@@ -70,7 +72,10 @@ public class Main {
 			HttpHost host = new HttpHost(ip, prot);;
 			String s = http.getContentByUrl(host, httpReq);
 			if(StringUtils.isNotBlank(s)){
+				System.out.println("ip youxiao >>>>>>>>>>>>>>>>>>>>");
 				return true;
+			}else{
+				System.out.println("ip wuxiao >>>>>>>>>>>>>>>>>>>>");
 			}
 	    }
 		return false;

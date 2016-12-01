@@ -101,7 +101,7 @@ public class HttpTest {
 		setHeaderqtmzmb(httpReq);
 		String s = getContentByUrl(host, httpReq);
 
-		System.out.println(s);
+		//System.out.println(s);
 
 		System.out.println("==============httpReqCount======================");
 
