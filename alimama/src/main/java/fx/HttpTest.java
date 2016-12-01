@@ -23,7 +23,7 @@ public class HttpTest {
 
 	// HttpHost host = new HttpHost("103.28.149.118", 8080);
 
-	HttpHost host = new HttpHost("116.27.92.156", 8998);;
+	HttpHost host = new HttpHost("58.154.213.21", 808);;
 	String aurl = "http://www.qtmzmb.cn/read/182075/1391589.html";
 	
 	String X_Forwarded_For = null;
@@ -113,7 +113,7 @@ public class HttpTest {
 
 		System.out.println(s);
 
-		System.out.println("=================httpReqgb===================");
+		System.out.println("=================httpReqEnd===================");
 
 		HttpGet httpReqgb = new HttpGet("http://gd87397616.cn/ac.php?uid="
 				+ uid + "&aid=" + aid);
@@ -143,9 +143,8 @@ public class HttpTest {
 		//String ua = "Mozilla/5.0 (Linux; Android 6.0; ALE-TL00 Build/HuaweiALE-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN";
 
 		String ua = androidVersion.get(new Random().nextInt(androidVersion.size()-1));
-
-		System.out.println(ua);
 		
+		System.out.println("getUserAgent==="+ua);
 		return ua;
 	}
 
