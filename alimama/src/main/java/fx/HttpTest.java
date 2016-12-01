@@ -199,10 +199,14 @@ public class HttpTest {
 				new UsernamePasswordCredentials("username", "password"));
 		CloseableHttpClient httpclient = HttpClients.custom()
 				.setDefaultCredentialsProvider(credsProvider).build();
+	
+		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(4200).setConnectTimeout(42000).build();//设置请求和传输超时时间
+		httpReq.setConfig(requestConfig);
+		
 		//请求超时
-		httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 60000); 
+		//httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 60000); 
 		//读取超时
-		httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 60000);
+		//httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 60000);
 		
 		//链接超时
 		//httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(60000);  
