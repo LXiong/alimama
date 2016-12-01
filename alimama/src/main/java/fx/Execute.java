@@ -11,8 +11,10 @@ import org.apache.http.HttpHost;
 
 public class Execute {
 
+	static int poolSize = 5;
+	
 	static ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors
-			.newFixedThreadPool(5);
+			.newFixedThreadPool(poolSize);
 	
 	public static List<HttpHost> getIps(){
 		List<HttpHost> hosts = new ArrayList<HttpHost>();
@@ -34,7 +36,7 @@ public class Execute {
 				int queueSize = threadPoolExecutor.getQueue().size();
 				System.out.println("queueSize : " + queueSize);
 
-				if(queueSize < 10){
+				if(queueSize < poolSize){
 					for (final HttpHost host:getIps()) {
 						threadPoolExecutor.execute(new Runnable() {
 							public void run() {
