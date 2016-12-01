@@ -16,7 +16,7 @@ public class Execute {
 	
 	public static List<HttpHost> getIps(){
 		List<HttpHost> hosts = new ArrayList<HttpHost>();
-		HttpHost e = new HttpHost("117.90.2.39", 9000);
+		HttpHost e = new HttpHost("36.32.50.162", 8118);
 		hosts.add(e);
 		return hosts;
 	}
