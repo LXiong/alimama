@@ -6,8 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.http.HttpHost;
+import org.apache.http.client.methods.HttpGet;
 
 public class Main {
 	
@@ -62,8 +64,14 @@ public class Main {
 	    boolean flag = ipDao.containsKey(ip);
 	    if(!flag){
 	    	//checkIp
-	    	
-	    	return true;
+	    	HttpGet httpReq = new HttpGet(
+					"http://haitmall.com/login.php");
+			HttpTest http = new HttpTest();
+			HttpHost host = new HttpHost(ip, prot);;
+			String s = http.getContentByUrl(host, httpReq);
+			if(StringUtils.isNotBlank(s)){
+				return true;
+			}
 	    }
 		return false;
 	}
