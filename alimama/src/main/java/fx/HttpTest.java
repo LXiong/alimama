@@ -24,16 +24,16 @@ public class HttpTest {
 
 	// HttpHost host = new HttpHost("103.28.149.118", 8080);
 
-	HttpHost host = new HttpHost("58.154.213.21", 808);;
-	String aurl = "http://www.qtmzmb.cn/read/182075/1391589.html";
+	public HttpHost host = new HttpHost("58.154.213.21", 808);;
+	public String aurl = "http://www.qtmzmb.cn/read/182075/1391589.html";
 	
-	String X_Forwarded_For = null;
+	public String X_Forwarded_For = null;
 
-	String aid = "182075";
+	public String aid = "182075";
 
-	String uid = "1391589";
+	public String uid = "1391589";
 	
-	String ua = getUserAgent();
+	public String ua = getUserAgent();
 
 	public static void main(String[] args) throws Exception {
 		HttpTest httpTest = new HttpTest();
@@ -71,7 +71,7 @@ public class HttpTest {
 	}
 
 
-	void getAidAndUidAndHost() {
+	public void getAidAndUidAndHost() {
 		String[] strs = aurl.replace(".html", "").split("\\/");
 		System.out.println(Arrays.toString(strs));
 
