@@ -203,10 +203,6 @@ public class HttpTest {
 		
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 	
-		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(30000)
-				.setConnectionRequestTimeout(30000).setConnectTimeout(30000).build();//设置请求和传输超时时间
-		httpReq.setConfig(requestConfig);
-		
 		//请求超时
 		//httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 60000); 
 		//读取超时
@@ -225,12 +221,14 @@ public class HttpTest {
 			// "https");
 			// HttpHost proxy = new HttpHost("153.121.75.130",8080);
 			// HttpGet httpget = new HttpGet("/id/35642224");
-
+			
+			org.apache.http.client.config.RequestConfig.Builder requestConfigBuilder = RequestConfig.custom().setSocketTimeout(30000)
+					.setConnectionRequestTimeout(30000).setConnectTimeout(30000);//设置请求和传输超时时间
 			if (null != proxy) {
-				RequestConfig config = RequestConfig.custom().setProxy(proxy)
-						.build();
-				httpReq.setConfig(config);
+				requestConfigBuilder.setProxy(proxy);
 			}
+			
+			httpReq.setConfig(requestConfigBuilder.build());
 			System.out.println("Executing request " + httpReq.getRequestLine()
 					+ " to " + httpReq.getURI() + " via " + proxy);
 			// httpclient.execute(httpHost,
