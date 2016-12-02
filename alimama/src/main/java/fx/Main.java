@@ -13,7 +13,7 @@ import org.apache.http.client.methods.HttpGet;
 
 public class Main {
 	
-	String fileName = "c:\\rrz"+DateFormatUtils.format(new Date(), "yyyyMMdd");
+	String fileName = "D:\\rrz"+DateFormatUtils.format(new Date(), "yyyyMMdd");
 	
 	IPDao ipDao = new IPDao(new File(fileName));
 	
@@ -43,7 +43,7 @@ public class Main {
 	public void executeAll(HttpHost httpHost)throws Exception{
 		System.out.println("httpHost :"+httpHost);
 		String ip  =httpHost.getHostName();
-	synchronized (ip) {
+	//synchronized (ip) {
 		boolean flag = checkIp(httpHost.getHostName(), httpHost.getPort());
 		System.out.println("checkIp : "+flag);
 		if(flag){
@@ -54,7 +54,7 @@ public class Main {
 			destroy(httpHost.getHostName());
 			System.out.println("destroy end >>>>>>>>>>>>>>>>>>>>>>>>");
 		 }
-		}	
+		//}	
 		
 	}
 	
