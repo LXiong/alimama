@@ -74,7 +74,7 @@ public class Main {
 			    if(!flag){
 			    	//checkIp
 			    	HttpGet httpReq = new HttpGet(
-							"http://haitmall.com/login.php");
+							"http://www.baidu.com");
 					HttpTest http = new HttpTest();
 					HttpHost host = new HttpHost(ip, prot);;
 					String s = http.getContentByUrl(host, httpReq);
