@@ -57,7 +57,7 @@ public class Execute {
 							
 						});
 						 
-						 threadPoolExecutorRS.submit(new Callable<Boolean>() {
+						/* threadPoolExecutorRS.submit(new Callable<Boolean>() {
 							 public Boolean call() throws Exception {
 								 try{
 									future.get(80000, TimeUnit.SECONDS);
@@ -67,7 +67,7 @@ public class Execute {
 								 }
 								 return true;
 							 };
-						}) ;
+						}) ;*/
 						 
 						 
 					}
