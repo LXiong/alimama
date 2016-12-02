@@ -15,7 +15,8 @@ public class IpUtils {
 
 	// http://ip.memories1999.com/api.php?dh=2764810913906166&sl=2&xl=%E5%9B%BD%E5%86%85&gl=1
 	public static List<HttpHost> getIpsmemories1999() {
-		return getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl="+Execute.poolSize+"&xl=%E5%9B%BD%E5%86%85&gl=1");
+		//return getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl="+Execute.poolSize+"&xl=%E5%9B%BD%E5%86%85&gl=1");
+		return getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl="+Execute.poolSize+"&xl=%E5%9B%BD%E5%86%85");
 	}
 
 	public  static List<HttpHost> getips(String url) {
