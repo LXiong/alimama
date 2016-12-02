@@ -60,7 +60,7 @@ public class Execute {
 						 threadPoolExecutorRS.submit(new Callable<Boolean>() {
 							 public Boolean call() throws Exception {
 								 try{
-									future.get(40000, TimeUnit.SECONDS);
+									future.get(80000, TimeUnit.SECONDS);
 								 }catch(Exception e){
 									 System.out.println("timeOut>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 									 e.printStackTrace();
