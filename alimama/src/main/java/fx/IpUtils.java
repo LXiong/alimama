@@ -3,6 +3,7 @@ package fx;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.client.methods.HttpGet;
 
@@ -24,6 +25,10 @@ public class IpUtils {
 		try {
 			List<HttpHost> hosts = new ArrayList<HttpHost>();
 			String str = getIpStr(url);
+			
+			if(StringUtils.isBlank(str)){
+				System.out.println("获取ip是空>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			}
 
 			System.out.println("get ipstr :" + str);
 
@@ -35,6 +40,7 @@ public class IpUtils {
 			}
 			return hosts;
 		} catch (Exception e) {
+			System.out.println("获取ip有问题>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			e.printStackTrace();
 		}
 		return null;
