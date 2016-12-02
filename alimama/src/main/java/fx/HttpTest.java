@@ -245,8 +245,8 @@ public class HttpTest {
 			
 			if(entity2!=null){
 				try {
-					EntityUtils.consume(entity2);
-				} catch (IOException e) {
+					EntityUtils.consumeQuietly(response.getEntity());
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
