@@ -17,7 +17,7 @@ public class Execute {
 	public static int poolSize = 10;
 	
 	static ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors
-			.newFixedThreadPool(poolSize);
+			.newFixedThreadPool(poolSize*10);
 	
 	static ExecutorService threadPoolExecutorRS = Executors.newCachedThreadPool();
 	
