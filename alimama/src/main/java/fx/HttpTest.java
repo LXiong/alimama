@@ -195,11 +195,13 @@ public class HttpTest {
 
 	public String getContentByUrl(HttpHost proxy, HttpRequestBase httpReq,long sleepTime) {
 
-		CredentialsProvider credsProvider = new BasicCredentialsProvider();
+		/*CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials(new AuthScope("localhost", 8080),
 				new UsernamePasswordCredentials("username", "password"));
 		CloseableHttpClient httpclient = HttpClients.custom()
-				.setDefaultCredentialsProvider(credsProvider).build();
+				.setDefaultCredentialsProvider(credsProvider).build();*/
+		
+		CloseableHttpClient httpclient = HttpClients.createDefault();
 	
 		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(30000)
 				.setConnectionRequestTimeout(30000).setConnectTimeout(30000).build();//设置请求和传输超时时间
