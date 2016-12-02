@@ -36,6 +36,8 @@ public class Execute {
 
 		Runnable runnable = new Runnable() {
 			public void run() {
+				
+				try{
 				// task to run goes here
 				System.out.println("Hello !!");
 				int queueSize = threadPoolExecutor.getQueue().size();
@@ -74,7 +76,11 @@ public class Execute {
 				}else{
 					System.out.println("线程池队列容量充足>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				}
-			}
+			 }catch(Exception e){
+				 e.printStackTrace();
+			 }
+			}		
+				
 		};
 		ScheduledExecutorService service = Executors
 				.newSingleThreadScheduledExecutor();
