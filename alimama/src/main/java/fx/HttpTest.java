@@ -243,6 +243,7 @@ public class HttpTest {
 			e.printStackTrace();
 		} finally {
 			
+			
 			if(entity2!=null){
 				try {
 					EntityUtils.consumeQuietly(response.getEntity());
@@ -250,8 +251,11 @@ public class HttpTest {
 					e.printStackTrace();
 				}
 			}
+			
+			
 
 			try {
+				httpReq.releaseConnection();
 				Thread.sleep(sleepTime);
 				//Thread.sleep(new Random().nextInt(5000)+1000);
 				httpclient.close();
