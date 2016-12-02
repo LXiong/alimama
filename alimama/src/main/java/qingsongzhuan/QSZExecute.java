@@ -27,12 +27,16 @@ public class QSZExecute {
 		return hosts;
 	}
 
-	public static void QSZMain(String[] args) {
+	public static void main(String[] args) {
 		
 		final QSZMain QSZMain = new QSZMain();
+		
+		
 
 		Runnable runnable = new Runnable() {
 			public void run() {
+				
+				try{
 				// task to run goes here
 				System.out.println("Hello !!");
 				int queueSize = threadPoolExecutor.getQueue().size();
@@ -55,8 +59,15 @@ public class QSZExecute {
 				}else{
 					System.out.println("线程池队列容量充足>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				}
+				}catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 		};
+		
+		
+		
+		
 		ScheduledExecutorService service = Executors
 				.newSingleThreadScheduledExecutor();
 		// 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
