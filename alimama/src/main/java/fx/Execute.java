@@ -2,7 +2,10 @@ package fx;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +18,8 @@ public class Execute {
 	
 	static ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors
 			.newFixedThreadPool(poolSize);
+	
+	static ExecutorService threadPoolExecutorRS = Executors.newCachedThreadPool();
 	
 	public static List<HttpHost> getIps(){
 		List<HttpHost> hosts = new ArrayList<HttpHost>();
@@ -38,17 +43,33 @@ public class Execute {
 
 				if(queueSize < poolSize){
 					for (final HttpHost host:getIps()) {
-						threadPoolExecutor.execute(new Runnable() {
-							public void run() {
+						
+						final Future<Boolean> future  = threadPoolExecutor.submit(new Callable<Boolean>() {
+							public Boolean call() throws Exception {
 								try {
 									System.out.println("host : "+host);
-									//Thread.sleep(10000);
 									main.executeAll(host);
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
-							}
+								return true;
+							};
+							
 						});
+						 
+						 threadPoolExecutorRS.submit(new Callable<Boolean>() {
+							 public Boolean call() throws Exception {
+								 try{
+									future.get(40000, TimeUnit.SECONDS);
+								 }catch(Exception e){
+									 System.out.println("timeOut>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+									 e.printStackTrace();
+								 }
+								 return true;
+							 };
+						}) ;
+						 
+						 
 					}
 				}else{
 					System.out.println("线程池队列容量充足>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
