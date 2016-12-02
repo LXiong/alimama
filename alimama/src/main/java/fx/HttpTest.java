@@ -1,4 +1,5 @@
 package fx;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -212,7 +213,8 @@ public class HttpTest {
 		//httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(60000);  
 		//读取超时
 		//httpClient.getHttpConnectionManager().getParams().setSoTimeout(60000)
-		
+		HttpEntity entity2 = null;
+		HttpResponse response =null;
 		try {
 			// https://us.fotolia.com/ //https://us.fotolia.com/id/35642224
 			// HttpHost proxy = new HttpHost("117.185.124.77", 8088);
@@ -231,13 +233,23 @@ public class HttpTest {
 			// httpclient.execute(httpHost,
 			// httpReq,MuResponseHanlder.responseHandler(filesavePath));
 
-			HttpResponse response = httpclient.execute(httpReq);
-			HttpEntity entity2 = response.getEntity();
+			 response = httpclient.execute(httpReq);
+			 entity2 = response.getEntity();
 			String entityBody = EntityUtils.toString(entity2, "utf-8");//
+			
+			//response.getEntity().getContent().close();
 			return entityBody;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			
+			if(entity2!=null){
+				try {
+					EntityUtils.consume(entity2);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 
 			try {
 				Thread.sleep(sleepTime);
