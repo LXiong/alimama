@@ -46,7 +46,10 @@ public class MatcherUtil {
 			//if (!str.contains("shop.m.taobao.com")) {
 			if ((str.contains("tmall.com") || str.contains("taobao.com")) 
 					&& !str.contains("shop.m.taobao.com")
-					&& !str.contains("click.taobao.com")) {
+					//&& !str.contains("click.taobao.com")
+					
+					)
+			{
 				newList.add(str);
 			}
 		}
