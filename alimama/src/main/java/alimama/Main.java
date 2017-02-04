@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -81,6 +82,8 @@ public class Main {
 			webDriver =SeleniumUtil.initWebDriver("http://192.168.1.120:4444/wd/hub");
 		}
 		webDriver.manage().window().maximize();
+		
+		webDriver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
 
 		System.out.println("webDriver init end <<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
@@ -106,12 +109,22 @@ public class Main {
 	
 	
 	
+	public static void webGet(String url){
+	try {
+		webDriver.get(url);
+	} catch (Exception e) {
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        js.executeScript("window.stop();");  
+        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
+	  }
+	}
+	
 	/**
 	 * 删除结束招商信息>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	 * @throws Exception
 	 */
 	public static void deleteYixuanZhaoshang() throws Exception {
-		webDriver.get("http://pub.alimama.com/manage/selection/list.htm");
+		webGet("http://pub.alimama.com/manage/selection/list.htm");
 		Thread.sleep(5000);
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		while(true){
@@ -142,7 +155,7 @@ public class Main {
 	 * @throws Exception
 	 */
 	public static void deleteXuanPingKu() throws Exception {
-		webDriver.get("http://pub.alimama.com/manage/zhaoshang/list.htm?status=5&pageIndex=1");
+		webGet("http://pub.alimama.com/manage/zhaoshang/list.htm?status=5&pageIndex=1");
 		Thread.sleep(5000);
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		while(true){
@@ -244,7 +257,7 @@ public class Main {
 	public static boolean addshangpingAll3(String queryName) throws Exception {
 
 		try {
-			/*webDriver.get("http://pub.alimama.com/promo/search/index.htm");
+			/*webGet("http://pub.alimama.com/promo/search/index.htm");
 			Thread.sleep(4000);
 			
 			// 搜索
@@ -261,7 +274,9 @@ public class Main {
 		    //webDriver.navigate().refresh();
 			
 			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr+"&perPageSize=100";
-			webDriver.get(queryURL);
+			webGet(queryURL);
+			
+			
 			Thread.sleep(6000);
 			
 			// 搜索
@@ -294,7 +309,7 @@ public class Main {
 			
 			 queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
 			System.out.println("queryURL :"+queryURL);
-			webDriver.get(queryURL);
+			webGet(queryURL);
 			Thread.sleep(4000);
 			
 			// 已选数据 <span p-id="110">1</span>
@@ -342,7 +357,7 @@ public class Main {
 				// 下一页 btn-last btn btn-xlarge btn-white
 				queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
 				System.out.println("queryURL :"+queryURL);
-				webDriver.get(queryURL);
+				webGet(queryURL);
 				Thread.sleep(3000);
 			}
 
@@ -408,7 +423,7 @@ public class Main {
 	public static boolean addshangpingAll2(String queryName) throws Exception {
 
 		try {
-			/*webDriver.get("http://pub.alimama.com/promo/search/index.htm");
+			/*webGet("http://pub.alimama.com/promo/search/index.htm");
 			Thread.sleep(4000);
 			
 			// 搜索
@@ -425,7 +440,7 @@ public class Main {
 		    //webDriver.navigate().refresh();
 			
 			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr;
-			webDriver.get(queryURL);
+			webGet(queryURL);
 			Thread.sleep(6000);
 			
 			// 搜索
@@ -458,7 +473,7 @@ public class Main {
 			
 			 queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40"+queryStr;
 			System.out.println("queryURL :"+queryURL);
-			webDriver.get(queryURL);
+			webGet(queryURL);
 			Thread.sleep(4000);
 			
 			// 已选数据 <span p-id="110">1</span>
@@ -506,7 +521,7 @@ public class Main {
 				// 下一页 btn-last btn btn-xlarge btn-white
 				queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40"+queryStr;
 				System.out.println("queryURL :"+queryURL);
-				webDriver.get(queryURL);
+				webGet(queryURL);
 				Thread.sleep(3000);
 			}
 
@@ -571,7 +586,7 @@ public class Main {
 	public static boolean addshangpingAll(String queryName) throws Exception {
 
 		try {
-			webDriver.get("http://pub.alimama.com/promo/search/index.htm");
+			webGet("http://pub.alimama.com/promo/search/index.htm");
 			Thread.sleep(5000);
 
 			// 搜索
@@ -654,7 +669,7 @@ public class Main {
 	 */
 	public static boolean addshangping(String queryName) throws Exception {
 
-		webDriver.get("http://pub.alimama.com/promo/search/index.htm");
+		webGet("http://pub.alimama.com/promo/search/index.htm");
 		Thread.sleep(5000);
 
 		// 搜索
@@ -753,7 +768,7 @@ public class Main {
 	public static void faqizhaoshang(String name) throws Exception {
 		try{
 		//webDriver.navigate().refresh();	
-		webDriver.get("http://pub.alimama.com/manage/selection/list.htm");
+		webGet("http://pub.alimama.com/manage/selection/list.htm");
 		Thread.sleep(5000);
 		WebElement element =null;
 		try{
@@ -981,9 +996,9 @@ public class Main {
 	 */
 	public static boolean login2() throws Exception {
 		try{
-			webDriver.get("https://login.taobao.com/member/login.jhtml?style=minisimple&from=alimama&qq-pf-to=pcqq.c2c");
+			webGet("https://login.taobao.com/member/login.jhtml?style=minisimple&from=alimama&qq-pf-to=pcqq.c2c");
 			Thread.sleep(5000);
-			// webDriver.get("https://login.taobao.com/member/login.jhtml?style=mini&amp;newMini2=true&amp;from=alimama&amp;redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&amp;full_redirect=true&amp;disableQuickLogin=true");
+			// webGet("https://login.taobao.com/member/login.jhtml?style=mini&amp;newMini2=true&amp;from=alimama&amp;redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&amp;full_redirect=true&amp;disableQuickLogin=true");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -998,10 +1013,10 @@ public class Main {
 	 * @throws Exception
 	 */
 	public static boolean login() throws Exception {
-		webDriver.get("http://pub.alimama.com/");
+		webGet("http://pub.alimama.com/");
 		Thread.sleep(5000);
 
-		// webDriver.get("https://login.taobao.com/member/login.jhtml?style=mini&amp;newMini2=true&amp;from=alimama&amp;redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&amp;full_redirect=true&amp;disableQuickLogin=true");
+		// webGet("https://login.taobao.com/member/login.jhtml?style=mini&amp;newMini2=true&amp;from=alimama&amp;redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&amp;full_redirect=true&amp;disableQuickLogin=true");
 		webDriver.switchTo().frame("taobaoLoginIfr");
 
 		Thread.sleep(1000);
