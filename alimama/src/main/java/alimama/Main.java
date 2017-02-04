@@ -210,7 +210,8 @@ public class Main {
 		try {
 			//boolean addflag = addshangpingAll(key);
 			System.out.println("sousuokey :"+key);
-			boolean addflag = addshangpingAll2(key);
+			//boolean addflag = addshangpingAll2(key);
+			boolean addflag = addshangpingAll3(key);
 			if (addflag) {
 				faqizhaoshang(fenzuName);
 			}
@@ -232,6 +233,169 @@ public class Main {
 
 	}
 
+	
+	
+	/**
+	 * 添加商品 页数随机
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static boolean addshangpingAll3(String queryName) throws Exception {
+
+		try {
+			/*webDriver.get("http://pub.alimama.com/promo/search/index.htm");
+			Thread.sleep(4000);
+			
+			// 搜索
+			WebElement elementQuery = webDriver.findElement(By.id("q"));
+			elementQuery.click();
+			elementQuery.sendKeys(queryName);
+
+			// 搜索 btn btn-brand search-btn
+			elementQuery = webDriver.findElement(By.xpath("//*[@class='btn btn-brand search-btn']"));
+			elementQuery.click();
+			Thread.sleep(5000);*/
+			JavascriptExecutor js = (JavascriptExecutor) webDriver;
+			
+		    //webDriver.navigate().refresh();
+			
+			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr+"&perPageSize=100";
+			webDriver.get(queryURL);
+			Thread.sleep(6000);
+			
+			// 搜索
+			WebElement elementQuery = null;
+			
+			//获取最大页数  
+			elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
+			String text = elementQuery.getText();
+			System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text);
+			
+			text = text.split("/")[1];
+			Integer maxPage = null;
+			try{
+				maxPage = Integer.valueOf(text);
+			}catch(Exception e){
+				maxPage = 1;
+			}
+				
+			if(maxPage <= 1 ){
+				System.out.println("页数太少跳出>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>》");
+				return false;
+			}
+			
+			//默认开始为第一页
+			int cPage = 1;
+			
+			if(maxPage > 3){
+				cPage = getRandom(1, maxPage);
+			}
+			
+			 queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
+			System.out.println("queryURL :"+queryURL);
+			webDriver.get(queryURL);
+			Thread.sleep(4000);
+			
+			// 已选数据 <span p-id="110">1</span>
+			String size = "0";
+			System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
+
+			while (Integer.valueOf(size) < maxSize) {
+				
+				//获取最大页数  检测
+				elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
+				String text2 = elementQuery.getText();
+				System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text2);
+				
+				text2 = text2.split("/")[1];
+				Integer maxPage2 = null;
+				try{
+					maxPage2 = Integer.valueOf(text2);
+				}catch(Exception e){
+					maxPage2 = 1;
+				}
+					
+				if(maxPage2 <= 1 ){
+					System.out.println("页数太少跳出>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>》");
+					return false;
+				}
+				
+				//选择
+				//WebElement elements = webDriver.findElement(By.xpath("//a[@class='select-btn select-all ']"));
+				//elements.click();
+				
+				js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
+				
+				
+				Thread.sleep(1000);
+
+				// 已选数
+				elementQuery = webDriver.findElement(By.xpath("//*[@class='color-brand']"));
+				size = elementQuery.getText();
+				System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
+				if (!(Integer.valueOf(size) < maxSize)) {
+					break;
+				}
+
+				cPage++;
+				// 下一页 btn-last btn btn-xlarge btn-white
+				queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
+				System.out.println("queryURL :"+queryURL);
+				webDriver.get(queryURL);
+				Thread.sleep(3000);
+			}
+
+			Thread.sleep(1000);
+			WebElement element = null;
+			// 加入选品库 btn-brand add-selection
+			/*WebElement element = webDriver.findElement(By.xpath("//a[@class='btn-brand add-selection']"));
+			element.click();
+*/
+			js.executeScript("document.querySelectorAll(\"a[class='btn-brand add-selection']\")[0].click();");
+						
+			
+			Thread.sleep(1000);
+			// 新建普通分组 btn btn-common w140
+			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-common w140']"));
+			element.click();
+*/
+			
+			js.executeScript("document.querySelectorAll(\"*[class='btn btn-common w140']\")[0].click();");
+			
+			
+			Thread.sleep(1000);
+			// 分组输入框 J_groupTitle
+			element = webDriver.findElement(By.id("J_groupTitle"));
+			element.click();
+			// 设置分组名称
+			getFenzuName();
+			element.sendKeys(fenzuName);
+			Thread.sleep(1000);
+
+			// 点击创建 btn btn-brand w80 mr10
+			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w80 mr10']"));
+			element.click();
+			*/
+			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w80 mr10']\")[0].click();");
+			
+			Thread.sleep(1000);
+
+			// 点击加入 btn btn-brand w100 mr10
+			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w100 mr10 ']"));
+			element.click();
+			*/
+			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w100 mr10 ']\")[0].click();");
+			
+			Thread.sleep(1000);
+			System.out.println("加入成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("失败>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			return false;
+		}
+		return true;
+	}
 
 
 	
