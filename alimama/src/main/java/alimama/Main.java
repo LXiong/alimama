@@ -34,11 +34,22 @@ public class Main {
 	
 	static String queryStr = PropertiesUtil.getPropertiesMap("alimama.queryStr");
 
+	//招商title
+	static final String zhaoshangTitle = "新年推广联系QQ"+qq;
 	
 
 	public static WebDriver webDriver = null;
 	
 
+	// 分组名称
+		public static String getFenzuName() {
+			//String fenzuNameF = "dateQ群打造爆款联系"+qq;
+			String fenzuNameF = "date新年推广联系qq"+qq;
+			String date = DateFormatUtils.format(new Date(), "HH:mm:ss");
+			fenzuName = fenzuNameF.replace("date", date);
+			return fenzuName;
+		}
+	
 	public static boolean validate(){
 		String url = "https://github.com/xiaomin0322/alimama/releases/download/int/validate.txt";
 		try {
@@ -92,13 +103,7 @@ public class Main {
 		
 	}
 
-	// 分组名称
-	public static String getFenzuName() {
-		String fenzuNameF = "dateQ群打造爆款联系"+qq;
-		String date = DateFormatUtils.format(new Date(), "HH:mm:ss");
-		fenzuName = fenzuNameF.replace("date", date);
-		return fenzuName;
-	}
+	
 	
 	
 	/**
@@ -617,7 +622,7 @@ public class Main {
 		// 招商活动名称
 		element = webDriver.findElement(By.id("J_title"));
 		element.click();
-		element.sendKeys("淘客打造爆款联系QQ"+qq);
+		element.sendKeys(zhaoshangTitle);
 		Thread.sleep(1000);
 		
 		
