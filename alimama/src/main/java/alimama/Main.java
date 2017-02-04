@@ -277,7 +277,7 @@ public class Main {
 			webGet(queryURL);
 			
 			
-			Thread.sleep(6000);
+			Thread.sleep(1000);
 			
 			// 搜索
 			WebElement elementQuery = null;
@@ -310,7 +310,7 @@ public class Main {
 			 queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
 			System.out.println("queryURL :"+queryURL);
 			webGet(queryURL);
-			Thread.sleep(4000);
+			Thread.sleep(1000);
 			
 			// 已选数据 <span p-id="110">1</span>
 			String size = "0";
@@ -358,7 +358,7 @@ public class Main {
 				queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
 				System.out.println("queryURL :"+queryURL);
 				webGet(queryURL);
-				Thread.sleep(3000);
+				Thread.sleep(1000);
 			}
 
 			Thread.sleep(1000);
