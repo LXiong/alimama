@@ -84,6 +84,7 @@ public class Main {
 		webDriver.manage().window().maximize();
 		
 		webDriver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+		webDriver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS); //second为等待时间，单位秒
 
 		System.out.println("webDriver init end <<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
@@ -323,7 +324,7 @@ public class Main {
 			System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
 
 			while (Integer.valueOf(size) < maxSize) {
-				Thread.sleep(1000);
+				Thread.sleep(2000);
 				//获取最大页数  检测
 				elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
 				String text2 = elementQuery.getText();
@@ -410,10 +411,11 @@ public class Main {
 			*/
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w100 mr10 ']\")[0].click();");
 			
-			Thread.sleep(1000);
+			Thread.sleep(100);
 			System.out.println("加入成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		} catch (Exception e) {
 			e.printStackTrace();
+			Thread.sleep(1000);
 			System.out.println("失败>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			return false;
 		}
