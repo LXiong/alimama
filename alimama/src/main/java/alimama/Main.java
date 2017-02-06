@@ -277,7 +277,7 @@ public class Main {
 			webGet(queryURL);
 			
 			
-			//Thread.sleep(1000);
+			Thread.sleep(2000);
 			
 			// 搜索
 			WebElement elementQuery = null;
@@ -285,6 +285,13 @@ public class Main {
 			//获取最大页数  
 			elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
 			String text = elementQuery.getText();
+			
+			//js.executeScript("return document.querySelectorAll(\"*[class='pagination-statistics-simplify']\")[0]");
+			
+			//String text = (String)js.executeScript("return document.querySelectorAll(\"*[class='pagination-statistics-simplify']\")[0].innerText;");
+			
+			
+			
 			System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text);
 			
 			text = text.split("/")[1];
@@ -310,17 +317,18 @@ public class Main {
 			 queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
 			System.out.println("queryURL :"+queryURL);
 			webGet(queryURL);
-			//Thread.sleep(1000);
 			
 			// 已选数据 <span p-id="110">1</span>
 			String size = "0";
 			System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
 
 			while (Integer.valueOf(size) < maxSize) {
-				
+				Thread.sleep(1000);
 				//获取最大页数  检测
 				elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
 				String text2 = elementQuery.getText();
+				//String text2 = (String)js.executeScript("return document.querySelectorAll(\"*[class='pagination-statistics-simplify']\")[0].innerText");
+				
 				System.out.println("获取最大页数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>:"+text2);
 				
 				text2 = text2.split("/")[1];
