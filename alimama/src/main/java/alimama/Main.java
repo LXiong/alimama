@@ -411,7 +411,7 @@ public class Main {
 			*/
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w100 mr10 ']\")[0].click();");
 			
-			Thread.sleep(100);
+			Thread.sleep(1000);
 			System.out.println("加入成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -779,7 +779,7 @@ public class Main {
 		try{
 		//webDriver.navigate().refresh();	
 		webGet("http://pub.alimama.com/manage/selection/list.htm");
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		WebElement element =null;
 		try{
 		// link-area
@@ -989,8 +989,7 @@ public class Main {
 		if (page.contains("招商需求创建成功")) {
 			System.out.println("招商需求创建成功 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		}
-		
-		
+		Thread.sleep(1000);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
