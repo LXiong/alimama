@@ -36,7 +36,7 @@ public class Main {
 	static String queryStr = PropertiesUtil.getPropertiesMap("alimama.queryStr");
 
 	//招商title
-	static final String zhaoshangTitle = "新年推广联系QQ"+qq;
+	static final String zhaoshangTitle = "淘客推广联系QQ"+qq;
 	
 
 	public static WebDriver webDriver = null;
