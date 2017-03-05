@@ -14,8 +14,9 @@ public class DicUtils {
 	
 	static{
 		System.out.println("start ciku>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		InputStream inputStream = DicUtils.class.getClassLoader().getResourceAsStream("taobaociku.txt");
-	    try {
+		//InputStream inputStream = DicUtils.class.getClassLoader().getResourceAsStream("taobaociku.txt");
+		InputStream inputStream = DicUtils.class.getClassLoader().getResourceAsStream("main.dic");
+		try {
 			list = IOUtils.readLines(inputStream,Charset.forName("utf-8"));
 		} catch (IOException e) {
 			e.printStackTrace();
