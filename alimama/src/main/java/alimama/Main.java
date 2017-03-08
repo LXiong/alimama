@@ -896,14 +896,22 @@ public class Main {
 		
 		Long len = (Long)js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\").length;");
 		
-		
+		try{
 		
 		//if(len!=null && len== 4){
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-common btn-calendar']\")[3].click();");
 			Thread.sleep(1000);
-			js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
+			//js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
+			//$("span[bx-click!=''][bx-click*='2017-03-16']:last").click();
+			js.executeScript("$(\"span[bx-click!=''][bx-click*='"+dateStr+"']:last\").click();");
+			
+			
 	//	}
 		
+		}catch(Exception e){
+			System.out.println("error data >>>>>>");
+		}	
+			
 		//element = webDriver.findElement(By.xpath("//span[@data-value='13']"));
 		//element.click();
 		Thread.sleep(1000);
@@ -919,10 +927,18 @@ public class Main {
 				js.executeScript("document.querySelectorAll(\"button[class='btn btn-common btn-calendar']\")[3].click();");
 				Thread.sleep(500);
 				//点击上个月
-				js.executeScript("document.querySelectorAll(\"a[class='minus']\")[document.querySelectorAll(\"a[class='minus']\").length-1].click();");
+				/*js.executeScript("document.querySelectorAll(\"a[class='minus']\")[document.querySelectorAll(\"a[class='minus']\").length-1].click();");
 				Thread.sleep(500);
 				js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
 				Thread.sleep(500);
+				*/
+				//上个月
+				int yue = new Date().getMonth()+1;
+				js.executeScript("$(\"a[class='day-header-prev']\").eq("+yue+").click();");
+				Thread.sleep(500);
+				js.executeScript("$(\"span[bx-click!=''][bx-click*='"+dateStr+"']:last\").click();");
+				Thread.sleep(500);
+				
 				
 				inputDateStr = element.getText().replace("\"", "");
 				System.out.println("inputDateStr 确定修改输入的结束日期:"+inputDateStr);
