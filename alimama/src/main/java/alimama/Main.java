@@ -899,6 +899,7 @@ public class Main {
 		try{
 		
 		//if(len!=null && len== 4){
+			if(len!=null){
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-common btn-calendar']\")[3].click();");
 			Thread.sleep(1000);
 			//js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
@@ -906,7 +907,7 @@ public class Main {
 			js.executeScript("$(\"span[bx-click!=''][bx-click*='"+dateStr+"']:last\").click();");
 			
 			
-	//	}
+		}
 		
 		}catch(Exception e){
 			System.out.println("error data >>>>>>");
