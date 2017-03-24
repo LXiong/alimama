@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.Page;
+import com.gargoylesoftware.htmlunit.ProxyConfig;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
@@ -17,6 +18,15 @@ public class HtmlUnitUtil {
 
 	static Logger logger = Logger.getLogger(HtmlUnitUtil.class);
 
+	public static void setProxy(WebClient webClient,String host,int port) {
+		ProxyConfig proxyConfig = webClient.getOptions().getProxyConfig();
+		proxyConfig.setProxyHost(host);
+		proxyConfig.setProxyPort(port);
+		//DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
+		//credentialsProvider.addCredentials(proxy.getUser(), proxy.getPassword());
+	}
+	
+	
 	public static WebClient create() {
 		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log",
 				"org.apache.commons.logging.impl.NoOpLog");
