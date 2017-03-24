@@ -36,7 +36,7 @@ public class WeiboReadExecute {
 	
 	public static List<HttpHost> getIps(){
 		List<HttpHost> hosts = new ArrayList<HttpHost>();
-		/*HttpHost e = new HttpHost("112.74.163.60", 139);
+		/*HttpHost e = new HttpHost("51.255.161.222", 8080);
 		hosts.add(e);
 		*/
 		hosts = weiboread.IpUtils.getIpsmemories1999();
@@ -60,17 +60,16 @@ public class WeiboReadExecute {
 							public void run() {
 								WebClient webClient = null;
 								try {
-									webClient =  HtmlUnitUtil.create();
-								  
-									HtmlUnitUtil.setProxy(webClient, host.getHostName(), host.getPort());
+									webClient =  HtmlUnitUtil.create(host.getHostName(),host.getPort());
 									for(String u:weiboUrlList){
 										try{
-											System.out.println("ip : "+host +" url "+u+" 刷》》》》》》》》》》》》》》》");
+											System.out.println("ip : "+host.getHostName()+":"+host.getPort() +" url "+u+" 刷》》》》》》》》》》》》》》》");
 											HtmlPage htmlPage = webClient.getPage(u);
 											String ps = htmlPage.asXml();
-											Thread.sleep(5000+(new Random().nextInt(5000)));
+											System.out.println(ps);
+											Thread.sleep(10000+(new Random().nextInt(10000)));
 										}catch(Exception e){
-											
+											e.printStackTrace();
 										}
 									}
 								} catch (Exception e) {

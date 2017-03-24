@@ -26,6 +26,30 @@ public class HtmlUnitUtil {
 		//credentialsProvider.addCredentials(proxy.getUser(), proxy.getPassword());
 	}
 	
+	public static WebClient create(String host,int port) {
+		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log",
+				"org.apache.commons.logging.impl.NoOpLog");
+		java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(
+				Level.OFF);
+		java.util.logging.Logger.getLogger("org.apache.http.client").setLevel(
+				Level.OFF);
+
+		// LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log","org.apache.commons.logging.impl.NoOpLog");
+		// java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
+
+		WebClient webClient = new WebClient(BrowserVersion.FIREFOX_17,host,port);
+		webClient.getOptions().setUseInsecureSSL(true);
+		webClient.getOptions().setJavaScriptEnabled(true);
+		webClient.getOptions().setThrowExceptionOnScriptError(false);
+		webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		webClient.getOptions().setCssEnabled(true);
+		webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+		webClient.getOptions().setTimeout(60000);
+		webClient.setJavaScriptTimeout(60000);
+		webClient.waitForBackgroundJavaScript(120000);
+		return webClient;
+	}
+	
 	
 	public static WebClient create() {
 		LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log",
