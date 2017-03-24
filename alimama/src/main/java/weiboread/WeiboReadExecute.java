@@ -49,7 +49,7 @@ public class WeiboReadExecute {
 				
 				try{
 				// task to run goes here
-				System.out.println("Hello !!");
+				//System.out.println("Hello !!");
 				int queueSize = threadPoolExecutor.getQueue().size();
 				System.out.println("queueSize : " + queueSize);
 
