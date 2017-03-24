@@ -15,6 +15,7 @@ import org.apache.http.HttpHost;
 import util.HtmlUnitUtil;
 
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class WeiboReadExecute {
 
@@ -65,8 +66,9 @@ public class WeiboReadExecute {
 									for(String u:weiboUrlList){
 										try{
 											System.out.println("ip : "+host +" url "+u+" 刷》》》》》》》》》》》》》》》");
-											webClient.getPage(u);
-											Thread.sleep(2000+(new Random().nextInt(2000)));
+											HtmlPage htmlPage = webClient.getPage(u);
+											String ps = htmlPage.asXml();
+											Thread.sleep(5000+(new Random().nextInt(5000)));
 										}catch(Exception e){
 											
 										}
