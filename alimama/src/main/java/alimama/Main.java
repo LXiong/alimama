@@ -899,7 +899,7 @@ public class Main {
 		try{
 		
 		//if(len!=null && len== 4){
-			if(len!=null){
+		if(len!=null){
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-common btn-calendar']\")[3].click();");
 			Thread.sleep(1000);
 			//js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
@@ -920,35 +920,62 @@ public class Main {
 		String inputDateStr = element.getText().replace("\"", "");
 		
 		System.out.println("inputDateStr 输入的结束日期:"+inputDateStr);
-		
-		try{
-			//校验选择的日期对不丢
-			if(!dateStr.equalsIgnoreCase(inputDateStr)){
-				//点击日期弹出框
-				js.executeScript("document.querySelectorAll(\"button[class='btn btn-common btn-calendar']\")[3].click();");
-				Thread.sleep(500);
-				//点击上个月
-				/*js.executeScript("document.querySelectorAll(\"a[class='minus']\")[document.querySelectorAll(\"a[class='minus']\").length-1].click();");
-				Thread.sleep(500);
-				js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
-				Thread.sleep(500);
-				*/
-				//上个月
-				int yue = new Date().getMonth()+1;
-				js.executeScript("$(\"a[class='day-header-prev']\").eq("+yue+").click();");
-				Thread.sleep(500);
-				js.executeScript("$(\"span[bx-click!=''][bx-click*='"+dateStr+"']:last\").click();");
-				Thread.sleep(500);
-				
-				
-				inputDateStr = element.getText().replace("\"", "");
-				System.out.println("inputDateStr 确定修改输入的结束日期:"+inputDateStr);
+			try{
+				//校验选择的日期对不丢
+				if(!dateStr.equalsIgnoreCase(inputDateStr)){
+					//点击日期弹出框
+					js.executeScript("document.querySelectorAll(\"button[class='btn btn-common btn-calendar']\")[3].click();");
+					Thread.sleep(500);
+					//点击上个月
+					/*js.executeScript("document.querySelectorAll(\"a[class='minus']\")[document.querySelectorAll(\"a[class='minus']\").length-1].click();");
+					Thread.sleep(500);
+					js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
+					Thread.sleep(500);
+					*/
+					//上个月
+					int yue = new Date().getMonth()+1;
+					js.executeScript("$(\"a[class='day-header-prev']\").eq("+yue+").click();");
+					Thread.sleep(500);
+					js.executeScript("$(\"span[bx-click!=''][bx-click*='"+dateStr+"']:last\").click();");
+					Thread.sleep(500);
+					
+					
+					
+					inputDateStr = element.getText().replace("\"", "");
+					System.out.println("inputDateStr 确定修改输入的结束日期:"+inputDateStr);
+				}
+			}catch(Exception e){
+				//e.printStackTrace();
 			}
-		}catch(Exception e){
-			//e.printStackTrace();
-		}
-		
-		//校验选择的日期对不丢
+			
+ 
+			try{
+				//校验选择的日期对不丢
+				if(!dateStr.equalsIgnoreCase(inputDateStr)){
+					//点击日期弹出框
+					//点击上个月
+					/*js.executeScript("document.querySelectorAll(\"a[class='minus']\")[document.querySelectorAll(\"a[class='minus']\").length-1].click();");
+					Thread.sleep(500);
+					js.executeScript("document.querySelectorAll(\"span[data-value='"+endDay+"']\")[document.querySelectorAll(\"span[data-value='"+endDay+"']\").length-1].click();");
+					Thread.sleep(500);
+					*/
+					//上个月
+					js.executeScript("document.querySelectorAll(\"button[class='btn btn-common btn-calendar']\")[3].click();");
+					Thread.sleep(500);
+					js.executeScript("$(\"span[bx-click!=''][bx-click*='"+dateStr+"']:last\").click();");
+					Thread.sleep(500);
+					
+					
+					
+					inputDateStr = element.getText().replace("\"", "");
+					System.out.println("inputDateStr 确定修改输入的结束日期:"+inputDateStr);
+				}
+			}catch(Exception e){
+				//e.printStackTrace();
+			}
+
+			
+			/*	//校验选择的日期对不丢
 		if(!dateStr.equalsIgnoreCase(inputDateStr)){
 			//点击上个月
 			js.executeScript("document.querySelectorAll(\"a[class='minus']\")[document.querySelectorAll(\"a[class='minus']\").length-1].click();");
@@ -959,7 +986,7 @@ public class Main {
 			inputDateStr = element.getText().replace("\"", "");
 			System.out.println("inputDateStr 确定修改输入的结束日期:"+inputDateStr);
 		}
-	
+	*/
 
 		// 旺旺号 边花生
 		element = webDriver.findElement(By.name("wangwangName"));
