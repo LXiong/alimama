@@ -920,6 +920,15 @@ public class Main {
 		String inputDateStr = element.getText().replace("\"", "");
 		
 		System.out.println("inputDateStr 输入的结束日期:"+inputDateStr);
+		
+		
+		int inputDateMonth = DateUtils.parseDate(inputDateStr, "yyyy-MM-dd").getMonth();
+		
+		int truedateMonth = date.getMonth();
+		
+		boolean shangDayFlag = (inputDateMonth == truedateMonth);
+		
+		
 			try{
 				//校验选择的日期对不丢
 				if(!dateStr.equalsIgnoreCase(inputDateStr)){
@@ -933,8 +942,13 @@ public class Main {
 					Thread.sleep(500);
 					*/
 					//上个月
-					int yue = new Date().getMonth()+1;
-					js.executeScript("$(\"a[class='day-header-prev']\").eq("+yue+").click();");
+					
+					if(!shangDayFlag){
+						int yue = new Date().getMonth()+1;
+						js.executeScript("$(\"a[class='day-header-prev']\").eq("+yue+").click();");
+					}
+					
+					
 					Thread.sleep(500);
 					js.executeScript("$(\"span[bx-click!=''][bx-click*='"+dateStr+"']:last\").click();");
 					Thread.sleep(500);
