@@ -1,5 +1,8 @@
 package dataoke;
 
+import java.io.File;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import jodd.http.HttpBrowser;
@@ -15,11 +18,9 @@ public class Zhuce {
 	
 	static String tnum = "";
 	
-	public static void main(String[] args)throws Exception {
-		
-		 Ma60.login();
-		 
-		 System.out.println("获取手机号码");
+	
+	public static void execute()throws Exception{
+		System.out.println("获取手机号码");
 		 String num = Ma60.getnum();
 		 tnum = num;
 		 
@@ -43,19 +44,35 @@ public class Zhuce {
 			 if(StringUtils.isNotBlank(code)){
 				 boolean flag= reg(num, "1qaz2wsx", code);
 				 if(flag){
+					 FileUtils.write(out, num+"----"+"1qaz2wsx"+"\r\n",true);
 					 System.out.println("释放手机号码");
-					 Ma60.resleNum();
+				 }else{
+					 flag= reg(num, "1qaz2wsx", code);
+					 if(flag){
+						 FileUtils.write(out, num+"----"+"1qaz2wsx"+"\r\n",true);
+						 System.out.println("释放手机号码");
+					 }
 				 }
 				 
 			 }else{
 				 System.out.println("验证码为null>>>>>>>>>>>>>>>>>>>>>");
 			 }
-			 
-			
+			 Ma60.resleNum();
 		 }
+	}
+	
+	public static void main(String[] args)throws Exception {
+		
+		 Ma60.login();
+		 for(int i=0;i<3;i++){
+			 execute();
+		 }
+		 
 		
 		
 	}
+	
+	static File out = new File("d:\\dataokeuser.txt");
 	
 	public static boolean reg(String username,String password,String code)throws Exception{
 		 String url = "http://www.dataoke.com/login?user=reg";
@@ -72,7 +89,6 @@ public class Zhuce {
 		 
 		 HttpResponse response = browser.sendRequest(httpRequest);
 		 
-		 response = browser.sendRequest(httpRequest);
 		 String rc = response.body();
 		 System.out.println(rc);
 		 
