@@ -69,7 +69,7 @@ public class Ma60 {
 	 * @return
 	 */
 	public static String getnum() {
-		String url = "http://sms.60ma.net/newsmssrv?cmd=gettelnum&encode=utf-8&docks=对接ID组&userid="
+		String url = "http://sms.60ma.net/newsmssrv?cmd=gettelnum&encode=utf-8&docks=10692408025D0DB&userid="
 				+ userId
 				+ "&userkey="
 				+ userKey
