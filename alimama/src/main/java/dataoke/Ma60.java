@@ -69,7 +69,7 @@ public class Ma60 {
 	 * @return
 	 */
 	public static String getnum() {
-		String url = "http://sms.60ma.net/newsmssrv?cmd=gettelnum&encode=utf-8&docks=10692408025D0DB&userid="
+		String url = "http://sms.60ma.net/newsmssrv?cmd=gettelnum&encode=utf-8&dtype=json&docks=10692408025D0DB&userid="
 				+ userId
 				+ "&userkey="
 				+ userKey
@@ -98,8 +98,8 @@ public class Ma60 {
 	 * 
 	 * @return
 	 */
-	public static boolean getmsg() {
-		String url = "http://sms.60ma.net/newsmssrv?cmd=getsms&encode=utf-8&userid="
+	public static String getmsg() {
+		String url = "http://sms.60ma.net/newsmssrv?cmd=getsms&dtype=json&encode=utf-8&userid="
 				+ userId
 				+ "&userkey="
 				+ userKey
@@ -119,17 +119,17 @@ public class Ma60 {
 		if ("0".equals(staus)) {
 			System.out.println("获取短信成功");
 			String SmsContent = jsonObject.getString("SmsContent");
-			
 			System.out.println(SmsContent);
+			return SmsContent;
 		}
 
-		return true;
+		return "";
 	}
 
 	// 释放所有号码
 	public static void resleNum() {
 
-		String url = "http://sms.60ma.net/newsmssrv?cmd=freetelnumall&encode=utf-8&userid="
+		String url = "http://sms.60ma.net/newsmssrv?cmd=freetelnumall&dtype=json&encode=utf-8&userid="
 				+ userId + "&userkey=" + userKey;
 		HttpRequest httpRequest = HttpRequest.get(url);
 		HttpResponse response = httpRequest.send();
