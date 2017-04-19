@@ -1,5 +1,7 @@
 package dataoke;
 
+import org.apache.commons.lang3.StringUtils;
+
 import jodd.http.HttpBrowser;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
@@ -7,6 +9,9 @@ import jodd.http.HttpResponse;
 public class Zhuce {
 	
 	static HttpBrowser browser = new HttpBrowser();
+	
+	static{
+	}
 	
 	static String tnum = "";
 	
@@ -19,14 +24,34 @@ public class Zhuce {
 		 tnum = num;
 		 
 		 if(verify(num)){
-			 System.out.println("获取短信内容");
-			 String str = Ma60.getmsg();
 			 String code = "";
-			 boolean flag= reg(num, "1qaz2wsx", code);
-			 if(flag){
-				 System.out.println("释放手机号码");
-				 Ma60.resleNum();
+			 System.out.println("获取短信内容");
+			 for(int i=0;i<20;i++){
+				 String str = Ma60.getmsg();
+				 if(StringUtils.isBlank(str)){
+					 Thread.sleep(4000);
+					 continue;
+				 }else{
+					 if(str.contains("大淘客")){
+						 code = str.replace("【大淘客】您的验证码是", "").replace("，请于5分钟内正确输入", "");
+						 break;
+					 }
+				 }
 			 }
+			 System.out.println("验证码为："+code);
+			 
+			 if(StringUtils.isNotBlank(code)){
+				 boolean flag= reg(num, "1qaz2wsx", code);
+				 if(flag){
+					 System.out.println("释放手机号码");
+					 Ma60.resleNum();
+				 }
+				 
+			 }else{
+				 System.out.println("验证码为null>>>>>>>>>>>>>>>>>>>>>");
+			 }
+			 
+			
 		 }
 		
 		

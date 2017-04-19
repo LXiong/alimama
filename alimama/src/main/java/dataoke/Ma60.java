@@ -103,7 +103,7 @@ public class Ma60 {
 				+ userId
 				+ "&userkey="
 				+ userKey
-				+ "&dockcode=对接ID&telnum="
+				+ "&dockcode=10692408025D0DB&telnum="
 				+ telnum;
 		HttpRequest httpRequest = HttpRequest.get(url);
 		HttpResponse response = httpRequest.send();
