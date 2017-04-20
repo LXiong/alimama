@@ -43,7 +43,7 @@ public class Ma60 {
 		String pwd = DigestUtils.md5Hex("qq77662857");
 		String url = "http://sms.60ma.net/loginuser?cmd=login&encode=utf-8&encode=utf-8&dtype=json&newclient=new&usertype=0&username=qq77662857&password="
 				+ pwd;
-		HttpRequest httpRequest = HttpRequest.get(url);
+		HttpRequest httpRequest = HttpRequest.get(url).timeout(10000);
 		HttpResponse response = httpRequest.send();
 		// response.accept("utf-8");
 		// response.acceptEncoding("utf-8");
@@ -74,7 +74,7 @@ public class Ma60 {
 				+ "&userkey="
 				+ userKey
 				+ "&province=0&city=0&operator=0";
-		HttpRequest httpRequest = HttpRequest.get(url);
+		HttpRequest httpRequest = HttpRequest.get(url).timeout(10000);
 		HttpResponse response = httpRequest.send();
 		// response.accept("utf-8");
 		// response.acceptEncoding("utf-8");
@@ -131,7 +131,7 @@ public class Ma60 {
          System.out.println("释放所有号码");
 		String url = "http://sms.60ma.net/newsmssrv?cmd=freetelnumall&dtype=json&encode=utf-8&userid="
 				+ userId + "&userkey=" + userKey;
-		HttpRequest httpRequest = HttpRequest.get(url);
+		HttpRequest httpRequest = HttpRequest.get(url).timeout(10000);
 		HttpResponse response = httpRequest.send();
 		response.charset("utf-8");
 		String rc = response.bodyText();
@@ -144,7 +144,7 @@ public class Ma60 {
 	         System.out.println("释放号码"+num);
 			String url = "http://sms.60ma.net/newsmssrv?cmd=freetelnum&encode=utf-8&docks=10692408025D0DB&userid="
 					+ userId + "&userkey=" + userKey+"&telnum="+num;
-			HttpRequest httpRequest = HttpRequest.get(url);
+			HttpRequest httpRequest = HttpRequest.get(url).timeout(10000);
 			HttpResponse response = httpRequest.send();
 			response.charset("utf-8");
 			String rc = response.bodyText();
@@ -156,7 +156,7 @@ public class Ma60 {
 		public static void jiaheiNum() {
 	         System.out.println("加入黑号");
 			String url = "http://sms.60ma.net/newsmssrv?cmd=addblacktelnum&encode=utf-8&docks=10692408025D0DB&userid="+userId+"&userkey="+userKey+"&telnum="+telnum;
-			HttpRequest httpRequest = HttpRequest.get(url);
+			HttpRequest httpRequest = HttpRequest.get(url).timeout(10000);
 			HttpResponse response = httpRequest.send();
 			response.charset("utf-8");
 			String rc = response.bodyText();

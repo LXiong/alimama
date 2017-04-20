@@ -90,7 +90,7 @@ public class Zhuce {
 		
 	}
 	
-	static File out = new File("d:\\dataokeuser.txt");
+	static File out = new File("d:\\dataokeuser1.txt");
 	
 	public static boolean reg(String username,String password,String code)throws Exception{
 		 String url = "http://www.dataoke.com/login?user=reg";
