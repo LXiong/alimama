@@ -66,7 +66,7 @@ public class Zhuce {
 				 System.out.println("验证码为null>>>>>>>>>>>>>>>>>>>>>");
 				 Ma60.jiaheiNum();
 			 }
-			 Ma60.resleNum();
+			
 		 }
 	}
 	
@@ -79,6 +79,7 @@ public class Zhuce {
 			 }catch(Exception e){
 				 e.printStackTrace();
 			 }finally{
+				 Ma60.resleNum(tnum);
 				 browser.close();
 				 browser =  new HttpBrowser();
 			 }
