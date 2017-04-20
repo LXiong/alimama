@@ -27,6 +27,11 @@ public class Zhuce {
 		 String num = Ma60.getnum();
 		 tnum = num;
 		 
+		 if(StringUtils.isBlank(num)){
+			 System.out.println("获取手机号码有问题》》》》》》》》》》》》》》");
+			 return;
+		 }
+		 
 		 if(verify(num,4)){
 			 String code = "";
 			 System.out.println("获取短信内容");
