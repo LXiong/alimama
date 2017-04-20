@@ -75,7 +75,11 @@ public class Zhuce {
 		
 		 Ma60.login();
 		 for(int i=0;i<100;i++){
-			 execute();
+			// try{
+				 execute();
+			// }catch(Exception e){
+			//	 e.printStackTrace();
+			// }
 			 Thread.sleep(2000);
 		 }
 		 
