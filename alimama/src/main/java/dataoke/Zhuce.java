@@ -30,7 +30,7 @@ public class Zhuce {
 		 if(verify(num,4)){
 			 String code = "";
 			 System.out.println("获取短信内容");
-			 for(int i=0;i<20;i++){
+			 for(int i=0;i<10;i++){
 				 String str = Ma60.getmsg();
 				 if(StringUtils.isBlank(str)){
 					 Thread.sleep(4000);
@@ -60,6 +60,7 @@ public class Zhuce {
 				 
 			 }else{
 				 System.out.println("验证码为null>>>>>>>>>>>>>>>>>>>>>");
+				 Ma60.jiaheiNum();
 			 }
 			 Ma60.resleNum();
 		 }
@@ -68,8 +69,9 @@ public class Zhuce {
 	public static void main(String[] args)throws Exception {
 		
 		 Ma60.login();
-		 for(int i=0;i<3;i++){
+		 for(int i=0;i<100;i++){
 			 execute();
+			 Thread.sleep(2000);
 		 }
 		 
 		

@@ -138,5 +138,17 @@ public class Ma60 {
 		System.out.println(rc);
 
 	}
+	
+	// 释放所有号码
+		public static void jiaheiNum() {
+	         System.out.println("加入黑号");
+			String url = "http://sms.60ma.net/newsmssrv?cmd=addblacktelnum&encode=utf-8&docks=10692408025D0DB&userid="+userId+"&userkey="+userKey+"&telnum="+telnum;
+			HttpRequest httpRequest = HttpRequest.get(url);
+			HttpResponse response = httpRequest.send();
+			response.charset("utf-8");
+			String rc = response.bodyText();
+			System.out.println(rc);
+
+		}
 
 }
