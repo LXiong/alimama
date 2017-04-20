@@ -2,14 +2,13 @@ package dataoke;
 
 import java.io.File;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-
 import jodd.http.HttpBrowser;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
-import ruokuai.RuoKuai;
-import ruokuai.RuoKuaiTest;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import ruokuai.RuoKuaiUnit;
 
 public class Zhuce {
@@ -75,11 +74,14 @@ public class Zhuce {
 		
 		 Ma60.login();
 		 for(int i=0;i<100;i++){
-			// try{
+			 try{
 				 execute();
-			// }catch(Exception e){
-			//	 e.printStackTrace();
-			// }
+			 }catch(Exception e){
+				 e.printStackTrace();
+			 }finally{
+				 browser.close();
+				 browser =  new HttpBrowser();
+			 }
 			 Thread.sleep(2000);
 		 }
 		 
