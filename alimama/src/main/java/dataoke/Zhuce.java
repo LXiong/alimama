@@ -156,7 +156,7 @@ public class Zhuce {
 			return true;
 		 }else{
 			 System.out.println("驗證碼輸入錯誤>>>>>>>>>>>>>>>>>>>>>>>>");
-			 Thread.sleep(4000);
+			 Thread.sleep(2000);
 			 count  = count-1;
 			 if(count==0){
 				 return false;
