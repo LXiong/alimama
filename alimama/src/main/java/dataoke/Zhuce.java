@@ -45,14 +45,15 @@ public class Zhuce {
 			 System.out.println("验证码为："+code);
 			 
 			 if(StringUtils.isNotBlank(code)){
-				 boolean flag= reg(num, "1qaz2wsx", code);
+				 String pwd =  new PassWordCreate().createPassWord(8);
+				 boolean flag= reg(num, pwd, code);
 				 if(flag){
-					 FileUtils.write(out, num+"----"+"1qaz2wsx"+"\r\n",true);
+					 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 					 System.out.println("释放手机号码");
 				 }else{
-					 flag= reg(num, "1qaz2wsx", code);
+					 flag= reg(num, pwd, code);
 					 if(flag){
-						 FileUtils.write(out, num+"----"+"1qaz2wsx"+"\r\n",true);
+						 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 						 System.out.println("释放手机号码");
 					 }
 				 }
