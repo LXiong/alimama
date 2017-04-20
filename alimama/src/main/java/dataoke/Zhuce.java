@@ -8,6 +8,9 @@ import org.apache.commons.lang3.StringUtils;
 import jodd.http.HttpBrowser;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
+import ruokuai.RuoKuai;
+import ruokuai.RuoKuaiTest;
+import ruokuai.RuoKuaiUnit;
 
 public class Zhuce {
 	
@@ -24,7 +27,7 @@ public class Zhuce {
 		 String num = Ma60.getnum();
 		 tnum = num;
 		 
-		 if(verify(num)){
+		 if(verify(num,4)){
 			 String code = "";
 			 System.out.println("获取短信内容");
 			 for(int i=0;i<20;i++){
@@ -102,7 +105,7 @@ public class Zhuce {
 	}
 	
 	
-	public static boolean verify(String num)throws Exception{
+	public static boolean verify(String num,int count)throws Exception{
 		 String url = "http://www.dataoke.com/verify";
 		 HttpRequest httpRequest =HttpRequest.get(url);
 		 httpRequest.header("Host", "www.dataoke.com");
@@ -119,6 +122,9 @@ public class Zhuce {
 		TestImage.buff2Image(bs,"d:\\test.jpg");
 		
 		 String vc = "";
+		 
+		 vc = new RuoKuaiUnit().getImgStr(bs);
+		 
 		 String url2 = "http://www.dataoke.com/message?username="+num+"&vc="+vc;
 		 httpRequest = HttpRequest.get(url2);
 		 httpRequest.header("Host", "www.dataoke.com");
@@ -137,7 +143,11 @@ public class Zhuce {
 		 }else{
 			 System.out.println("驗證碼輸入錯誤>>>>>>>>>>>>>>>>>>>>>>>>");
 			 Thread.sleep(4000);
-			 return verify(num);
+			 count  = count-1;
+			 if(count==0){
+				 return false;
+			 }
+			 return verify(num,count);
 		 }
 	}
 	
