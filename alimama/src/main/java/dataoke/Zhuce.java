@@ -94,7 +94,7 @@ public class Zhuce {
 	
 	public static boolean reg(String username,String password,String code)throws Exception{
 		 String url = "http://www.dataoke.com/login?user=reg";
-		 HttpRequest httpRequest =HttpRequest.post(url);
+		 HttpRequest httpRequest =HttpRequest.post(url).timeout(10000);
 		 httpRequest.header("Host", "www.dataoke.com");
 		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
 		 httpRequest.header("Referer", "http://www.dataoke.com/login?user=reg");
@@ -122,7 +122,7 @@ public class Zhuce {
 	
 	public static boolean verify(String num,int count)throws Exception{
 		 String url = "http://www.dataoke.com/verify";
-		 HttpRequest httpRequest =HttpRequest.get(url);
+		 HttpRequest httpRequest =HttpRequest.get(url).timeout(10000);
 		 httpRequest.header("Host", "www.dataoke.com");
 		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
 		 httpRequest.header("Referer", "http://www.dataoke.com/login?user=reg");
@@ -141,7 +141,7 @@ public class Zhuce {
 		 vc = new RuoKuaiUnit().getImgStr(bs);
 		 
 		 String url2 = "http://www.dataoke.com/message?username="+num+"&vc="+vc;
-		 httpRequest = HttpRequest.get(url2);
+		 httpRequest = HttpRequest.get(url2).timeout(10000);
 		 httpRequest.header("Host", "www.dataoke.com");
 		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
 		 httpRequest.header("Referer", "http://www.dataoke.com/login?user=reg");
