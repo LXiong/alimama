@@ -105,7 +105,7 @@ public class Ma60 {
 				+ userKey
 				+ "&dockcode=10692408025D0DB&telnum="
 				+ telnum;
-		HttpRequest httpRequest = HttpRequest.get(url);
+		HttpRequest httpRequest = HttpRequest.get(url).timeout(5000);
 		HttpResponse response = httpRequest.send();
 		// response.accept("utf-8");
 		// response.acceptEncoding("utf-8");
