@@ -128,7 +128,7 @@ public class Ma60 {
 
 	// 释放所有号码
 	public static void resleNum() {
-
+         System.out.println("释放所有号码");
 		String url = "http://sms.60ma.net/newsmssrv?cmd=freetelnumall&dtype=json&encode=utf-8&userid="
 				+ userId + "&userkey=" + userKey;
 		HttpRequest httpRequest = HttpRequest.get(url);
