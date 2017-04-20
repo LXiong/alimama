@@ -2,7 +2,9 @@ package alimama;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,11 +14,14 @@ public class MatcherUtil {
 
 	public static void main(String[] args) throws Exception{
 
-	String content =	FileUtils.readFileToString(new File("E:\\我的QQ群.txt"));
+	String content =	FileUtils.readFileToString(new File("E:\\采集群\\新建文本文档20161218.txt"));
 	
 	List<String> urls = getUrl(content);
 	
-	for (String string : urls) {
+	Set<String>  urlss = new HashSet<String>(urls);
+	
+	for (String string : urlss) {
+		FileUtils.write(new File("e:\\out20161218.txt"), string+"\r\n", true);
 		System.out.println(string);
 	}
 	}
