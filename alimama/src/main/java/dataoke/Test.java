@@ -24,9 +24,13 @@ public class Test {
 	public static void main(String[] args) throws Exception{
 		//boolean flag = tuijian("2231931");
 		//System.out.println("推广成功》》》》》》》》》》》》》》》》》》》"+flag);
-	    execute();
+	
 		//executeTest();
 	  // testck();
+		
+		execteAll("2247791",new File("G:\\taoke\\第3组500.txt"));
+		
+		
 	}
 	
 	public static void executeTest()throws Exception{
@@ -181,10 +185,16 @@ public class Test {
         return obj3;
 	}
 	
-	public static void execute()throws Exception{
-		String pid ="2247791";
-		
-		List<String> lists=FileUtils.readLines(new File("G:\\taoke\\第1组500.txt"));
+	public static void execteAll(String pid,File... files)throws Exception{
+		for(File f:files){
+			execute(pid, f);
+		}
+	}
+	
+	public static void execute(String pid,File file)throws Exception{
+		//String pid ="2247791";
+		//List<String> lists=FileUtils.readLines(new File("G:\\taoke\\第2组500.txt"));
+		List<String> lists=FileUtils.readLines(file);
 		for(String s:lists){
 			if(StringUtils.isBlank(s)){
 				continue;
