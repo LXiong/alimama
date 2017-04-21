@@ -17,7 +17,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
-public class Test {
+public class Refresh {
 	
 	static Map<String,Cookie[]> map = new HashMap<String, Cookie[]>();
 	
