@@ -195,7 +195,7 @@ public class Test {
 			
 			boolean flag = login(uname,pwd);
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			if(flag){
 				flag = tuijian(pid,uname);
 				//flag = tuijianToFile(pid,uname);
