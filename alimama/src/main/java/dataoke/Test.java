@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import jodd.http.Cookie;
 import jodd.http.HttpRequest;
@@ -32,6 +33,9 @@ public class Test {
 		execteAll("2262582",files);*/
 		
 		deleteAll("15201733860");
+		//login("15201733860", "1qaz2wsx");
+		//deleteById("2247791","13040003624");
+		
 	}
 	
 	public static void executeTest()throws Exception{
@@ -86,7 +90,7 @@ public class Test {
 		}*/
 	}
 	
-	static File fileStoreBase = new File("G:\\ck\\");
+	static File fileStoreBase = new File("D:\\ck\\");
 	
 	/**
 	 * 获取判断商品是否在推广商品页面
@@ -286,34 +290,141 @@ public class Test {
 		return false;
 	}
 	
-	public static boolean deleteAll(String uname)throws Exception{
-		String url ="http://www.dataoke.com/ucenter/all_del_quan.asp?act=del";
-		HttpRequest httpRequest = HttpRequest.post(url);
-		 httpRequest.header("Content-Type", "application/x-www-form-urlencoded");
+	public static boolean deleteById(String id,String uname)throws Exception{
+		String url ="http://www.dataoke.com/ucenter/save.asp?act=del_my_quan&id="+id;
+		HttpRequest httpRequest = HttpRequest.get(url);
 		 httpRequest.header("Host", "www.dataoke.com");
+		 httpRequest.header("Content-Type", "application/x-www-form-urlencoded");
 		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
-		 httpRequest.header("Referer", "http://www.dataoke.com/ucenter/all_del_quan.asp");
-		 httpRequest.header("Upgrade-Insecure-Requests", "1");
+		 httpRequest.header("Referer", "http://www.dataoke.com/ucenter/favorites_quan.asp");
 		 httpRequest.header("Connection", "keep-alive");
 		 httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		 //httpRequest.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		 //httpRequest.header("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		// httpRequest.header("Accept-Encoding", "gzip, deflate");
 		 
-		 Cookie[]  cookies = map.get(uname);
+		
+			
+		 
+		Map<String, String> cookisMap = new HashMap<String, String>();
+		String cookisStr = "random=8696; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492777462; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF; ASPSESSIONIDQSBTQSCS=OHDGKNPACFIHDDFNANILEPKF; token=8f5d2c916cf9a2051dea789e96780d5d; ASPSESSIONIDSQBQSSDT=KNFMMBABCBPCEFDLDGGAGLJO; ASPSESSIONIDQSASQTDT=CDAFIBABKOLMLCOGGMEINGBM";
+		for(String str:cookisStr.split("\\;")){
+			cookisMap.put(str.split("\\=")[0],str.split("\\=")[1]);
+		}
+		
+          
+		 
+		 for(Cookie c:getObjToFile(uname)){
+				// System.out.println(c.getName()+"===="+c.getValue());
+				// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
+			 cookisMap.put(c.getName(), c.getValue());
+			 }
+		 
+		 StringBuffer buffer = new StringBuffer();
+		 
+		 for(Entry<String, String> en:cookisMap.entrySet()){
+			 buffer.append( en.getKey()).append("=").append(en.getValue()).append("; ");
+		 }
+		 
+		 System.out.println(buffer.toString());
+			
+		httpRequest.header("Cookie",buffer.toString());	
+			
+		//httpRequest.header("Cookie","random=8696; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492777462; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF; ASPSESSIONIDQSBTQSCS=OHDGKNPACFIHDDFNANILEPKF; token=8f5d2c916cf9a2051dea789e96780d5d; ASPSESSIONIDSQBQSSDT=KNFMMBABCBPCEFDLDGGAGLJO; ASPSESSIONIDQSASQTDT=CDAFIBABKOLMLCOGGMEINGBM");
+		 
+			
+			
+		 /*Cookie[]  cookies = map.get(uname);
 		 if(ArrayUtils.isNotEmpty(cookies)){
 			 System.out.println("uanem ==="+uname+"  cookis 存在");
 			 httpRequest.cookies(cookies);
 		 }else{
 			 cookies = getObjToFile(uname);
 			 httpRequest.cookies(cookies);
-		 }
-		 //act=add_quan&id=2231931
-		 httpRequest.form("leibie", "0");
-		 httpRequest.form("zh_que_bt", "%C8%B7%C8%CF%C9%BE%B3%FD");
+		 }*/
+		 
 		 
 		 HttpResponse response = httpRequest.send();
 		 String rc = response.bodyText();
 		 System.out.println(rc);
+		
+		
+		//String rc = "";
 		 
-		 if(rc.equalsIgnoreCase("删除成功")){
+		 
+		 if(rc.equalsIgnoreCase("ok")){
+			 System.out.println("id=="+id+" 删除成功>>>>>>>>>>>>>>>");
+			 return true;
+		 }
+		 
+		return false;
+	}
+	
+	public static boolean deleteAll(String uname)throws Exception{
+		String url ="http://www.dataoke.com/ucenter/all_del_quan.asp?act=del";
+		HttpRequest httpRequest = HttpRequest.post(url);
+		 httpRequest.header("Host", "www.dataoke.com");
+		 httpRequest.header("Content-Type", "application/x-www-form-urlencoded");
+		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 httpRequest.header("Referer", "http://www.dataoke.com/ucenter/all_del_quan.asp");
+		 httpRequest.header("Upgrade-Insecure-Requests", "1");
+		 httpRequest.header("Connection", "keep-alive");
+		 httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		 httpRequest.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		 httpRequest.header("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		// httpRequest.header("Accept-Encoding", "gzip, deflate");
+		 
+		 
+		
+			Map<String, String> cookisMap = new HashMap<String, String>();
+			String cookisStr = "random=8696; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492777462; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF; ASPSESSIONIDQSBTQSCS=OHDGKNPACFIHDDFNANILEPKF; token=8f5d2c916cf9a2051dea789e96780d5d; ASPSESSIONIDSQBQSSDT=KNFMMBABCBPCEFDLDGGAGLJO; ASPSESSIONIDQSASQTDT=CDAFIBABKOLMLCOGGMEINGBM";
+			for(String str:cookisStr.split("\\;")){
+				cookisMap.put(str.split("\\=")[0],str.split("\\=")[1]);
+			}
+			
+	          
+			 
+			 for(Cookie c:getObjToFile(uname)){
+					// System.out.println(c.getName()+"===="+c.getValue());
+					// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
+				 cookisMap.put(c.getName(), c.getValue());
+				 }
+			 
+			 StringBuffer buffer = new StringBuffer();
+			 
+			 for(Entry<String, String> en:cookisMap.entrySet()){
+				 buffer.append( en.getKey()).append("=").append(en.getValue()).append("; ");
+			 }
+			 
+			 System.out.println(buffer.toString());
+				
+			httpRequest.header("Cookie",buffer.toString());	
+			
+			
+		 
+		/* Cookie[]  cookies = map.get(uname);
+		 if(ArrayUtils.isNotEmpty(cookies)){
+			 System.out.println("uanem ==="+uname+"  cookis 存在");
+			 httpRequest.cookies(cookies);
+		 }else{
+			 cookies = getObjToFile(uname);
+			 httpRequest.cookies(cookies);
+		 }*/
+		 
+		 
+		 //act=add_quan&id=2231931
+		 httpRequest.form("leibie", "0");
+		 httpRequest.form("zh_que_bt", "%C8%B7%C8%CF%C9%BE%B3%FD");
+		// httpRequest.form("zh_que_bt", "È·ÈÏÉ¾³ý");
+		 
+		 
+		 HttpResponse response = httpRequest.send();
+		 response.charset("gb2312");
+		 String rc = response.bodyText();
+		 System.out.println(rc);
+		 
+		 
+		 if(rc.contains("删除成功")){
 			 System.out.println("id=="+uname+" 删除成功>>>>>>>>>>>>>>>");
 			 return true;
 		 }
@@ -366,7 +477,7 @@ public class Test {
 		
 		System.out.println("用户开始登陆："+uname);
 		 String baseURI = "http://www.dataoke.com/loginApi";
-		 HttpRequest httpRequest = HttpRequest.post(baseURI);
+		 HttpRequest httpRequest = HttpRequest.post(baseURI).timeout(10000);
 		 httpRequest.header("Content-Type", "application/json");
 		 httpRequest.header("Host", "www.dataoke.com");
 		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
@@ -379,10 +490,10 @@ public class Test {
 		 //username=15201733860&password=1qaz2wsx&vc=&ref=
 		 //Cookie	random=9069; UM_distinctid=15b809dffcb9-00e25cf7281db-47534130-15f900-15b809dffcc172; CNZZDATA1257179126=2114245438-1492507982-http%253A%252F%252Fwww.dataoke.com%252F%7C1492507982; dtk_web=2prh3gjms7ut0g2r3fnm1oiap2; upe=98bf65d2; ASPSESSIONIDQSBSQSDT=CGNGMEPCJLPEEEMKOKKBJNCC; ASPSESSIONIDSSDTRTCS=HEDHLEPCNOOCHALCBPCKPEFN; token=15e519c05e03cdc8d3fb524de429edfa; ASPSESSIONIDQSBTQSCT=ADIDAGPCLLIMIEMMDGINPMCL; userid=538278; user_email=17097636339; user%5Femail=17097636339; e88a8013345a8f05461081898691958c=c33d184d1d3e5173a78fcd3eb25d0ed092bb3d58a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22538278%22%3Bi%3A1%3Bs%3A11%3A%2217097636339%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D
 		 
-		httpRequest.header("Cookie", "random=9069; UM_distinctid=15b809dffcb9-00e25cf7281db-47534130-15f900-15b809dffcc172; CNZZDATA1257179126=2114245438-1492507982-http%253A%252F%252Fwww.dataoke.com%252F%7C1492507982; dtk_web=2prh3gjms7ut0g2r3fnm1oiap2; upe=98bf65d2; ASPSESSIONIDQSBSQSDT=CGNGMEPCJLPEEEMKOKKBJNCC; ASPSESSIONIDSSDTRTCS=HEDHLEPCNOOCHALCBPCKPEFN; token=15e519c05e03cdc8d3fb524de429edfa; ASPSESSIONIDQSBTQSCT=ADIDAGPCLLIMIEMMDGINPMCL; userid=538278; user_email=17097636339; user%5Femail=17097636339; e88a8013345a8f05461081898691958c=c33d184d1d3e5173a78fcd3eb25d0ed092bb3d58a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22538278%22%3Bi%3A1%3Bs%3A11%3A%2217097636339%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D");
+		//httpRequest.header("Cookie", "random=9069; UM_distinctid=15b809dffcb9-00e25cf7281db-47534130-15f900-15b809dffcc172; CNZZDATA1257179126=2114245438-1492507982-http%253A%252F%252Fwww.dataoke.com%252F%7C1492507982; dtk_web=2prh3gjms7ut0g2r3fnm1oiap2; upe=98bf65d2; ASPSESSIONIDQSBSQSDT=CGNGMEPCJLPEEEMKOKKBJNCC; ASPSESSIONIDSSDTRTCS=HEDHLEPCNOOCHALCBPCKPEFN; token=15e519c05e03cdc8d3fb524de429edfa; ASPSESSIONIDQSBTQSCT=ADIDAGPCLLIMIEMMDGINPMCL; userid=538278; user_email=17097636339; user%5Femail=17097636339; e88a8013345a8f05461081898691958c=c33d184d1d3e5173a78fcd3eb25d0ed092bb3d58a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22538278%22%3Bi%3A1%3Bs%3A11%3A%2217097636339%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D");
 		 
 		 
-		 httpRequest.header("Cookie", "");
+		 httpRequest.header("Cookie", "random=8337; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492773526; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; token=41d5a8a7ada70ee5b3840f0b84ef60d1; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF");
 		 
 		 httpRequest.form("username", uname);
 		 httpRequest.form("password", pwd);
@@ -397,8 +508,10 @@ public class Test {
 		  cookies = response.cookies();
 		 
 		 for(Cookie c:cookies){
-			// System.out.println(c.getName()+"===="+c.getValue());
+			 System.out.println(c.getName()+"===="+c.getValue());
 		 }
+		 
+		 System.out.println("================================="+httpRequest.header("Cookie"));
 		 
 		 
 		 //System.out.println("response.headers()");

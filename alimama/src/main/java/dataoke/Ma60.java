@@ -12,7 +12,7 @@ public class Ma60 {
 
 	public static void main(String[] args) {
 		login();
-		
+		resleNum();
 		
 	}
 	
@@ -74,7 +74,7 @@ public class Ma60 {
 				+ "&userkey="
 				+ userKey
 				+ "&province=0&city=0&operator=0";
-		HttpRequest httpRequest = HttpRequest.get(url).timeout(10000);
+		HttpRequest httpRequest = HttpRequest.get(url).timeout(20000);
 		HttpResponse response = httpRequest.send();
 		// response.accept("utf-8");
 		// response.acceptEncoding("utf-8");
@@ -105,7 +105,7 @@ public class Ma60 {
 				+ userKey
 				+ "&dockcode=10692408025D0DB&telnum="
 				+ telnum;
-		HttpRequest httpRequest = HttpRequest.get(url).timeout(10000);
+		HttpRequest httpRequest = HttpRequest.get(url).timeout(20000);
 		HttpResponse response = httpRequest.send();
 		// response.accept("utf-8");
 		// response.acceptEncoding("utf-8");
