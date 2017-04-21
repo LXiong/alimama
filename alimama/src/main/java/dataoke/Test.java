@@ -24,15 +24,14 @@ public class Test {
 	public static void main(String[] args) throws Exception{
 		//boolean flag = tuijian("2231931");
 		//System.out.println("推广成功》》》》》》》》》》》》》》》》》》》"+flag);
-	
+		//execteAll("2255030",new File("G:\\taoke\\第4组.txt"));
 		//executeTest();
 	  // testck();
-		File[] files = new File[]{new File("G:\\taoke\\第1组500.txt"),new File("G:\\taoke\\第2组500.txt")
+		/*File[] files = new File[]{new File("G:\\taoke\\第1组500.txt"),new File("G:\\taoke\\第2组500.txt")
 		,new File("G:\\taoke\\第3组500.txt"),new File("G:\\taoke\\第4组.txt")};
-		//execteAll("2255030",new File("G:\\taoke\\第4组.txt"));
-		execteAll("2262582",files);
+		execteAll("2262582",files);*/
 		
-		
+		deleteAll("15201733860");
 	}
 	
 	public static void executeTest()throws Exception{
@@ -187,13 +186,13 @@ public class Test {
         return obj3;
 	}
 	
-	public static void execteDeleteAll(String pid,File... files)throws Exception{
+	public static void execteDeleteAll(File... files)throws Exception{
 		for(File f:files){
-			executeDelete(pid, f);
+			executeDelete( f);
 		}
 	}
 	
-	public static void executeDelete(String pid,File file)throws Exception{
+	public static void executeDelete(File file)throws Exception{
 		List<String> lists=FileUtils.readLines(file);
 		for(String s:lists){
 			if(StringUtils.isBlank(s)){
@@ -208,12 +207,12 @@ public class Test {
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(1000);
 			if(flag){
-				flag = deleteAll(pid,uname);
+				flag = deleteAll(uname);
 				//flag = tuijianToFile(pid,uname);
 				if(flag){
-					System.out.println("删除成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
+					System.out.println("删除成功》》》》》》》》》》》》》》》》》》》 uname="+uname);
 				}else{
-					System.out.println("删除失败》》》》》》》》》》》》》》》》》》pid="+pid+"uname="+uname);
+					System.out.println("删除失败》》》》》》》》》》》》》》》》》》uname="+uname);
 				}
 			}
 			Thread.sleep(1000);
@@ -287,7 +286,7 @@ public class Test {
 		return false;
 	}
 	
-	public static boolean deleteAll(String id,String uname)throws Exception{
+	public static boolean deleteAll(String uname)throws Exception{
 		String url ="http://www.dataoke.com/ucenter/all_del_quan.asp?act=del";
 		HttpRequest httpRequest = HttpRequest.post(url);
 		 httpRequest.header("Content-Type", "application/x-www-form-urlencoded");
@@ -315,6 +314,7 @@ public class Test {
 		 System.out.println(rc);
 		 
 		 if(rc.equalsIgnoreCase("删除成功")){
+			 System.out.println("id=="+uname+" 删除成功>>>>>>>>>>>>>>>");
 			 return true;
 		 }
 		 
