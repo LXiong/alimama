@@ -25,21 +25,23 @@ public class Test {
 		//boolean flag = tuijian("2231931");
 		//System.out.println("推广成功》》》》》》》》》》》》》》》》》》》"+flag);
 	    //execute();
-		 // executeTest();
-	    testck();
+		executeTest();
+	  // testck();
 	}
 	
 	public static void executeTest()throws Exception{
 		String pid ="2250281";
 		
-			String uname = "17007640580";
-			String pwd = "asd123";
+			//String uname = "15201733860";
+			//String pwd = "1qaz2wsx";
+		   String uname = "17071610350";
+		   String pwd = "1qaz2wsx";
+		
 			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆");
 			
-			boolean flag = /*login(uname,pwd);
+			boolean flag = login(uname,pwd);
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
-			Thread.sleep(3000);*/
-					true;
+			Thread.sleep(3000);
 			if(flag){
 				//flag = tuijian(pid,uname);
 				flag = tuijianToFile(pid,uname);
@@ -168,8 +170,12 @@ public class Test {
 	
 	public static Cookie[] getObjToFile(String id)throws Exception{
 		System.out.println("id=="+id+"读取cookid文件");
+		File file = new File(fileStoreBase, id);
+		if(!file.exists()){
+			return null;
+		}
 		  //反序列化对象
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File(fileStoreBase, id)));
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
         Cookie[] obj3 = (Cookie[]) in.readObject();    //读取customer对象
         in.close();
         return obj3;
@@ -178,7 +184,7 @@ public class Test {
 	public static void execute()throws Exception{
 		String pid ="2243275";
 		
-		List<String> lists=FileUtils.readLines(new File("G:\\taoke\\大淘客帐号.txt"));
+		List<String> lists=FileUtils.readLines(new File("G:\\taoke\\dataokeuser20170420.txt"));
 		for(String s:lists){
 			if(StringUtils.isBlank(s)){
 				continue;
@@ -191,8 +197,8 @@ public class Test {
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(3000);
 			if(flag){
-				//flag = tuijian(pid,uname);
-				flag = tuijianToFile(pid,uname);
+				flag = tuijian(pid,uname);
+				//flag = tuijianToFile(pid,uname);
 				if(flag){
 					System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
 				}else{
@@ -270,6 +276,14 @@ public class Test {
 	}
 	
 	public static boolean login(String uname,String pwd)throws Exception{
+		System.out.println("开始查找cookis文件是否存在>>>>>>>>>>>>>>>>>>");
+		Cookie[]  cookies = getObjToFile(uname);
+		if(ArrayUtils.isNotEmpty(cookies)){
+			System.out.println("cookis文件存在>>>>>>>>>>>>>>>>>>返回登录成功");
+			return true;
+		}
+		
+		
 		System.out.println("用户开始登陆："+uname);
 		 String baseURI = "http://www.dataoke.com/loginApi";
 		 HttpRequest httpRequest = HttpRequest.post(baseURI);
@@ -300,7 +314,7 @@ public class Test {
 		 System.out.println(rc);
 		 
 		 
-		 Cookie[]  cookies = response.cookies();
+		  cookies = response.cookies();
 		 
 		 for(Cookie c:cookies){
 			// System.out.println(c.getName()+"===="+c.getValue());
