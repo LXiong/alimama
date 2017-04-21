@@ -79,7 +79,12 @@ public class Zhuce {
 			 }catch(Exception e){
 				 e.printStackTrace();
 			 }finally{
-				 Ma60.resleNum(tnum);
+				 try{
+					 Ma60.resleNum(tnum);
+				 }catch(Exception e){
+					 e.printStackTrace();
+					 Thread.sleep(2000);
+				 }
 				 browser.close();
 				 browser =  new HttpBrowser();
 			 }
@@ -90,7 +95,7 @@ public class Zhuce {
 		
 	}
 	
-	static File out = new File("d:\\dataokeuser1.txt");
+	static File out = new File("d:\\dataokeuser.txt");
 	
 	public static boolean reg(String username,String password,String code)throws Exception{
 		 String url = "http://www.dataoke.com/login?user=reg";
