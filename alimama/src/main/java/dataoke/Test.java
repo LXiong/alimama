@@ -187,12 +187,45 @@ public class Test {
         return obj3;
 	}
 	
+	public static void execteDeleteAll(String pid,File... files)throws Exception{
+		for(File f:files){
+			executeDelete(pid, f);
+		}
+	}
+	
+	public static void executeDelete(String pid,File file)throws Exception{
+		List<String> lists=FileUtils.readLines(file);
+		for(String s:lists){
+			if(StringUtils.isBlank(s)){
+				continue;
+			}
+			count++;
+			String uname = s.split("\\----")[0].trim();
+			String pwd = s.split("\\----")[1].trim();
+			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count);
+			
+			boolean flag = login(uname,pwd);
+			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
+			Thread.sleep(1000);
+			if(flag){
+				flag = deleteAll(pid,uname);
+				//flag = tuijianToFile(pid,uname);
+				if(flag){
+					System.out.println("删除成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
+				}else{
+					System.out.println("删除失败》》》》》》》》》》》》》》》》》》pid="+pid+"uname="+uname);
+				}
+			}
+			Thread.sleep(1000);
+		}
+	}
+	
 	public static void execteAll(String pid,File... files)throws Exception{
 		for(File f:files){
 			execute(pid, f);
 		}
 	}
-	
+	static int count = 0;
 	public static void execute(String pid,File file)throws Exception{
 		//String pid ="2247791";
 		//List<String> lists=FileUtils.readLines(new File("G:\\taoke\\第2组500.txt"));
@@ -201,9 +234,10 @@ public class Test {
 			if(StringUtils.isBlank(s)){
 				continue;
 			}
+			count++;
 			String uname = s.split("\\----")[0].trim();
 			String pwd = s.split("\\----")[1].trim();
-			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆");
+			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count);
 			
 			boolean flag = login(uname,pwd);
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
@@ -247,6 +281,40 @@ public class Test {
 		 System.out.println("tuijianToFile===="+rc);
 		 
 		 if(rc.equalsIgnoreCase("ok")){
+			 return true;
+		 }
+		 
+		return false;
+	}
+	
+	public static boolean deleteAll(String id,String uname)throws Exception{
+		String url ="http://www.dataoke.com/ucenter/all_del_quan.asp?act=del";
+		HttpRequest httpRequest = HttpRequest.post(url);
+		 httpRequest.header("Content-Type", "application/x-www-form-urlencoded");
+		 httpRequest.header("Host", "www.dataoke.com");
+		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 httpRequest.header("Referer", "http://www.dataoke.com/ucenter/all_del_quan.asp");
+		 httpRequest.header("Upgrade-Insecure-Requests", "1");
+		 httpRequest.header("Connection", "keep-alive");
+		 httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		 
+		 Cookie[]  cookies = map.get(uname);
+		 if(ArrayUtils.isNotEmpty(cookies)){
+			 System.out.println("uanem ==="+uname+"  cookis 存在");
+			 httpRequest.cookies(cookies);
+		 }else{
+			 cookies = getObjToFile(uname);
+			 httpRequest.cookies(cookies);
+		 }
+		 //act=add_quan&id=2231931
+		 httpRequest.form("leibie", "0");
+		 httpRequest.form("zh_que_bt", "%C8%B7%C8%CF%C9%BE%B3%FD");
+		 
+		 HttpResponse response = httpRequest.send();
+		 String rc = response.bodyText();
+		 System.out.println(rc);
+		 
+		 if(rc.equalsIgnoreCase("删除成功")){
 			 return true;
 		 }
 		 
