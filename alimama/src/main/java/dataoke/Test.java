@@ -24,8 +24,8 @@ public class Test {
 	public static void main(String[] args) throws Exception{
 		//boolean flag = tuijian("2231931");
 		//System.out.println("推广成功》》》》》》》》》》》》》》》》》》》"+flag);
-	    //execute();
-		executeTest();
+	    execute();
+		//executeTest();
 	  // testck();
 	}
 	
@@ -182,9 +182,9 @@ public class Test {
 	}
 	
 	public static void execute()throws Exception{
-		String pid ="2243275";
+		String pid ="2247791";
 		
-		List<String> lists=FileUtils.readLines(new File("G:\\taoke\\dataokeuser20170420.txt"));
+		List<String> lists=FileUtils.readLines(new File("G:\\taoke\\第1组500.txt"));
 		for(String s:lists){
 			if(StringUtils.isBlank(s)){
 				continue;
@@ -205,7 +205,7 @@ public class Test {
 					System.out.println("推广失败》》》》》》》》》》》》》》》》》》pid="+pid+"uname="+uname);
 				}
 			}
-			Thread.sleep(10000);
+			Thread.sleep(1000);
 		}
 	}
 	
