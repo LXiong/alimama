@@ -922,6 +922,7 @@ public class Main {
 		System.out.println("inputDateStr 输入的结束日期:"+inputDateStr);
 		
 		
+		
 		int inputDateMonth = DateUtils.parseDate(inputDateStr, "yyyy-MM-dd").getMonth();
 		
 		int truedateMonth = date.getMonth();
@@ -944,9 +945,12 @@ public class Main {
 					//上个月
 					
 					if(!shangDayFlag){
-						int yue = new Date().getMonth()+1;
+						int yue = new Date().getMonth();
+						//js.executeScript("$(\"a[class='day-header-prev']\").eq("+yue+").click();");
 						js.executeScript("$(\"a[class='day-header-prev']\").eq("+yue+").click();");
+						
 					}
+					
 					
 					
 					Thread.sleep(500);
