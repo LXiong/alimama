@@ -205,7 +205,7 @@ public class Test {
 			count++;
 			String uname = s.split("\\----")[0].trim();
 			String pwd = s.split("\\----")[1].trim();
-			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count);
+			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count +"当前 文件名称："+file.getName());
 			
 			boolean flag = login(uname,pwd);
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
@@ -240,7 +240,7 @@ public class Test {
 			count++;
 			String uname = s.split("\\----")[0].trim();
 			String pwd = s.split("\\----")[1].trim();
-			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count);
+			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+"当前 文件名称："+file.getName());
 			
 			boolean flag = login(uname,pwd);
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
