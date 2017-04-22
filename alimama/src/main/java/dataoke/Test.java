@@ -239,6 +239,10 @@ public class Test {
 			}
 			count++;
 			
+			/*if(623>count){
+				continue;
+			}*/
+			
 			
 			String uname = s.split("\\----")[0].trim();
 			String pwd = s.split("\\----")[1].trim();
