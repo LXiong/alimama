@@ -19,7 +19,7 @@ public class Refresh {
 		//File[] files = new File[]{new File("d:\\taoke\\第1组500.txt")};
 		//execteAll("2255030",new File("G:\\taoke\\第4组.txt"));
 		//Test.execteAll(new String[]{"2263225","2262582","2255030"},files);
-		File[] files = new File[]{new File("d:\\taoke\\大淘客帐号\\B批第4组410.txt")};
+		File[] files = new File[]{new File("d:\\taoke\\大淘客帐号\\B批第3组500.txt")};
 		Test.execteAll(new String[]{"2262582"},files);
 		
 	}
