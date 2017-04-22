@@ -18,7 +18,7 @@ public class Refresh2 {
 	  // testck();
 		File[] files = new File[]{new File("d:\\taoke\\大淘客帐号\\B批第1组500.txt"),new File("d:\\taoke\\大淘客帐号\\B批第2组500.txt")};
 		//execteAll("2255030",new File("G:\\taoke\\第4组.txt"));
-		Test.execteAll(new String[]{"2247791"},files);
+		Test.execteAll(new String[]{"2263225"},files);
 		
 		
 	}

@@ -482,7 +482,7 @@ public class Test {
 		
 		System.out.println("用户开始登陆："+uname);
 		 String baseURI = "http://www.dataoke.com/loginApi";
-		 HttpRequest httpRequest = HttpRequest.post(baseURI).timeout(10000);
+		 HttpRequest httpRequest = HttpRequest.post(baseURI).timeout(20000);
 		 httpRequest.header("Content-Type", "application/json");
 		 httpRequest.header("Host", "www.dataoke.com");
 		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
