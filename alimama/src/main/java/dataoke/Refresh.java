@@ -16,10 +16,9 @@ public class Refresh {
 	
 		//executeTest();
 	  // testck();
-		File[] files = new File[]{new File("d:\\taoke\\第5组500.txt"),new File("d:\\taoke\\第6组500.txt")
-		,new File("d:\\taoke\\第7组500.txt"),new File("d:\\taoke\\第8组.txt")};
+		File[] files = new File[]{new File("d:\\taoke\\第1组500.txt")};
 		//execteAll("2255030",new File("G:\\taoke\\第4组.txt"));
-		Test.execteAll("2263225",files);
+		Test.execteAll(new String[]{"2263225","2262582","2255030"},files);
 		
 		
 	}

@@ -223,13 +223,13 @@ public class Test {
 		}
 	}
 	
-	public static void execteAll(String pid,File... files)throws Exception{
+	public static void execteAll(String[] pid,File... files)throws Exception{
 		for(File f:files){
 			execute(pid, f);
 		}
 	}
 	static int count = 0;
-	public static void execute(String pid,File file)throws Exception{
+	public static void execute(String[] pids,File file)throws Exception{
 		//String pid ="2247791";
 		//List<String> lists=FileUtils.readLines(new File("G:\\taoke\\第2组500.txt"));
 		List<String> lists=FileUtils.readLines(file);
@@ -238,6 +238,8 @@ public class Test {
 				continue;
 			}
 			count++;
+			
+			
 			String uname = s.split("\\----")[0].trim();
 			String pwd = s.split("\\----")[1].trim();
 			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+"当前 文件名称："+file.getName());
@@ -245,16 +247,19 @@ public class Test {
 			boolean flag = login(uname,pwd);
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(1000);
-			if(flag){
-				flag = tuijian(pid,uname);
-				//flag = tuijianToFile(pid,uname);
+			for(String pid:pids){
 				if(flag){
-					System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
-				}else{
-					System.out.println("推广失败》》》》》》》》》》》》》》》》》》pid="+pid+"uname="+uname);
+					boolean flagt = tuijian(pid,uname);
+					//flag = tuijianToFile(pid,uname);
+					if(flagt){
+						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
+					}else{
+						System.out.println("推广失败》》》》》》》》》》》》》》》》》》pid="+pid+"uname="+uname);
+					}
 				}
+				Thread.sleep(1000);
 			}
-			Thread.sleep(1000);
+			
 		}
 	}
 	
