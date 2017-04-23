@@ -25,7 +25,11 @@ static Map<String,File> map = new HashMap<String, File>();
 	public static void main(String[] args) {
 		String pids = args[0];
 		String fileIds = args[1];
-        execute(pids, fileIds);
+		
+		//pids = "2271360,2255030";
+		//fileIds = "7,8";
+        
+		execute(pids, fileIds);
 	}
 	
 	

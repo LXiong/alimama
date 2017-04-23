@@ -110,7 +110,7 @@ public class Test {
 		}*/
 	}
 	
-	static File fileStoreBase = new File("D:\\ck\\");
+	static File fileStoreBase = new File("D:\\dataoke\\ck\\");
 	
 	/**
 	 * 获取判断商品是否在推广商品页面
