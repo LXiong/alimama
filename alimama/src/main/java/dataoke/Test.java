@@ -463,8 +463,9 @@ public class Test {
 	}
 	
 	public static boolean tuijian(String id,String uname)throws Exception{
+		try{
 		String url ="http://www.dataoke.com/handle_popularize";
-		HttpRequest httpRequest = HttpRequest.post(url);
+		HttpRequest httpRequest = HttpRequest.post(url).timeout(30000);
 		 httpRequest.header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 		 httpRequest.header("Host", "www.dataoke.com");
 		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
@@ -492,6 +493,10 @@ public class Test {
 		 if(rc.equalsIgnoreCase("ok")){
 			 return true;
 		 }
+		 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		 
 		return false;
 	}
