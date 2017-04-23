@@ -51,8 +51,10 @@ static Map<String,File> map = new HashMap<String, File>();
 			for(String id:fileIds.split(",")){
 				if(map.containsKey(id)){
 					File f = map.get(id);
-					System.out.println("输入的文件名称>>>>>>>>>>>>>>"+f.getAbsolutePath());
-					ArrayUtils.add(files, f);
+					if(f!=null){
+						System.out.println("输入的文件名称>>>>>>>>>>>>>>"+f.getAbsolutePath());
+						ArrayUtils.add(files, f);
+					}
 				}
 			}
 		}
