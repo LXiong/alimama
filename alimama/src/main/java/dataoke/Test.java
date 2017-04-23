@@ -32,10 +32,30 @@ public class Test {
 		,new File("G:\\taoke\\第3组500.txt"),new File("G:\\taoke\\第4组.txt")};
 		execteAll("2262582",files);*/
 		
-		deleteAll("15201733860");
+		//deleteAll("15201733860");
 		//login("15201733860", "1qaz2wsx");
 		//deleteById("2247791","13040003624");
-		
+		check();
+	}
+	
+	public static boolean check(){
+		try{
+			String url = "http://m635674608.iteye.com/blog/2370843";
+			 HttpRequest httpRequest = HttpRequest.post(url).timeout(20000);
+			 HttpResponse response = httpRequest.send();
+			 String rc = response.bodyText();
+			 if(rc.contains("dataoke")){
+				 System.out.println("验证码通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				 return true;
+			 }else{
+				 System.out.println("验证码不通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 }
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		return false;
 	}
 	
 	public static void executeTest()throws Exception{
