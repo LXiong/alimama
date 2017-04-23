@@ -25,11 +25,9 @@ static Map<String,File> map = new HashMap<String, File>();
 	public static void main(String[] args) {
 		String pids = args[0];
 		String fileIds = args[1];
-		
-		//pids = "2271360,2255030";
-		//fileIds = "7,8";
-        
 		execute(pids, fileIds);
+		
+		//getFiles("7,8");
 	}
 	
 	
@@ -56,10 +54,14 @@ static Map<String,File> map = new HashMap<String, File>();
 				if(map.containsKey(id)){
 					File f = map.get(id);
 					if(f!=null){
-						System.out.println("输入的文件名称>>>>>>>>>>>>>>"+f.getAbsolutePath());
-						ArrayUtils.add(files, f);
+						files=(File[])ArrayUtils.add(files, f);
 					}
 				}
+			}
+		}
+		for(File f:files){
+			if(f!=null){
+				System.out.println("输入的文件名称>>>>>>>>>>>>>>"+f.getAbsolutePath());
 			}
 		}
 		return files;
