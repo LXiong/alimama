@@ -271,7 +271,7 @@ public class Test {
 			
 			boolean flag = login(uname,pwd);
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
-			Thread.sleep(1000);
+			Thread.sleep(200);
 			for(String pid:pids){
 				if(flag){
 					boolean flagt = tuijian(pid,uname);
@@ -282,7 +282,7 @@ public class Test {
 						System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+uname);
 					}
 				}
-				Thread.sleep(1000);
+				Thread.sleep(Cmd.getSleepTime());
 			}
 			
 		}

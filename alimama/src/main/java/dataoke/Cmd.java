@@ -3,6 +3,7 @@ package dataoke;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -22,12 +23,33 @@ static Map<String,File> map = new HashMap<String, File>();
 		map.put("8", new File("d:\\dataoke\\大淘客帐号\\B批第4组410.txt"));
 	}
 	
+	public static int min = 1;
+	
+	public static int max = 2;
+	
+	public static int getSleepTime(){
+	   return getSleepTime(min, max);
+	}
+	
+	public static int getSleepTime(int min,int max){
+		Random random = new Random();
+        int s = random.nextInt(max)%(max-min+1) + min;
+        System.out.println("获取随机时间为："+s);
+        return s;
+	}
+	
 	public static void main(String[] args) {
 		String pids = args[0];
 		String fileIds = args[1];
 		
-		
+		if(args.length > 2){
+			System.out.println("时间参数为>>>>>>>>>>>>>>>>>"+args[2]);
+			min = Integer.parseInt(args[2].split(",")[0]);
+			max = Integer.parseInt(args[2].split(",")[1]);
+		}
 		execute(pids, fileIds);
+		
+		//System.out.println(getSleepTime(1000, 6000));
 		
 		//getFiles("7,8");
 	}
