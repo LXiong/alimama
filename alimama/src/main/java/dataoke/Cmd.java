@@ -25,7 +25,7 @@ static Map<String,File> map = new HashMap<String, File>();
 	
 	public static int min = 1;
 	
-	public static int max = 2;
+	public static int max = 3;
 	
 	public static int getSleepTime(){
 	   return getSleepTime(min, max);
@@ -47,6 +47,17 @@ static Map<String,File> map = new HashMap<String, File>();
 			min = Integer.parseInt(args[2].split(",")[0]);
 			max = Integer.parseInt(args[2].split(",")[1]);
 		}
+		
+		if(args.length > 3){
+			Integer sleep = Integer.parseInt(args[3]);
+			System.out.println("睡眠 ："+sleep+" 在实行程序");
+			try {
+				Thread.sleep(1000 * sleep);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		execute(pids, fileIds);
 		
 		//System.out.println(getSleepTime(1000, 6000));
