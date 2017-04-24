@@ -8,14 +8,19 @@ import java.util.Random;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
-public class Cmd {
+public class Cmd1 {
 	
-     static Map<String,File> map = new HashMap<String, File>();
-    static File base = new File("D:\\dataoke\\users\\");
+static Map<String,File> map = new HashMap<String, File>();
+	
 	static{
-		for(File f:base.listFiles()){
-			map.put(f.getName().replace(".txt", ""), f);
-		}
+		map.put("1", new File("d:\\dataoke\\大淘客帐号\\A批第1组500.txt"));
+		map.put("2", new File("d:\\dataoke\\大淘客帐号\\A批第2组500.txt"));
+		map.put("3", new File("d:\\dataoke\\大淘客帐号\\A批第3组500.txt"));
+		map.put("4", new File("d:\\dataoke\\大淘客帐号\\A批第4组390.txt"));
+		map.put("5", new File("d:\\dataoke\\大淘客帐号\\B批第1组500.txt"));
+		map.put("6", new File("d:\\dataoke\\大淘客帐号\\B批第2组500.txt"));
+		map.put("7", new File("d:\\dataoke\\大淘客帐号\\B批第3组500.txt"));
+		map.put("8", new File("d:\\dataoke\\大淘客帐号\\B批第4组410.txt"));
 	}
 	
 	public static int min = 1000;
