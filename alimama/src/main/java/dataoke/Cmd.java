@@ -44,12 +44,12 @@ static Map<String,File> map = new HashMap<String, File>();
 		
 		if(args.length > 2){
 			System.out.println("时间参数为>>>>>>>(单位毫秒)>>>>>>>>>>"+args[2]);
-			min = Integer.parseInt(args[2].split(",")[0]);
-			max = Integer.parseInt(args[2].split(",")[1]);
+			min = Integer.parseInt(args[2].split(",")[0].trim());
+			max = Integer.parseInt(args[2].split(",")[1].trim());
 		}
 		
 		if(args.length > 3){
-			Integer sleep = Integer.parseInt(args[3]);
+			Integer sleep = Integer.parseInt(args[3].trim());
 			System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
 			try {
 				Thread.sleep(1000 * sleep);
