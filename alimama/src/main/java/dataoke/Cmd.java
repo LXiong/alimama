@@ -23,9 +23,9 @@ static Map<String,File> map = new HashMap<String, File>();
 		map.put("8", new File("d:\\dataoke\\大淘客帐号\\B批第4组410.txt"));
 	}
 	
-	public static int min = 1;
+	public static int min = 1000;
 	
-	public static int max = 3;
+	public static int max = 2000;
 	
 	public static int getSleepTime(){
 	   return getSleepTime(min, max);
