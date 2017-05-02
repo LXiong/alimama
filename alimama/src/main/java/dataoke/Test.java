@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import jodd.http.Cookie;
 import jodd.http.HttpRequest;
@@ -17,6 +18,11 @@ import jodd.http.HttpResponse;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+
+import util.HtmlUnitUtil;
+
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class Test {
 	
@@ -35,7 +41,10 @@ public class Test {
 		//deleteAll("15201733860");
 		//login("15201733860", "1qaz2wsx");
 		//deleteById("2247791","13040003624");
-		check();
+		//check();
+		
+		
+		System.out.println(readDetailHttp("2325753", "13411679603"));
 	}
 	
 	public static boolean check(){
@@ -248,6 +257,87 @@ public class Test {
 			execute(pid, f);
 		}
 	}
+	
+	public static boolean readDetailWebClient(String pid){
+		String url = "http://www.dataoke.com/item?id="+pid;
+		WebClient webClient = HtmlUnitUtil.create();
+		try {
+			HtmlPage htmlPage = webClient.getPage(url);
+			Thread.sleep(1000);
+			 if(htmlPage.asXml().contains("商家合作")){
+				 return true;
+			 }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * 点击商品详情
+	 * @param pid
+	 * @param uname
+	 * @return
+	 */
+	public static boolean readDetailHttp(String pid,String uname){
+		String url = "http://www.dataoke.com/item?id="+pid;
+		try{
+			 HttpRequest httpRequest = HttpRequest.get(url).timeout(30000);
+			 httpRequest.header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+			 httpRequest.header("Host", "www.dataoke.com");
+			 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+			 //httpRequest.header("Referer", "http://www.dataoke.com/item?id="+id);
+			 //http://www.dataoke.com/search/?keywords=%E5%A4%8F%E5%AD%A3%E5%A5%B3%E5%A3%AB&xuan=keyword_miaoshu
+			 httpRequest.header("Referer", "http://www.dataoke.com/top_tui");
+			 httpRequest.header("Upgrade-Insecure-Requests", "1");
+			 httpRequest.header("Connection", "keep-alive");
+			 httpRequest.header("X-Requested-With", "XMLHttpRequest");
+			 
+			 Cookie[]  cookies = map.get(uname);
+			 if(ArrayUtils.isNotEmpty(cookies)){
+				 System.out.println("uanem ==="+uname+"  cookis 存在");
+				 httpRequest.cookies(cookies);
+			 }else{
+				 cookies = getObjToFile(uname);
+				 httpRequest.cookies(cookies);
+			 }
+			 HttpResponse response = httpRequest.send();
+			 response=  response.charset("utf-8");
+			 String rc = response.bodyText();
+			 System.out.println(rc);
+			 
+			 if(rc.contains("商家合作")){
+				 return true;
+			 }else{
+				 System.out.println("商品详情返回："+rc);
+			 }
+			 
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		   
+			 
+			return false;
+	
+	}
+	
+	public static void readExecute(final String pid,final String uname){
+		new Thread(){
+			public void run() {
+				int cout = new Random().nextInt(5);
+				for(int i=0;i<cout;i++){
+					try {
+						boolean flag = readDetailHttp(pid, uname);
+						System.out.println("uname :"+uname + " 刷阅读数结果 ："+flag);
+						Thread.sleep((new Random(1000).nextInt()+1000));
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			};
+		}.start();
+	}
+	
 	static int count = 0;
 	public static void execute(String[] pids,File file)throws Exception{
 		//String pid ="2247791";
@@ -273,6 +363,7 @@ public class Test {
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(200);
 			for(String pid:pids){
+				readExecute(pid, uname);
 				if(flag){
 					boolean flagt = tuijian(pid,uname);
 					//flag = tuijianToFile(pid,uname);
