@@ -329,7 +329,8 @@ public class Test {
 					try {
 						boolean flag = readDetailHttp(pid, uname);
 						System.out.println("uname :"+uname + " 刷阅读数结果 ："+flag);
-						Thread.sleep((new Random(1000).nextInt()+1000));
+						long time = new Random().nextInt(1000)+1000l;
+						Thread.sleep(time);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
