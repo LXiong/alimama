@@ -304,7 +304,7 @@ public class Test {
 			 HttpResponse response = httpRequest.send();
 			 response=  response.charset("utf-8");
 			 String rc = response.bodyText();
-			 System.out.println(rc);
+			// System.out.println(rc);
 			 
 			 if(rc.contains("商家合作")){
 				 return true;
