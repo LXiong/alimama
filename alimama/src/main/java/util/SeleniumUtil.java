@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -75,6 +76,7 @@ public class SeleniumUtil {
 			service.start();*/
 			System.setProperty("webdriver.chrome.driver", "e:\\app\\chromedriver\\chromedriver.exe");
 			driver = new ChromeDriver();
+			//driver = new HtmlUnitDriver(true);
 		} catch (Exception e) {
 			logger.error("Init WebDriver is error!", e);
 			throw new RuntimeException(e);
