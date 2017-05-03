@@ -841,7 +841,7 @@ public class Test {
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(200);
 			for(String pid:pids){
-				readExecute(pid, uname);
+				//readExecute(pid, uname);
 				if(flag){
 					//boolean flagt = tuijian(pid,uname);
 					//flag = tuijianToFile(pid,uname);

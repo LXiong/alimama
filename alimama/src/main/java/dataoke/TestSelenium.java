@@ -50,7 +50,7 @@ public class TestSelenium {
 	
 	public static boolean execute(String id,String uname)throws Exception{
 		if(webDriver==null){
-			SeleniumUtil.initChromeDriver();
+			webDriver = SeleniumUtil.initChromeDriver();
 		}
 
 		webDriver.get("http://www.dataoke.com/item?id="+id);
