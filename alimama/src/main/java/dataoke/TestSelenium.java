@@ -49,10 +49,10 @@ public class TestSelenium {
 	}
 	
 	public static boolean execute(String id,String uname)throws Exception{
-		if(webDriver==null){
+		/*if(webDriver==null){
 			webDriver = SeleniumUtil.initChromeDriver();
-		}
-
+		}*/
+		webDriver = SeleniumUtil.initChromeDriver();
 		try{
 			webDriver.get("http://www.dataoke.com/item?id="+id);
 			setCookis(uname, webDriver);
@@ -65,6 +65,8 @@ public class TestSelenium {
 		    
 		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+			webDriver.close();
 		}
 		return true;
 	}
