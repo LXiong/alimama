@@ -52,11 +52,20 @@ public class CreatePid {
 					continue;
 				}
 				count++;
+				if(count<13){
+					continue;
+				}
 				String uname = s.split("\\----")[0].trim();
 				String pwd = s.split("\\----")[1].trim();
 				System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
-				Test.createPidAll(uname);
-				Thread.sleep(2000);
+				try{
+					Test.createPidAll(uname);
+				}catch(Exception e){
+					e.printStackTrace();
+				}finally{
+					Thread.sleep(2000);
+				}
+				
 			}
 		}
 		
