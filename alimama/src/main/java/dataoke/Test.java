@@ -527,6 +527,9 @@ public class Test {
 					//flag = tuijianToFile(pid,uname);
 					if(flagt){
 						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
+						boolean bflag = biaoji(pid, uname);
+						System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
+						
 					}else{
 						System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+uname);
 					}
