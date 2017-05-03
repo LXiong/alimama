@@ -1,6 +1,7 @@
 package dataoke;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -39,7 +40,10 @@ public class CreatePid {
 	
 	static int count=0;
 	public static void main(String[] args)throws Exception {
-		Collection<File> files=map.values();
+		Collection<File> files=new ArrayList<File>();
+		files.add(map.get("1"));
+		files.add(map.get("2"));
+		
 		for(File file:files){
 			System.out.println("开始读取文件>>>>>>>>>>"+file.getAbsolutePath());
 			List<String> lists=FileUtils.readLines(file);
