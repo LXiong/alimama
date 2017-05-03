@@ -21,17 +21,46 @@ public class TestSelenium {
 	    
 	}
 	
+	static WebDriver webDriver = null;
+	
 	public static void test()throws Exception{
-		WebDriver webDriver = SeleniumUtil.initChromeDriver();
+		if(webDriver==null){
+			SeleniumUtil.initChromeDriver();
+		}
 
 		webDriver.get("http://www.dataoke.com/item?id=2318180");
-		setCookis("13411679603", webDriver);
+		setCookis("15989716682", webDriver);
 		webDriver.get("http://www.dataoke.com/item?id=2318180");
 		
 		WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
 	    element.click();
 	    
+	    Thread.sleep(5000);
+	    
+		setCookis("13713419479", webDriver);
+		webDriver.get("http://www.dataoke.com/item?id=2318180");
+		
+		 element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
+	    element.click();
+	    
+	    
+	    
 	    //webDriver.close();
+	}
+	
+	public static boolean execute(String id,String uname)throws Exception{
+		if(webDriver==null){
+			SeleniumUtil.initChromeDriver();
+		}
+
+		webDriver.get("http://www.dataoke.com/item?id="+id);
+		setCookis(uname, webDriver);
+		webDriver.get("http://www.dataoke.com/item?id="+id);
+		
+		WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
+	    element.click();
+	    Thread.sleep(2000);
+	    return true;
 	}
 	
 	
@@ -60,7 +89,7 @@ public class TestSelenium {
 					
 		}
 
-		System.out.println("====="+buffer.toString());
+		//System.out.println("====="+buffer.toString());
 
 	}
 

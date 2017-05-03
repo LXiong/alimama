@@ -845,7 +845,8 @@ public class Test {
 				if(flag){
 					//boolean flagt = tuijian(pid,uname);
 					//flag = tuijianToFile(pid,uname);
-					boolean flagt = zhuan(uname,pid);
+					//boolean flagt = zhuan(uname,pid);
+					boolean flagt = TestSelenium.execute(pid,uname);
 					if(flagt){
 						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
 						//boolean bflag = biaoji(pid, uname);
