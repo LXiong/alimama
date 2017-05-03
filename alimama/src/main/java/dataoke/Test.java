@@ -55,9 +55,11 @@ public class Test {
 		
 		//System.out.println(queryPidByName("17189683009", "已破形常准"));
 		
-		System.out.println(createPidAll("17189683009"));
+		//System.out.println(createPidAll("17189683009"));
 		
 		//System.out.println(createPid("17189683009"));
+		
+		System.out.println(zhuan("13411679603 ", "2337538"));
 	}
 	
 	public static boolean check(){
@@ -373,7 +375,107 @@ public class Test {
 		}
 	}
 	
+	public static boolean zhuan(String uname,String ppid)throws Exception {
+		try{
+			boolean flag = tuijian2to1_1(uname, ppid);
+			System.out.println("二转一第一步>>>>>>>>>>>>>>>>>>>>>>>"+flag);
+			
+			if(!flag){
+				return flag;
+			}
+			
+			flag = tuijian2to1_2(uname, ppid);
+			System.out.println("二转一第二步>>>>>>>>>>>>>>>>>>>>>>>"+flag);
+			
+			return flag;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 	
+	public static boolean tuijian2to1_1(String uname,String ppid) throws Exception {
+
+		String url = "http://www.dataoke.com/dtpwd";
+		HttpRequest httpRequest = HttpRequest.post(url);
+		httpRequest.header("Host", "www.dataoke.com");
+		httpRequest
+				.header("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.header("Referer",
+				"http://www.dataoke.com/item?id="+ppid);
+		httpRequest.header("Upgrade-Insecure-Requests", "1");
+		httpRequest.header("Connection", "keep-alive");
+		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.header("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.header("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		//httpRequest.header("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+		
+		httpRequest.form("gid", ppid);
+		httpRequest.form("type", 1);
+		
+		httpRequest.charset("gb2312");
+		
+
+		HttpResponse response = httpRequest.send();
+		response = response.charset("gb2312");
+		String rc = response.bodyText();
+
+		//System.out.println("createPid返回结果：" + rc);
+
+		if (rc.contains(":1")) {
+			//String ppid = queryPidByName(uname, title);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public static boolean tuijian2to1_2(String uname,String ppid) throws Exception {
+
+		String url = "http://www.dataoke.com/detailtpl";
+		HttpRequest httpRequest = HttpRequest.post(url);
+		httpRequest.header("Host", "www.dataoke.com");
+		httpRequest
+				.header("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.header("Referer",
+				"http://www.dataoke.com/item?id="+ppid);
+		httpRequest.header("Upgrade-Insecure-Requests", "1");
+		httpRequest.header("Connection", "keep-alive");
+		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.header("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.header("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		//httpRequest.header("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+		
+		httpRequest.form("gid", ppid);
+		
+		httpRequest.charset("gb2312");
+
+		HttpResponse response = httpRequest.send();
+		response = response.charset("gb2312");
+		String rc = response.bodyText();
+
+		//System.out.println("createPid返回结果：" + rc);
+
+		if (rc.contains(":1")) {
+			//String ppid = queryPidByName(uname, title);
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	public static boolean biaojiAction(String goodId,String uname)throws Exception{
 		
@@ -670,12 +772,13 @@ public class Test {
 			for(String pid:pids){
 				readExecute(pid, uname);
 				if(flag){
-					boolean flagt = tuijian(pid,uname);
+					//boolean flagt = tuijian(pid,uname);
 					//flag = tuijianToFile(pid,uname);
+					boolean flagt = zhuan(pid,uname);
 					if(flagt){
 						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
-						boolean bflag = biaoji(pid, uname);
-						System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
+						//boolean bflag = biaoji(pid, uname);
+						//System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
 						
 					}else{
 						System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+uname);
