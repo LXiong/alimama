@@ -1064,11 +1064,12 @@ public class Test {
 	
 	public static boolean login(String uname,String pwd)throws Exception{
 		System.out.println("开始查找cookis文件是否存在>>>>>>>>>>>>>>>>>>");
-		Cookie[]  cookies = getObjToFile(uname);
+		Cookie[]  cookies  = null;
+	  /*cookies = getObjToFile(uname);
 		if(ArrayUtils.isNotEmpty(cookies)){
 			System.out.println("cookis文件存在>>>>>>>>>>>>>>>>>>返回登录成功");
 			return true;
-		}
+		}*/
 		
 		
 		System.out.println("用户开始登陆："+uname);
@@ -1104,10 +1105,13 @@ public class Test {
 		  cookies = response.cookies();
 		 
 		 for(Cookie c:cookies){
-			// System.out.println(c.getName()+"===="+c.getValue());
+			 System.out.println("rp=="+c.getName()+"===="+c.getValue());
 		 }
 		 
-		// System.out.println("================================="+httpRequest.header("Cookie"));
+		 
+		
+		 
+	    System.out.println("================================="+httpRequest.header("Cookie"));
 		 
 		 
 		 //System.out.println("response.headers()");

@@ -15,6 +15,13 @@ public class TestSelenium {
 
 	public static void main(String[] args)throws Exception {
 		// TODO Auto-generated method stub
+		//Test.login("13411679603", "1qaz2wsx");
+		test();
+		
+	    
+	}
+	
+	public static void test()throws Exception{
 		WebDriver webDriver = SeleniumUtil.initChromeDriver();
 
 		webDriver.get("http://www.dataoke.com/item?id=2318180");
@@ -23,7 +30,6 @@ public class TestSelenium {
 		
 		WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
 	    element.click();
-	    
 	}
 	
 	
@@ -52,7 +58,7 @@ public class TestSelenium {
 					
 		}
 
-		// System.out.println(buffer.toString());
+		System.out.println("====="+buffer.toString());
 
 	}
 
