@@ -55,9 +55,9 @@ public class Test {
 		
 		//System.out.println(queryPidByName("17189683009", "已破形常准"));
 		
-		//System.out.println(createPidAll("17189683009"));
+		System.out.println(createPidAll("17189683009"));
 		
-		System.out.println(createPid("17189683009"));
+		//System.out.println(createPid("17189683009"));
 	}
 	
 	public static boolean check(){
@@ -344,15 +344,18 @@ public class Test {
 						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 		httpRequest.header("Accept-Language",
 				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
-		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		//httpRequest.header("X-Requested-With", "XMLHttpRequest");
 
 		setCookis(uname, httpRequest);
 		
 		String title = CharUtil.drawRandomNum();
+		//title = "Æ¬³åÊý·Å¶¼";
 		String pid = CharUtil.getRandomPid();
 		httpRequest.form("title", title);
 		httpRequest.form("tong_pid", pid);
 		httpRequest.form("Submit", " ´´ ½¨ ");
+		
+		httpRequest.charset("gb2312");
 		
 		System.out.println("title: "+title + " pid : "+pid);
 
@@ -360,7 +363,7 @@ public class Test {
 		response = response.charset("gb2312");
 		String rc = response.bodyText();
 
-		System.out.println("createPid返回结果：" + rc);
+		//System.out.println("createPid返回结果：" + rc);
 
 		if (rc.contains("创建成功")) {
 			//String ppid = queryPidByName(uname, title);
