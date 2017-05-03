@@ -218,7 +218,7 @@ public class Test {
 			 buffer.append( en.getKey()).append("=").append(en.getValue()).append("; ");
 		 }
 		 
-		 System.out.println(buffer.toString());
+		// System.out.println(buffer.toString());
 			
 		httpRequest.header("Cookie",buffer.toString());	
 	 
