@@ -59,7 +59,7 @@ public class Test {
 		
 		//System.out.println(createPid("17189683009"));
 		
-		System.out.println(zhuan("13411679603 ", "2337538"));
+		System.out.println(zhuan("13411679603", "2337538"));
 	}
 	
 	public static boolean check(){
@@ -774,7 +774,7 @@ public class Test {
 				if(flag){
 					//boolean flagt = tuijian(pid,uname);
 					//flag = tuijianToFile(pid,uname);
-					boolean flagt = zhuan(pid,uname);
+					boolean flagt = zhuan(uname,pid);
 					if(flagt){
 						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
 						//boolean bflag = biaoji(pid, uname);
