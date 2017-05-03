@@ -252,6 +252,44 @@ public class Test {
 			return false;
 		}
 	}
+
+	public static boolean copy(String uname,String pid,String type) throws Exception {
+
+		//set_wx
+       //set_qq
+		String url = "http://ei.cnzz.com/stat.htm?id=1257179126&r=&lg=zh-cn&ntime=1493814841&cnzz_eid=1538129784-1492772062-http%3A%2F%2Fwww.dataoke.com%2F&showp=1920x1080&ei=%25E5%2595%2586%25E5%2593%2581%25E8%25AF%25A6%25E6%2583%2585%2520%25E5%25A4%258D%25E5%2588%25B6QQ%25E6%25A8%25A1%25E7%2589%2588%7C%25E7%2582%25B9%25E5%2587%25BB%7C%7C0%7C&t=%E3%80%90%E4%BA%94%E4%B8%80%E7%8B%82%E6%AC%A2%E3%80%91%E6%A0%BC%E5%8A%9B%E5%8F%B0%E5%BC%8F%E7%94%B5%E6%89%87%E5%AE%9A%E6%97%B6%E9%9D%99%E9%9F%B3%E8%8A%82%E8%83%BD%20-%20%E5%A4%A7%E6%B7%98%E5%AE%A2%E8%81%94%E7%9B%9F&umuuid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105&h=1&rnd=1287433446";
+		HttpRequest httpRequest = HttpRequest.get(url);
+		httpRequest.header("Host", "ei.cnzz.com");
+		httpRequest
+				.header("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.header("Referer",
+				"http://www.dataoke.com/item?id="+pid);
+		httpRequest.header("Upgrade-Insecure-Requests", "1");
+		httpRequest.header("Connection", "keep-alive");
+		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.header("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.header("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+
+		HttpResponse response = httpRequest.send();
+		response = response.charset("gb2312");
+		String rc = response.bodyText();
+
+		//System.out.println("pidAddwx：" + rc);
+
+		if (rc.contains("欢迎")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	
 	public static String queryPidByName(String uname,String pname) throws Exception {
 
