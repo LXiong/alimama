@@ -53,14 +53,17 @@ public class TestSelenium {
 			webDriver = SeleniumUtil.initChromeDriver();
 		}
 
-		webDriver.get("http://www.dataoke.com/item?id="+id);
-		setCookis(uname, webDriver);
-		webDriver.get("http://www.dataoke.com/item?id="+id);
-		Thread.sleep(1000);
-		WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
-	    element.click();
-	    Thread.sleep(2000);
-	    return true;
+		try{
+			webDriver.get("http://www.dataoke.com/item?id="+id);
+			setCookis(uname, webDriver);
+			webDriver.get("http://www.dataoke.com/item?id="+id);
+			Thread.sleep(1500);
+			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
+		    element.click();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 	
