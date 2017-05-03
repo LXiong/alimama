@@ -56,7 +56,7 @@ public class TestSelenium {
 		webDriver.get("http://www.dataoke.com/item?id="+id);
 		setCookis(uname, webDriver);
 		webDriver.get("http://www.dataoke.com/item?id="+id);
-		
+		Thread.sleep(1000);
 		WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
 	    element.click();
 	    Thread.sleep(2000);
