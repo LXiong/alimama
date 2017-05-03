@@ -60,6 +60,9 @@ public class TestSelenium {
 			Thread.sleep(1500);
 			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
 		    element.click();
+		    Thread.sleep(500);
+		    webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+		    
 		}catch(Exception e){
 			e.printStackTrace();
 		}
