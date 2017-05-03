@@ -15,7 +15,6 @@ import jodd.http.Cookie;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -24,6 +23,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import util.CharUtil;
 import util.HtmlUnitUtil;
 
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -51,7 +51,13 @@ public class Test {
 		
 		//System.out.println(readDetailHttp("2325753", "13411679603"));
 		
-		System.out.println(biaoji("2333730", "17189683009"));
+		//System.out.println(biaoji("2333730", "17189683009"));
+		
+		//System.out.println(queryPidByName("17189683009", "已破形常准"));
+		
+		//System.out.println(createPidAll("17189683009"));
+		
+		System.out.println(createPid("17189683009"));
 	}
 	
 	public static boolean check(){
@@ -182,6 +188,189 @@ public class Test {
 		 }
 	}
 	
+	public static void setCookis(String uname,HttpRequest httpRequest)throws Exception{
+		Map<String, String> cookisMap = new HashMap<String, String>();
+		String cookisStr = "random=8696; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492777462; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF; ASPSESSIONIDQSBTQSCS=OHDGKNPACFIHDDFNANILEPKF; token=8f5d2c916cf9a2051dea789e96780d5d; ASPSESSIONIDSQBQSSDT=KNFMMBABCBPCEFDLDGGAGLJO; ASPSESSIONIDQSASQTDT=CDAFIBABKOLMLCOGGMEINGBM";
+		for (String str : cookisStr.split("\\;")) {
+			cookisMap.put(str.split("\\=")[0], str.split("\\=")[1]);
+		}
+
+		for (Cookie c : getObjToFile(uname)) {
+			// System.out.println(c.getName()+"===="+c.getValue());
+			// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
+			cookisMap.put(c.getName(), c.getValue());
+		}
+
+		StringBuffer buffer = new StringBuffer();
+
+		for (Entry<String, String> en : cookisMap.entrySet()) {
+			buffer.append(en.getKey()).append("=").append(en.getValue())
+					.append("; ");
+		}
+
+		// System.out.println(buffer.toString());
+
+		httpRequest.header("Cookie", buffer.toString());
+	}
+	
+	
+	public static boolean pidAdd(String uname,String pid,String type) throws Exception {
+
+		//set_wx
+       //set_qq
+		String url = "http://www.dataoke.com/ucenter/mypid.asp?act="+type+"&id="+pid;
+		HttpRequest httpRequest = HttpRequest.get(url);
+		httpRequest.header("Host", "www.dataoke.com");
+		httpRequest
+				.header("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.header("Referer",
+				"http://www.dataoke.com/ucenter/mypid.asp");
+		httpRequest.header("Upgrade-Insecure-Requests", "1");
+		httpRequest.header("Connection", "keep-alive");
+		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.header("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.header("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+
+		HttpResponse response = httpRequest.send();
+		response = response.charset("gb2312");
+		String rc = response.bodyText();
+
+		//System.out.println("pidAddwx：" + rc);
+
+		if (rc.contains("欢迎")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public static String queryPidByName(String uname,String pname) throws Exception {
+
+		String url = "http://www.dataoke.com/ucenter/mypid.asp";
+		HttpRequest httpRequest = HttpRequest.get(url);
+		httpRequest.header("Host", "www.dataoke.com");
+		httpRequest
+				.header("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.header("Referer",
+				"http://www.dataoke.com/ucenter/mypid.asp");
+		httpRequest.header("Upgrade-Insecure-Requests", "1");
+		httpRequest.header("Connection", "keep-alive");
+		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.header("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.header("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+		
+		HttpResponse response = httpRequest.send();
+		response = response.charset("gb2312");
+		String rc = response.bodyText();
+
+		//System.out.println("createPid返回结果：" + rc);
+
+		if (rc.contains("PID管理")) {
+			Document document = Jsoup.parse(rc);
+			Elements elements = document.getElementsByTag("tr");
+			for(Element element:elements){
+				String html = element.html();
+				if(html.contains(pname) && !html.contains("领券优惠")){
+					//System.out.println(html);
+					//System.out.println("===============================");
+					elements = element.getElementsByTag("a");
+					for(Element e:elements){
+						//System.out.println(e.html());
+						String href = e.attr("href");
+						if(StringUtils.isNotBlank(href) && href.contains("id=")){
+							return href.replace("?act=set_qq&id=", "").replace("?act=set_wx&id=", "");
+						}
+					}
+				}
+			}
+			
+			
+			return "";
+		} else {
+			return "";
+		}
+	}
+	
+	public static boolean createPidAll(String uname)throws Exception{
+		 String title=createPid(uname);
+		 System.out.println("title: "+title);
+		 if(StringUtils.isNotBlank(title)){
+			 String pid = queryPidByName(uname, title);
+			 Thread.sleep(1000);
+			 boolean flag = pidAdd(uname, pid, "set_wx");
+			 System.out.println("设为微信专用>>>>>>>>>>>>>>>"+flag);
+		 }
+		 Thread.sleep(1000);
+		 title=createPid(uname);
+		 System.out.println("title: "+title);
+		 if(StringUtils.isNotBlank(title)){
+			 String pid = queryPidByName(uname, title);
+			 Thread.sleep(1000);
+			 boolean flag =  pidAdd(uname, pid, "set_qq");
+			 System.out.println("设为Q群专用>>>>>>>>>>>>>>>"+flag);
+		 }
+		 return true;
+	}
+	
+	public static String createPid(String uname) throws Exception {
+
+		String url = "http://www.dataoke.com/ucenter/mypid.asp?act=add";
+		HttpRequest httpRequest = HttpRequest.post(url);
+		httpRequest.header("Host", "www.dataoke.com");
+		httpRequest
+				.header("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.header("Referer",
+				"http://www.dataoke.com/ucenter/mypid.asp");
+		httpRequest.header("Upgrade-Insecure-Requests", "1");
+		httpRequest.header("Connection", "keep-alive");
+		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.header("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.header("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		httpRequest.header("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+		
+		String title = CharUtil.drawRandomNum();
+		String pid = CharUtil.getRandomPid();
+		httpRequest.form("title", title);
+		httpRequest.form("tong_pid", pid);
+		httpRequest.form("Submit", " ´´ ½¨ ");
+		
+		System.out.println("title: "+title + " pid : "+pid);
+
+		HttpResponse response = httpRequest.send();
+		response = response.charset("gb2312");
+		String rc = response.bodyText();
+
+		System.out.println("createPid返回结果：" + rc);
+
+		if (rc.contains("创建成功")) {
+			//String ppid = queryPidByName(uname, title);
+			return title;
+		} else {
+			return "";
+		}
+	}
+	
+	
 	
 	public static boolean biaojiAction(String goodId,String uname)throws Exception{
 		
@@ -198,29 +387,7 @@ public class Test {
 	 httpRequest.header("X-Requested-With", "XMLHttpRequest");
 	 
 
-		Map<String, String> cookisMap = new HashMap<String, String>();
-		String cookisStr = "random=8696; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492777462; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF; ASPSESSIONIDQSBTQSCS=OHDGKNPACFIHDDFNANILEPKF; token=8f5d2c916cf9a2051dea789e96780d5d; ASPSESSIONIDSQBQSSDT=KNFMMBABCBPCEFDLDGGAGLJO; ASPSESSIONIDQSASQTDT=CDAFIBABKOLMLCOGGMEINGBM";
-		for(String str:cookisStr.split("\\;")){
-			cookisMap.put(str.split("\\=")[0],str.split("\\=")[1]);
-		}
-		
-          
-		 
-		 for(Cookie c:getObjToFile(uname)){
-				// System.out.println(c.getName()+"===="+c.getValue());
-				// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
-			 cookisMap.put(c.getName(), c.getValue());
-			 }
-		 
-		 StringBuffer buffer = new StringBuffer();
-		 
-		 for(Entry<String, String> en:cookisMap.entrySet()){
-			 buffer.append( en.getKey()).append("=").append(en.getValue()).append("; ");
-		 }
-		 
-		// System.out.println(buffer.toString());
-			
-		httpRequest.header("Cookie",buffer.toString());	
+		setCookis(uname, httpRequest);
 	 
 	 HttpResponse response = httpRequest.send();
 	 response = response.charset("gb2312");
@@ -250,30 +417,7 @@ public class Test {
 		 httpRequest.header("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
 		 httpRequest.header("X-Requested-With", "XMLHttpRequest");
 		 
-
-			Map<String, String> cookisMap = new HashMap<String, String>();
-			String cookisStr = "random=8696; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492777462; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF; ASPSESSIONIDQSBTQSCS=OHDGKNPACFIHDDFNANILEPKF; token=8f5d2c916cf9a2051dea789e96780d5d; ASPSESSIONIDSQBQSSDT=KNFMMBABCBPCEFDLDGGAGLJO; ASPSESSIONIDQSASQTDT=CDAFIBABKOLMLCOGGMEINGBM";
-			for(String str:cookisStr.split("\\;")){
-				cookisMap.put(str.split("\\=")[0],str.split("\\=")[1]);
-			}
-			
-	          
-			 
-			 for(Cookie c:getObjToFile(uname)){
-					// System.out.println(c.getName()+"===="+c.getValue());
-					// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
-				 cookisMap.put(c.getName(), c.getValue());
-				 }
-			 
-			 StringBuffer buffer = new StringBuffer();
-			 
-			 for(Entry<String, String> en:cookisMap.entrySet()){
-				 buffer.append( en.getKey()).append("=").append(en.getValue()).append("; ");
-			 }
-			 
-			 //System.out.println(buffer.toString());
-				
-			httpRequest.header("Cookie",buffer.toString());	
+        setCookis(uname, httpRequest);
 		 
 		 HttpResponse response = httpRequest.send();
 		 response = response.charset("gb2312");
