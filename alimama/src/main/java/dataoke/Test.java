@@ -59,7 +59,9 @@ public class Test {
 		
 		//System.out.println(createPid("17189683009"));
 		
-		System.out.println(zhuan("13411679603", "2337538"));
+		//System.out.println(zhuan("13411679603", "2337538"));
+		
+		System.out.println(goodClickWebClient("13411679603", "2318180"));
 	}
 	
 	public static boolean check(){
@@ -703,10 +705,32 @@ public class Test {
 		}
 	}
 	
-	public static boolean readDetailWebClient(String pid){
+	public static boolean goodClickWebClient(String uname,String pid){
 		String url = "http://www.dataoke.com/item?id="+pid;
 		WebClient webClient = HtmlUnitUtil.create();
 		try {
+			setCookis(uname, webClient);
+			HtmlPage htmlPage = webClient.getPage(url);
+			Thread.sleep(3000);
+			
+			//htmlPage.getFirstByXPath("//*[@class='add-tui J_add_tui']");
+			
+			htmlPage = (HtmlPage)HtmlUnitUtil.click(htmlPage, "//*[@class='add-tui J_add_tui']");
+			Thread.sleep(3000);
+			
+			System.out.println(htmlPage.asXml());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean readDetailWebClient(String uname,String pid){
+		String url = "http://www.dataoke.com/item?id="+pid;
+		WebClient webClient = HtmlUnitUtil.create();
+		try {
+			setCookis(uname, webClient);
 			HtmlPage htmlPage = webClient.getPage(url);
 			Thread.sleep(1000);
 			 if(htmlPage.asXml().contains("商家合作")){
@@ -717,6 +741,36 @@ public class Test {
 		}
 		return false;
 	}
+	
+	public static void setCookis(String uname,WebClient webClient)throws Exception{
+		Map<String, String> cookisMap = new HashMap<String, String>();
+		String cookisStr = "random=8696; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492777462; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF; ASPSESSIONIDQSBTQSCS=OHDGKNPACFIHDDFNANILEPKF; token=8f5d2c916cf9a2051dea789e96780d5d; ASPSESSIONIDSQBQSSDT=KNFMMBABCBPCEFDLDGGAGLJO; ASPSESSIONIDQSASQTDT=CDAFIBABKOLMLCOGGMEINGBM";
+		for (String str : cookisStr.split("\\;")) {
+			cookisMap.put(str.split("\\=")[0], str.split("\\=")[1]);
+		}
+
+		for (Cookie c : getObjToFile(uname)) {
+			// System.out.println(c.getName()+"===="+c.getValue());
+			// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
+			cookisMap.put(c.getName(), c.getValue());
+		}
+
+		StringBuffer buffer = new StringBuffer();
+
+		for (Entry<String, String> en : cookisMap.entrySet()) {
+			buffer.append(en.getKey()).append("=").append(en.getValue())
+					.append("; ");
+			
+			com.gargoylesoftware.htmlunit.util.Cookie cookie = new com.gargoylesoftware.htmlunit.util.Cookie("www.dataoke.com", en.getKey(), en.getValue());
+					
+					webClient.getCookieManager().addCookie(cookie);
+					
+		}
+
+		// System.out.println(buffer.toString());
+
+	}
+
 	
 	/**
 	 * 点击商品详情
