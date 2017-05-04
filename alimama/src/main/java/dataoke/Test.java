@@ -530,6 +530,8 @@ public class Test {
 		 return false;
 	 }
 	}
+	static SocketHttpConnectionProvider connectionProvider = null;
+	
 	
 	public static SocketHttpConnectionProvider getSocketHttpConnectionProvider()throws Exception{
 		 List<HttpHost> hosts = IpUtils.getips("http://tvp.daxiangdaili.com/ip/?tid=557335383289182&num=1&category=2&filter=on");
@@ -701,7 +703,15 @@ public class Test {
 	
 	public static void execteAll(String[] pid,File... files)throws Exception{
 		for(File f:files){
-			execute(pid, f);
+			try{
+				connectionProvider = getSocketHttpConnectionProvider();
+				execute(pid, f);
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally{
+				connectionProvider = null;
+			}
+			
 		}
 	}
 	
@@ -800,7 +810,7 @@ public class Test {
 				 cookies = getObjToFile(uname);
 				 httpRequest.cookies(cookies);
 			 }
-			 HttpResponse response = httpRequest.send();
+			 HttpResponse response = httpRequest.open(connectionProvider).send();
 			 response=  response.charset("utf-8");
 			 String rc = response.bodyText();
 			// System.out.println(rc);
@@ -1048,7 +1058,7 @@ public class Test {
 		 httpRequest.form("act", "add_quan");
 		 httpRequest.form("id", id);
 		 
-		 HttpResponse response = httpRequest.open(getSocketHttpConnectionProvider()).send();
+		 HttpResponse response = httpRequest.open(connectionProvider).send();
 		 String rc = response.bodyText();
 		 System.out.println(rc);
 		 
