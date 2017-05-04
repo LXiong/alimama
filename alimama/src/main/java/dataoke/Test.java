@@ -1155,7 +1155,7 @@ public class Test {
 		 httpRequest.form("act", "add_quan");
 		 httpRequest.form("id", id);
 		 
-		 HttpResponse response = httpRequest.open(connectionProvider).send();
+		 HttpResponse response = httpRequest.send();
 		 String rc = response.bodyText();
 		 System.out.println(rc);
 		 
