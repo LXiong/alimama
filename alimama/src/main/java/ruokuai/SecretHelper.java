@@ -59,7 +59,7 @@ public class SecretHelper {
 	 */
 	public static void main(String[] args) {
 		try {
-			 String s = jia("00-26-9E-F4-1F-54_2015-12-01");
+			 String s = jia("lixinhua");
 			 System.out.println(s);
 			// s=jia(MacAddressUtil.getMacAddress());
 			System.out.println(s);
