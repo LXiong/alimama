@@ -937,8 +937,8 @@ public class Test {
 			for(String pid:pids){
 			    //readExecute(pid, uname);
 				if(flag){
-					//boolean flagt = tuijian(pid,uname);
-					boolean flagt = tuijianHttpClient(pid,uname);
+					boolean flagt = tuijian(pid,uname);
+					//boolean flagt = tuijianHttpClient(pid,uname);
 					//flag = tuijianToFile(pid,uname);
 					//boolean flagt = zhuan(uname,pid);
 					//boolean flagt = TestSelenium.execute(pid,uname);
@@ -1138,6 +1138,9 @@ public class Test {
 		 httpRequest.header("Upgrade-Insecure-Requests", "1");
 		 httpRequest.header("Connection", "keep-alive");
 		 httpRequest.header("X-Requested-With", "XMLHttpRequest");
+		 String ip = IpUtils.getRandomIp();
+		 httpRequest.header("X-FORWARDED-FOR", ip);
+		 httpRequest.header("CLIENT-IP", ip);
 		 
 		 Cookie[]  cookies = map.get(uname);
 		 if(ArrayUtils.isNotEmpty(cookies)){
