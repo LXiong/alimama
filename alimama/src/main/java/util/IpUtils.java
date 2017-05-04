@@ -66,7 +66,7 @@ public  static List<HttpHost> getips(String url) {
 
 			//System.out.println("get ipstr :" + str);
 
-			String[] strs = str.split("\r\n");
+			String[] strs = str.replaceAll("\\t", "").replace("    ", "").replace("<br>", "").split("\r\n");
 			for (String ipstr : strs) {
 				String[] ip = ipstr.split(":");
 				HttpHost e = new HttpHost(ip[0], Integer.parseInt(ip[1]));

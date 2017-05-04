@@ -583,7 +583,7 @@ public class Test {
 	
 	
 	public static HttpHost getProxy()throws Exception{
-		 List<HttpHost> hosts = IpUtils.getips("http://tvp.daxiangdaili.com/ip/?tid=557335383289182&num=1&category=2&exclude_ports=8080,80,8081,8089&filter=on");
+		 List<HttpHost> hosts = IpUtils.getips("http://www.66ip.cn/getzh.php?getzh=2017050413171&getnum=1&isp=0&anonymoustype=3&start=&ports=&export=&ipaddress=&area=0&proxytype=0&api=https");
 		 if(CollectionUtils.isEmpty(hosts)){
 			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 Thread.sleep(5000);
@@ -766,12 +766,12 @@ public class Test {
 	public static void execteAll(String[] pid,File... files)throws Exception{
 		for(File f:files){
 			try{
-				connectionProvider = getSocketHttpConnectionProvider();
+				//connectionProvider = getSocketHttpConnectionProvider();
 				execute(pid, f);
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
-				connectionProvider = null;
+				//connectionProvider = null;
 			}
 			
 		}
@@ -937,7 +937,8 @@ public class Test {
 			for(String pid:pids){
 			    readExecute(pid, uname);
 				if(flag){
-					boolean flagt = tuijian(pid,uname);
+					//boolean flagt = tuijian(pid,uname);
+					boolean flagt = tuijianHttpClient(pid,uname);
 					//flag = tuijianToFile(pid,uname);
 					//boolean flagt = zhuan(uname,pid);
 					//boolean flagt = TestSelenium.execute(pid,uname);
