@@ -16,6 +16,7 @@ import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import jodd.http.ProxyInfo;
 import jodd.http.ProxyInfo.ProxyType;
+import jodd.http.net.SocketHttpConnection;
 import jodd.http.net.SocketHttpConnectionProvider;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -31,6 +32,7 @@ import org.jsoup.select.Elements;
 import util.CharUtil;
 import util.HtmlUnitUtil;
 import util.IpUtils;
+import util.MyConnectionProvider;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -67,7 +69,16 @@ public class Test {
 		
 		//System.out.println(zhuan("13411679603", "2337538"));
 		
-		System.out.println(goodClickWebClient("13411679603", "2318180"));
+		//System.out.println(goodClickWebClient("13411679603", "2318180"));
+		
+		testjoddProxy();
+	}
+	
+	public static void testjoddProxy()throws Exception{
+		HttpRequest httpRequest = HttpRequest.get("http://ip.chinaz.com/");
+		HttpResponse httpResponse = httpRequest.open(getSocketHttpConnectionProvider()).send();
+		 String rc = httpResponse.bodyText();
+		 System.out.println(rc);
 	}
 	
 	public static boolean check(){
@@ -534,17 +545,17 @@ public class Test {
 	
 	
 	public static SocketHttpConnectionProvider getSocketHttpConnectionProvider()throws Exception{
-		 List<HttpHost> hosts = IpUtils.getips("http://tvp.daxiangdaili.com/ip/?tid=557335383289182&num=1&category=2&filter=on");
+		 List<HttpHost> hosts = IpUtils.getips("http://tvp.daxiangdaili.com/ip/?tid=557335383289182&num=1&category=2&exclude_ports=8080,80&filter=on");
 		 if(CollectionUtils.isEmpty(hosts)){
 			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 Thread.sleep(5000);
 			 return null;
 		 }else{
-			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 		 }
-		 HttpHost host = hosts.get(0); 
+		HttpHost host = hosts.get(0); 
 		ProxyInfo proxyInfoObj = new ProxyInfo(ProxyType.HTTP, host.getHostName(), host.getPort(), "", "");
-	    SocketHttpConnectionProvider provider =  new SocketHttpConnectionProvider();
+	    SocketHttpConnectionProvider provider =  new MyConnectionProvider();
 	    provider.useProxy(proxyInfoObj);
 	    return provider;
 	}
