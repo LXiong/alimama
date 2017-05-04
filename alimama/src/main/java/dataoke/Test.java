@@ -841,12 +841,12 @@ public class Test {
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(200);
 			for(String pid:pids){
-				//readExecute(pid, uname);
+			    readExecute(pid, uname);
 				if(flag){
-					//boolean flagt = tuijian(pid,uname);
+					boolean flagt = tuijian(pid,uname);
 					//flag = tuijianToFile(pid,uname);
 					//boolean flagt = zhuan(uname,pid);
-					boolean flagt = TestSelenium.execute(pid,uname);
+					//boolean flagt = TestSelenium.execute(pid,uname);
 					if(flagt){
 						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
 						//boolean bflag = biaoji(pid, uname);
