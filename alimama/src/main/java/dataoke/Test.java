@@ -16,7 +16,6 @@ import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import jodd.http.ProxyInfo;
 import jodd.http.ProxyInfo.ProxyType;
-import jodd.http.net.SocketHttpConnection;
 import jodd.http.net.SocketHttpConnectionProvider;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -24,6 +23,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -71,8 +72,19 @@ public class Test {
 		
 		//System.out.println(goodClickWebClient("13411679603", "2318180"));
 		
-		testjoddProxy();
+		testHttpclientProxy();
 	}
+	
+	 
+	 
+	 public static void testHttpclientProxy()throws Exception{
+		 String url ="http://ip.chinaz.com/";
+		 HttpPost httpRequest = new HttpPost(url);
+		 HttpClientUtils httpClientUtils = new HttpClientUtils();
+		 HttpHost proxy = getProxy();
+		 String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
+			 System.out.println(rc);
+		}
 	
 	public static void testjoddProxy()throws Exception{
 		HttpRequest httpRequest = HttpRequest.get("http://ip.chinaz.com/");
@@ -210,6 +222,32 @@ public class Test {
 		// System.out.println(buffer.toString());
 
 		httpRequest.header("Cookie", buffer.toString());
+	}
+	
+
+	public static void setCookis(String uname,HttpRequestBase httpRequest)throws Exception{
+		Map<String, String> cookisMap = new HashMap<String, String>();
+		String cookisStr = "random=8696; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492777462; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF; ASPSESSIONIDQSBTQSCS=OHDGKNPACFIHDDFNANILEPKF; token=8f5d2c916cf9a2051dea789e96780d5d; ASPSESSIONIDSQBQSSDT=KNFMMBABCBPCEFDLDGGAGLJO; ASPSESSIONIDQSASQTDT=CDAFIBABKOLMLCOGGMEINGBM";
+		for (String str : cookisStr.split("\\;")) {
+			cookisMap.put(str.split("\\=")[0].trim(), str.split("\\=")[1]);
+		}
+
+		for (Cookie c : getObjToFile(uname)) {
+			// System.out.println(c.getName()+"===="+c.getValue());
+			// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
+			cookisMap.put(c.getName().trim(), c.getValue());
+		}
+
+		StringBuffer buffer = new StringBuffer();
+
+		for (Entry<String, String> en : cookisMap.entrySet()) {
+			buffer.append(en.getKey().trim()).append("=").append(en.getValue())
+					.append("; ");
+		}
+
+		// System.out.println(buffer.toString());
+
+		httpRequest.setHeader("Cookie", buffer.toString());
 	}
 	
 	
@@ -544,8 +582,21 @@ public class Test {
 	static SocketHttpConnectionProvider connectionProvider = null;
 	
 	
+	public static HttpHost getProxy()throws Exception{
+		 List<HttpHost> hosts = IpUtils.getips("http://tvp.daxiangdaili.com/ip/?tid=557335383289182&num=1&category=2&exclude_ports=8080,80,8081,8089&filter=on");
+		 if(CollectionUtils.isEmpty(hosts)){
+			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 Thread.sleep(5000);
+			 return null;
+		 }else{
+			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+		 }
+		HttpHost host = hosts.get(0); 
+	    return host;
+	}
+	
 	public static SocketHttpConnectionProvider getSocketHttpConnectionProvider()throws Exception{
-		 List<HttpHost> hosts = IpUtils.getips("http://tvp.daxiangdaili.com/ip/?tid=557335383289182&num=1&category=2&exclude_ports=8080,80&filter=on");
+		 List<HttpHost> hosts = IpUtils.getips("http://tvp.daxiangdaili.com/ip/?tid=557335383289182&num=1&category=2&exclude_ports=8080,80,8081,8089&filter=on");
 		 if(CollectionUtils.isEmpty(hosts)){
 			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 Thread.sleep(5000);
@@ -1044,6 +1095,36 @@ public class Test {
 		 
 		return false;
 	}
+	
+	public static boolean tuijianHttpClient(String id,String uname)throws Exception{
+		try{
+		String url ="http://www.dataoke.com/handle_popularize";
+		HttpPost httpRequest = new HttpPost(url);
+		 httpRequest.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+		 httpRequest.setHeader("Host", "www.dataoke.com");
+		 httpRequest.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 httpRequest.setHeader("Referer", "http://www.dataoke.com/item?id="+id);
+		 httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		 httpRequest.setHeader("Connection", "keep-alive");
+		 httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+		 setCookis(uname, httpRequest);
+
+		 HttpClientUtils httpClientUtils = new HttpClientUtils();
+		 
+		 HttpHost proxy = getProxy();
+		 String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
+		 
+		 if(rc.equalsIgnoreCase("ok")){
+			 return true;
+		 }
+		 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		 
+		return false;
+	}
+	
 	
 	public static boolean tuijian(String id,String uname)throws Exception{
 		try{
