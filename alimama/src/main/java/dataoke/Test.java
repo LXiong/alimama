@@ -14,10 +14,15 @@ import java.util.Random;
 import jodd.http.Cookie;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
+import jodd.http.ProxyInfo;
+import jodd.http.ProxyInfo.ProxyType;
+import jodd.http.net.SocketHttpConnectionProvider;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpHost;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,6 +30,7 @@ import org.jsoup.select.Elements;
 
 import util.CharUtil;
 import util.HtmlUnitUtil;
+import util.IpUtils;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -523,6 +529,22 @@ public class Test {
 	 }else{
 		 return false;
 	 }
+	}
+	
+	public static SocketHttpConnectionProvider getSocketHttpConnectionProvider()throws Exception{
+		 List<HttpHost> hosts = IpUtils.getips("http://tvp.daxiangdaili.com/ip/?tid=557335383289182&num=1&category=2&filter=on");
+		 if(CollectionUtils.isEmpty(hosts)){
+			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 Thread.sleep(5000);
+			 return null;
+		 }else{
+			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 }
+		 HttpHost host = hosts.get(0); 
+		ProxyInfo proxyInfoObj = new ProxyInfo(ProxyType.HTTP, host.getHostName(), host.getPort(), "", "");
+	    SocketHttpConnectionProvider provider =  new SocketHttpConnectionProvider();
+	    provider.useProxy(proxyInfoObj);
+	    return provider;
 	}
 	
 	public static boolean biaoji(String id,String uname)throws Exception{
@@ -1026,7 +1048,7 @@ public class Test {
 		 httpRequest.form("act", "add_quan");
 		 httpRequest.form("id", id);
 		 
-		 HttpResponse response = httpRequest.send();
+		 HttpResponse response = httpRequest.open(getSocketHttpConnectionProvider()).send();
 		 String rc = response.bodyText();
 		 System.out.println(rc);
 		 
