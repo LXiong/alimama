@@ -1139,6 +1139,7 @@ public class Test {
 		 httpRequest.header("Connection", "keep-alive");
 		 httpRequest.header("X-Requested-With", "XMLHttpRequest");
 		 String ip = IpUtils.getRandomIp();
+		 System.out.println("获取随机ip>>>>>>>>>>>>>>"+ip);
 		 httpRequest.header("X-FORWARDED-FOR", ip);
 		 httpRequest.header("CLIENT-IP", ip);
 		 
