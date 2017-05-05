@@ -766,16 +766,27 @@ public class Test {
 			Thread.sleep(1000);
 		}
 	}
+	static String ip = "";
+	public static void setRandomIp(HttpRequest httpRequest){
+		 //String ip = IpUtils.getRandomIp();
+		 System.out.println("获取随机ip>>>>>>>>>>>>>>"+ip);
+		 if(StringUtils.isNotBlank(ip)){
+			 httpRequest.header("X-FORWARDED-FOR", ip);
+			 httpRequest.header("CLIENT-IP", ip);
+		 }
+	}
 	
 	public static void execteAll(String[] pid,File... files)throws Exception{
 		for(File f:files){
 			try{
+				ip = IpUtils.getRandomIp();
 				//connectionProvider = getSocketHttpConnectionProvider();
 				execute(pid, f);
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
 				//connectionProvider = null;
+				ip = "";
 			}
 			
 		}
@@ -867,6 +878,7 @@ public class Test {
 			 httpRequest.header("Upgrade-Insecure-Requests", "1");
 			 httpRequest.header("Connection", "keep-alive");
 			 httpRequest.header("X-Requested-With", "XMLHttpRequest");
+			 setRandomIp(httpRequest);
 			 
 			 Cookie[]  cookies = map.get(uname);
 			 if(ArrayUtils.isNotEmpty(cookies)){
@@ -1144,10 +1156,7 @@ public class Test {
 		 httpRequest.header("Upgrade-Insecure-Requests", "1");
 		 httpRequest.header("Connection", "keep-alive");
 		 httpRequest.header("X-Requested-With", "XMLHttpRequest");
-		 String ip = IpUtils.getRandomIp();
-		 System.out.println("获取随机ip>>>>>>>>>>>>>>"+ip);
-		 httpRequest.header("X-FORWARDED-FOR", ip);
-		 httpRequest.header("CLIENT-IP", ip);
+		setRandomIp(httpRequest);
 		 
 		 Cookie[]  cookies = map.get(uname);
 		 if(ArrayUtils.isNotEmpty(cookies)){
