@@ -935,7 +935,7 @@ public class Test {
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(200);
 			for(String pid:pids){
-			    //readExecute(pid, uname);
+			    readExecute(pid, uname);
 				if(flag){
 					boolean flagt = tuijian(pid,uname);
 					//boolean flagt = tuijianHttpClient(pid,uname);
@@ -946,6 +946,8 @@ public class Test {
 						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
 						//boolean bflag = biaoji(pid, uname);
 						//System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
+						
+						System.out.println("删除>>>>>>>>>>>>>>>>>>推广>>>>>>>>>>>>>>>>"+deleteAll(uname,"0"));
 						
 					}else{
 						System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+uname);
