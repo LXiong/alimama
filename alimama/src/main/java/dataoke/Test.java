@@ -951,8 +951,8 @@ public class Test {
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(200);
 			for(String pid:pids){
+				ip = IpUtils.getRandomIp();
 			    readExecute(pid, uname);
-			    ip = IpUtils.getRandomIp();
 				if(flag){
 					boolean flagt = tuijian(pid,uname);
 					//boolean flagt = tuijianHttpClient(pid,uname);
