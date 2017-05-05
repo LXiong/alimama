@@ -72,7 +72,11 @@ public class Test {
 		
 		//System.out.println(goodClickWebClient("13411679603", "2318180"));
 		
-		testHttpclientProxy();
+		//testHttpclientProxy();
+		
+		//System.out.println(tuijian("2359220", "17774505172"));
+		
+		System.out.println(deleteAll("17774505172","0"));
 	}
 	
 	 
