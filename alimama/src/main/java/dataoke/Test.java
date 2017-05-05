@@ -779,14 +779,14 @@ public class Test {
 	public static void execteAll(String[] pid,File... files)throws Exception{
 		for(File f:files){
 			try{
-				ip = IpUtils.getRandomIp();
+				
 				//connectionProvider = getSocketHttpConnectionProvider();
 				execute(pid, f);
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
 				//connectionProvider = null;
-				ip = "";
+				//ip = "";
 			}
 			
 		}
@@ -952,6 +952,7 @@ public class Test {
 			Thread.sleep(200);
 			for(String pid:pids){
 			    readExecute(pid, uname);
+			    ip = IpUtils.getRandomIp();
 				if(flag){
 					boolean flagt = tuijian(pid,uname);
 					//boolean flagt = tuijianHttpClient(pid,uname);
@@ -970,6 +971,7 @@ public class Test {
 					}
 				}
 				Thread.sleep(Cmd.getSleepTime());
+				ip = "";
 			}
 			
 		}
