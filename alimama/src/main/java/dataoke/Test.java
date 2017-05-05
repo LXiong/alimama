@@ -872,7 +872,7 @@ public class Test {
 				 cookies = getObjToFile(uname);
 				 httpRequest.cookies(cookies);
 			 }
-			 HttpResponse response = httpRequest.open(connectionProvider).send();
+			 HttpResponse response = httpRequest.open().send();
 			 response=  response.charset("utf-8");
 			 String rc = response.bodyText();
 			// System.out.println(rc);
@@ -946,7 +946,7 @@ public class Test {
 						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
 						//boolean bflag = biaoji(pid, uname);
 						//System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
-						
+						Thread.sleep(1000);
 						System.out.println("删除>>>>>>>>>>>>>>>>>>推广>>>>>>>>>>>>>>>>"+deleteAll(uname,"0"));
 						
 					}else{
@@ -1088,7 +1088,7 @@ public class Test {
 		 HttpResponse response = httpRequest.send();
 		 response.charset("gb2312");
 		 String rc = response.bodyText();
-		 System.out.println(rc);
+		// System.out.println(rc);
 		 
 		 
 		 if(rc.contains("删除成功")){
