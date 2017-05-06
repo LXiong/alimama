@@ -912,7 +912,7 @@ public class Test {
 	public static void readExecute(final String pid,final String uname){
 		new Thread(){
 			public void run() {
-				int cout = new Random().nextInt(5);
+				int cout = new Random().nextInt(3);
 				for(int i=0;i<cout;i++){
 					try {
 						boolean flag = readDetailHttp(pid, uname);
