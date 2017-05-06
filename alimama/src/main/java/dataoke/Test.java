@@ -953,18 +953,19 @@ public class Test {
 			Thread.sleep(200);
 			for(String pid:pids){
 				ip = IpUtils.getRandomIp();
-			    readExecute(pid, uname);
-				if(flag){
-					boolean flagt = tuijian(pid,uname);
+			    if(flag){
+			    	//readExecute(pid, uname);
+					
+					//boolean flagt = tuijian(pid,uname);
 					//boolean flagt = tuijianHttpClient(pid,uname);
 					//flag = tuijianToFile(pid,uname);
 					//boolean flagt = zhuan(uname,pid);
-					//boolean flagt = TestSelenium.execute(pid,uname);
+					boolean flagt = TestSelenium.execute(pid,uname);
 					if(flagt){
 						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
 						//boolean bflag = biaoji(pid, uname);
 						//System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
-						Thread.sleep(1000);
+						//Thread.sleep(1000);
 						//System.out.println("删除>>>>>>>>>>>>>>>>>>推广>>>>>>>>>>>>>>>>"+deleteAll(uname,"0"));
 						
 					}else{

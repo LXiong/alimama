@@ -57,12 +57,12 @@ public class TestSelenium {
 			webDriver.get("http://www.dataoke.com/item?id="+id);
 			setCookis(uname, webDriver);
 			webDriver.get("http://www.dataoke.com/item?id="+id);
-			Thread.sleep(1500);
+			Thread.sleep(Cmd.getSleepTime());
 			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
 		    element.click();
-		    Thread.sleep(500);
+		    Thread.sleep(Cmd.getSleepTime());
 		    webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
-		    
+		    Thread.sleep(Cmd.getSleepTime());
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally {
