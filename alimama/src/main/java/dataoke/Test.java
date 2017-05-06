@@ -773,6 +773,7 @@ public class Test {
 		 if(StringUtils.isNotBlank(ip)){
 			 httpRequest.header("X-FORWARDED-FOR", ip);
 			 httpRequest.header("CLIENT-IP", ip);
+			 httpRequest.header("VIA", ip);
 		 }
 	}
 	
