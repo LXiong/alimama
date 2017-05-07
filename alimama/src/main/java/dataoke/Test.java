@@ -881,14 +881,9 @@ public class Test {
 			 httpRequest.header("X-Requested-With", "XMLHttpRequest");
 			 setRandomIp(httpRequest);
 			 
-			 Cookie[]  cookies = map.get(uname);
-			 if(ArrayUtils.isNotEmpty(cookies)){
-				 System.out.println("uanem ==="+uname+"  cookis 存在");
-				 httpRequest.cookies(cookies);
-			 }else{
-				 cookies = getObjToFile(uname);
-				 httpRequest.cookies(cookies);
-			 }
+			 
+			 setCookis(uname, httpRequest);
+			 
 			 HttpResponse response = httpRequest.open().send();
 			 response=  response.charset("utf-8");
 			 String rc = response.bodyText();
@@ -956,11 +951,11 @@ public class Test {
 			    if(flag){
 			    	//readExecute(pid, uname);
 					
-					//boolean flagt = tuijian(pid,uname);
+					boolean flagt = tuijian(pid,uname);
 					//boolean flagt = tuijianHttpClient(pid,uname);
 					//flag = tuijianToFile(pid,uname);
 					//boolean flagt = zhuan(uname,pid);
-					boolean flagt = TestSelenium.execute(pid,uname);
+					//boolean flagt = TestSelenium.execute(pid,uname);
 					if(flagt){
 						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
 						//boolean bflag = biaoji(pid, uname);
@@ -1162,14 +1157,18 @@ public class Test {
 		 httpRequest.header("X-Requested-With", "XMLHttpRequest");
 		setRandomIp(httpRequest);
 		 
-		 Cookie[]  cookies = map.get(uname);
+		/* Cookie[]  cookies = map.get(uname);
 		 if(ArrayUtils.isNotEmpty(cookies)){
 			 System.out.println("uanem ==="+uname+"  cookis 存在");
 			 httpRequest.cookies(cookies);
 		 }else{
 			 cookies = getObjToFile(uname);
 			 httpRequest.cookies(cookies);
-		 }
+		 }*/
+		
+		
+		 setCookis(uname, httpRequest);
+		
 		 //act=add_quan&id=2231931
 		 httpRequest.form("act", "add_quan");
 		 httpRequest.form("id", id);

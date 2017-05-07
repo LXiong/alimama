@@ -1,14 +1,18 @@
 package dataoke;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.http.HttpHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import jodd.http.Cookie;
+import util.IpUtils;
 import util.SeleniumUtil;
 
 public class TestSelenium {
@@ -52,6 +56,19 @@ public class TestSelenium {
 		/*if(webDriver==null){
 			webDriver = SeleniumUtil.initChromeDriver();
 		}*/
+		
+		 List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
+		 if(CollectionUtils.isEmpty(hosts)){
+			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 Thread.sleep(5000);
+			 return false;
+		 }else{
+			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+		 }
+		HttpHost host = hosts.get(0); 
+		
+		http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1
+		
 		webDriver = SeleniumUtil.initChromeDriver();
 		try{
 			webDriver.get("http://www.dataoke.com/item?id="+id);
