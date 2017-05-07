@@ -1215,7 +1215,8 @@ public class Test {
 		 HttpRequest httpRequest = HttpRequest.post(baseURI).timeout(20000);
 		 httpRequest.header("Content-Type", "application/json");
 		 httpRequest.header("Host", "www.dataoke.com");
-		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 //httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 httpRequest.header("User-Agent", HttpTest.getUserAgent());
 		 httpRequest.header("Referer", "http://www.dataoke.com/login");
 		 httpRequest.header("Upgrade-Insecure-Requests", "1");
 		 httpRequest.header("Connection", "application/json");
@@ -1228,8 +1229,10 @@ public class Test {
 		//httpRequest.header("Cookie", "random=9069; UM_distinctid=15b809dffcb9-00e25cf7281db-47534130-15f900-15b809dffcc172; CNZZDATA1257179126=2114245438-1492507982-http%253A%252F%252Fwww.dataoke.com%252F%7C1492507982; dtk_web=2prh3gjms7ut0g2r3fnm1oiap2; upe=98bf65d2; ASPSESSIONIDQSBSQSDT=CGNGMEPCJLPEEEMKOKKBJNCC; ASPSESSIONIDSSDTRTCS=HEDHLEPCNOOCHALCBPCKPEFN; token=15e519c05e03cdc8d3fb524de429edfa; ASPSESSIONIDQSBTQSCT=ADIDAGPCLLIMIEMMDGINPMCL; userid=538278; user_email=17097636339; user%5Femail=17097636339; e88a8013345a8f05461081898691958c=c33d184d1d3e5173a78fcd3eb25d0ed092bb3d58a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22538278%22%3Bi%3A1%3Bs%3A11%3A%2217097636339%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D");
 		 
 		 
-		 httpRequest.header("Cookie", "random=8337; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492773526; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; token=41d5a8a7ada70ee5b3840f0b84ef60d1; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF");
+		 //httpRequest.header("Cookie", "random=8337; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492773526; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; token=41d5a8a7ada70ee5b3840f0b84ef60d1; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF");
 		 
+		 setCookis(uname, httpRequest);
+		
 		 httpRequest.form("username", uname);
 		 httpRequest.form("password", pwd);
 		 httpRequest.form("vc", "");
@@ -1240,7 +1243,7 @@ public class Test {
 		 System.out.println(rc);
 		 
 		 
-		  cookies = response.cookies();
+		/*  cookies = response.cookies();
 		 
 		 for(Cookie c:cookies){
 			 System.out.println("rp=="+c.getName()+"===="+c.getValue());
@@ -1249,7 +1252,7 @@ public class Test {
 		 
 		
 		 
-	    System.out.println("================================="+httpRequest.header("Cookie"));
+	    System.out.println("================================="+httpRequest.header("Cookie"));*/
 		 
 		 
 		 //System.out.println("response.headers()");
