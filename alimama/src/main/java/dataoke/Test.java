@@ -587,7 +587,10 @@ public class Test {
 	
 	
 	public static HttpHost getProxy()throws Exception{
-		 List<HttpHost> hosts = IpUtils.getips("http://www.66ip.cn/getzh.php?getzh=2017050413171&getnum=1&isp=0&anonymoustype=2&start=&ports=&export=8080&ipaddress=&area=0&proxytype=2&api=https");
+		 //List<HttpHost> hosts = IpUtils.getips("http://www.66ip.cn/getzh.php?getzh=2017050413171&getnum=1&isp=0&anonymoustype=2&start=&ports=&export=8080&ipaddress=&area=0&proxytype=2&api=https");
+		 //ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=国内&gl=1
+		 List<HttpHost> hosts = IpUtils.getips("ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=国内&gl=1");
+		 
 		 if(CollectionUtils.isEmpty(hosts)){
 			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 Thread.sleep(5000);

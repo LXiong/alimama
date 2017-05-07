@@ -57,7 +57,7 @@ public class TestSelenium {
 			webDriver = SeleniumUtil.initChromeDriver();
 		}*/
 		
-		 List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
+		/* List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
 		 if(CollectionUtils.isEmpty(hosts)){
 			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 Thread.sleep(5000);
@@ -65,9 +65,9 @@ public class TestSelenium {
 		 }else{
 			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 		 }
-		HttpHost host = hosts.get(0); 
+		HttpHost host = hosts.get(0); */
 		
-		http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1
+		//http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1
 		
 		webDriver = SeleniumUtil.initChromeDriver();
 		try{
