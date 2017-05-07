@@ -38,6 +38,8 @@ import util.MyConnectionProvider;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import fx.HttpTest;
+
 public class Test {
 	
 	static Map<String,Cookie[]> map = new HashMap<String, Cookie[]>();
@@ -589,7 +591,7 @@ public class Test {
 	public static HttpHost getProxy()throws Exception{
 		 //List<HttpHost> hosts = IpUtils.getips("http://www.66ip.cn/getzh.php?getzh=2017050413171&getnum=1&isp=0&anonymoustype=2&start=&ports=&export=8080&ipaddress=&area=0&proxytype=2&api=https");
 		 //ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=国内&gl=1
-		 List<HttpHost> hosts = IpUtils.getips("ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=国内&gl=1");
+		 List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=国内&gl=1");
 		 
 		 if(CollectionUtils.isEmpty(hosts)){
 			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -875,7 +877,8 @@ public class Test {
 			 HttpRequest httpRequest = HttpRequest.get(url).timeout(30000);
 			 httpRequest.header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 			 httpRequest.header("Host", "www.dataoke.com");
-			 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+			 //httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+			 httpRequest.header("User-Agent", HttpTest.getUserAgent());
 			 //httpRequest.header("Referer", "http://www.dataoke.com/item?id="+id);
 			 //http://www.dataoke.com/search/?keywords=%E5%A4%8F%E5%AD%A3%E5%A5%B3%E5%A3%AB&xuan=keyword_miaoshu
 			 httpRequest.header("Referer", "http://www.dataoke.com/top_tui");
@@ -952,7 +955,7 @@ public class Test {
 			for(String pid:pids){
 				ip = IpUtils.getRandomIp();
 			    if(flag){
-			    	//readExecute(pid, uname);
+			    	readExecute(pid, uname);
 					
 					boolean flagt = tuijian(pid,uname);
 					//boolean flagt = tuijianHttpClient(pid,uname);
@@ -1153,12 +1156,18 @@ public class Test {
 		HttpRequest httpRequest = HttpRequest.post(url).timeout(30000);
 		 httpRequest.header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 		 httpRequest.header("Host", "www.dataoke.com");
-		 httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 //httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
 		 httpRequest.header("Referer", "http://www.dataoke.com/item?id="+id);
 		 httpRequest.header("Upgrade-Insecure-Requests", "1");
 		 httpRequest.header("Connection", "keep-alive");
 		 httpRequest.header("X-Requested-With", "XMLHttpRequest");
-		setRandomIp(httpRequest);
+
+		 
+		 httpRequest.header("User-Agent", HttpTest.getUserAgent());
+			
+		 
+		 
+		  setRandomIp(httpRequest);
 		 
 		/* Cookie[]  cookies = map.get(uname);
 		 if(ArrayUtils.isNotEmpty(cookies)){
