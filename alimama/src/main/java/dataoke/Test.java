@@ -131,8 +131,8 @@ public class Test {
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(3000);
 			if(flag){
-				//flag = tuijian(pid,uname);
-				flag = tuijianToFile(pid,uname);
+				flag = tuijian(pid,uname);
+				//flag = tuijianToFile(pid,uname);
 				if(flag){
 					System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
 				}else{
@@ -975,7 +975,7 @@ public class Test {
 	}
 	
 	
-	public static boolean tuijianToFile(String id,String uname)throws Exception{
+	/*public static boolean tuijianToFile(String id,String uname)throws Exception{
 		String url ="http://www.dataoke.com/handle_popularize";
 		 HttpRequest httpRequest = HttpRequest.post(url);
 		 httpRequest.header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
@@ -1004,7 +1004,7 @@ public class Test {
 		 }
 		 
 		return false;
-	}
+	}*/
 	
 	public static boolean deleteById(String id,String uname)throws Exception{
 		String url ="http://www.dataoke.com/ucenter/save.asp?act=del_my_quan&id="+id;
