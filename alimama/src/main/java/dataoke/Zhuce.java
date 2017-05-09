@@ -51,7 +51,8 @@ public class Zhuce {
 			 System.out.println("验证码为："+code);
 			 
 			 if(StringUtils.isNotBlank(code)){
-				 String pwd =  new PassWordCreate().createPassWord(8);
+				 int size = new Random().nextInt(4);
+				 String pwd =  new PassWordCreate().createPassWord(6+size);
 				 boolean flag= reg(num, pwd, code);
 				 if(flag){
 					 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
