@@ -212,22 +212,28 @@ public class Test {
 			cookisMap.put(str.split("\\=")[0].trim(), str.split("\\=")[1]);
 		}
 
-		for (Cookie c : getObjToFile(uname)) {
-			// System.out.println(c.getName()+"===="+c.getValue());
-			// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
-			cookisMap.put(c.getName().trim(), c.getValue());
-		}
+		Cookie[] cks = getObjToFile(uname);
+		if(ArrayUtils.isNotEmpty(cks)){
+			for (Cookie c : getObjToFile(uname)) {
+				// System.out.println(c.getName()+"===="+c.getValue());
+				// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
+				cookisMap.put(c.getName().trim(), c.getValue());
+			}
 
-		StringBuffer buffer = new StringBuffer();
+			StringBuffer buffer = new StringBuffer();
 
-		for (Entry<String, String> en : cookisMap.entrySet()) {
-			buffer.append(en.getKey().trim()).append("=").append(en.getValue())
-					.append("; ");
+			for (Entry<String, String> en : cookisMap.entrySet()) {
+				buffer.append(en.getKey().trim()).append("=").append(en.getValue())
+						.append("; ");
+			}
+			httpRequest.header("Cookie", buffer.toString());
+		}else{
+			httpRequest.header("Cookie", cookisStr);
 		}
 
 		// System.out.println(buffer.toString());
 
-		httpRequest.header("Cookie", buffer.toString());
+		
 	}
 	
 
