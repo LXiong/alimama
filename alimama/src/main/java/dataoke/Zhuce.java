@@ -3,6 +3,7 @@ package dataoke;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -75,11 +76,45 @@ public class Zhuce {
 	
 	static List<String> pids = new ArrayList<String>();
 	
+	static List<String> pidsRandom = new ArrayList<String>();
+	
+	
 	static{
-		pids.add("");
-		pids.add("");
-		pids.add("");
+		pids.add("2391539");
+		pids.add("2391404");
+		pids.add("2378064");
 		
+		
+		pidsRandom.add("2373837");
+		pidsRandom.add("2375835");
+		pidsRandom.add("2375825");
+		pidsRandom.add("2374825");
+		pidsRandom.add("2374821");
+		pidsRandom.add("2372621");
+		pidsRandom.add("2372225");
+		pidsRandom.add("2372126");
+		pidsRandom.add("2374126");
+		pidsRandom.add("2374139");
+		pidsRandom.add("2374831");
+		pidsRandom.add("2374431");
+		pidsRandom.add("2374739");
+		pidsRandom.add("2374439");
+		pidsRandom.add("2374712");
+		pidsRandom.add("2374634");
+		pidsRandom.add("2374714");
+		pidsRandom.add("2374775");
+		pidsRandom.add("2374315");
+		pidsRandom.add("2373575");
+
+		
+		
+	}
+	
+	
+	public static String getRandomPid(){
+		//String ua = "Mozilla/5.0 (Linux; Android 6.0; ALE-TL00 Build/HuaweiALE-TL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile MQQBrowser/6.8 TBS/036872 Safari/537.36 MicroMessenger/6.3.31.940 NetType/WIFI Language/zh_CN";
+		String ua = pidsRandom.get(new Random().nextInt(pidsRandom.size())).trim();
+		return ua;
 	}
 	
 	
@@ -91,6 +126,16 @@ public class Zhuce {
 		if(flag){
 			for(String pid:pids){
 				boolean flagt = Test.tuijian(pid, num);
+				if(flagt){
+					System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+num);
+				}else{
+					System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+num);
+				}
+				Thread.sleep(Cmd.getSleepTime());
+				
+				pid = getRandomPid();
+				
+				 flagt = Test.tuijian(pid, num);
 				if(flagt){
 					System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+num);
 				}else{
