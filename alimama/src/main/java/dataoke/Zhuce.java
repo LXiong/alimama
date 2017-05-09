@@ -1,14 +1,15 @@
 package dataoke;
 
 import java.io.File;
-
-import jodd.http.HttpBrowser;
-import jodd.http.HttpRequest;
-import jodd.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import jodd.http.HttpBrowser;
+import jodd.http.HttpRequest;
+import jodd.http.HttpResponse;
 import ruokuai.RuoKuaiUnit;
 
 public class Zhuce {
@@ -53,11 +54,13 @@ public class Zhuce {
 				 boolean flag= reg(num, pwd, code);
 				 if(flag){
 					 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
+					 tuijian(num, pwd);
 					 System.out.println("释放手机号码");
 				 }else{
 					 flag= reg(num, pwd, code);
 					 if(flag){
 						 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
+						 tuijian(num, pwd);
 						 System.out.println("释放手机号码");
 					 }
 				 }
@@ -68,6 +71,38 @@ public class Zhuce {
 			 }
 			
 		 }
+	}
+	
+	static List<String> pids = new ArrayList<String>();
+	
+	static{
+		pids.add("");
+		pids.add("");
+		pids.add("");
+		
+	}
+	
+	
+	public static void tuijian(String num,String pwd){
+		try{
+		Thread.sleep(Cmd.getSleepTime());	
+		boolean flag =  Test.login(num, pwd);
+		System.out.println("u = "+num + "登陆>>>>>>>>>>>>>"+flag);
+		if(flag){
+			for(String pid:pids){
+				boolean flagt = Test.tuijian(pid, num);
+				if(flagt){
+					System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+num);
+				}else{
+					System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+num);
+				}
+				Thread.sleep(Cmd.getSleepTime());
+			}
+		}	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		 
 	}
 	
 	public static void main(String[] args)throws Exception {
