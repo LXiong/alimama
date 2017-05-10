@@ -90,7 +90,7 @@ public class Ma60 {
 			System.out.println("获取手机号码成功");
 			telnum = jsonObject.getString("Telnum");
 		}else if(jsonObject.toJSONString().contains("余额不足")){
-			System.out.println(jsonObject.toString());
+			System.out.println(jsonObject.toString()+" >>>>> 退出程序");
 			System.exit(0);
 		}
 		return telnum;
