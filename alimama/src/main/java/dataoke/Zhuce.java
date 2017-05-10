@@ -31,6 +31,10 @@ public class Zhuce {
 		 if(StringUtils.isBlank(num)){
 			 System.out.println("获取手机号码有问题》》》》》》》》》》》》》》");
 			 return;
+		 }else if(num.contains("余额不足")){
+			 System.out.println("余额不足退出程序>>>>>>>>>>>>>>>>>>>>>>>>>.");
+			 System.exit(0);
+			 
 		 }
 		 
 		 if(verify(num,4)){
