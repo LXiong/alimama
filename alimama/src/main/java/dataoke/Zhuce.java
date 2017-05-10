@@ -2,7 +2,10 @@ package dataoke;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
@@ -17,8 +20,6 @@ public class Zhuce {
 	
 	static HttpBrowser browser = new HttpBrowser();
 	
-	static{
-	}
 	
 	static String tnum = "";
 	
@@ -85,39 +86,137 @@ public class Zhuce {
 	
 	static List<String> pidsRandom = new ArrayList<String>();
 	
+	static Map<String,HashSet<Integer>> pidsMap = new HashMap<String, HashSet<Integer>>();
 	
 	static{
-		pids.add("2391539");
-		pids.add("2378064");
-		pids.add("2391466");
-		pids.add("2394091");
+		//pids.add("2388149");
+		//pids.add("2397311");
+		//pids.add("2402473");
+		
+		
+		HashSet<Integer> hashSet = new HashSet<Integer>();
+		hashSet = randomCommon(0, 400, 200);
+		
+		pidsMap.put("2388149", hashSet);
+	
+        HashSet<Integer> hashSet1 = new HashSet<Integer>();
+    	hashSet1 = randomCommon(0, 400, 300);
+    	
+		
+		pidsMap.put("2397311", hashSet1);
+		
+		
+		HashSet<Integer> hashSet2 = new HashSet<Integer>();
+			
+	   hashSet2 = randomCommon(0, 500, 500);
+			
+			pidsMap.put("2402473", hashSet2);
+		
+		for(String key:pidsMap.keySet()){
+			System.out.println("key ==="+key +" 隨機數大小===="+pidsMap.get(key).size()+" 數組>>>"+pidsMap.get(key));
+		}
 		
 		
 		
-		pidsRandom.add("2373837");
-		pidsRandom.add("2375835");
-		pidsRandom.add("2375825");
-		pidsRandom.add("2374825");
-		pidsRandom.add("2374821");
-		pidsRandom.add("2372621");
-		pidsRandom.add("2372225");
-		pidsRandom.add("2372126");
-		pidsRandom.add("2374126");
-		pidsRandom.add("2374139");
+		
+		
+		pidsRandom.add("2373537");
+		pidsRandom.add("2375735");
+		pidsRandom.add("2373825");
+		pidsRandom.add("2374125");
+		pidsRandom.add("2377821");
+		pidsRandom.add("2373621");
+		pidsRandom.add("2372825");
+		pidsRandom.add("2372326");
+		pidsRandom.add("2374626");
+		pidsRandom.add("2374239");
 		pidsRandom.add("2374831");
-		pidsRandom.add("2374431");
-		pidsRandom.add("2374739");
-		pidsRandom.add("2374439");
-		pidsRandom.add("2374712");
-		pidsRandom.add("2374634");
-		pidsRandom.add("2374714");
-		pidsRandom.add("2374775");
-		pidsRandom.add("2374315");
-		pidsRandom.add("2373575");
+		pidsRandom.add("2372431");
+		pidsRandom.add("2377739");
+		pidsRandom.add("2379439");
+		pidsRandom.add("2373712");
+		pidsRandom.add("2372634");
+		pidsRandom.add("2376714");
+		pidsRandom.add("2374175");
+		pidsRandom.add("2374715");
+		pidsRandom.add("2373475");
 
 		
 		
 	}
+	
+	
+  
+    /** 
+     * 随机指定范围内N个不重复的数 
+     * 利用HashSet的特征，只能存放不同的值 
+     * @param min 指定范围最小值 
+     * @param max 指定范围最大值 
+     * @param n 随机数个数 
+     * @param HashSet<Integer> set 随机数结果集 
+     */  
+       public static void randomSet(int min, int max, int n, HashSet<Integer> set) {  
+           if (n > (max - min + 1) || max < min) {  
+               return;  
+           }  
+           for (int i = 0; i < n; i++) {  
+               // 调用Math.random()方法  
+               int num = (int) (Math.random() * (max - min)) + min;  
+               set.add(num);// 将不同的数存入HashSet中  
+           }  
+           int setSize = set.size();  
+           // 如果存入的数小于指定生成的个数，则调用递归再生成剩余个数的随机数，如此循环，直到达到指定大小  
+           if (setSize < n) {  
+            randomSet(min, max, n - setSize, set);// 递归  
+           }  
+       }
+       
+       /** 
+        * 随机指定范围内N个不重复的数 
+        * 最简单最基本的方法 
+        * @param min 指定范围最小值 
+        * @param max 指定范围最大值 
+        * @param n 随机数个数 
+        */  
+       public static HashSet<Integer> randomCommon(int min, int max, int n){  
+    	   HashSet<Integer> integers = new HashSet<Integer>();
+    	   if(max==n){
+    		   for(int i=0;i<n;i++){
+    			   integers.add(i);
+    		   }
+    		   return integers;
+    	   }
+    	   
+           if (n > (max - min + 1) || max < min) {  
+                  return null;  
+              }  
+           int[] result = new int[n];  
+           int count = 0;  
+           while(count < n) {  
+               int num = (int) (Math.random() * (max - min)) + min;  
+               boolean flag = true;  
+               for (int j = 0; j < n; j++) {  
+                   if(num == result[j]){  
+                       flag = false;  
+                       break;  
+                   }  
+               }  
+               if(flag){  
+                   result[count] = num;  
+                   count++;  
+               }  
+           }  
+           
+           
+           for(int i:result){
+        	   integers.add(i);
+           }
+           
+           return integers;  
+       }  
+
+       
+       
 	
 	
 	public static String getRandomPid(){
@@ -135,7 +234,12 @@ public class Zhuce {
 		boolean flag =  Test.login(num, pwd);
 		System.out.println("u = "+num + "登陆>>>>>>>>>>>>>"+flag);
 		if(flag){
-			for(String pid:pids){
+			for(String pid:pidsMap.keySet()){
+				
+				if(!pidsMap.get(pid).contains(okSize)){
+					continue;
+				}
+				
 				Test.readExecute(pid, num);
 				boolean flagt = Test.tuijian(pid, num);
 				if(flagt){
@@ -165,13 +269,45 @@ public class Zhuce {
 	
 	public static void main(String[] args)throws Exception {
 		
+		executeAll();
+		 
+		 
+		// HashSet<Integer> hashSet = new HashSet<Integer>();
+		 
+		// randomSet(0, 400, 50, hashSet);
+		
+		 //System.out.println(hashSet);
+		
+		
+		testRandom();
+	}
+	
+	
+	public static void testRandom(){
+		for(int i=0;i<500;i++){
+			for(String pid:pidsMap.keySet()){
+				if(!pidsMap.get(pid).contains(okSize)){
+					continue;
+				}
+				//System.out.println("okSize====="+okSize);
+				okSize+=1;
+				
+				
+				
+			}
+		}
+	}
+	
+	
+	public static void executeAll()throws Exception{
+
 		 Ma60.login();
 		 for(int i=0;i<10000;i++){
 			 try{
-				 if(okSize > 50){
+				/* if(okSize > 50){
 					 System.out.println("超过 okSize == "+okSize + "停止程序");
 					 System.exit(0);
-				 }
+				 }*/
 				 
 				 execute();
 			 }catch(Exception e){
@@ -188,9 +324,6 @@ public class Zhuce {
 			 }
 			 Thread.sleep(2000);
 		 }
-		 
-		
-		
 	}
 	
 	static File out = new File("d:\\dataokeuser1.txt");
