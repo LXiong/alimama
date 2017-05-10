@@ -59,12 +59,14 @@ public class Zhuce {
 				 String pwd =  new PassWordCreate().createPassWord(6+size);
 				 boolean flag= reg(num, pwd, code);
 				 if(flag){
+					 okSize +=1;
 					 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 					 tuijian(num, pwd);
 					 System.out.println("释放手机号码");
 				 }else{
 					 flag= reg(num, pwd, code);
 					 if(flag){
+						 okSize +=1;
 						 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 						 tuijian(num, pwd);
 						 System.out.println("释放手机号码");
@@ -86,8 +88,10 @@ public class Zhuce {
 	
 	static{
 		pids.add("2391539");
-		pids.add("2391404");
 		pids.add("2378064");
+		pids.add("2391466");
+		pids.add("2394091");
+		
 		
 		
 		pidsRandom.add("2373837");
@@ -121,6 +125,8 @@ public class Zhuce {
 		String ua = pidsRandom.get(new Random().nextInt(pidsRandom.size())).trim();
 		return ua;
 	}
+	
+	static int okSize = 0;
 	
 	
 	public static void tuijian(String num,String pwd){
@@ -162,6 +168,11 @@ public class Zhuce {
 		 Ma60.login();
 		 for(int i=0;i<10000;i++){
 			 try{
+				 if(okSize > 50){
+					 System.out.println("超过 okSize == "+okSize + "停止程序");
+					 System.exit(0);
+				 }
+				 
 				 execute();
 			 }catch(Exception e){
 				 e.printStackTrace();
