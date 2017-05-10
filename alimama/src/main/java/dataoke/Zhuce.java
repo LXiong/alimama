@@ -18,7 +18,7 @@ import ruokuai.RuoKuaiUnit;
 
 public class Zhuce {
 	
-	static HttpBrowser browser = new HttpBrowser();
+	static HttpBrowser browser = null;
 	
 	
 	static String tnum = "";
@@ -270,7 +270,9 @@ public class Zhuce {
 	public static void main(String[] args)throws Exception {
 		
 		
-		Thread.sleep(1000 * 60 * 40);
+		//Thread.sleep(1000 * 60 * 40);
+		browser = new HttpBrowser();
+		
 		executeAll();
 		 
 		 
