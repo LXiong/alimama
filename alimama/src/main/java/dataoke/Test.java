@@ -78,7 +78,13 @@ public class Test {
 		
 		//System.out.println(tuijian("2359220", "17774505172"));
 		
-		System.out.println(deleteAll("17774505172","0"));
+		//System.out.println(deleteAll("17774505172","0"));
+		
+		for(int i=0;i<500;i++){
+			System.out.println(readDetailHttp("2378064", "15201733860"));
+			Thread.sleep(Cmd.getSleepTime());
+		}
+		
 	}
 	
 	 
