@@ -130,6 +130,7 @@ public class Zhuce {
 		System.out.println("u = "+num + "登陆>>>>>>>>>>>>>"+flag);
 		if(flag){
 			for(String pid:pids){
+				Test.readExecute(pid, num);
 				boolean flagt = Test.tuijian(pid, num);
 				if(flagt){
 					System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+num);
@@ -140,7 +141,8 @@ public class Zhuce {
 				
 				pid = getRandomPid();
 				
-				 flagt = Test.tuijian(pid, num);
+				Test.readExecute(pid, num);
+				flagt = Test.tuijian(pid, num);
 				if(flagt){
 					System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+num);
 				}else{
