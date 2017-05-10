@@ -269,6 +269,8 @@ public class Zhuce {
 	
 	public static void main(String[] args)throws Exception {
 		
+		
+		Thread.sleep(1000 * 60 * 40);
 		executeAll();
 		 
 		 
@@ -279,7 +281,7 @@ public class Zhuce {
 		 //System.out.println(hashSet);
 		
 		
-		testRandom();
+		//testRandom();
 	}
 	
 	
