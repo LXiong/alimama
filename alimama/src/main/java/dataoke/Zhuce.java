@@ -95,22 +95,22 @@ public class Zhuce {
 		
 		
 		HashSet<Integer> hashSet = new HashSet<Integer>();
-		hashSet = randomCommon(0, 400, 200);
+		hashSet = randomCommon(0, 550, 550);
 		
-		pidsMap.put("2388149", hashSet);
+		pidsMap.put("2420590", hashSet);
 	
         HashSet<Integer> hashSet1 = new HashSet<Integer>();
-    	hashSet1 = randomCommon(0, 400, 300);
+    	hashSet1 = randomCommon(0, 500, 400);
     	
 		
-		pidsMap.put("2397311", hashSet1);
+		pidsMap.put("2405024", hashSet1);
 		
 		
 		HashSet<Integer> hashSet2 = new HashSet<Integer>();
 			
-	   hashSet2 = randomCommon(0, 500, 500);
+	   hashSet2 = randomCommon(0, 500, 300);
 			
-			pidsMap.put("2402473", hashSet2);
+			pidsMap.put("2418546", hashSet2);
 		
 		for(String key:pidsMap.keySet()){
 			System.out.println("key ==="+key +" 隨機數大小===="+pidsMap.get(key).size()+" 數組>>>"+pidsMap.get(key));
@@ -120,26 +120,26 @@ public class Zhuce {
 		
 		
 		
-		pidsRandom.add("2373537");
-		pidsRandom.add("2375735");
-		pidsRandom.add("2373825");
-		pidsRandom.add("2374125");
-		pidsRandom.add("2377821");
-		pidsRandom.add("2373621");
-		pidsRandom.add("2372825");
-		pidsRandom.add("2372326");
-		pidsRandom.add("2374626");
-		pidsRandom.add("2374239");
-		pidsRandom.add("2374831");
-		pidsRandom.add("2372431");
-		pidsRandom.add("2377739");
-		pidsRandom.add("2379439");
-		pidsRandom.add("2373712");
-		pidsRandom.add("2372634");
-		pidsRandom.add("2376714");
-		pidsRandom.add("2374175");
-		pidsRandom.add("2374715");
-		pidsRandom.add("2373475");
+		pidsRandom.add("2371537");
+		pidsRandom.add("2375335");
+		pidsRandom.add("2373815");
+		pidsRandom.add("2375125");
+		pidsRandom.add("2377861");
+		pidsRandom.add("2373631");
+		pidsRandom.add("2372425");
+		pidsRandom.add("2372726");
+		pidsRandom.add("2374616");
+		pidsRandom.add("2374289");
+		pidsRandom.add("2377831");
+		pidsRandom.add("2372131");
+		pidsRandom.add("2377439");
+		pidsRandom.add("2379339");
+		pidsRandom.add("2373762");
+		pidsRandom.add("2372614");
+		pidsRandom.add("2376214");
+		pidsRandom.add("2374475");
+		pidsRandom.add("2374815");
+		pidsRandom.add("2373175");
 
 		
 		
