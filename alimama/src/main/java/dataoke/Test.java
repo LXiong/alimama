@@ -80,10 +80,12 @@ public class Test {
 		
 		//System.out.println(deleteAll("17774505172","0"));
 		
-		for(int i=0;i<500;i++){
+		/*for(int i=0;i<500;i++){
 			System.out.println(readDetailHttp("2378064", "15201733860"));
 			Thread.sleep(Cmd.getSleepTime());
-		}
+		}*/
+		
+		System.out.println(tuijian("2447200", "13751442412"));
 		
 	}
 	
