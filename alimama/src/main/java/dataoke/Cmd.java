@@ -34,6 +34,10 @@ public class Cmd {
 	}
 	
 	public static void main(String[] args) {
+		
+		//args = new String[]{"2449218","3","3000,4000","1"}; 
+		
+		
 		String pids = args[0];
 		String fileIds = args[1];
 		
