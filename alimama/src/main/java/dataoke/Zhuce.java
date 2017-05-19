@@ -95,20 +95,20 @@ public class Zhuce {
 		
 		
 		HashSet<Integer> hashSet = new HashSet<Integer>();
-		hashSet = randomCommon(0, 550, 550);
+		hashSet = randomCommon(0, 180, 180);
 		
-		pidsMap.put("2420590", hashSet);
+		pidsMap.put("2463308", hashSet);
 	
         HashSet<Integer> hashSet1 = new HashSet<Integer>();
-    	hashSet1 = randomCommon(0, 500, 400);
+    	hashSet1 = randomCommon(0, 180, 180);
     	
 		
-		pidsMap.put("2405024", hashSet1);
+		pidsMap.put("2472720", hashSet1);
 		
 		
 		HashSet<Integer> hashSet2 = new HashSet<Integer>();
 			
-	   hashSet2 = randomCommon(0, 500, 300);
+	    hashSet2 = randomCommon(0, 180, 180);
 			
 			pidsMap.put("2418546", hashSet2);
 		
@@ -270,7 +270,7 @@ public class Zhuce {
 	public static void main(String[] args)throws Exception {
 		
 		
-		//Thread.sleep(1000 * 60 * 40);
+		Thread.sleep(1000 * 60 * 100);
 		browser = new HttpBrowser();
 		
 		executeAll();
@@ -308,10 +308,10 @@ public class Zhuce {
 		 Ma60.login();
 		 for(int i=0;i<10000;i++){
 			 try{
-				/* if(okSize > 50){
+				 if(okSize > 180){
 					 System.out.println("超过 okSize == "+okSize + "停止程序");
 					 System.exit(0);
-				 }*/
+				 }
 				 
 				 execute();
 			 }catch(Exception e){
