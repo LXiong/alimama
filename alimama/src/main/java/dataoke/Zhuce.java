@@ -110,7 +110,7 @@ public class Zhuce {
 			
 	    hashSet2 = randomCommon(0, 180, 180);
 			
-			pidsMap.put("2418546", hashSet2);
+			pidsMap.put("2468377", hashSet2);
 		
 		for(String key:pidsMap.keySet()){
 			System.out.println("key ==="+key +" 隨機數大小===="+pidsMap.get(key).size()+" 數組>>>"+pidsMap.get(key));
@@ -120,26 +120,26 @@ public class Zhuce {
 		
 		
 		
-		pidsRandom.add("2371537");
-		pidsRandom.add("2375335");
-		pidsRandom.add("2373815");
+		pidsRandom.add("2373537");
+		pidsRandom.add("2372335");
+		pidsRandom.add("2371815");
 		pidsRandom.add("2375125");
-		pidsRandom.add("2377861");
-		pidsRandom.add("2373631");
+		pidsRandom.add("2371861");
+		pidsRandom.add("2373131");
 		pidsRandom.add("2372425");
-		pidsRandom.add("2372726");
+		pidsRandom.add("2372126");
 		pidsRandom.add("2374616");
 		pidsRandom.add("2374289");
 		pidsRandom.add("2377831");
 		pidsRandom.add("2372131");
-		pidsRandom.add("2377439");
-		pidsRandom.add("2379339");
-		pidsRandom.add("2373762");
-		pidsRandom.add("2372614");
-		pidsRandom.add("2376214");
-		pidsRandom.add("2374475");
-		pidsRandom.add("2374815");
-		pidsRandom.add("2373175");
+		pidsRandom.add("2371439");
+		pidsRandom.add("2379139");
+		pidsRandom.add("2373162");
+		pidsRandom.add("2371614");
+		pidsRandom.add("2374214");
+		pidsRandom.add("2373475");
+		pidsRandom.add("2373815");
+		pidsRandom.add("2376175");
 
 		
 		
@@ -270,7 +270,7 @@ public class Zhuce {
 	public static void main(String[] args)throws Exception {
 		
 		
-		Thread.sleep(1000 * 60 * 100);
+		Thread.sleep(1000 * 60 * 60);
 		browser = new HttpBrowser();
 		
 		executeAll();

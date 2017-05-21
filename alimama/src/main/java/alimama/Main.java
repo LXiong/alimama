@@ -947,7 +947,8 @@ public class Main {
 					if(!shangDayFlag){
 						int yue = new Date().getMonth();
 						//js.executeScript("$(\"a[class='day-header-prev']\").eq("+yue+").click();");
-						js.executeScript("$(\"a[class='day-header-prev']\").eq("+yue+").click();");
+						//js.executeScript("$(\"a[class='day-header-prev']\").eq("+yue+").click();");
+						js.executeScript("$(\"a[class='day-header-prev']\").eq(3).click();");
 						
 					}
 					
