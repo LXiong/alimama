@@ -94,11 +94,11 @@ public class Zhuce {
 		//pids.add("2402473");
 		
 		
-		HashSet<Integer> hashSet = new HashSet<Integer>();
+	/*	HashSet<Integer> hashSet = new HashSet<Integer>();
 		hashSet = randomCommon(0, 180, 180);
 		
 		pidsMap.put("2463308", hashSet);
-	
+	*/
         HashSet<Integer> hashSet1 = new HashSet<Integer>();
     	hashSet1 = randomCommon(0, 180, 180);
     	
@@ -236,9 +236,9 @@ public class Zhuce {
 		if(flag){
 			for(String pid:pidsMap.keySet()){
 				
-				if(!pidsMap.get(pid).contains(okSize)){
+				/*if(!pidsMap.get(pid).contains(okSize)){
 					continue;
-				}
+				}*/
 				
 				Test.readExecute(pid, num);
 				boolean flagt = Test.tuijian(pid, num);
@@ -249,7 +249,7 @@ public class Zhuce {
 				}
 				Thread.sleep(Cmd.getSleepTime());
 				
-				pid = getRandomPid();
+				/*pid = getRandomPid();
 				
 				Test.readExecute(pid, num);
 				flagt = Test.tuijian(pid, num);
@@ -258,7 +258,7 @@ public class Zhuce {
 				}else{
 					System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+num);
 				}
-				Thread.sleep(Cmd.getSleepTime());
+				Thread.sleep(Cmd.getSleepTime());*/
 			}
 		}	
 		}catch(Exception e){
