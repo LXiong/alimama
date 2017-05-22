@@ -103,7 +103,7 @@ public class Zhuce {
     	hashSet1 = randomCommon(0, 180, 180);
     	
 		
-		pidsMap.put("2472720", hashSet1);
+		pidsMap.put("2491231", hashSet1);
 		
 		
 		HashSet<Integer> hashSet2 = new HashSet<Integer>();
@@ -305,10 +305,17 @@ public class Zhuce {
 	
 	public static void executeAll()throws Exception{
 
-		 Ma60.login();
+		 try{
+			 Ma60.login(); 
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 System.out.println("再次登录>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 Ma60.login();
+		 }
+		 
 		 for(int i=0;i<10000;i++){
 			 try{
-				 if(okSize > 180){
+				 if(okSize > 120){
 					 System.out.println("超过 okSize == "+okSize + "停止程序");
 					 System.exit(0);
 				 }
