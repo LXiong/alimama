@@ -15,6 +15,7 @@ import jodd.http.HttpResponse;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.openqa.selenium.By;
@@ -27,6 +28,9 @@ import util.SeleniumUtil;
 public class ZhuCeSelenium {
 
 	public static void main(String[] args)throws Exception {
+		if(ArrayUtils.isNotEmpty(args)){
+			sleep = Integer.parseInt(args[0]);
+		}
 		browser = new HttpBrowser();
 	    executeAll();
 	}
@@ -77,7 +81,7 @@ public class ZhuCeSelenium {
 			List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
 			 if(CollectionUtils.isEmpty(hosts)){
 				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-				 Thread.sleep(5000);
+				 Thread.sleep(3000);
 			 }else{
 				 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 			 }
@@ -92,7 +96,7 @@ public class ZhuCeSelenium {
 				List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=4969779231500858&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
 				 if(CollectionUtils.isEmpty(hosts)){
 					 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-					 Thread.sleep(5000);
+					 Thread.sleep(3000);
 				 }else{
 					 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 				 }
@@ -102,7 +106,7 @@ public class ZhuCeSelenium {
 		}
 		
 	}
-	
+	static int sleep =10;
 	public static void execute()throws Exception{
 		 getProxyIpSetWebDriver();
 		 webDriver.manage().window().maximize();
@@ -148,7 +152,7 @@ public class ZhuCeSelenium {
 		
 	    
 	    System.out.println("开始手动输入验证码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>停顿15秒");
-	    for(int i=0;i<15;i++){
+	    for(int i=0;i<sleep;i++){
 	    	System.out.println("已经休息>>>>>>>>>>>>>"+i);
 	    	Thread.sleep(1000);
 	    	/*String pageSource = webDriver.getPageSource();
