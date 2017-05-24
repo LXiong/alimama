@@ -127,6 +127,27 @@ public class Test {
 		return false;
 	}
 	
+	
+	public static boolean checkDataokeZhuCe(){
+		try{
+			String url = "http://m635674608.iteye.com/blog/2376153";
+			 HttpRequest httpRequest = HttpRequest.post(url).timeout(20000);
+			 HttpResponse response = httpRequest.send();
+			 String rc = response.bodyText();
+			 if(rc.contains("dataoke")){
+				 System.out.println("验证码通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				 return true;
+			 }else{
+				 System.out.println("验证码不通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 }
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+	
 	public static void executeTest()throws Exception{
 		String pid ="2250281";
 		

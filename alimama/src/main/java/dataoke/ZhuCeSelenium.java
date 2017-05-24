@@ -32,7 +32,15 @@ public class ZhuCeSelenium {
 			sleep = Integer.parseInt(args[0]);
 		}
 		browser = new HttpBrowser();
-	    executeAll();
+		
+		System.out.println("开始验证>>>>>>>>>>>>>>>>>>>>>>>");
+		if(Test.checkDataokeZhuCe()){
+			System.out.println("验证成功>>>>>>>>>>>>>>>>>>>>>>>");
+			 executeAll();
+		}else{
+			System.out.println("验证失败>>>>>>>>>>>>>>>>>>>>>>>");
+		}
+	   
 	}
 	
 	static WebDriver webDriver = null;
