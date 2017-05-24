@@ -12,6 +12,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.Augmenter;
@@ -70,10 +71,10 @@ public class SeleniumUtil {
 		WebDriver driver = null;
 		try {
 			/*ChromeDriverService service = new ChromeDriverService.Builder()
-					.usingDriverExecutable(new File("e:\\app\\chromedriver\\chromedriver.exe")).usingAnyFreePort()
+					.usingDriverExecutable(new File("D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe")).usingAnyFreePort()
 					.build();
 			service.start();*/
-			System.setProperty("webdriver.chrome.driver", "e:\\app\\chromedriver\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe");
 			driver = new ChromeDriver();
 			//driver = new HtmlUnitDriver(true);
 		} catch (Exception e) {
