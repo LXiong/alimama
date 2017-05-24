@@ -92,7 +92,11 @@ public class ZhuCeSelenium {
 			 }else{
 				 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 			 }
-			 host = hosts.get(0);
+			if(hosts==null){
+				getPrxoyIp();
+			}else{
+				host=hosts.get(0);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -166,7 +170,7 @@ public class ZhuCeSelenium {
 			 System.exit(0);
 		 }
 		 
-		Thread.sleep(2000); 
+		Thread.sleep(3000); 
 		System.out.println("开始输入手机号码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"); 
 		WebElement webElement = null;
 		//WebElement webElement = webDriver.findElement(By.id("phone"));
@@ -183,18 +187,20 @@ public class ZhuCeSelenium {
 		//webElement.click();
 	    js.executeScript("document.querySelectorAll(\"button[class='get-phone-verify get-phone-verify-fn']\")[0].click();");
 		
-		Thread.sleep(200);
+		Thread.sleep(2000);
 		
 		   // 选取frame  
-		webDriver.switchTo().frame("captcha_widget");;  
+		//webDriver.switchTo().frame("captcha_widget");;  
        
 		System.out.println("点击人机识别验证》》》》》》》》》》》》》》》》》》》");
-		webElement = webDriver.findElement(By.xpath("//span[@class='captcha-widget-text']"));
-		webElement.click();
+		//webElement = webDriver.findElement(By.xpath("//span[@class='captcha-widget-text']"));
+		//js.executeScript("document.frames['captcha_widget'].document.querySelectorAll(\"span[class='captcha-widget-text']\")[0].click();");
+		
+		//webElement.click();
 		Thread.sleep(200);
 		
 		 // 跳出iframe  
-		webDriver.switchTo().defaultContent();  
+		//webDriver.switchTo().defaultContent();  
 		
 	    
 	    System.out.println("开始手动输入验证码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>停顿15秒");
