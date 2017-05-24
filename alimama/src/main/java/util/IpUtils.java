@@ -12,6 +12,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
@@ -20,6 +22,26 @@ import org.apache.http.client.methods.HttpGet;
 import weiboread.HttpTest;
 
 public class IpUtils {
+	
+	
+	public static void main(String[] args) {
+		 //String str = getIpStr("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
+		 //System.out.println(str);
+		getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
+		 
+	}
+	
+	public static String getIpAndProt(String t){
+		String regex="//(.*?):(.*)";
+		Pattern p=Pattern.compile(regex);
+		//String t="://127.0.0.1:8080 sd123123safa";
+		Matcher m=p.matcher(t);
+		while(m.find()){
+			//System.out.println();
+			return m.group(1)+":"+m.group(2);
+		}
+		return null;
+	}
 	
 	
 	/*

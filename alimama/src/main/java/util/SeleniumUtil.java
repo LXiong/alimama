@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,6 +17,7 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -89,13 +91,22 @@ public class SeleniumUtil {
 	public static WebDriver initChromeDriver(String ip,int prot) {
 		logger.info("start init WebDriver!");
 		WebDriver driver = null;
+		String proxyIpAndProt = ip+":"+prot;
 		try {
 			/*ChromeDriverService service = new ChromeDriverService.Builder()
 					.usingDriverExecutable(new File("e:\\app\\chromedriver\\chromedriver.exe")).usingAnyFreePort()
 					.build();
 			service.start();*/
-			System.setProperty("webdriver.chrome.driver", "e:\\app\\chromedriver\\chromedriver.exe");
-			driver = new ChromeDriver();
+			//System.setProperty("webdriver.chrome.driver", "e:\\app\\chromedriver\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe");
+			DesiredCapabilities capabilities = new DesiredCapabilities();
+			Proxy proxy = new Proxy();
+			proxy.setHttpProxy(proxyIpAndProt).setFtpProxy(proxyIpAndProt).setSocksProxy(proxyIpAndProt).setSslProxy(proxyIpAndProt);
+			capabilities.setCapability(CapabilityType.ForSeleniumServer.AVOIDING_PROXY, true);
+			capabilities.setCapability(CapabilityType.ForSeleniumServer.ONLY_PROXYING_SELENIUM_TRAFFIC, true);
+			capabilities.setCapability(CapabilityType.PROXY, proxy);
+			
+			driver = new ChromeDriver(capabilities);
 			//driver = new HtmlUnitDriver(true);
 		} catch (Exception e) {
 			logger.error("Init WebDriver is error!", e);

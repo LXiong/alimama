@@ -2,21 +2,25 @@ package dataoke;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Map.Entry;
+import java.util.Random;
 
 import jodd.http.Cookie;
 import jodd.http.HttpBrowser;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import util.IpUtils;
 import util.SeleniumUtil;
 
 public class ZhuCeSelenium {
@@ -56,7 +60,18 @@ public class ZhuCeSelenium {
 	static File out = new File("d:\\dataokeuser1.txt");
 	public static void execute()throws Exception{
 		if(webDriver==null){
-			webDriver = SeleniumUtil.initChromeDriver();
+			List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
+			 if(CollectionUtils.isEmpty(hosts)){
+				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				 Thread.sleep(5000);
+			 }else{
+				 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+			 }
+			HttpHost host = hosts.get(0);
+			
+			//HttpHost host = new HttpHost("123.125.212.171", 8080);
+			webDriver = SeleniumUtil.initChromeDriver(host.getHostName(),host.getPort());
+			//webDriver = SeleniumUtil.initChromeDriver();
 		}
 		 webDriver.manage().window().maximize();
 		 webDriver.get("http://www.dataoke.com/login/?user=reg");
