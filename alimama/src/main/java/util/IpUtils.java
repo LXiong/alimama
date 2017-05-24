@@ -43,7 +43,7 @@ public class IpUtils {
 		return null;
 	}
 	
-	
+		
 	/*
 	 * 随机生成国内IP地址
 	 */
@@ -91,30 +91,32 @@ public class IpUtils {
 	 * * @param IP<br>
 	 * * @param post<br>
 	 */
-	public static void createIPAddress(String ip, int port) {
+	public static boolean createIPAddress(String ip, int port) {
 		URL url = null;
 		try {
 			url = new URL("http://www.baidu.com");
+			InetSocketAddress addr = null;
+			addr = new InetSocketAddress(ip, port);
+			Proxy proxy = new Proxy(Proxy.Type.HTTP, addr); // http proxy
+			InputStream in = null;
+			try {
+				URLConnection conn = url.openConnection(proxy);
+				conn.setConnectTimeout(1000);
+				in = conn.getInputStream();
+			} catch (Exception e) {
+				System.out.println("ip " + ip + " is not aviable");// 异常IP
+			}
+			String s = convertStreamToString(in);
+			System.out.println(s);
+			// System.out.println(s);
+			if (s.indexOf("baidu") > 0) {// 有效IP
+				System.out.println(ip + ":" + port + " is ok");
+				return true;
+			}
 		} catch (MalformedURLException e) {
 			System.out.println("url invalidate");
 		}
-		InetSocketAddress addr = null;
-		addr = new InetSocketAddress(ip, port);
-		Proxy proxy = new Proxy(Proxy.Type.HTTP, addr); // http proxy
-		InputStream in = null;
-		try {
-			URLConnection conn = url.openConnection(proxy);
-			conn.setConnectTimeout(1000);
-			in = conn.getInputStream();
-		} catch (Exception e) {
-			System.out.println("ip " + ip + " is not aviable");// 异常IP
-		}
-		String s = convertStreamToString(in);
-		System.out.println(s);
-		// System.out.println(s);
-		if (s.indexOf("baidu") > 0) {// 有效IP
-			System.out.println(ip + ":" + port + " is ok");
-		}
+	    return false;
 	}
 	
 public  static List<HttpHost> getips(String url) {

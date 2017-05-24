@@ -29,8 +29,13 @@ public class ZhuCeSelenium {
 
 	public static void main(String[] args)throws Exception {
 		if(ArrayUtils.isNotEmpty(args)){
-			sleep = Integer.parseInt(args[0]);
+			proxyURL = args[0];
 		}
+		
+		if(ArrayUtils.isNotEmpty(args) && args.length >=1){
+			sleep = Integer.valueOf(args[1]);
+		}
+		
 		browser = new HttpBrowser();
 		
 		System.out.println("开始验证>>>>>>>>>>>>>>>>>>>>>>>");
@@ -75,6 +80,17 @@ public class ZhuCeSelenium {
 	static File out = new File("d:\\dataokeuser1.txt");
 	static HttpHost host = null;
 	
+	static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1";
+	public static void getPrxoyIp()throws Exception{
+		List<HttpHost> hosts = IpUtils.getips(proxyURL);
+		 if(CollectionUtils.isEmpty(hosts)){
+			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 Thread.sleep(3000);
+		 }else{
+			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+		 }
+		 host = hosts.get(0);
+	}
 	public static void getProxyIpSetWebDriver()throws Exception{
 		if(errorSize >=2 || okSize >=3){
 			System.out.println("该ip已经注册了3个或者已经错误了2个>>>>>>>>>>>>>>>");
@@ -86,14 +102,16 @@ public class ZhuCeSelenium {
 				//webDriver.close();
 				webDriver = null;
 			}
-			List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
-			 if(CollectionUtils.isEmpty(hosts)){
-				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-				 Thread.sleep(3000);
-			 }else{
-				 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+			 getPrxoyIp();
+			 for(;;){
+				 boolean flag = IpUtils.createIPAddress(host.getHostName(),host.getPort());
+				 if(!flag){
+					 System.out.println("代理ip无效>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					 getPrxoyIp();
+				 }else{
+					 break;
+				 }
 			 }
-			 host = hosts.get(0);
 			 
 			System.out.println("从新打开浏览器>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			webDriver = SeleniumUtil.initChromeDriver(host.getHostName(),host.getPort());
@@ -101,14 +119,17 @@ public class ZhuCeSelenium {
 			errorSize = 0;
 		}else{
 			if(webDriver==null){
-				List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=4969779231500858&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
-				 if(CollectionUtils.isEmpty(hosts)){
-					 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-					 Thread.sleep(3000);
-				 }else{
-					 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+				 getPrxoyIp();
+				 for(;;){
+					 boolean flag = IpUtils.createIPAddress(host.getHostName(),host.getPort());
+					 if(!flag){
+						 System.out.println("代理ip无效>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+						 getPrxoyIp();
+					 }else{
+						 break;
+					 }
 				 }
-				 host = hosts.get(0);
+				 
 				 webDriver = SeleniumUtil.initChromeDriver(host.getHostName(),host.getPort());
 			}
 		}
@@ -226,7 +247,8 @@ public class ZhuCeSelenium {
 			 okSize +=1;
 			 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 			 System.out.println("当前ip已经注册成功 >>>>>>>>>>>"+okSize+" 个号！！！！！！！！！！");
-			 Thread.sleep(2000);
+			 Thread.sleep(1000);
+			 Ma60.jiaheiNum();
 		 }else{
 			 System.out.println("验证码为null>>>>>>>>>>>>>>>>>>>>>");
 			 Ma60.jiaheiNum();
