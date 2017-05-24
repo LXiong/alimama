@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import jodd.http.Cookie;
 import jodd.http.HttpBrowser;
@@ -36,7 +37,7 @@ public class ZhuCeSelenium {
 		
 	}
 	static String tnum = "";
-	
+	static int errorSize = 0;
 	public static void executeAll()throws Exception{
 
 		 Ma60.login();
@@ -44,7 +45,9 @@ public class ZhuCeSelenium {
 			 try{
 				 execute();
 			 }catch(Exception e){
+				 errorSize +=1;
 				 e.printStackTrace();
+				 Thread.sleep(2000);
 			 }finally{
 				 try{
 					 System.out.println("释放手机号码");
@@ -58,8 +61,19 @@ public class ZhuCeSelenium {
 	}
 	static int okSize = 0;
 	static File out = new File("d:\\dataokeuser1.txt");
-	public static void execute()throws Exception{
-		if(webDriver==null){
+	static HttpHost host = null;
+	
+	public static void getProxyIpSetWebDriver()throws Exception{
+		if(errorSize >=2 || okSize >=3){
+			System.out.println("该ip已经注册了3个或者已经错误了2个>>>>>>>>>>>>>>>");
+			
+			//HttpHost host = new HttpHost("123.125.212.171", 8080);
+			if(webDriver!=null){
+				System.out.println("关闭浏览器>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				//webDriver.quit();
+				//webDriver.close();
+				webDriver = null;
+			}
 			List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
 			 if(CollectionUtils.isEmpty(hosts)){
 				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -67,14 +81,41 @@ public class ZhuCeSelenium {
 			 }else{
 				 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 			 }
-			HttpHost host = hosts.get(0);
-			
-			//HttpHost host = new HttpHost("123.125.212.171", 8080);
+			 host = hosts.get(0);
+			 
+			System.out.println("从新打开浏览器>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			webDriver = SeleniumUtil.initChromeDriver(host.getHostName(),host.getPort());
-			//webDriver = SeleniumUtil.initChromeDriver();
+			okSize = 0;
+			errorSize = 0;
+		}else{
+			if(webDriver==null){
+				List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=4969779231500858&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
+				 if(CollectionUtils.isEmpty(hosts)){
+					 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					 Thread.sleep(5000);
+				 }else{
+					 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+				 }
+				 host = hosts.get(0);
+				 webDriver = SeleniumUtil.initChromeDriver(host.getHostName(),host.getPort());
+			}
 		}
+		
+	}
+	
+	public static void execute()throws Exception{
+		 getProxyIpSetWebDriver();
 		 webDriver.manage().window().maximize();
+		 //webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);		 
+		 webDriver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
 		 webDriver.get("http://www.dataoke.com/login/?user=reg");
+		 
+		 System.out.println("开始检测当前代理ip是否能打开页面>>>>>>>>>>>>>>>>>>>");
+		 String pageS = webDriver.getPageSource();
+		 if(pageS.contains("获取手机验证码")){
+			 System.out.println("检测成功。开始注册>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 }
+		 
 		 String num = Ma60.getnum();
 		 tnum = num;
 		 if(StringUtils.isBlank(num)){
@@ -115,6 +156,20 @@ public class ZhuCeSelenium {
 	    		 Ma60.jiaheiNum();
 	    		 return ;
 	    	}*/
+	    	
+	    	List<WebElement> webElements = webDriver.findElements(By.xpath("//p[@class='test-tips']"));
+			for(WebElement web:webElements){
+				String str= web.getText();
+				if(StringUtils.isNotBlank(str)){
+					System.out.println("错误提示为：    "+str);
+					if(str.contains("注册数量超限")){
+						okSize = 5;
+					}
+					Thread.sleep(1000);
+					return ;
+				}
+			}
+			Thread.sleep(200);
 	    }
 	    //System.in.read();
 	    
@@ -158,7 +213,7 @@ public class ZhuCeSelenium {
 			 
 			 okSize +=1;
 			 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
-			 
+			 System.out.println("当前ip已经注册成功 >>>>>>>>>>>"+okSize+" 个号！！！！！！！！！！");
 			 Thread.sleep(2000);
 		 }else{
 			 System.out.println("验证码为null>>>>>>>>>>>>>>>>>>>>>");
