@@ -85,7 +85,7 @@ public class ZhuCeSelenium {
 	static HttpHost host = null;
 	
 	//static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1";
-	static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=5&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
+	static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=7&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
 	
 	static List<String> proxyURLList = new ArrayList<String>();
 	
@@ -95,7 +95,7 @@ public class ZhuCeSelenium {
 		proxyURLList.add("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
 	}
 	
-	static BlockingQueue<HttpHost> blockingQueue = new ArrayBlockingQueue<HttpHost>(5);
+	static BlockingQueue<HttpHost> blockingQueue = new ArrayBlockingQueue<HttpHost>(7);
 	
 	public static void getPrxoyIp()throws Exception{
 		try{
