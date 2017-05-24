@@ -19,6 +19,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -80,16 +81,22 @@ public class ZhuCeSelenium {
 	static File out = new File("d:\\dataokeuser1.txt");
 	static HttpHost host = null;
 	
-	static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1";
+	//static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1";
+	static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=1&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
 	public static void getPrxoyIp()throws Exception{
-		List<HttpHost> hosts = IpUtils.getips(proxyURL);
-		 if(CollectionUtils.isEmpty(hosts)){
-			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			 Thread.sleep(3000);
-		 }else{
-			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
-		 }
-		 host = hosts.get(0);
+		try{
+			List<HttpHost> hosts = IpUtils.getips(proxyURL);
+			 if(CollectionUtils.isEmpty(hosts)){
+				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				 Thread.sleep(3000);
+			 }else{
+				 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+			 }
+			 host = hosts.get(0);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 	public static void getProxyIpSetWebDriver()throws Exception{
 		if(errorSize >=2 || okSize >=3){
@@ -137,10 +144,11 @@ public class ZhuCeSelenium {
 	}
 	static int sleep =10;
 	public static void execute()throws Exception{
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		 getProxyIpSetWebDriver();
 		 webDriver.manage().window().maximize();
 		 //webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);		 
-		 webDriver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+		 webDriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 		 webDriver.get("http://www.dataoke.com/login/?user=reg");
 		 
 		 System.out.println("开始检测当前代理ip是否能打开页面>>>>>>>>>>>>>>>>>>>");
@@ -158,14 +166,23 @@ public class ZhuCeSelenium {
 			 System.exit(0);
 		 }
 		 
+		Thread.sleep(2000); 
 		System.out.println("开始输入手机号码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"); 
-		WebElement webElement = webDriver.findElement(By.id("phone"));
-		webElement.click();
-	    webElement.sendKeys(num);
+		WebElement webElement = null;
+		//WebElement webElement = webDriver.findElement(By.id("phone"));
+		//webElement.click();
+	    //webElement.sendKeys(num);
+		//js.executeScript("document.querySelectorAll(\"input[id='phone']\")[0].click()");
+		//Thread.sleep(200);
+		js.executeScript("document.querySelectorAll(\"input[id='phone']\")[0].value='"+num+"'");
+		
+	    
 	    Thread.sleep(200);
 	    System.out.println("点击获取短信按钮》》》》》》》》》》》》》》》》》》》");
-	    webElement = webDriver.findElement(By.xpath("//button[@class='get-phone-verify get-phone-verify-fn']"));
-		webElement.click();
+	    //webElement = webDriver.findElement(By.xpath("//button[@class='get-phone-verify get-phone-verify-fn']"));
+		//webElement.click();
+	    js.executeScript("document.querySelectorAll(\"button[class='get-phone-verify get-phone-verify-fn']\")[0].click();");
+		
 		Thread.sleep(200);
 		
 		   // 选取frame  
@@ -224,24 +241,37 @@ public class ZhuCeSelenium {
 		 
 		 if(StringUtils.isNotBlank(code)){
 			 
-			 webElement = webDriver.findElement(By.xpath("//input[@id='code']"));
-			 webElement.click();
-			 webElement.sendKeys(code);
+			 //webElement = webDriver.findElement(By.xpath("//input[@id='code']"));
+			 //webElement.click();
+			 //webElement.sendKeys(code);
+			 js.executeScript("document.querySelectorAll(\"input[id='code']\")[0].value='"+code+"'");
+			 
 			 Thread.sleep(200);
 			 
 			 int size = new Random().nextInt(4);
 			 String pwd =  new PassWordCreate().createPassWord(6+size);
-			 webElement = webDriver.findElement(By.xpath("//input[@data-id='pwd']"));
-			 webElement.click();
-			 webElement.sendKeys(pwd);
-			 Thread.sleep(200);
-			 webElement = webDriver.findElement(By.xpath("//input[@data-id='repwd']"));
-			 webElement.click();
-			 webElement.sendKeys(pwd);
+			 //webElement = webDriver.findElement(By.xpath("//input[@data-id='pwd']"));
+			 //webElement.click();
+			 //webElement.sendKeys(pwd);
+			// js.executeScript("document.querySelectorAll(\"input[data-id='pwd']\")[0].click()");
+			// Thread.sleep(200);
+			 js.executeScript("document.querySelectorAll(\"input[data-id='pwd']\")[0].value='"+pwd+"'");
+			 
 			 Thread.sleep(200);
 			 
-			 webElement = webDriver.findElement(By.xpath("//a[@class='submit-btn register-btn']"));
-			 webElement.click();
+			 //webElement = webDriver.findElement(By.xpath("//input[@data-id='repwd']"));
+			 //webElement.click();
+			 //webElement.sendKeys(pwd);
+			 
+			 //js.executeScript("document.querySelectorAll(\"input[data-id='repwd']\")[0].click()");
+			 //Thread.sleep(200);
+			 js.executeScript("document.querySelectorAll(\"input[data-id='repwd']\")[0].value='"+pwd+"'");
+			 
+			 Thread.sleep(200);
+			 
+			 //webElement = webDriver.findElement(By.xpath("//a[@class='submit-btn register-btn']"));
+			 //webElement.click();
+			 js.executeScript("document.querySelectorAll(\"a[class='submit-btn register-btn']\")[0].click();");
 			 System.out.println("注册成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 
 			 okSize +=1;
