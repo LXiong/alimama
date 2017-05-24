@@ -249,7 +249,7 @@ public class ZhuCeSelenium {
 	    
 	    String code = "";
 		 System.out.println("获取短信内容");
-		 for(int i=0;i<6;i++){
+		 for(int i=0;i<8;i++){
 			 String str = Ma60.getmsg();
 			 
 			 List<WebElement> webElements = webDriver.findElements(By.xpath("//p[@class='test-tips']"));
