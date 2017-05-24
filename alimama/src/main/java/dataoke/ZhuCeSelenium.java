@@ -1,6 +1,7 @@
 package dataoke;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,8 +84,20 @@ public class ZhuCeSelenium {
 	
 	//static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1";
 	static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=1&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
+	
+	static List<String> proxyURLList = new ArrayList<String>();
+	
+	static{
+		proxyURLList.add(proxyURL);
+		proxyURLList.add("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
+		proxyURLList.add("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
+	}
+	
+	
+	
 	public static void getPrxoyIp()throws Exception{
 		try{
+			//proxyURLList.get(new Random().nextInt(3))
 			List<HttpHost> hosts = IpUtils.getips(proxyURL);
 			 if(CollectionUtils.isEmpty(hosts)){
 				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -110,7 +123,7 @@ public class ZhuCeSelenium {
 			if(webDriver!=null){
 				System.out.println("关闭浏览器>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				//webDriver.quit();
-				//webDriver.close();
+				webDriver.close();
 				webDriver = null;
 			}
 			 getPrxoyIp();
@@ -148,7 +161,7 @@ public class ZhuCeSelenium {
 	}
 	static int sleep =10;
 	public static void execute()throws Exception{
-		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+		
 		 getProxyIpSetWebDriver();
 		 webDriver.manage().window().maximize();
 		 //webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);		 
@@ -171,6 +184,9 @@ public class ZhuCeSelenium {
 		 }
 		 
 		Thread.sleep(3000); 
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+		
+		
 		System.out.println("开始输入手机号码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"); 
 		WebElement webElement = null;
 		//WebElement webElement = webDriver.findElement(By.id("phone"));
@@ -190,17 +206,19 @@ public class ZhuCeSelenium {
 		Thread.sleep(2000);
 		
 		   // 选取frame  
-		//webDriver.switchTo().frame("captcha_widget");;  
+		webDriver.switchTo().frame("captcha_widget");;  
        
 		System.out.println("点击人机识别验证》》》》》》》》》》》》》》》》》》》");
-		//webElement = webDriver.findElement(By.xpath("//span[@class='captcha-widget-text']"));
+		webElement = webDriver.findElement(By.xpath("//span[@class='captcha-widget-text']"));
+		webElement.click();
+		// 跳出iframe  
+		webDriver.switchTo().defaultContent();  
+		
 		//js.executeScript("document.frames['captcha_widget'].document.querySelectorAll(\"span[class='captcha-widget-text']\")[0].click();");
 		
-		//webElement.click();
 		Thread.sleep(200);
 		
-		 // 跳出iframe  
-		//webDriver.switchTo().defaultContent();  
+		 
 		
 	    
 	    System.out.println("开始手动输入验证码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>停顿15秒");
@@ -233,6 +251,21 @@ public class ZhuCeSelenium {
 		 System.out.println("获取短信内容");
 		 for(int i=0;i<10;i++){
 			 String str = Ma60.getmsg();
+			 
+			 List<WebElement> webElements = webDriver.findElements(By.xpath("//p[@class='test-tips']"));
+				for(WebElement web:webElements){
+					String strError= web.getText();
+					if(StringUtils.isNotBlank(strError)){
+						System.out.println("错误提示为：    "+strError);
+						if(strError.contains("注册数量超限")){
+							okSize = 5;
+						}
+						Thread.sleep(1000);
+						return ;
+					}
+				}
+			 
+			 
 			 if(StringUtils.isBlank(str)){
 				 Thread.sleep(4000);
 				 continue;

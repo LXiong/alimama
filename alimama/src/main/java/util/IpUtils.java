@@ -126,9 +126,16 @@ public  static List<HttpHost> getips(String url) {
 		try {
 			List<HttpHost> hosts = new ArrayList<HttpHost>();
 			String str = getIpStr(url);
-			
+			System.out.println("获取ip===="+str);
 			if(StringUtils.isBlank(str)){
-				System.out.println("获取ip是空>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				System.out.println("获取ip是空>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+str);
+				return null;
+			}else{
+				if(str.contains("频繁")){
+					Thread.sleep(4000);
+					return null;
+				}
+			
 			}
 
 			//System.out.println("get ipstr :" + str);
