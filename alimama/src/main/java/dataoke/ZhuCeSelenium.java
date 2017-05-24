@@ -320,6 +320,7 @@ public class ZhuCeSelenium {
 			 Ma60.jiaheiNum();
 		 }else{
 			 System.out.println("验证码为null>>>>>>>>>>>>>>>>>>>>>");
+			 okSize +=1;
 			 Ma60.jiaheiNum();
 		 }
 	    
