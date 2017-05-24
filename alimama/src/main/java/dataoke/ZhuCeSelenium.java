@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import jodd.http.Cookie;
@@ -83,7 +85,7 @@ public class ZhuCeSelenium {
 	static HttpHost host = null;
 	
 	//static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1";
-	static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=1&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
+	static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=5&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
 	
 	static List<String> proxyURLList = new ArrayList<String>();
 	
@@ -93,22 +95,31 @@ public class ZhuCeSelenium {
 		proxyURLList.add("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
 	}
 	
-	
+	static BlockingQueue<HttpHost> blockingQueue = new ArrayBlockingQueue<HttpHost>(5);
 	
 	public static void getPrxoyIp()throws Exception{
 		try{
+			if(!blockingQueue.isEmpty()){
+				System.out.println("当前ip池大小》》》》》》》》》》》》》》》》》》》"+blockingQueue.size());
+				host = blockingQueue.take();
+				return ;
+			}
+			System.out.println("开始获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>");
 			//proxyURLList.get(new Random().nextInt(3))
 			List<HttpHost> hosts = IpUtils.getips(proxyURL);
 			 if(CollectionUtils.isEmpty(hosts)){
 				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				 Thread.sleep(3000);
 			 }else{
-				 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+				 for(HttpHost h:hosts){
+					 blockingQueue.add(h);
+				 }
+				// System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 			 }
 			if(hosts==null){
 				getPrxoyIp();
 			}else{
-				host=hosts.get(0);
+				host=blockingQueue.take();
 			}
 		}catch(Exception e){
 			e.printStackTrace();
