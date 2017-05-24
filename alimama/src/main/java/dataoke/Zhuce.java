@@ -94,23 +94,23 @@ public class Zhuce {
 		//pids.add("2402473");
 		
 		
-		HashSet<Integer> hashSet = new HashSet<Integer>();
-		hashSet = randomCommon(0, 550, 550);
+	/*	HashSet<Integer> hashSet = new HashSet<Integer>();
+		hashSet = randomCommon(0, 180, 180);
 		
-		pidsMap.put("2420590", hashSet);
-	
+		pidsMap.put("2463308", hashSet);
+	*/
         HashSet<Integer> hashSet1 = new HashSet<Integer>();
-    	hashSet1 = randomCommon(0, 500, 400);
+    	hashSet1 = randomCommon(0, 180, 180);
     	
 		
-		pidsMap.put("2405024", hashSet1);
+		pidsMap.put("2491231", hashSet1);
 		
 		
 		HashSet<Integer> hashSet2 = new HashSet<Integer>();
 			
-	   hashSet2 = randomCommon(0, 500, 300);
+	    hashSet2 = randomCommon(0, 180, 180);
 			
-			pidsMap.put("2418546", hashSet2);
+			pidsMap.put("2468377", hashSet2);
 		
 		for(String key:pidsMap.keySet()){
 			System.out.println("key ==="+key +" 隨機數大小===="+pidsMap.get(key).size()+" 數組>>>"+pidsMap.get(key));
@@ -120,26 +120,26 @@ public class Zhuce {
 		
 		
 		
-		pidsRandom.add("2371537");
-		pidsRandom.add("2375335");
-		pidsRandom.add("2373815");
+		pidsRandom.add("2373537");
+		pidsRandom.add("2372335");
+		pidsRandom.add("2371815");
 		pidsRandom.add("2375125");
-		pidsRandom.add("2377861");
-		pidsRandom.add("2373631");
+		pidsRandom.add("2371861");
+		pidsRandom.add("2373131");
 		pidsRandom.add("2372425");
-		pidsRandom.add("2372726");
+		pidsRandom.add("2372126");
 		pidsRandom.add("2374616");
 		pidsRandom.add("2374289");
 		pidsRandom.add("2377831");
 		pidsRandom.add("2372131");
-		pidsRandom.add("2377439");
-		pidsRandom.add("2379339");
-		pidsRandom.add("2373762");
-		pidsRandom.add("2372614");
-		pidsRandom.add("2376214");
-		pidsRandom.add("2374475");
-		pidsRandom.add("2374815");
-		pidsRandom.add("2373175");
+		pidsRandom.add("2371439");
+		pidsRandom.add("2379139");
+		pidsRandom.add("2373162");
+		pidsRandom.add("2371614");
+		pidsRandom.add("2374214");
+		pidsRandom.add("2373475");
+		pidsRandom.add("2373815");
+		pidsRandom.add("2376175");
 
 		
 		
@@ -236,9 +236,9 @@ public class Zhuce {
 		if(flag){
 			for(String pid:pidsMap.keySet()){
 				
-				if(!pidsMap.get(pid).contains(okSize)){
+				/*if(!pidsMap.get(pid).contains(okSize)){
 					continue;
-				}
+				}*/
 				
 				Test.readExecute(pid, num);
 				boolean flagt = Test.tuijian(pid, num);
@@ -249,7 +249,7 @@ public class Zhuce {
 				}
 				Thread.sleep(Cmd.getSleepTime());
 				
-				pid = getRandomPid();
+				/*pid = getRandomPid();
 				
 				Test.readExecute(pid, num);
 				flagt = Test.tuijian(pid, num);
@@ -258,7 +258,7 @@ public class Zhuce {
 				}else{
 					System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+num);
 				}
-				Thread.sleep(Cmd.getSleepTime());
+				Thread.sleep(Cmd.getSleepTime());*/
 			}
 		}	
 		}catch(Exception e){
@@ -270,7 +270,7 @@ public class Zhuce {
 	public static void main(String[] args)throws Exception {
 		
 		
-		//Thread.sleep(1000 * 60 * 40);
+		Thread.sleep(1000 * 60 * 60);
 		browser = new HttpBrowser();
 		
 		executeAll();
@@ -305,13 +305,20 @@ public class Zhuce {
 	
 	public static void executeAll()throws Exception{
 
-		 Ma60.login();
+		 try{
+			 Ma60.login(); 
+		 }catch(Exception e){
+			 e.printStackTrace();
+			 System.out.println("再次登录>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 Ma60.login();
+		 }
+		 
 		 for(int i=0;i<10000;i++){
 			 try{
-				/* if(okSize > 50){
+				 if(okSize > 120){
 					 System.out.println("超过 okSize == "+okSize + "停止程序");
 					 System.exit(0);
-				 }*/
+				 }
 				 
 				 execute();
 			 }catch(Exception e){
