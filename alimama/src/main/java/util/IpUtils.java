@@ -141,6 +141,11 @@ public  static List<HttpHost> getips(String url) {
 			}
 			return hosts;
 		} catch (Exception e) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 			System.out.println("获取ip有问题>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			e.printStackTrace();
 		}
