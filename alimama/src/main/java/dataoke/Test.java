@@ -796,8 +796,8 @@ public class Test {
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(1000);
 			if(flag){
-				flag = deleteAll(uname,"1");
-				Thread.sleep(1000);
+				//flag = deleteAll(uname,"1");
+				//Thread.sleep(1000);
 				flag = deleteAll(uname,"0");
 				//flag = tuijianToFile(pid,uname);
 				if(flag){
