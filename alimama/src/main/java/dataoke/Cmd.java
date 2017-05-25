@@ -18,9 +18,9 @@ public class Cmd {
 		}
 	}
 	
-	public static int min = 30000;
+	public static int min = 3000;
 	
-	public static int max = 60000;
+	public static int max = 10000;
 	
 	public static int getSleepTime(){
 	   return getSleepTime(min, max);

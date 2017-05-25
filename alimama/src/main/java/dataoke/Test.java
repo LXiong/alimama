@@ -806,7 +806,8 @@ public class Test {
 					System.out.println("删除失败》》》》》》》》》》》》》》》》》》uname="+uname);
 				}
 			}
-			Thread.sleep(1000);
+			//Thread.sleep(1000);
+			Thread.sleep(Cmd.getSleepTime());
 		}
 	}
 	static String ip = "";
