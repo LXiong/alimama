@@ -341,7 +341,7 @@ public class ZhuCeSelenium {
 			 //webElement.sendKeys(code);
 			 js.executeScript("document.querySelectorAll(\"input[id='code']\")[0].value='"+code+"'");
 			 
-			 Thread.sleep(200);
+			 Thread.sleep(1000);
 			 
 			 int size = new Random().nextInt(4);
 			 String pwd =  new PassWordCreate().createPassWord(6+size);
@@ -352,7 +352,7 @@ public class ZhuCeSelenium {
 			// Thread.sleep(200);
 			 js.executeScript("document.querySelectorAll(\"input[data-id='pwd']\")[0].value='"+pwd+"'");
 			 
-			 Thread.sleep(200);
+			 Thread.sleep(1000);
 			 
 			 //webElement = webDriver.findElement(By.xpath("//input[@data-id='repwd']"));
 			 //webElement.click();
@@ -362,7 +362,7 @@ public class ZhuCeSelenium {
 			 //Thread.sleep(200);
 			 js.executeScript("document.querySelectorAll(\"input[data-id='repwd']\")[0].value='"+pwd+"'");
 			 
-			 Thread.sleep(200);
+			 Thread.sleep(1000);
 			 
 			 //webElement = webDriver.findElement(By.xpath("//a[@class='submit-btn register-btn']"));
 			 //webElement.click();
@@ -372,17 +372,17 @@ public class ZhuCeSelenium {
 			 okSize +=1;
 			 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 			 System.out.println("当前ip已经注册成功 >>>>>>>>>>>"+okSize+" 个号！！！！！！！！！！");
-			 Thread.sleep(1000);
+			 Thread.sleep(2000);
 			 Ma60.jiaheiNum();
 			 
 			
 			 if(StringUtils.isNotBlank(pids)){
 				 for(String pid:pids.split(",")){
 					 System.out.println("开始点击推荐商品>>>>>>>>>>>>>>>>>>>>>>id=="+pid);
-					 Thread.sleep(Cmd.getSleepTime(2000, 4000));
-					 login(num, pwd);
+					 Thread.sleep(Cmd.getSleepTime(2000, 5000));
+					// login(num, pwd);
 					 tuijian(pid);
-					 Thread.sleep(Cmd.getSleepTime(3000, 5000));
+					 Thread.sleep(Cmd.getSleepTime(3000, 4000));
 				 }
 			 }
 			 
@@ -427,6 +427,9 @@ public class ZhuCeSelenium {
 
 	public static boolean tuijian(String id)throws Exception{
 		try{
+			
+			webDriver.get("http://www.dataoke.com/logout");
+			Thread.sleep(Cmd.getSleepTime(2000, 3000));
 			webDriver.get("http://www.dataoke.com/item?id="+id);
 			Thread.sleep(Cmd.getSleepTime(5000, 8000));
 			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
