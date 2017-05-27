@@ -369,7 +369,7 @@ public class ZhuCeSelenium {
 			 js.executeScript("document.querySelectorAll(\"a[class='submit-btn register-btn']\")[0].click();");
 			 System.out.println("注册成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 
-			 okSize +=5;
+			 okSize +=1;
 			 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 			 System.out.println("当前ip已经注册成功 >>>>>>>>>>>"+okSize+" 个号！！！！！！！！！！");
 			 Thread.sleep(1000);
@@ -380,6 +380,7 @@ public class ZhuCeSelenium {
 				 for(String pid:pids.split(",")){
 					 System.out.println("开始点击推荐商品>>>>>>>>>>>>>>>>>>>>>>id=="+pid);
 					 Thread.sleep(Cmd.getSleepTime(2000, 4000));
+					 login(num, pwd);
 					 tuijian(pid);
 					 Thread.sleep(Cmd.getSleepTime(3000, 5000));
 				 }
@@ -394,6 +395,35 @@ public class ZhuCeSelenium {
 	    //webDriver.close();
 	}
 	
+	
+	public static boolean login(String uname,String pwd)throws Exception{
+		try{
+			webDriver.get("http://www.dataoke.com/login");
+			Thread.sleep(Cmd.getSleepTime(1000, 2000));
+			WebElement element =webDriver.findElement(By.xpath("//input[@data-id='email']"));
+		    element.sendKeys(uname);
+		    
+		    element =webDriver.findElement(By.xpath("//input[@data-id='pwd']"));
+		    element.sendKeys(pwd);
+		    
+		    element =webDriver.findElement(By.xpath("//a[@class='submit-btn login-btn']"));
+		    element.click();
+		    
+		    Thread.sleep(Cmd.getSleepTime(3000, 5000));
+		    
+		    String str = webDriver.getPageSource();
+		    
+		    if(str.contains("")){
+		    	
+		    }
+		    //Thread.sleep(Cmd.getSleepTime());
+		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+		    //Thread.sleep(Cmd.getSleepTime());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return true;
+	}
 
 	public static boolean tuijian(String id)throws Exception{
 		try{
