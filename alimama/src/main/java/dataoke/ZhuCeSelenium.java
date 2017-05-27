@@ -9,7 +9,10 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -186,6 +189,25 @@ public class ZhuCeSelenium {
 		}
 		
 	}
+	
+	static ExecutorService exec = Executors.newCachedThreadPool();
+	
+	public static Callable<Boolean> call(){
+		   Callable<Boolean> call = new Callable<Boolean>() {
+	            public Boolean call() throws Exception {
+	            	try{
+	            		  webDriver.close();
+	            		  return true;
+	            	}catch(Exception e){
+	            		e.printStackTrace();
+	            	}
+	            	return false;
+	            }
+	        };
+		return call;
+		
+	}
+	
 	public static void getProxyIpSetWebDriver()throws Exception{
 		if(errorSize >=2 || okSize >=3){
 			System.out.println("该ip已经注册了3个或者已经错误了2个>>>>>>>>>>>>>>>");
@@ -194,7 +216,13 @@ public class ZhuCeSelenium {
 			if(webDriver!=null){
 				System.out.println("关闭浏览器>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				//webDriver.quit();
-				webDriver.close();
+				//webDriver.close();
+				 try{
+					 Future<Boolean> future = exec.submit(call());
+					 future.get(1000 * 5, TimeUnit.MILLISECONDS);
+				 }catch(Exception e){
+					 e.printStackTrace();
+				 }
 				webDriver = null;
 			}
 			System.out.println("从新打开浏览器>>>>>>>>>>>>>>>>>>>>>>>>>>>");
