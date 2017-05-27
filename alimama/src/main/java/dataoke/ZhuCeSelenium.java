@@ -66,7 +66,10 @@ public class ZhuCeSelenium {
 	 	        				 for(HttpHost h:hosts){
 	 	        					 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
 	 	        					 if(flag){
+	 	        						 System.out.println("ip==="+h+" 有效加入ip池");
 	 	        						 blockingQueue.add(h);
+	 	        					 }else{
+	 	        						 System.out.println("ip==="+h+" 无效");
 	 	        					 }
 	 	        					
 	 	        				 }
@@ -160,8 +163,11 @@ public class ZhuCeSelenium {
 				 for(HttpHost h:hosts){
 					 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
 					 if(flag){
-						 blockingQueue.add(h);
-					 }
+ 						 System.out.println("ip==="+h+" 有效加入ip池");
+ 						 blockingQueue.add(h);
+ 					 }else{
+ 						 System.out.println("ip==="+h+" 无效");
+ 					 }
 					
 				 }
 				// System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
