@@ -34,7 +34,7 @@ import util.SeleniumUtil;
 public class ZhuCeSelenium {
 	
 	static String pids = "";
-
+	
 	public static void main(String[] args)throws Exception {
 		/*if(ArrayUtils.isNotEmpty(args)){
 			proxyURL = args[0];
@@ -51,44 +51,46 @@ public class ZhuCeSelenium {
 		
 		 Runnable runnable = new Runnable() {  
 	            public void run() {  
-	                // task to run goes here  
-	            	try{
-	            		 System.out.println("开始检测ip池ip数据数量>>>>>>>>>>>>>>>>>>");
-	 	                int size = blockingQueue.size();
-	 	                System.out.println("当前ip池数量wei:  "+size);
-	 	                if(size<5){
-	 	                	System.out.println("开始获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>");
-	 	        			//proxyURLList.get(new Random().nextInt(3))
-	 	        			List<HttpHost> hosts = IpUtils.getips(proxyURL);
-	 	        			 if(CollectionUtils.isEmpty(hosts)){
-	 	        				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-	 	        			 }else{
-	 	        				 for(HttpHost h:hosts){
-	 	        					 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
-	 	        					 if(flag){
-	 	        						 //System.out.println("ip==="+h+" 有效加入ip池");
-	 	        						 blockingQueue.add(h);
-	 	        					 }else{
-	 	        						// System.out.println("ip==="+h+" 无效");
-	 	        					 }
-	 	        					
-	 	        				 }
-	 	        				// System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
-	 	        			 }
-	 	                }else{
-	 	                	System.out.println("当前ip池数据量充足>>>>>>>>>>>>>>>>>>>>>>>>>>");
-	 	                }
-	            	}catch(Exception e){
-	            		e.printStackTrace();
+	                // task to run goes here
+	            	synchronized(ZhuCeSelenium.class){
+	            		try{
+		            		 System.out.println("开始检测ip池ip数据数量>>>>>>>>>>>>>>>>>>");
+		 	                int size = blockingQueue.size();
+		 	                System.out.println("当前ip池数量wei:  "+size);
+		 	                if(size<5){
+		 	                	System.out.println("开始获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 	        			//proxyURLList.get(new Random().nextInt(3))
+		 	        			List<HttpHost> hosts = IpUtils.getips(proxyURL);
+		 	        			 if(CollectionUtils.isEmpty(hosts)){
+		 	        				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 	        			 }else{
+		 	        				 for(HttpHost h:hosts){
+		 	        					 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
+		 	        					 if(flag){
+		 	        						 //System.out.println("ip==="+h+" 有效加入ip池");
+		 	        						 blockingQueue.add(h);
+		 	        					 }else{
+		 	        						// System.out.println("ip==="+h+" 无效");
+		 	        					 }
+		 	        					
+		 	        				 }
+		 	        				// System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+		 	        			 }
+		 	                }else{
+		 	                	System.out.println("当前ip池数据量充足>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 	                }
+		            	}catch(Exception e){
+		            		e.printStackTrace();
+		            	}
+	            		
 	            	}
-	               
 	            }  
 	        };  
 	        ScheduledExecutorService service = Executors  
 	                .newSingleThreadScheduledExecutor();  
 	        // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间  
-	        service.scheduleAtFixedRate(runnable, 10, 1, TimeUnit.SECONDS);
-		
+	        service.scheduleAtFixedRate(runnable, 1, 5, TimeUnit.SECONDS);
+		Thread.sleep(5000);
 		browser = new HttpBrowser();
 		
 		System.out.println("开始验证>>>>>>>>>>>>>>>>>>>>>>>");
@@ -134,7 +136,9 @@ public class ZhuCeSelenium {
 	static HttpHost host = null;
 	
 	//static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1";
-	static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=10&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
+	//static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=10&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
+	
+	static String proxyURL="http://www.56pu.com/api?orderId=564127255497792544&quantity=10&line=all&region=&regionEx=&beginWith=&ports=&vport=&speed=&anonymity=2,3&scheme=&duplicate=2&sarea=";
 	
 	static List<String> proxyURLList = new ArrayList<String>();
 	
@@ -193,34 +197,14 @@ public class ZhuCeSelenium {
 				webDriver.close();
 				webDriver = null;
 			}
-			 getPrxoyIp();
-			 for(;;){
-				 boolean flag = IpUtils.createIPAddress(host.getHostName(),host.getPort());
-				 if(!flag){
-					 System.out.println("代理ip无效>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-					 getPrxoyIp();
-				 }else{
-					 break;
-				 }
-			 }
-			 
 			System.out.println("从新打开浏览器>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			getPrxoyIp();
 			webDriver = SeleniumUtil.initChromeDriver(host.getHostName(),host.getPort());
 			okSize = 0;
 			errorSize = 0;
 		}else{
 			if(webDriver==null){
 				 getPrxoyIp();
-				 for(;;){
-					 boolean flag = IpUtils.createIPAddress(host.getHostName(),host.getPort());
-					 if(!flag){
-						 System.out.println("代理ip无效>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-						 getPrxoyIp();
-					 }else{
-						 break;
-					 }
-				 }
-				 
 				 webDriver = SeleniumUtil.initChromeDriver(host.getHostName(),host.getPort());
 			}
 		}
