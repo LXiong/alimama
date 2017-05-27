@@ -30,15 +30,22 @@ import util.IpUtils;
 import util.SeleniumUtil;
 
 public class ZhuCeSelenium {
+	
+	static String pids = "";
 
 	public static void main(String[] args)throws Exception {
-		if(ArrayUtils.isNotEmpty(args)){
+		/*if(ArrayUtils.isNotEmpty(args)){
 			proxyURL = args[0];
 		}
 		
 		if(ArrayUtils.isNotEmpty(args) && args.length >=1){
 			sleep = Integer.valueOf(args[1]);
+		}*/
+		
+		if(ArrayUtils.isNotEmpty(args)){
+			pids = args[0];
 		}
+
 		
 		browser = new HttpBrowser();
 		
@@ -329,6 +336,16 @@ public class ZhuCeSelenium {
 			 System.out.println("当前ip已经注册成功 >>>>>>>>>>>"+okSize+" 个号！！！！！！！！！！");
 			 Thread.sleep(1000);
 			 Ma60.jiaheiNum();
+			 
+			
+			 if(StringUtils.isNotBlank(pids)){
+				 for(String pid:pids.split(",")){
+					 System.out.println("开始点击推荐商品>>>>>>>>>>>>>>>>>>>>>>id=="+pid);
+					 tuijian(pid);
+					 Thread.sleep(1000);
+				 }
+			 }
+			 
 		 }else{
 			 System.out.println("验证码为null>>>>>>>>>>>>>>>>>>>>>");
 			 okSize +=1;
@@ -336,6 +353,21 @@ public class ZhuCeSelenium {
 		 }
 	    
 	    //webDriver.close();
+	}
+	
+
+	public static boolean tuijian(String id)throws Exception{
+		try{
+			webDriver.get("http://www.dataoke.com/item?id="+id);
+			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
+		    element.click();
+		    //Thread.sleep(Cmd.getSleepTime());
+		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+		    //Thread.sleep(Cmd.getSleepTime());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 	static HttpBrowser browser = null;
