@@ -346,8 +346,9 @@ public class ZhuCeSelenium {
 			 if(StringUtils.isNotBlank(pids)){
 				 for(String pid:pids.split(",")){
 					 System.out.println("开始点击推荐商品>>>>>>>>>>>>>>>>>>>>>>id=="+pid);
+					 Thread.sleep(Cmd.getSleepTime(2000, 4000));
 					 tuijian(pid);
-					 Thread.sleep(1000);
+					 Thread.sleep(Cmd.getSleepTime(2000, 4000));
 				 }
 			 }
 			 
