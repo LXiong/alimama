@@ -148,7 +148,7 @@ public class ZhuCeSelenium {
 		proxyURLList.add("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
 	}
 	
-	static BlockingQueue<HttpHost> blockingQueue = new ArrayBlockingQueue<HttpHost>(7);
+	static BlockingQueue<HttpHost> blockingQueue = new ArrayBlockingQueue<HttpHost>(100);
 	
 	public static void getPrxoyIp()throws Exception{
 		try{
