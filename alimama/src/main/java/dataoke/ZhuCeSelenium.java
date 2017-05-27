@@ -388,7 +388,7 @@ public class ZhuCeSelenium {
 			 
 		 }else{
 			 System.out.println("验证码为null>>>>>>>>>>>>>>>>>>>>>");
-			 okSize +=1;
+			 okSize +=2;
 			 Ma60.jiaheiNum();
 		 }
 	    
@@ -439,6 +439,13 @@ public class ZhuCeSelenium {
 		    element.click();
 		    //Thread.sleep(Cmd.getSleepTime());
 		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+		    Thread.sleep(Cmd.getSleepTime(1000, 2000));
+			try{
+				webDriver.get("http://www.dataoke.com/logout");
+				Thread.sleep(Cmd.getSleepTime(2000, 3000));
+			}catch(Exception e){
+				
+			}
 		    //Thread.sleep(Cmd.getSleepTime());
 		}catch(Exception e){
 			e.printStackTrace();
