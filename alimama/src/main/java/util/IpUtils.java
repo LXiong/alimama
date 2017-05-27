@@ -104,6 +104,7 @@ public class IpUtils {
 				conn.setConnectTimeout(1000);
 				in = conn.getInputStream();
 			} catch (Exception e) {
+				//e.printStackTrace();
 				System.out.println("ip " + ip + " is not aviable");// 异常IP
 			}
 			String s = convertStreamToString(in);
