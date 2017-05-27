@@ -41,7 +41,7 @@ public class ZhuCeSelenium {
 		if(ArrayUtils.isNotEmpty(args) && args.length >=1){
 			sleep = Integer.valueOf(args[1]);
 		}*/
-		
+		//args = new String[]{"2522523"};
 		if(ArrayUtils.isNotEmpty(args)){
 			pids = args[0];
 		}
@@ -256,6 +256,11 @@ public class ZhuCeSelenium {
 					System.out.println("错误提示为：    "+str);
 					if(str.contains("注册数量超限")){
 						okSize = 5;
+					}
+					if(str.contains("已注册")){
+					    Ma60.jiaheiNum();
+						okSize = 5;
+						
 					}
 					Thread.sleep(1000);
 					return ;
