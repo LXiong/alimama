@@ -64,7 +64,7 @@ public class ZhuCeSelenium {
 	 	        				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 	 	        			 }else{
 	 	        				 for(HttpHost h:hosts){
-	 	        					 boolean flag = IpUtils.createIPAddress(host.getHostName(),host.getPort());
+	 	        					 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
 	 	        					 if(flag){
 	 	        						 blockingQueue.add(h);
 	 	        					 }
@@ -158,7 +158,7 @@ public class ZhuCeSelenium {
 				 Thread.sleep(3000);
 			 }else{
 				 for(HttpHost h:hosts){
-					 boolean flag = IpUtils.createIPAddress(host.getHostName(),host.getPort());
+					 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
 					 if(flag){
 						 blockingQueue.add(h);
 					 }
