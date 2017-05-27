@@ -427,9 +427,12 @@ public class ZhuCeSelenium {
 
 	public static boolean tuijian(String id)throws Exception{
 		try{
-			
-			webDriver.get("http://www.dataoke.com");
-			Thread.sleep(Cmd.getSleepTime(2000, 3000));
+			try{
+				webDriver.get("http://www.dataoke.com");
+				Thread.sleep(Cmd.getSleepTime(2000, 3000));
+			}catch(Exception e){
+				
+			}
 			webDriver.get("http://www.dataoke.com/item?id="+id);
 			Thread.sleep(Cmd.getSleepTime(5000, 8000));
 			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
