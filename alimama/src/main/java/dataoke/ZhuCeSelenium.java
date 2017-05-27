@@ -348,7 +348,7 @@ public class ZhuCeSelenium {
 					 System.out.println("开始点击推荐商品>>>>>>>>>>>>>>>>>>>>>>id=="+pid);
 					 Thread.sleep(Cmd.getSleepTime(2000, 4000));
 					 tuijian(pid);
-					 Thread.sleep(Cmd.getSleepTime(2000, 4000));
+					 Thread.sleep(Cmd.getSleepTime(3000, 5000));
 				 }
 			 }
 			 
@@ -365,6 +365,7 @@ public class ZhuCeSelenium {
 	public static boolean tuijian(String id)throws Exception{
 		try{
 			webDriver.get("http://www.dataoke.com/item?id="+id);
+			Thread.sleep(Cmd.getSleepTime(5000, 8000));
 			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
 		    element.click();
 		    //Thread.sleep(Cmd.getSleepTime());
