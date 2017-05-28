@@ -324,6 +324,9 @@ public class SeleniumUtil {
 				// 跳出iframe  
 		driver=driver.switchTo().defaultContent();  
 		
+		
+		Thread.sleep(5000);
+		
 		//
 		WebElement captcha = driver.findElement(By.id("l-captcha-float"));
 		

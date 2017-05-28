@@ -19,12 +19,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
-import jodd.http.Cookie;
-import jodd.http.HttpBrowser;
-import jodd.http.HttpRequest;
-import jodd.http.HttpResponse;
-import ruokuai.RuoKuaiUnit;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -36,6 +30,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import jodd.http.Cookie;
+import jodd.http.HttpBrowser;
+import jodd.http.HttpRequest;
+import jodd.http.HttpResponse;
+import ruokuai.RuoKuaiUnit;
 import util.IpUtils;
 import util.SeleniumUtil;
 
@@ -143,10 +142,13 @@ public class ZhuCeSelenium {
 	static File out = new File("d:\\dataokeuser1.txt");
 	static HttpHost host = null;
 	
-	//static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1";
+	//static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=10&xl=%E5%9B%BD%E5%86%85&gl=1";
 	//static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=10&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
 	
-	static String proxyURL="http://www.56pu.com/api?orderId=564127255497792544&quantity=10&line=all&region=&regionEx=&beginWith=&ports=&vport=&speed=&anonymity=2,3&scheme=&duplicate=2&sarea=";
+	//static String proxyURL="http://www.56pu.com/api?orderId=564127255497792544&quantity=10&line=all&region=&regionEx=&beginWith=&ports=&vport=&speed=&anonymity=2,3&scheme=&duplicate=2&sarea=";
+	
+	static String proxyURL="http://dev.kuaidaili.com/api/getproxy/?orderid=999596535183415&num=20&b_pcchrome=1&b_pcie=1&b_pcff=1&protocol=1&method=2&an_an=1&an_ha=1&sp1=1&sp2=1&dedup=1&sep=1";
+	
 	
 	static List<String> proxyURLList = new ArrayList<String>();
 	
@@ -300,7 +302,7 @@ public class ZhuCeSelenium {
 		
 		//js.executeScript("document.frames['captcha_widget'].document.querySelectorAll(\"span[class='captcha-widget-text']\")[0].click();");
 		
-		Thread.sleep(200);
+		Thread.sleep(5000);
 		
 		System.out.println("开始截图验证码图片>>>>>>>>>>>>>>>>>>>>>>>>>");
 	     WebElement captcha = webDriver.findElement(By.id("l-captcha-float"));
@@ -327,7 +329,7 @@ public class ZhuCeSelenium {
 				int index1 = Integer.valueOf(s.split(",")[0]);
 				int index2 = Integer.valueOf(s.split(",")[1]);
 				action.moveToElement(captcha, index1, index2).click().perform();
-				Thread.sleep(2000);
+				Thread.sleep(4000);
 			}
 		}
 	    
