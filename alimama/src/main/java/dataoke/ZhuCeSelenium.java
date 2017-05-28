@@ -50,7 +50,7 @@ public class ZhuCeSelenium {
 		if(ArrayUtils.isNotEmpty(args) && args.length >=1){
 			sleep = Integer.valueOf(args[1]);
 		}*/
-		args = new String[]{"2522523"};
+		//args = new String[]{"2522523"};
 		if(ArrayUtils.isNotEmpty(args)){
 			pids = args[0];
 		}
@@ -506,7 +506,10 @@ public class ZhuCeSelenium {
 			}catch(Exception e){
 				
 			}
+			webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 			webDriver.get("http://www.dataoke.com/item?id="+id);
+			 
+			
 			Thread.sleep(Cmd.getSleepTime(5000, 8000));
 			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
 		    element.click();
