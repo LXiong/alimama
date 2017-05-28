@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -498,7 +499,10 @@ public class ZhuCeSelenium {
 		return true;
 	}
 
+	static   Map<String,Integer> map= new ConcurrentHashMap<String,Integer>();
+	
 	public static boolean tuijian(String id)throws Exception{
+        System.out.println("当前推荐>>>>>>>>>"+map);
 		try{
 			try{
 				//webDriver.get("http://www.dataoke.com");
@@ -516,6 +520,11 @@ public class ZhuCeSelenium {
 		    //Thread.sleep(Cmd.getSleepTime());
 		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
 		    Thread.sleep(Cmd.getSleepTime(1000, 2000));
+		    if(map.containsKey(id)){
+		    	map.put(id, map.get(id)+1);
+		    }else{
+		    	map.put(id, 1);
+		    }
 			try{
 				webDriver.get("http://www.dataoke.com/logout");
 				Thread.sleep(Cmd.getSleepTime(2000, 3000));
