@@ -142,12 +142,12 @@ public class ZhuCeSelenium {
 	static File out = new File("d:\\dataokeuser1.txt");
 	static HttpHost host = null;
 	
-	//static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=10&xl=%E5%9B%BD%E5%86%85&gl=1";
+	static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=10&xl=%E5%9B%BD%E5%86%85&gl=1";
 	//static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=10&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
 	
 	//static String proxyURL="http://www.56pu.com/api?orderId=564127255497792544&quantity=10&line=all&region=&regionEx=&beginWith=&ports=&vport=&speed=&anonymity=2,3&scheme=&duplicate=2&sarea=";
 	
-	static String proxyURL="http://dev.kuaidaili.com/api/getproxy/?orderid=999596535183415&num=20&b_pcchrome=1&b_pcie=1&b_pcff=1&protocol=1&method=2&an_an=1&an_ha=1&sp1=1&sp2=1&dedup=1&sep=1";
+	//static String proxyURL="http://dev.kuaidaili.com/api/getproxy/?orderid=999596535183415&num=20&b_pcchrome=1&b_pcie=1&b_pcff=1&protocol=1&method=2&an_an=1&an_ha=1&sp1=1&sp2=1&dedup=1&sep=1";
 	
 	
 	static List<String> proxyURLList = new ArrayList<String>();
