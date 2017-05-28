@@ -59,7 +59,7 @@ public class ZhuCeSelenium {
 		 Runnable runnable = new Runnable() {  
 	            public void run() {  
 	                // task to run goes here
-	            	synchronized(ZhuCeSelenium.class){
+	            	//synchronized(ZhuCeSelenium.class){
 	            		try{
 		            		 System.out.println("开始检测ip池ip数据数量>>>>>>>>>>>>>>>>>>");
 		 	                int size = blockingQueue.size();
@@ -90,7 +90,7 @@ public class ZhuCeSelenium {
 		            		e.printStackTrace();
 		            	}
 	            		
-	            	}
+	            	//}
 	            }  
 	        };  
 	        ScheduledExecutorService service = Executors  
