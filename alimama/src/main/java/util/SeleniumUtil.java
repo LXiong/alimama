@@ -1,25 +1,35 @@
 package util;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import javax.imageio.ImageIO;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
+import dataoke.Cmd;
 
 /**
  * 娴忚鍣╱til
@@ -216,6 +226,120 @@ public class SeleniumUtil {
 		}
 		return filePath;
 	}
+	
+	/**
+	 * 鎴浘
+	 * 
+	 * @param driver
+	 * @param url
+	 * @param filePath
+	 * @return
+	 */
+	public static String captureDataoke(WebDriver driver, String url, String filePath) {
+		if (driver == null) {
+			return null;
+		}
+		if (!url.startsWith("http:") && !url.startsWith("https:")) {
+			return null;
+		}
+		if (StringUtils.isBlank(filePath)) {
+			return null;
+		}
+		try {
+			driver.get(url);
+			WebDriver augmentedDriver = new Augmenter().augment(driver);
+			File screenshot = ((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.FILE);
+			File file = new File(filePath);
+			FileUtils.copyFile(screenshot, file);
+			logger.info("capture success!");
+		} catch (IOException e) {
+			logger.error("browser capture is error!", e);
+			filePath = null;
+			throw new RuntimeException(e);
+		}
+		return filePath;
+	}
+	
+	public static void main(String[] args)throws Exception {
+		WebDriver driver = initChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("http://www.dataoke.com/login/?user=reg");
+		//capture(driver,"http://www.dataoke.com/login/?user=reg","d:\\dataoke.jpg");
+		
+		
+          JavascriptExecutor js = (JavascriptExecutor) driver;
+		
+		
+		System.out.println("开始输入手机号码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"); 
+		WebElement webElement = null;
+		//WebElement webElement = webDriver.findElement(By.id("phone"));
+		//webElement.click();
+	    //webElement.sendKeys(num);
+		//js.executeScript("document.querySelectorAll(\"input[id='phone']\")[0].click()");
+		//Thread.sleep(200);
+		String num = "131"+Cmd.getSleepTime(10000000, 90000000);
+		js.executeScript("document.querySelectorAll(\"input[id='phone']\")[0].value='"+num+"'");
+		
+		
+		
+		System.out.println("点击获取短信按钮》》》》》》》》》》》》》》》》》》》");
+	    //webElement = webDriver.findElement(By.xpath("//button[@class='get-phone-verify get-phone-verify-fn']"));
+		//webElement.click();
+	    js.executeScript("document.querySelectorAll(\"button[class='get-phone-verify get-phone-verify-fn']\")[0].click();");
+		
+		Thread.sleep(2000);
+		
+		
+		   // 选取frame  
+		driver.switchTo().frame("captcha_widget");;  
+		       
+				System.out.println("点击人机识别验证》》》》》》》》》》》》》》》》》》》");
+				webElement = driver.findElement(By.xpath("//span[@class='captcha-widget-text']"));
+				webElement.click();
+		
+				Thread.sleep(3000);
+		
+				
+		//String str =driver.getPageSource();		
+				
+		//System.out.println(str);
+		
+				// 跳出iframe  
+		driver.switchTo().defaultContent();  
+		
+		//
+		WebElement keyWord = driver.findElement(By.id("captcha_frame"));
+		
+		BufferedImage inputbig = createElementImage(driver,keyWord);  
+		
+		ImageIO.write(inputbig, "jpg", new File("d://dataoke.jpg"));   
+		
+		
+		
+		
+	}
+	
+	 public static BufferedImage createElementImage(WebDriver driver,WebElement webElement)  
+             throws IOException {  
+             // 获得webElement的位置和大小。  
+             Point location = webElement.getLocation();  
+             Dimension size = webElement.getSize();  
+             // 创建全屏截图。  
+             BufferedImage originalImage =  
+             ImageIO.read(new ByteArrayInputStream(takeScreenshot(driver)));  
+             // 截取webElement所在位置的子图。  
+             BufferedImage croppedImage = originalImage.getSubimage(  
+             location.getX(),  
+             location.getY(),  
+             size.getWidth(),  
+             size.getHeight());  
+             return croppedImage;  
+             }  
+	 
+	 public static byte[] takeScreenshot(WebDriver driver) throws IOException {  
+	        WebDriver augmentedDriver = new Augmenter().augment(driver);  
+	      return ((TakesScreenshot) augmentedDriver).getScreenshotAs(OutputType.BYTES);  
+	        }
 
 	/**
 	 * 鎴浘
