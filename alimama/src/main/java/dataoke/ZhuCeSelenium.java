@@ -489,7 +489,7 @@ public class ZhuCeSelenium {
 	public static boolean tuijian(String id)throws Exception{
 		try{
 			try{
-				webDriver.get("http://www.dataoke.com");
+				//webDriver.get("http://www.dataoke.com");
 				Thread.sleep(Cmd.getSleepTime(2000, 3000));
 			}catch(Exception e){
 				
