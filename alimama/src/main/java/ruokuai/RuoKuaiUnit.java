@@ -84,6 +84,16 @@ public class RuoKuaiUnit {
 				bytes);
 		return result;
 	}
+	
+	public String getImgStr(byte[] bytes,String typeid) {
+		String username = ruokuai.Constant.DM_USERNAME;
+		String password = SecretHelper.jie(ruokuai.Constant.DM_PASSWORD);
+		String softId = ruokuai.Constant.DM_SOFTID;
+		String softKey = ruokuai.Constant.DM_SOFTKEY;
+		String result = getImgStr(username, password, typeid, softId, softKey,
+				bytes);
+		return result;
+	}
 
 	public String getImgStr(BufferedImage bufferedImage) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

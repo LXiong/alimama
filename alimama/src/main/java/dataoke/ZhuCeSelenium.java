@@ -1,5 +1,6 @@
 package dataoke;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,10 +17,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import javax.imageio.ImageIO;
+
 import jodd.http.Cookie;
 import jodd.http.HttpBrowser;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
+import ruokuai.RuoKuaiUnit;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
@@ -30,6 +34,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import util.IpUtils;
 import util.SeleniumUtil;
@@ -297,13 +302,39 @@ public class ZhuCeSelenium {
 		
 		Thread.sleep(200);
 		
-		 
 		
+	     WebElement captcha = webDriver.findElement(By.id("l-captcha-float"));
+		
+		BufferedImage inputbig =SeleniumUtil.createElementImage(webDriver,captcha);  
+		
+		if(inputbig==null){
+			throw new RuntimeException("截图出问题>>>>");
+		}
+		
+		File outFile = new File("d://dataoke.jpg");
+		
+		ImageIO.write(inputbig, "jpg",outFile);   
+		
+		
+		byte[] bytes = FileUtils.readFileToByteArray(outFile);
+		
+		String strRuokuai = new RuoKuaiUnit().getImgStr(bytes,"6903");
+		System.out.println("返回坐标为：：》》》》》》》 "+strRuokuai +" 开始点击>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		//164,31.161,87.238,138
+		 Actions action = new Actions(webDriver);  
+		if(StringUtils.isNotBlank(strRuokuai)&& StringUtils.countMatches(strRuokuai, ".")==2){
+			for(String s:strRuokuai.split("\\.")){
+				int index1 = Integer.valueOf(s.split(",")[0]);
+				int index2 = Integer.valueOf(s.split(",")[1]);
+				action.moveToElement(captcha, index1, index2).click().perform();
+				Thread.sleep(2000);
+			}
+		}
 	    
 	    System.out.println("开始手动输入验证码>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>停顿15秒");
-	    for(int i=0;i<sleep;i++){
+	    for(int i=0;i<4;i++){
 	    	System.out.println("已经休息>>>>>>>>>>>>>"+i);
-	    	Thread.sleep(1000);
+	    	Thread.sleep(200);
 	    	/*String pageSource = webDriver.getPageSource();
 	    	if(pageSource.contains("注册数量超限")){
 	    		 Ma60.jiaheiNum();

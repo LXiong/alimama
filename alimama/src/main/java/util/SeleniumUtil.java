@@ -2,6 +2,7 @@ package util;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -24,12 +25,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import dataoke.Cmd;
+import ruokuai.RuoKuaiUnit;
 
 /**
  * 娴忚鍣╱til
@@ -260,7 +263,27 @@ public class SeleniumUtil {
 		return filePath;
 	}
 	
-	public static void main(String[] args)throws Exception {
+	
+	/**
+	* 转换BufferedImage 数据为byte数组
+	* 
+	* @param image
+	* Image对象
+	* @param format
+	* image格式字符串.如"gif","png"
+	* @return byte数组
+	*/
+	public static byte[] imageToBytes(BufferedImage bImage, String format) {
+	ByteArrayOutputStream out = new ByteArrayOutputStream();
+	try {
+	ImageIO.write(bImage, format, out);
+	} catch (IOException e) {
+	e.printStackTrace();
+	}
+	return out.toByteArray();
+	}
+	
+	public static void getImgTest()throws Exception{
 		WebDriver driver = initChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("http://www.dataoke.com/login/?user=reg");
@@ -287,8 +310,7 @@ public class SeleniumUtil {
 		//webElement.click();
 	    js.executeScript("document.querySelectorAll(\"button[class='get-phone-verify get-phone-verify-fn']\")[0].click();");
 		
-		Thread.sleep(2000);
-		
+		Thread.sleep(1000);
 		
 		   // 选取frame  
 		driver.switchTo().frame("captcha_widget");;  
@@ -297,30 +319,88 @@ public class SeleniumUtil {
 				webElement = driver.findElement(By.xpath("//span[@class='captcha-widget-text']"));
 				webElement.click();
 		
-				Thread.sleep(3000);
-		
+				Thread.sleep(1000);
 				
-		//String str =driver.getPageSource();		
-				
-		//System.out.println(str);
-		
 				// 跳出iframe  
-		driver.switchTo().defaultContent();  
+		driver=driver.switchTo().defaultContent();  
 		
 		//
-		WebElement keyWord = driver.findElement(By.id("captcha_frame"));
+		WebElement captcha = driver.findElement(By.id("l-captcha-float"));
 		
-		BufferedImage inputbig = createElementImage(driver,keyWord);  
+		BufferedImage inputbig = createElementImage(driver,captcha);  
+		File outFile = new File("d://dataoke.jpg");
 		
-		ImageIO.write(inputbig, "jpg", new File("d://dataoke.jpg"));   
+		ImageIO.write(inputbig, "jpg",outFile);   
+		
+		
+		byte[] bytes = FileUtils.readFileToByteArray(outFile);
+		
+		String str = new RuoKuaiUnit().getImgStr(bytes,"6903");
+		System.out.println("返回坐标为：：》》》》》》》 "+str +" 开始点击>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		//164,31.161,87.238,138
+		 Actions action = new Actions(driver);  
+		if(StringUtils.isNotBlank(str)&& StringUtils.countMatches(str, ".")==2){
+			for(String s:str.split("\\.")){
+				int index1 = Integer.valueOf(s.split(",")[0]);
+				int index2 = Integer.valueOf(s.split(",")[1]);
+				action.moveToElement(captcha, index1, index2).click().perform();
+				Thread.sleep(2000);
+			}
+		}
 		
 		
 		
 		
+		/* Actions action = new Actions(driver);  
+		 
+		 action.moveToElement(captcha, 10, 10).click().perform();
+		 
+		 Thread.sleep(2000);
+		
+		 action.moveToElement(captcha, 30, 30).click().perform();
+		 
+		 
+		 Thread.sleep(2000);
+			
+		 action.moveToElement(captcha, 60, 60).click().perform();*/
+		 
+	}
+	
+	public static void main(String[] args)throws Exception {
+		//testAction();
+		getImgTest();
+	}
+	
+	
+	public static void testAction()throws Exception{
+		WebDriver driver = initChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("http://www.dataoke.com/login/?user=reg");
+		
+		
+		
+		Thread.sleep(4000);
+		
+         /// JavascriptExecutor js = (JavascriptExecutor) driver;
+		
+          
+         WebElement webElement =  driver.findElement(By.xpath("//img[@class='logo']"));
+          
+         //webElement.click();
+         
+         Actions action = new Actions(driver);  
+		 
+         action.click(webElement).perform();
+         
+		 
+		System.out.println("执行完毕");
+		 	
 	}
 	
 	 public static BufferedImage createElementImage(WebDriver driver,WebElement webElement)  
              throws IOException {  
+		 try{
+
              // 获得webElement的位置和大小。  
              Point location = webElement.getLocation();  
              Dimension size = webElement.getSize();  
@@ -334,6 +414,10 @@ public class SeleniumUtil {
              size.getWidth(),  
              size.getHeight());  
              return croppedImage;  
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
+		 return null;
              }  
 	 
 	 public static byte[] takeScreenshot(WebDriver driver) throws IOException {  
