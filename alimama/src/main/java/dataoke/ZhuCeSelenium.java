@@ -9,6 +9,11 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import jodd.http.Cookie;
@@ -30,16 +35,65 @@ import util.IpUtils;
 import util.SeleniumUtil;
 
 public class ZhuCeSelenium {
-
+	
+	static String pids = "";
+	
 	public static void main(String[] args)throws Exception {
-		if(ArrayUtils.isNotEmpty(args)){
+		/*if(ArrayUtils.isNotEmpty(args)){
 			proxyURL = args[0];
 		}
 		
 		if(ArrayUtils.isNotEmpty(args) && args.length >=1){
 			sleep = Integer.valueOf(args[1]);
+		}*/
+		//args = new String[]{"2522523"};
+		if(ArrayUtils.isNotEmpty(args)){
+			pids = args[0];
 		}
+
 		
+		 Runnable runnable = new Runnable() {  
+	            public void run() {  
+	                // task to run goes here
+	            	synchronized(ZhuCeSelenium.class){
+	            		try{
+		            		 System.out.println("开始检测ip池ip数据数量>>>>>>>>>>>>>>>>>>");
+		 	                int size = blockingQueue.size();
+		 	                System.out.println("当前ip池数量wei:  "+size);
+		 	                if(size<5){
+		 	                	System.out.println("开始获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 	        			//proxyURLList.get(new Random().nextInt(3))
+		 	        			List<HttpHost> hosts = IpUtils.getips(proxyURL);
+		 	        			 if(CollectionUtils.isEmpty(hosts)){
+		 	        				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 	        			 }else{
+		 	        				 for(HttpHost h:hosts){
+		 	        					 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
+		 	        					 if(flag){
+		 	        						 //System.out.println("ip==="+h+" 有效加入ip池");
+		 	        						 blockingQueue.add(h);
+		 	        					 }else{
+		 	        						// System.out.println("ip==="+h+" 无效");
+		 	        					 }
+		 	        					
+		 	        				 }
+		 	        				// System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+		 	        			 }
+		 	                }else{
+		 	                	System.out.println("当前ip池数据量充足>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 	                }
+		            	}catch(Exception e){
+		            		e.printStackTrace();
+		            	}
+	            		
+	            	}
+	            }  
+	        };  
+	        ScheduledExecutorService service = Executors  
+	                .newSingleThreadScheduledExecutor();  
+	        // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间  
+	        service.scheduleAtFixedRate(runnable, 1, 5, TimeUnit.SECONDS);
+		Thread.sleep(5000);
 		browser = new HttpBrowser();
 		
 		System.out.println("开始验证>>>>>>>>>>>>>>>>>>>>>>>");
@@ -85,7 +139,9 @@ public class ZhuCeSelenium {
 	static HttpHost host = null;
 	
 	//static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1";
-	static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=7&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
+	//static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=10&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
+	
+	static String proxyURL="http://www.56pu.com/api?orderId=564127255497792544&quantity=10&line=all&region=&regionEx=&beginWith=&ports=&vport=&speed=&anonymity=2,3&scheme=&duplicate=2&sarea=";
 	
 	static List<String> proxyURLList = new ArrayList<String>();
 	
@@ -95,7 +151,7 @@ public class ZhuCeSelenium {
 		proxyURLList.add("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
 	}
 	
-	static BlockingQueue<HttpHost> blockingQueue = new ArrayBlockingQueue<HttpHost>(7);
+	static BlockingQueue<HttpHost> blockingQueue = new ArrayBlockingQueue<HttpHost>(100);
 	
 	public static void getPrxoyIp()throws Exception{
 		try{
@@ -112,7 +168,14 @@ public class ZhuCeSelenium {
 				 Thread.sleep(3000);
 			 }else{
 				 for(HttpHost h:hosts){
-					 blockingQueue.add(h);
+					 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
+					 if(flag){
+ 						 //System.out.println("ip==="+h+" 有效加入ip池");
+ 						 blockingQueue.add(h);
+ 					 }else{
+ 						 //System.out.println("ip==="+h+" 无效");
+ 					 }
+					
 				 }
 				// System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 			 }
@@ -126,6 +189,25 @@ public class ZhuCeSelenium {
 		}
 		
 	}
+	
+	static ExecutorService exec = Executors.newCachedThreadPool();
+	
+	public static Callable<Boolean> call(){
+		   Callable<Boolean> call = new Callable<Boolean>() {
+	            public Boolean call() throws Exception {
+	            	try{
+	            		  webDriver.close();
+	            		  return true;
+	            	}catch(Exception e){
+	            		e.printStackTrace();
+	            	}
+	            	return false;
+	            }
+	        };
+		return call;
+		
+	}
+	
 	public static void getProxyIpSetWebDriver()throws Exception{
 		if(errorSize >=2 || okSize >=3){
 			System.out.println("该ip已经注册了3个或者已经错误了2个>>>>>>>>>>>>>>>");
@@ -134,37 +216,23 @@ public class ZhuCeSelenium {
 			if(webDriver!=null){
 				System.out.println("关闭浏览器>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				//webDriver.quit();
-				webDriver.close();
+				//webDriver.close();
+				 try{
+					 Future<Boolean> future = exec.submit(call());
+					 future.get(1000 * 5, TimeUnit.MILLISECONDS);
+				 }catch(Exception e){
+					 e.printStackTrace();
+				 }
 				webDriver = null;
 			}
-			 getPrxoyIp();
-			 for(;;){
-				 boolean flag = IpUtils.createIPAddress(host.getHostName(),host.getPort());
-				 if(!flag){
-					 System.out.println("代理ip无效>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-					 getPrxoyIp();
-				 }else{
-					 break;
-				 }
-			 }
-			 
 			System.out.println("从新打开浏览器>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			getPrxoyIp();
 			webDriver = SeleniumUtil.initChromeDriver(host.getHostName(),host.getPort());
 			okSize = 0;
 			errorSize = 0;
 		}else{
 			if(webDriver==null){
 				 getPrxoyIp();
-				 for(;;){
-					 boolean flag = IpUtils.createIPAddress(host.getHostName(),host.getPort());
-					 if(!flag){
-						 System.out.println("代理ip无效>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-						 getPrxoyIp();
-					 }else{
-						 break;
-					 }
-				 }
-				 
 				 webDriver = SeleniumUtil.initChromeDriver(host.getHostName(),host.getPort());
 			}
 		}
@@ -250,6 +318,11 @@ public class ZhuCeSelenium {
 					if(str.contains("注册数量超限")){
 						okSize = 5;
 					}
+					if(str.contains("已注册")){
+					    Ma60.jiaheiNum();
+						okSize = 5;
+						
+					}
 					Thread.sleep(1000);
 					return ;
 				}
@@ -296,7 +369,7 @@ public class ZhuCeSelenium {
 			 //webElement.sendKeys(code);
 			 js.executeScript("document.querySelectorAll(\"input[id='code']\")[0].value='"+code+"'");
 			 
-			 Thread.sleep(200);
+			 Thread.sleep(1000);
 			 
 			 int size = new Random().nextInt(4);
 			 String pwd =  new PassWordCreate().createPassWord(6+size);
@@ -307,7 +380,7 @@ public class ZhuCeSelenium {
 			// Thread.sleep(200);
 			 js.executeScript("document.querySelectorAll(\"input[data-id='pwd']\")[0].value='"+pwd+"'");
 			 
-			 Thread.sleep(200);
+			 Thread.sleep(1000);
 			 
 			 //webElement = webDriver.findElement(By.xpath("//input[@data-id='repwd']"));
 			 //webElement.click();
@@ -317,7 +390,7 @@ public class ZhuCeSelenium {
 			 //Thread.sleep(200);
 			 js.executeScript("document.querySelectorAll(\"input[data-id='repwd']\")[0].value='"+pwd+"'");
 			 
-			 Thread.sleep(200);
+			 Thread.sleep(1000);
 			 
 			 //webElement = webDriver.findElement(By.xpath("//a[@class='submit-btn register-btn']"));
 			 //webElement.click();
@@ -327,15 +400,85 @@ public class ZhuCeSelenium {
 			 okSize +=1;
 			 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 			 System.out.println("当前ip已经注册成功 >>>>>>>>>>>"+okSize+" 个号！！！！！！！！！！");
-			 Thread.sleep(1000);
+			 Thread.sleep(2000);
 			 Ma60.jiaheiNum();
+			 
+			
+			 if(StringUtils.isNotBlank(pids)){
+				 for(String pid:pids.split(",")){
+					 System.out.println("开始点击推荐商品>>>>>>>>>>>>>>>>>>>>>>id=="+pid);
+					 Thread.sleep(Cmd.getSleepTime(2000, 5000));
+					// login(num, pwd);
+					 tuijian(pid);
+					 Thread.sleep(Cmd.getSleepTime(3000, 4000));
+				 }
+			 }
+			 
 		 }else{
 			 System.out.println("验证码为null>>>>>>>>>>>>>>>>>>>>>");
-			 okSize +=1;
+			 okSize +=2;
 			 Ma60.jiaheiNum();
 		 }
 	    
 	    //webDriver.close();
+	}
+	
+	
+	public static boolean login(String uname,String pwd)throws Exception{
+		try{
+			webDriver.get("http://www.dataoke.com/login");
+			Thread.sleep(Cmd.getSleepTime(1000, 2000));
+			WebElement element =webDriver.findElement(By.xpath("//input[@data-id='email']"));
+		    element.sendKeys(uname);
+		    
+		    element =webDriver.findElement(By.xpath("//input[@data-id='pwd']"));
+		    element.sendKeys(pwd);
+		    
+		    element =webDriver.findElement(By.xpath("//a[@class='submit-btn login-btn']"));
+		    element.click();
+		    
+		    Thread.sleep(Cmd.getSleepTime(3000, 5000));
+		    
+		    String str = webDriver.getPageSource();
+		    
+		    if(str.contains("")){
+		    	
+		    }
+		    //Thread.sleep(Cmd.getSleepTime());
+		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+		    //Thread.sleep(Cmd.getSleepTime());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public static boolean tuijian(String id)throws Exception{
+		try{
+			try{
+				webDriver.get("http://www.dataoke.com");
+				Thread.sleep(Cmd.getSleepTime(2000, 3000));
+			}catch(Exception e){
+				
+			}
+			webDriver.get("http://www.dataoke.com/item?id="+id);
+			Thread.sleep(Cmd.getSleepTime(5000, 8000));
+			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
+		    element.click();
+		    //Thread.sleep(Cmd.getSleepTime());
+		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+		    Thread.sleep(Cmd.getSleepTime(1000, 2000));
+			try{
+				webDriver.get("http://www.dataoke.com/logout");
+				Thread.sleep(Cmd.getSleepTime(2000, 3000));
+			}catch(Exception e){
+				
+			}
+		    //Thread.sleep(Cmd.getSleepTime());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 	static HttpBrowser browser = null;
