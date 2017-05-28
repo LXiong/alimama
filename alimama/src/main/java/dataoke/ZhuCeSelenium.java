@@ -302,7 +302,7 @@ public class ZhuCeSelenium {
 		
 		Thread.sleep(200);
 		
-		
+		System.out.println("开始截图验证码图片>>>>>>>>>>>>>>>>>>>>>>>>>");
 	     WebElement captcha = webDriver.findElement(By.id("l-captcha-float"));
 		
 		BufferedImage inputbig =SeleniumUtil.createElementImage(webDriver,captcha);  
@@ -317,7 +317,7 @@ public class ZhuCeSelenium {
 		
 		
 		byte[] bytes = FileUtils.readFileToByteArray(outFile);
-		
+		System.out.println("开始若快打码>>>>>>>>>>>>>>>>>>>>>>>>>");
 		String strRuokuai = new RuoKuaiUnit().getImgStr(bytes,"6903");
 		System.out.println("返回坐标为：：》》》》》》》 "+strRuokuai +" 开始点击>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		//164,31.161,87.238,138
