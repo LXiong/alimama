@@ -164,7 +164,7 @@ public class ZhuCeSelenium {
 		try{
 			if(!blockingQueue.isEmpty()){
 				System.out.println("当前ip池大小》》》》》》》》》》》》》》》》》》》"+blockingQueue.size());
-				host = blockingQueue.take();
+				host = blockingQueue.poll(20,TimeUnit.SECONDS);
 				return ;
 			}
 			System.out.println("开始获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>");
