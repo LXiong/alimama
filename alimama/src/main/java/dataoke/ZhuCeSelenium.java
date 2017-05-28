@@ -50,7 +50,7 @@ public class ZhuCeSelenium {
 		if(ArrayUtils.isNotEmpty(args) && args.length >=1){
 			sleep = Integer.valueOf(args[1]);
 		}*/
-		//args = new String[]{"2522523"};
+		args = new String[]{"2522523"};
 		if(ArrayUtils.isNotEmpty(args)){
 			pids = args[0];
 		}
@@ -74,10 +74,9 @@ public class ZhuCeSelenium {
 		 	        				 for(HttpHost h:hosts){
 		 	        					 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
 		 	        					 if(flag){
-		 	        						 //System.out.println("ip==="+h+" 有效加入ip池");
-		 	        						 blockingQueue.add(h);
+		 	        						 System.out.println("ip==="+h+" 有效加入ip池 "+blockingQueue.offer(h));
 		 	        					 }else{
-		 	        						// System.out.println("ip==="+h+" 无效");
+		 	        						 System.out.println("ip==="+h+" 无效");
 		 	        					 }
 		 	        					
 		 	        				 }
