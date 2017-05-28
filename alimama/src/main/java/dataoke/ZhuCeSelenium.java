@@ -162,12 +162,25 @@ public class ZhuCeSelenium {
 	
 	public static void getPrxoyIp()throws Exception{
 		try{
-			if(!blockingQueue.isEmpty()){
+			/*if(!blockingQueue.isEmpty()){
 				System.out.println("当前ip池大小》》》》》》》》》》》》》》》》》》》"+blockingQueue.size());
 				host = blockingQueue.poll(20,TimeUnit.SECONDS);
 				return ;
+			}*/
+			
+			for(int i=0;i<12;i++){
+				System.out.println("开始获取从队列里面获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				host = blockingQueue.poll(5,TimeUnit.SECONDS);
+				if(host!=null){
+					return;
+				}else{
+					System.out.println("获取代理ip失败》》》》》》当前代理ip池大小："+blockingQueue.size());
+				}
 			}
-			System.out.println("开始获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>");
+			
+			System.out.println("成功从ip池获取代理ip>>>>>>>>>>>>>>>>>>>>");
+			
+			/*System.out.println("开始获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>");
 			//proxyURLList.get(new Random().nextInt(3))
 			List<HttpHost> hosts = IpUtils.getips(proxyURL);
 			 if(CollectionUtils.isEmpty(hosts)){
@@ -190,7 +203,7 @@ public class ZhuCeSelenium {
 				getPrxoyIp();
 			}else{
 				host=blockingQueue.take();
-			}
+			}*/
 		}catch(Exception e){
 			e.printStackTrace();
 		}
