@@ -6,10 +6,12 @@ import java.util.Random;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -193,9 +195,9 @@ public class HttpClientUtils {
 	
 	public jodd.http.Cookie[] getContentByUrlCookis(HttpHost proxy, HttpRequestBase httpReq,long sleepTime) {
 
-		//CloseableHttpClient httpclient = HttpClients.createDefault();
+		CloseableHttpClient httpclient = HttpClients.createDefault();
 		jodd.http.Cookie[]  joddCookies = new jodd.http.Cookie[]{};
-		DefaultHttpClient httpclient=new DefaultHttpClient();
+		//HttpClient  httpclient=new DefaultHttpClient();
 		HttpEntity entity2 = null;
 		HttpResponse response =null;
 		try {
@@ -210,17 +212,43 @@ public class HttpClientUtils {
 					+ " to " + httpReq.getURI() + " via " + proxy);
 			 response = httpclient.execute(httpReq);
 			 
-			 CookieStore cookieStore =  httpclient.getCookieStore();
+			 
+			 Header[] headersAll = response.getAllHeaders();
+			 
+			 for(Header h:headersAll){
+				 System.out.println("all =="+h.getName()+" value=="+h.getValue());
+			 }
+			 
+			 
+			 Header[] headers = response.getHeaders("set-cookie");
+			 
+			 
+			 if(ArrayUtils.isNotEmpty(headers)){
+				 for(Header h:headers){
+					 System.out.println("Cookie  Value=============="+h.getValue());
+					 jodd.http.Cookie joddCookie = new jodd.http.Cookie(h.getValue());
+					 System.out.println("rp=="+joddCookie.getName()+"===="+joddCookie.getValue());
+					 joddCookies = (jodd.http.Cookie[]) ArrayUtils.add(joddCookies, joddCookie);
+				 }
+			 }
+
+			
+			 
+			 
+			 /*CookieStore cookieStore =  httpclient.getCookieStore();
+			 
 			 
 			 List<Cookie> cookies=cookieStore.getCookies();
 			 for(Cookie cookie:cookies){
 				 jodd.http.Cookie joddCookie = new jodd.http.Cookie(cookie.getName(), cookie.getValue());
 				 joddCookies = (jodd.http.Cookie[]) ArrayUtils.add(joddCookies, joddCookie);
-			 }
+			 }*/
+			 
 			 
 			 entity2 = response.getEntity();
 			 String entityBody = EntityUtils.toString(entity2, "utf-8");//
 			 System.out.println("getContentByUrlCookis ："+entityBody);
+			 
 			 if(entityBody.contains("1")){
 				 return joddCookies;
 			 }

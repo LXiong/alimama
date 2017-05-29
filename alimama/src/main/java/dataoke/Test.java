@@ -88,8 +88,12 @@ public class Test {
 			Thread.sleep(Cmd.getSleepTime());
 		}*/
 		
-		System.out.println(tuijian("2449218", "13532300165"));
-		
+		//System.out.println(tuijian("2449218", "13532300165"));
+		//System.out.println(tuijianHttpClient("2516967", "15544728853"));
+	
+		System.out.println(loginHttpClient("15544728853", "dbnat97"));
+		//System.out.println(login("15544728853", "dbnat97"));
+
 	}
 	
 	 
@@ -1051,8 +1055,8 @@ public class Test {
 					String pwd = s.split("\\----")[1].trim();
 					System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
 					
-					//boolean flag = login(uname,pwd);
-					boolean flag = loginHttpClient(uname,pwd);
+					boolean flag = login(uname,pwd,true);
+					//boolean flag = loginHttpClient(uname,pwd);
 					//boolean flag = true;
 					System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 					Thread.sleep(200);
@@ -1380,7 +1384,7 @@ public class Test {
 		Cookie[]  cookies  = null;
 		
 		
-		 cookies = getObjToFile(uname);
+		 //cookies = getObjToFile(uname);
 		if(ArrayUtils.isNotEmpty(cookies)){
 			System.out.println("cookis文件存在>>>>>>>>>>>>>>>>>>返回登录成功");
 			return true;
@@ -1398,7 +1402,7 @@ public class Test {
 		 httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
 		 httpRequest.setHeader("Connection", "application/json");
 		 
-		 setCookis(uname, httpRequest);
+		// setCookis(uname, httpRequest);
 		
 		 HttpClientUtils httpClientUtils = new HttpClientUtils();
 		 
@@ -1438,6 +1442,10 @@ public class Test {
 	}
 	
 	public static boolean login(String uname,String pwd)throws Exception{
+		return login(uname, pwd, false);
+	}
+	
+	public static boolean login(String uname,String pwd,boolean isProxy)throws Exception{
 		System.out.println("开始查找cookis文件是否存在>>>>>>>>>>>>>>>>>>");
 		Cookie[]  cookies  = null;
 		
@@ -1451,7 +1459,14 @@ public class Test {
 		
 		System.out.println("用户开始登陆："+uname);
 		 String baseURI = "http://www.dataoke.com/loginApi";
-		 HttpRequest httpRequest = HttpRequest.post(baseURI).timeout(20000);
+		 //HttpRequest httpRequest = HttpRequest.post(baseURI).timeout(20000);
+		 HttpRequest httpRequest = null;
+		 if(isProxy){
+			 httpRequest = HttpRequest.post(baseURI).open(getSocketHttpConnectionProvider()).timeout(20000);
+		 }else{
+			 httpRequest = HttpRequest.post(baseURI).timeout(20000);
+		 }
+		 
 		 httpRequest.header("Content-Type", "application/json");
 		 httpRequest.header("Host", "www.dataoke.com");
 		 //httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
@@ -1484,20 +1499,22 @@ public class Test {
 		 
 		  cookies = response.cookies();
 		
-		  /*
-		 for(Cookie c:cookies){
+		  
+		/* for(Cookie c:cookies){
 			 System.out.println("rp=="+c.getName()+"===="+c.getValue());
 		 }
 		 
 		 
 		
 		 
-	    System.out.println("================================="+httpRequest.header("Cookie"));*/
+	    System.out.println("================================="+httpRequest.header("Cookie"));
 		 
 		 
-		 //System.out.println("response.headers()");
+		 System.out.println("response.headers()"+response.headers("set-cookie"));
 		
-		// System.out.println(response.headers());
+		System.out.println(response.headers());
+		*/
+		 
 		 
 		 
 		 if(rc.contains("1")){
