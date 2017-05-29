@@ -151,8 +151,8 @@ public class ZhuCeSelenium {
 		out = new File(outDir,"dataokeuser_"+DateFormatUtils.format(new Date(), "yyyyMMddHHmmss")+".txt");
 		if(!out.exists()){
 			try {
-				out.createNewFile();
-				System.out.println("创建账号保存文件>>>>>>>>>>>>结果》》"+out+ "  文件目录为："+out.getAbsolutePath());
+				boolean flag = out.createNewFile();
+				System.out.println("创建账号保存文件>>>>>>>>>>>>结果》》"+flag+ "  文件目录为："+out.getAbsolutePath());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
