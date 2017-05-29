@@ -72,14 +72,17 @@ public class ZhuCeSelenium {
 		 	        			 if(CollectionUtils.isEmpty(hosts)){
 		 	        				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		 	        			 }else{
-		 	        				 for(HttpHost h:hosts){
-		 	        					 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
-		 	        					 if(flag){
-		 	        						 System.out.println("ip==="+h+" 有效加入ip池 "+blockingQueue.offer(h));
-		 	        					 }else{
-		 	        						 System.out.println("ip==="+h+" 无效");
-		 	        					 }
-		 	        					
+		 	        				 for(final HttpHost h:hosts){
+		 	        					 new Thread(){
+		 	        						 public void run() {
+		 	        							 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
+				 	        					 if(flag){
+				 	        						 System.out.println("ip==="+h+" 有效加入ip池 "+blockingQueue.offer(h));
+				 	        					 }else{
+				 	        						 System.out.println("ip==="+h+" 无效");
+				 	        					 }
+		 	        						 };
+		 	        					 }.start();
 		 	        				 }
 		 	        				// System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 		 	        			 }
@@ -259,6 +262,8 @@ public class ZhuCeSelenium {
 		
 	}
 	static int sleep =10;
+	
+	static File outFile = new File("d://dataoke_"+Cmd.getSleepTime(100000, 999999)+".jpg");
 	public static void execute()throws Exception{
 		
 		 getProxyIpSetWebDriver();
@@ -326,7 +331,7 @@ public class ZhuCeSelenium {
 			throw new RuntimeException("截图出问题>>>>");
 		}
 		
-		File outFile = new File("d://dataoke.jpg");
+		
 		
 		ImageIO.write(inputbig, "jpg",outFile);   
 		
