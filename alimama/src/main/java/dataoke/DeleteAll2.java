@@ -10,7 +10,7 @@ public class DeleteAll2 {
 		,new File("d:\\dataoke\\大淘客帐号\\A批第3组500.txt"),new File("d:\\dataoke\\大淘客帐号\\A批第4组390.txt")};
 		
 		files = new File("D:\\dataoke\\delete").listFiles();
-		Test.execteDeleteAll(files);
+		Test.execteDeleteAllHttpClient(files);
 	}
 
 }

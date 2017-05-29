@@ -794,6 +794,55 @@ public class Test {
 		}
 	}
 	
+	
+	public static void execteDeleteAllHttpClient(File... files)throws Exception{
+		for(File f:files){
+			executeDeleteHttpClient( f);
+		}
+	}
+	
+	
+	public static void executeDeleteHttpClient(File file)throws Exception{
+		List<String> lists=FileUtils.readLines(file);
+		for(String s:lists){
+			if(StringUtils.isBlank(s)){
+				continue;
+			}
+			count++;
+			
+			try{
+				proxy  = IpPoolUtil.getHttpHost();
+				
+				
+				String uname = s.split("\\----")[0].trim();
+				String pwd = s.split("\\----")[1].trim();
+				System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count +"当前 文件名称："+file.getName());
+				
+				boolean flag = loginHttpClient(uname,pwd);
+				System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
+				Thread.sleep(1000);
+				if(flag){
+					//flag = deleteAll(uname,"1");
+					//Thread.sleep(1000);
+					//flag = deleteAllHttpClient(uname,"0");
+					flag = deleteAllHttpClient(uname,"0");
+					//flag = tuijianToFile(pid,uname);
+					if(flag){
+						System.out.println("删除成功》》》》》》》》》》》》》》》》》》》 uname="+uname);
+					}else{
+						System.out.println("删除失败》》》》》》》》》》》》》》》》》》uname="+uname);
+					}
+				}
+				//Thread.sleep(1000);
+				Thread.sleep(Cmd.getSleepTime());
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally {
+				proxy = null;
+			}
+		}
+	}
+	
 	public static void executeDelete(File file)throws Exception{
 		List<String> lists=FileUtils.readLines(file);
 		for(String s:lists){
@@ -811,6 +860,7 @@ public class Test {
 			if(flag){
 				//flag = deleteAll(uname,"1");
 				//Thread.sleep(1000);
+				//flag = deleteAllHttpClient(uname,"0");
 				flag = deleteAll(uname,"0");
 				//flag = tuijianToFile(pid,uname);
 				if(flag){
@@ -837,8 +887,6 @@ public class Test {
 	public static void execteAll(String[] pid,File... files)throws Exception{
 		for(File f:files){
 			try{
-				
-				proxy  = IpPoolUtil.getHttpHost();
 				execute(pid, f);
 			}catch(Exception e){
 				e.printStackTrace();
@@ -995,44 +1043,52 @@ public class Test {
 			/*if(623>count){
 				continue;
 			}*/
+		
+			try{
+				proxy  = IpPoolUtil.getHttpHost();
 			
-			
-			String uname = s.split("\\----")[0].trim();
-			String pwd = s.split("\\----")[1].trim();
-			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
-			
-			//boolean flag = login(uname,pwd);
-			boolean flag = loginHttpClient(uname,pwd);
-			//boolean flag = true;
-			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
-			Thread.sleep(200);
-			for(String pid:pids){
-				//ip = IpUtils.getRandomIp();
-			    if(flag){
-			    	readExecute(pid, uname);
-					Thread.sleep(500);
+					String uname = s.split("\\----")[0].trim();
+					String pwd = s.split("\\----")[1].trim();
+					System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
 					
-					//boolean flagt = tuijian(pid,uname,true);
-					//boolean flagt = tuijian(pid,uname);
-					boolean flagt = tuijianHttpClient(pid,uname);
-					//flag = tuijianToFile(pid,uname);
-					//boolean flagt = zhuan(uname,pid);
-					//boolean flagt = TestSelenium.execute(pid,uname);
-					if(flagt){
-						tuiguangOk += 1;
-						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname +" 当前已成功推广："+tuiguangOk);
-						//boolean bflag = biaoji(pid, uname);
-						//System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
-						//Thread.sleep(1000);
-						//System.out.println("删除>>>>>>>>>>>>>>>>>>推广>>>>>>>>>>>>>>>>"+deleteAll(uname,"0"));
-						
-					}else{
-						System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+uname);
+					//boolean flag = login(uname,pwd);
+					boolean flag = loginHttpClient(uname,pwd);
+					//boolean flag = true;
+					System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
+					Thread.sleep(200);
+					for(String pid:pids){
+					    if(flag){
+					    	readExecute(pid, uname);
+							Thread.sleep(500);
+							
+							//boolean flagt = tuijian(pid,uname,true);
+							//boolean flagt = tuijian(pid,uname);
+							boolean flagt = tuijianHttpClient(pid,uname);
+							//flag = tuijianToFile(pid,uname);
+							//boolean flagt = zhuan(uname,pid);
+							//boolean flagt = TestSelenium.execute(pid,uname);
+							if(flagt){
+								tuiguangOk += 1;
+								System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname +" 当前已成功推广："+tuiguangOk);
+								//boolean bflag = biaoji(pid, uname);
+								//System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
+								//Thread.sleep(1000);
+								//System.out.println("删除>>>>>>>>>>>>>>>>>>推广>>>>>>>>>>>>>>>>"+deleteAll(uname,"0"));
+								
+							}else{
+								System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+uname);
+							}
+						}
+						Thread.sleep(Cmd.getSleepTime());
+						ip = "";
 					}
-				}
-				Thread.sleep(Cmd.getSleepTime());
-				ip = "";
+			
+           }catch(Exception e){
+				e.printStackTrace();
+			}finally {
+				proxy=null;
 			}
+			
 			
 		}
 	}
@@ -1133,6 +1189,48 @@ public class Test {
 		 
 		 if(rc.equalsIgnoreCase("ok")){
 			 System.out.println("id=="+id+" 删除成功>>>>>>>>>>>>>>>");
+			 return true;
+		 }
+		 
+		return false;
+	}
+	
+	public static boolean deleteAllHttpClient(String uname,String type)throws Exception{
+		String url ="http://www.dataoke.com/ucenter/all_del_quan.asp?act=del";
+		
+		HttpPost httpRequest = new HttpPost(url);
+		 httpRequest.setHeader("Host", "www.dataoke.com");
+		 httpRequest.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		 httpRequest.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 httpRequest.setHeader("Referer", "http://www.dataoke.com/ucenter/all_del_quan.asp");
+		 httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		 httpRequest.setHeader("Connection", "keep-alive");
+		 httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+		 httpRequest.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		 httpRequest.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		// httpRequest.header("Accept-Encoding", "gzip, deflate");
+		 httpRequest.setHeader("User-Agent", HttpTest.getUserAgent());
+		 
+		 
+		setCookis(uname, httpRequest);
+		 
+		
+		    HttpClientUtils httpClientUtils = new HttpClientUtils();
+		 
+		    List<NameValuePair> nvps = new ArrayList<NameValuePair>();  
+	        nvps.add(new BasicNameValuePair("leibie", type));  
+	        nvps.add(new BasicNameValuePair("zh_que_bt", "%C8%B7%C8%CF%C9%BE%B3%FD"));  
+	        httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  
+		    //0 未推广 1已推广
+		 
+		 
+		 /*HttpResponse response = httpRequest.send();
+		 response.charset("gb2312");
+		 String rc = response.bodyText();*/
+		// System.out.println(rc);
+		 String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
+		 if(rc.contains("删除成功")){
+			 System.out.println("id=="+uname+" 删除成功>>>>>>>>>>>>>>>");
 			 return true;
 		 }
 		 
