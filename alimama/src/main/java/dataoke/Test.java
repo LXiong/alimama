@@ -32,6 +32,7 @@ import org.jsoup.select.Elements;
 
 import util.CharUtil;
 import util.HtmlUnitUtil;
+import util.IpPoolUtil;
 import util.IpUtils;
 import util.MyConnectionProvider;
 
@@ -641,7 +642,7 @@ public class Test {
 	    return host;
 	}
 	
-	public static SocketHttpConnectionProvider getSocketHttpConnectionProvider()throws Exception{
+	public static SocketHttpConnectionProvider getSocketHttpConnectionProviderOld()throws Exception{
 		 List<HttpHost> hosts = IpUtils.getips("http://tvp.daxiangdaili.com/ip/?tid=557335383289182&num=1&category=2&exclude_ports=8080,80,8081,8089&filter=on");
 		 if(CollectionUtils.isEmpty(hosts)){
 			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -651,6 +652,14 @@ public class Test {
 			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 		 }
 		HttpHost host = hosts.get(0); 
+		ProxyInfo proxyInfoObj = new ProxyInfo(ProxyType.HTTP, host.getHostName(), host.getPort(), "", "");
+	    SocketHttpConnectionProvider provider =  new MyConnectionProvider();
+	    provider.useProxy(proxyInfoObj);
+	    return provider;
+	}
+	
+	public static SocketHttpConnectionProvider getSocketHttpConnectionProvider()throws Exception{
+		HttpHost host = IpPoolUtil.getHttpHost(); 
 		ProxyInfo proxyInfoObj = new ProxyInfo(ProxyType.HTTP, host.getHostName(), host.getPort(), "", "");
 	    SocketHttpConnectionProvider provider =  new MyConnectionProvider();
 	    provider.useProxy(proxyInfoObj);
@@ -998,7 +1007,7 @@ public class Test {
 			    	readExecute(pid, uname);
 					Thread.sleep(500);
 					
-					boolean flagt = tuijian(pid,uname);
+					boolean flagt = tuijian(pid,uname,true);
 					//boolean flagt = tuijianHttpClient(pid,uname);
 					//flag = tuijianToFile(pid,uname);
 					//boolean flagt = zhuan(uname,pid);
@@ -1190,11 +1199,21 @@ public class Test {
 		return false;
 	}
 	
-	
 	public static boolean tuijian(String id,String uname)throws Exception{
+		return tuijian(id, uname, false);
+	}
+	
+	public static boolean tuijian(String id,String uname,boolean isProxy)throws Exception{
 		try{
-		String url ="http://www.dataoke.com/handle_popularize";
-		HttpRequest httpRequest = HttpRequest.post(url).timeout(30000);
+		 String url ="http://www.dataoke.com/handle_popularize";
+		 HttpRequest httpRequest = null;
+		 if(isProxy){
+			 httpRequest= HttpRequest.post(url).open(getSocketHttpConnectionProvider()).timeout(30000);
+		 }else{
+			 httpRequest= HttpRequest.post(url).timeout(30000);
+		 }
+		
+		
 		 httpRequest.header("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 		 httpRequest.header("Host", "www.dataoke.com");
 		 //httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
@@ -1218,7 +1237,7 @@ public class Test {
 			 cookies = getObjToFile(uname);
 			 httpRequest.cookies(cookies);
 		 }*/
-		
+		  
 		
 		 setCookis(uname, httpRequest);
 		
