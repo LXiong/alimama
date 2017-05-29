@@ -279,22 +279,23 @@ public class Test {
 			cookisMap.put(str.split("\\=")[0].trim(), str.split("\\=")[1]);
 		}
 
-		for (Cookie c : getObjToFile(uname)) {
-			// System.out.println(c.getName()+"===="+c.getValue());
-			// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
-			cookisMap.put(c.getName().trim(), c.getValue());
+		Cookie[] cks = getObjToFile(uname);
+		if(ArrayUtils.isNotEmpty(cks)){
+			for (Cookie c : getObjToFile(uname)) {
+				cookisMap.put(c.getName().trim(), c.getValue());
+			}
+
+			StringBuffer buffer = new StringBuffer();
+
+			for (Entry<String, String> en : cookisMap.entrySet()) {
+				buffer.append(en.getKey().trim()).append("=").append(en.getValue())
+						.append("; ");
+			}
+			httpRequest.setHeader("Cookie", buffer.toString());
+		}else{
+			httpRequest.setHeader("Cookie", cookisStr);
 		}
 
-		StringBuffer buffer = new StringBuffer();
-
-		for (Entry<String, String> en : cookisMap.entrySet()) {
-			buffer.append(en.getKey().trim()).append("=").append(en.getValue())
-					.append("; ");
-		}
-
-		// System.out.println(buffer.toString());
-
-		httpRequest.setHeader("Cookie", buffer.toString());
 	}
 	
 	
@@ -837,13 +838,12 @@ public class Test {
 		for(File f:files){
 			try{
 				
-				//connectionProvider = getSocketHttpConnectionProvider();
+				proxy  = IpPoolUtil.getHttpHost();
 				execute(pid, f);
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
-				//connectionProvider = null;
-				//ip = "";
+				proxy = null;
 			}
 			
 		}
@@ -1001,7 +1001,8 @@ public class Test {
 			String pwd = s.split("\\----")[1].trim();
 			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
 			
-			boolean flag = login(uname,pwd);
+			//boolean flag = login(uname,pwd);
+			boolean flag = loginHttpClient(uname,pwd);
 			//boolean flag = true;
 			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(200);
@@ -1012,6 +1013,7 @@ public class Test {
 					Thread.sleep(500);
 					
 					//boolean flagt = tuijian(pid,uname,true);
+					//boolean flagt = tuijian(pid,uname);
 					boolean flagt = tuijianHttpClient(pid,uname);
 					//flag = tuijianToFile(pid,uname);
 					//boolean flagt = zhuan(uname,pid);
@@ -1197,7 +1199,7 @@ public class Test {
 	        nvps.add(new BasicNameValuePair("id", id));  
 	        httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  
 	        
-		 HttpHost proxy = IpPoolUtil.getHttpHost();
+		// HttpHost proxy = IpPoolUtil.getHttpHost();
 		 String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
 		 
 		 if(rc.equalsIgnoreCase("ok")){
@@ -1272,6 +1274,69 @@ public class Test {
 		}
 		 
 		return false;
+	}
+	static  HttpHost proxy = null;
+		
+	public static boolean loginHttpClient(String uname,String pwd)throws Exception{
+		System.out.println("开始查找cookis文件是否存在>>>>>>>>>>>>>>>>>>");
+		Cookie[]  cookies  = null;
+		
+		
+		 cookies = getObjToFile(uname);
+		if(ArrayUtils.isNotEmpty(cookies)){
+			System.out.println("cookis文件存在>>>>>>>>>>>>>>>>>>返回登录成功");
+			return true;
+		}
+		
+		
+		 System.out.println("用户开始登陆："+uname);
+		 String baseURI = "http://www.dataoke.com/loginApi";
+		 HttpPost httpRequest = new HttpPost(baseURI);
+		 httpRequest.setHeader("Content-Type", "application/json");
+		 httpRequest.setHeader("Host", "www.dataoke.com");
+		 //httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 httpRequest.setHeader("User-Agent", HttpTest.getUserAgent());
+		 httpRequest.setHeader("Referer", "http://www.dataoke.com/login");
+		 httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		 httpRequest.setHeader("Connection", "application/json");
+		 
+		 setCookis(uname, httpRequest);
+		
+		 HttpClientUtils httpClientUtils = new HttpClientUtils();
+		 
+		    List<NameValuePair> nvps = new ArrayList<NameValuePair>();  
+	        nvps.add(new BasicNameValuePair("username", uname));  
+	        nvps.add(new BasicNameValuePair("password", pwd));  
+	        nvps.add(new BasicNameValuePair("vc", ""));  
+	        nvps.add(new BasicNameValuePair("ref", ""));  
+	        httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  
+		 
+	      //  HttpHost proxy = IpPoolUtil.getHttpHost();
+			cookies =  httpClientUtils.getContentByUrlCookis(proxy, httpRequest, 10000);
+		
+		  /*
+		 for(Cookie c:cookies){
+			 System.out.println("rp=="+c.getName()+"===="+c.getValue());
+		 }
+		 
+		 
+		
+		 
+	    System.out.println("================================="+httpRequest.header("Cookie"));*/
+		 
+		 
+		 //System.out.println("response.headers()");
+		
+		// System.out.println(response.headers());
+		 if(ArrayUtils.isNotEmpty(cookies)){
+			 System.out.println("登录成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+uname);
+			 map.put(uname, cookies);
+			 addObjTOfile(cookies, uname);
+			 return true;
+		 }
+		 return false;
+		 
+		
 	}
 	
 	public static boolean login(String uname,String pwd)throws Exception{

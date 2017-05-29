@@ -1,24 +1,22 @@
 package dataoke;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 
 public class HttpClientUtils {
@@ -192,6 +190,69 @@ public class HttpClientUtils {
 		request.setHeader("X-Forwarded-For", X_Forwarded_For);
 		request.setHeader("Referer", aurl);
 	}
+	
+	public jodd.http.Cookie[] getContentByUrlCookis(HttpHost proxy, HttpRequestBase httpReq,long sleepTime) {
+
+		//CloseableHttpClient httpclient = HttpClients.createDefault();
+		jodd.http.Cookie[]  joddCookies = new jodd.http.Cookie[]{};
+		DefaultHttpClient httpclient=new DefaultHttpClient();
+		HttpEntity entity2 = null;
+		HttpResponse response =null;
+		try {
+			org.apache.http.client.config.RequestConfig.Builder requestConfigBuilder = RequestConfig.custom().setSocketTimeout(30000)
+					.setConnectionRequestTimeout(30000).setConnectTimeout(30000);//设置请求和传输超时时间
+			if (null != proxy) {
+				requestConfigBuilder.setProxy(proxy);
+			}
+			
+			httpReq.setConfig(requestConfigBuilder.build());
+			System.out.println("Executing request " + httpReq.getRequestLine()
+					+ " to " + httpReq.getURI() + " via " + proxy);
+			 response = httpclient.execute(httpReq);
+			 
+			 CookieStore cookieStore =  httpclient.getCookieStore();
+			 
+			 List<Cookie> cookies=cookieStore.getCookies();
+			 for(Cookie cookie:cookies){
+				 jodd.http.Cookie joddCookie = new jodd.http.Cookie(cookie.getName(), cookie.getValue());
+				 ArrayUtils.add(joddCookies, joddCookie);
+			 }
+			 
+			 entity2 = response.getEntity();
+			 String entityBody = EntityUtils.toString(entity2, "utf-8");//
+			 System.out.println("getContentByUrlCookis ："+entityBody);
+			 if(entityBody.contains("1")){
+				 return joddCookies;
+			 }
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+			
+			if(entity2!=null){
+				try {
+					EntityUtils.consumeQuietly(response.getEntity());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+
+			try {
+				httpReq.releaseConnection();
+				Thread.sleep(sleepTime);
+				//Thread.sleep(new Random().nextInt(5000)+1000);
+				httpclient.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
 
 	public String getContentByUrl(HttpHost proxy, HttpRequestBase httpReq,long sleepTime) {
 
