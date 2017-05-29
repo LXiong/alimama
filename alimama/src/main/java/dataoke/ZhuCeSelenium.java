@@ -2,6 +2,7 @@ package dataoke;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -118,9 +119,6 @@ public class ZhuCeSelenium {
 	
 	static WebDriver webDriver = null;
 	
-	static{
-		
-	}
 	static String tnum = "";
 	static int errorSize = 0;
 	public static void executeAll()throws Exception{
@@ -145,16 +143,27 @@ public class ZhuCeSelenium {
 		 }
 	}
 	static File outDir =new  File("d:\\大淘客账号注册");
+	static File out = null;
 	static{
 		if(!outDir.exists()){
 			System.out.println("文件夹不存在》》》》》》》》》》》创建注册文件夹结果>>>>>>>>>>>>>>"+outDir.mkdir());
 		}
+		out = new File(outDir,"dataokeuser_"+DateFormatUtils.format(new Date(), "yyyyMMddHHmmss")+".txt");
+		if(!out.exists()){
+			try {
+				out.createNewFile();
+				System.out.println("创建账号保存文件>>>>>>>>>>>>结果》》"+out+ "  文件目录为："+out.getAbsolutePath());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	
 	static int okSize = 0;
 	
-	static File out = new File(outDir,"dataokeuser_"+DateFormatUtils.format(new Date(), "yyyyMMddHHmmss")+".txt");
+	
 	static HttpHost host = null;
 	
 	static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=10&xl=%E5%9B%BD%E5%86%85&gl=1";
