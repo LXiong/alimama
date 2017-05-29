@@ -3,6 +3,7 @@ package dataoke;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.http.HttpHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -141,8 +144,17 @@ public class ZhuCeSelenium {
 			 }
 		 }
 	}
+	static File outDir =new  File("d:\\大淘客账号注册");
+	static{
+		if(!outDir.exists()){
+			System.out.println("文件夹不存在》》》》》》》》》》》创建注册文件夹结果>>>>>>>>>>>>>>"+outDir.mkdir());
+		}
+	}
+	
+	
 	static int okSize = 0;
-	static File out = new File("d:\\dataokeuser1.txt");
+	
+	static File out = new File(outDir,"dataokeuser_"+DateFormatUtils.format(new Date(), "yyyyMMddHHmmss")+".txt");
 	static HttpHost host = null;
 	
 	static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=10&xl=%E5%9B%BD%E5%86%85&gl=1";
