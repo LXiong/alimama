@@ -980,6 +980,7 @@ public class Test {
 	}
 	
 	static int count = 0;
+	static int tuiguangOk=0;
 	public static void execute(String[] pids,File file)throws Exception{
 		//String pid ="2247791";
 		//List<String> lists=FileUtils.readLines(new File("G:\\taoke\\第2组500.txt"));
@@ -1016,7 +1017,8 @@ public class Test {
 					//boolean flagt = zhuan(uname,pid);
 					//boolean flagt = TestSelenium.execute(pid,uname);
 					if(flagt){
-						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
+						tuiguangOk += 1;
+						System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname +" 当前已成功推广："+tuiguangOk);
 						//boolean bflag = biaoji(pid, uname);
 						//System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
 						//Thread.sleep(1000);
