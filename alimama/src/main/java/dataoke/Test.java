@@ -1228,7 +1228,7 @@ public class Test {
 		 response.charset("gb2312");
 		 String rc = response.bodyText();*/
 		// System.out.println(rc);
-		 String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
+		 String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000,"gb2312");
 		 if(rc.contains("删除成功")){
 			 System.out.println("id=="+uname+" 删除成功>>>>>>>>>>>>>>>");
 			 return true;

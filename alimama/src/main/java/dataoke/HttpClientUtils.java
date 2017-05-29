@@ -215,7 +215,7 @@ public class HttpClientUtils {
 			 List<Cookie> cookies=cookieStore.getCookies();
 			 for(Cookie cookie:cookies){
 				 jodd.http.Cookie joddCookie = new jodd.http.Cookie(cookie.getName(), cookie.getValue());
-				 ArrayUtils.add(joddCookies, joddCookie);
+				 joddCookies = (jodd.http.Cookie[]) ArrayUtils.add(joddCookies, joddCookie);
 			 }
 			 
 			 entity2 = response.getEntity();
@@ -252,9 +252,13 @@ public class HttpClientUtils {
 		return null;
 
 	}
-
-
+	
 	public String getContentByUrl(HttpHost proxy, HttpRequestBase httpReq,long sleepTime) {
+		return getContentByUrl(proxy, httpReq, sleepTime, "utf-8");
+	}
+
+
+	public String getContentByUrl(HttpHost proxy, HttpRequestBase httpReq,long sleepTime,String encodeing) {
 
 		/*CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials(new AuthScope("localhost", 8080),
@@ -297,7 +301,7 @@ public class HttpClientUtils {
 
 			 response = httpclient.execute(httpReq);
 			 entity2 = response.getEntity();
-			String entityBody = EntityUtils.toString(entity2, "utf-8");//
+			String entityBody = EntityUtils.toString(entity2, encodeing);//
 			
 			//response.getEntity().getContent().close();
 			return entityBody;
