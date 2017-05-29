@@ -102,6 +102,7 @@ public class IpUtils {
 			try {
 				URLConnection conn = url.openConnection(proxy);
 				conn.setConnectTimeout(1000);
+				conn.setReadTimeout(1000);
 				in = conn.getInputStream();
 			} catch (Exception e) {
 				//e.printStackTrace();
