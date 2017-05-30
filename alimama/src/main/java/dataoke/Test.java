@@ -836,7 +836,8 @@ public class Test {
 					flag = deleteAllHttpClient(uname,"0");
 					//flag = tuijianToFile(pid,uname);
 					if(flag){
-						System.out.println("删除成功》》》》》》》》》》》》》》》》》》》 uname="+uname);
+						tuiguangOk+=1;
+						System.out.println("删除成功》》》》》》》》》》》》》》》》》》》 uname="+uname+ " 当前删除成功："+tuiguangOk);
 					}else{
 						System.out.println("删除失败》》》》》》》》》》》》》》》》》》uname="+uname);
 					}
