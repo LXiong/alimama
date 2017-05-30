@@ -837,7 +837,7 @@ public class Test {
 					//flag = tuijianToFile(pid,uname);
 					if(flag){
 						tuiguangOk+=1;
-						System.out.println("删除成功》》》》》》》》》》》》》》》》》》》 uname="+uname+ " 当前删除成功："+tuiguangOk);
+						System.out.println("删除成功》》》》》》》》》》》》》》》》》》》 uname="+uname+ " 当前删除成功："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
 					}else{
 						System.out.println("删除失败》》》》》》》》》》》》》》》》》》uname="+uname);
 					}
@@ -1078,7 +1078,7 @@ public class Test {
 							//boolean flagt = TestSelenium.execute(pid,uname);
 							if(flagt){
 								tuiguangOk += 1;
-								System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname +" 当前已成功推广："+tuiguangOk);
+								System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname +" 当前已成功推广："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
 								//boolean bflag = biaoji(pid, uname);
 								//System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
 								//Thread.sleep(1000);
