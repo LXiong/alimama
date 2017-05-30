@@ -93,10 +93,11 @@ public class Test {
 		//System.out.println(tuijian("2449218", "13532300165"));
 		//System.out.println(tuijianHttpClient("2516967", "15544728853"));
 	
-		System.out.println(loginHttpClient("15544728853", "dbnat97"));
-		System.out.println(tuijianHttpClient("2544577", "15544728853"));
+		//System.out.println(loginHttpClient("15544728853", "dbnat97"));
+		//System.out.println(tuijianHttpClient("2544577", "15544728853"));
 		//System.out.println(login("15544728853", "dbnat97"));
 
+		System.out.println(deleteAllHttpClient("15544728853", "0"));
 	}
 	
 	 
@@ -1222,12 +1223,12 @@ public class Test {
 		setCookis(uname, httpRequest);
 		 
 		
-		    HttpClientUtils httpClientUtils = new HttpClientUtils();
+		    /*HttpClientUtils httpClientUtils = new HttpClientUtils();
 		 
 		    List<NameValuePair> nvps = new ArrayList<NameValuePair>();  
 	        nvps.add(new BasicNameValuePair("leibie", type));  
 	        nvps.add(new BasicNameValuePair("zh_que_bt", "%C8%B7%C8%CF%C9%BE%B3%FD"));  
-	        httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  
+	        httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  */
 		    //0 未推广 1已推广
 		 
 		 
@@ -1235,7 +1236,9 @@ public class Test {
 		 response.charset("gb2312");
 		 String rc = response.bodyText();*/
 		// System.out.println(rc);
-		 String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000,"gb2312");
+		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000,"gb2312");
+		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "leibie="+type+"&zh_que_bt=%C8%B7%C8%CF%C9%BE%B3%FD",true,"gb2312","gb2312",proxy,null);
+		 
 		 if(rc.contains("删除成功")){
 			 System.out.println("id=="+uname+" 删除成功>>>>>>>>>>>>>>>");
 			 return true;
