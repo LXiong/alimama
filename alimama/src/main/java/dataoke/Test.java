@@ -21,6 +21,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -39,6 +40,7 @@ import jodd.http.ProxyInfo.ProxyType;
 import jodd.http.net.SocketHttpConnectionProvider;
 import util.CharUtil;
 import util.HtmlUnitUtil;
+import util.HttpClientUtil;
 import util.IpPoolUtil;
 import util.IpUtils;
 import util.MyConnectionProvider;
@@ -92,6 +94,7 @@ public class Test {
 		//System.out.println(tuijianHttpClient("2516967", "15544728853"));
 	
 		System.out.println(loginHttpClient("15544728853", "dbnat97"));
+		System.out.println(tuijianHttpClient("2544577", "15544728853"));
 		//System.out.println(login("15544728853", "dbnat97"));
 
 	}
@@ -1055,8 +1058,8 @@ public class Test {
 					String pwd = s.split("\\----")[1].trim();
 					System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
 					
-					boolean flag = login(uname,pwd,true);
-					//boolean flag = loginHttpClient(uname,pwd);
+					//boolean flag = login(uname,pwd);
+					boolean flag = loginHttpClient(uname,pwd);
 					//boolean flag = true;
 					System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 					Thread.sleep(200);
@@ -1293,16 +1296,20 @@ public class Test {
 		 httpRequest.setHeader("User-Agent", HttpTest.getUserAgent());
 		 
 		 setCookis(uname, httpRequest);
-
+/*
 		   HttpClientUtils httpClientUtils = new HttpClientUtils();
 		 
 		    List<NameValuePair> nvps = new ArrayList<NameValuePair>();  
 	        nvps.add(new BasicNameValuePair("act", "add_quan"));  
 	        nvps.add(new BasicNameValuePair("id", id));  
-	        httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  
+	        httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  */
 	        
 		// HttpHost proxy = IpPoolUtil.getHttpHost();
-		 String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
+		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
+		 
+		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "act=add_quan&id="+id,true,null,null,proxy,null);
+         //System.out.println("str:"+str);
+		 
 		 
 		 if(rc.equalsIgnoreCase("ok")){
 			 return true;
@@ -1384,7 +1391,7 @@ public class Test {
 		Cookie[]  cookies  = null;
 		
 		
-		 //cookies = getObjToFile(uname);
+		 cookies = getObjToFile(uname);
 		if(ArrayUtils.isNotEmpty(cookies)){
 			System.out.println("cookis文件存在>>>>>>>>>>>>>>>>>>返回登录成功");
 			return true;
@@ -1396,11 +1403,12 @@ public class Test {
 		 HttpPost httpRequest = new HttpPost(baseURI);
 		 httpRequest.setHeader("Content-Type", "application/json");
 		 httpRequest.setHeader("Host", "www.dataoke.com");
-		 //httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 httpRequest.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 		 httpRequest.setHeader("User-Agent", HttpTest.getUserAgent());
+		 httpRequest.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
 		 httpRequest.setHeader("Referer", "http://www.dataoke.com/login");
 		 httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
-		 httpRequest.setHeader("Connection", "application/json");
+		 httpRequest.setHeader("Connection", "keep-alive");
 		 
 		// setCookis(uname, httpRequest);
 		
@@ -1413,15 +1421,28 @@ public class Test {
 	        nvps.add(new BasicNameValuePair("ref", ""));  
 	        httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  
 		 
+	       StringEntity stringEntity = new StringEntity("username="+uname+"&"+"password="+pwd+"&vc="+"&"+"ref=");
+	        
+	        
+	        
+	        //httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  
+	        httpRequest.setEntity(stringEntity);  
+			
+	        
 	      //  HttpHost proxy = IpPoolUtil.getHttpHost();
-			cookies =  httpClientUtils.getContentByUrlCookis(proxy, httpRequest, 10000);
-		
-		  /*
-		 for(Cookie c:cookies){
+			//cookies =  httpClientUtils.getContentByUrlCookis(proxy, httpRequest, 10000);
+		      List<Cookie> list = new ArrayList<Cookie>();
+	          String str =  HttpClientUtil.sendPostRequest(httpRequest, "username="+uname+"&"+"password="+pwd+"&vc="+"&"+"ref=",true,null,null,proxy,list);
+	          System.out.println("str:"+str);
+	          
+	          cookies =  list.toArray(new Cookie[]{});
+	        
+		  
+		/* for(Cookie c:cookies){
 			 System.out.println("rp=="+c.getName()+"===="+c.getValue());
-		 }
+		 }*/
 		 
-		 
+		/* 
 		
 		 
 	    System.out.println("================================="+httpRequest.header("Cookie"));*/
