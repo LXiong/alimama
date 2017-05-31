@@ -27,7 +27,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.http.HttpHost;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -55,7 +54,9 @@ public class ZhuCeSelenium {
 		if(ArrayUtils.isNotEmpty(args) && args.length >=1){
 			sleep = Integer.valueOf(args[1]);
 		}*/
-		//args = new String[]{"2522523"};
+		//Thread.sleep(1000 * 60 *60);
+		//args = new String[]{"2551906,2558974"};
+		//args = new String[]{"2551906,2545893",};
 		if(ArrayUtils.isNotEmpty(args)){
 			pids = args[0];
 		}
@@ -477,13 +478,26 @@ public class ZhuCeSelenium {
 			 
 			
 			 if(StringUtils.isNotBlank(pids)){
-				 for(String pid:pids.split(",")){
-					 System.out.println("开始点击推荐商品>>>>>>>>>>>>>>>>>>>>>>id=="+pid);
-					 Thread.sleep(Cmd.getSleepTime(2000, 5000));
-					// login(num, pwd);
-					 tuijian(pid);
-					 Thread.sleep(Cmd.getSleepTime(3000, 4000));
+				 try{
+					 for(String pid:pids.split(",")){
+						 System.out.println("开始点击推荐商品>>>>>>>>>>>>>>>>>>>>>>id=="+pid);
+						 Thread.sleep(Cmd.getSleepTime(2000, 5000));
+						// login(num, pwd);
+						 tuijian(pid);
+						 Thread.sleep(Cmd.getSleepTime(3000, 4000));
+					 } 
+				 }catch(Exception e){
+					 e.printStackTrace();
 				 }
+				 finally{
+					 try{
+							webDriver.get("http://www.dataoke.com/logout");
+							Thread.sleep(Cmd.getSleepTime(2000, 3000));
+						}catch(Exception e){
+							
+						}
+				 }
+				 
 			 }
 			 
 		 }else{
@@ -551,12 +565,6 @@ public class ZhuCeSelenium {
 		    }else{
 		    	map.put(id, 1);
 		    }
-			try{
-				webDriver.get("http://www.dataoke.com/logout");
-				Thread.sleep(Cmd.getSleepTime(2000, 3000));
-			}catch(Exception e){
-				
-			}
 		    //Thread.sleep(Cmd.getSleepTime());
 		}catch(Exception e){
 			e.printStackTrace();
