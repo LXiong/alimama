@@ -17,12 +17,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.collections.CollectionUtils;
+import jodd.http.Cookie;
+import jodd.http.HttpBrowser;
+import jodd.http.HttpRequest;
+import jodd.http.HttpResponse;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -34,12 +37,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import jodd.http.Cookie;
-import jodd.http.HttpBrowser;
-import jodd.http.HttpRequest;
-import jodd.http.HttpResponse;
 import ruokuai.RuoKuaiUnit;
-import util.IpUtils;
+import util.IpPoolUtil;
 import util.SeleniumUtil;
 
 public class ZhuCeSelenium {
@@ -62,7 +61,7 @@ public class ZhuCeSelenium {
 		}
 
 		
-		 Runnable runnable = new Runnable() {  
+		/* Runnable runnable = new Runnable() {  
 	            public void run() {  
 	                // task to run goes here
 	            	//synchronized(ZhuCeSelenium.class){
@@ -105,7 +104,7 @@ public class ZhuCeSelenium {
 	                .newSingleThreadScheduledExecutor();  
 	        // 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间  
 	        service.scheduleAtFixedRate(runnable, 1, 5, TimeUnit.SECONDS);
-		Thread.sleep(5000);
+		Thread.sleep(5000);*/
 		browser = new HttpBrowser();
 		
 		System.out.println("开始验证>>>>>>>>>>>>>>>>>>>>>>>");
@@ -193,7 +192,7 @@ public class ZhuCeSelenium {
 				return ;
 			}*/
 			
-			for(int i=0;i<12;i++){
+			/*for(int i=0;i<12;i++){
 				System.out.println("开始获取从队列里面获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				host = blockingQueue.poll(5,TimeUnit.SECONDS);
 				if(host!=null){
@@ -201,7 +200,8 @@ public class ZhuCeSelenium {
 				}else{
 					System.out.println("获取代理ip失败》》》》》》当前代理ip池大小："+blockingQueue.size());
 				}
-			}
+			}*/
+			host = IpPoolUtil.getHttpHost();
 			
 			System.out.println("成功从ip池获取代理ip>>>>>>>>>>>>>>>>>>>>");
 			
