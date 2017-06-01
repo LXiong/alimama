@@ -45,6 +45,7 @@ public class ZhuCeSelenium {
 	
 	static String pids = "";
 	static int maxOkSize = 140;
+	static int allOkSize = 0;
 	public static void main(String[] args)throws Exception {
 		/*if(ArrayUtils.isNotEmpty(args)){
 			proxyURL = args[0];
@@ -127,10 +128,11 @@ public class ZhuCeSelenium {
 		 Ma60.login();
 		 for(int i=0;i<10000;i++){
 			 try{
-				 if(okSize > maxOkSize){
+				 if(allOkSize > maxOkSize){
 					 System.out.println("程序退出>>>>>>>>>>>>>超过最大设置数>>>>>"+maxOkSize);
 					 System.exit(0);
 				 }
+				 System.out.println("当前allOkSize ==="+allOkSize+" 当前maxOKsize===="+maxOkSize);
 				 execute();
 			 }catch(Exception e){
 				 errorSize +=1;
@@ -476,6 +478,7 @@ public class ZhuCeSelenium {
 			 System.out.println("注册成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 
 			 okSize +=1;
+			 allOkSize +=1;
 			 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 			 System.out.println("当前ip已经注册成功 >>>>>>>>>>>"+okSize+" 个号！！！！！！！！！！");
 			 Thread.sleep(2000);
