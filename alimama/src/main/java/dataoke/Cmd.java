@@ -35,7 +35,7 @@ public class Cmd {
 	
 	public static void main(String[] args) {
 		
-		args = new String[]{"2522523","dataokeuser20170528","30000,60000","1"}; 
+		//args = new String[]{"2522523","dataokeuser20170528","30000,60000","1"}; 
 		
 		
 		String pids = args[0];
