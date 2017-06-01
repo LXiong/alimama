@@ -1054,10 +1054,10 @@ public class Test {
 			}
 			count++;
 			
-			if(lists.size() == count){
+			/*if(lists.size() == count){
 				System.out.println("执行完毕>>>>>>>>>>>>程序退出");
 				System.exit(0);
-			}
+			}*/
 			
 			/*if(623>count){
 				continue;
