@@ -198,7 +198,8 @@ public class HttpClientUtil {
 			if (null != proxy) {
 				requestConfigBuilder.setProxy(proxy);
 			}
-        	
+			httpPost.setConfig(requestConfigBuilder.build());
+			
             if(isEncoder){
                 List<NameValuePair> formParams = new ArrayList<NameValuePair>();
                 for(String str : sendData.split("&")){
