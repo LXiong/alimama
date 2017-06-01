@@ -1,5 +1,6 @@
 package util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -15,6 +16,22 @@ public class IpPoolUtil {
 	static BlockingQueue<HttpHost> blockingQueue = new ArrayBlockingQueue<HttpHost>(100);
 	static String proxyURL="http://ip.memories1999.com/api.php?dh=2764810913906166&sl=10&xl=%E5%9B%BD%E5%86%85&gl=1";
 	
+	//static String proxyURL="http://www.xsdaili.com/get?orderid=104948606338185&num=10&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1";
+	
+		//static String proxyURL="http://www.56pu.com/api?orderId=564127255497792544&quantity=10&line=all&region=&regionEx=&beginWith=&ports=&vport=&speed=&anonymity=2,3&scheme=&duplicate=2&sarea=";
+		
+		//static String proxyURL="http://dev.kuaidaili.com/api/getproxy/?orderid=999596535183415&num=20&b_pcchrome=1&b_pcie=1&b_pcff=1&protocol=1&method=2&an_an=1&an_ha=1&sp1=1&sp2=1&dedup=1&sep=1";
+		
+		
+		static List<String> proxyURLList = new ArrayList<String>();
+		
+		static{
+			proxyURLList.add(proxyURL);
+			proxyURLList.add("http://www.xsdaili.com/get?orderid=104948606338185&num=10&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1");
+			proxyURLList.add("http://www.56pu.com/api?orderId=564127255497792544&quantity=10&line=all&region=&regionEx=&beginWith=&ports=&vport=&speed=&anonymity=2,3&scheme=&duplicate=2&sarea=");
+			proxyURLList.add("http://dev.kuaidaili.com/api/getproxy/?orderid=999596535183415&num=10&b_pcchrome=1&b_pcie=1&b_pcff=1&protocol=1&method=2&an_an=1&an_ha=1&sp1=1&sp2=1&dedup=1&sep=1");
+		}
+		
 	static{
 		try {
 			init();
@@ -58,8 +75,15 @@ public class IpPoolUtil {
 		 	                if(size<5){
 		 	                	System.out.println("开始获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>");
 		 	        			//proxyURLList.get(new Random().nextInt(3))
-		 	        			List<HttpHost> hosts = IpUtils.getips(proxyURL);
-		 	        			 if(CollectionUtils.isEmpty(hosts)){
+		 	        			//List<HttpHost> hosts = IpUtils.getips(proxyURL);
+		 	                	List<HttpHost> hosts = null;
+		 	        			for(String proxyurl:proxyURLList){
+		 	        				 hosts = IpUtils.getips(proxyurl);
+		 	        				 if(CollectionUtils.isNotEmpty(hosts)){
+		 	        					 break;
+		 	        				 }
+		 	        			}
+		 	        			if(CollectionUtils.isEmpty(hosts)){
 		 	        				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		 	        			 }else{
 		 	        				 for(final HttpHost h:hosts){
