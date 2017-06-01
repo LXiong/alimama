@@ -44,7 +44,7 @@ import util.SeleniumUtil;
 public class ZhuCeSelenium {
 	
 	static String pids = "";
-	
+	static int maxOkSize = 140;
 	public static void main(String[] args)throws Exception {
 		/*if(ArrayUtils.isNotEmpty(args)){
 			proxyURL = args[0];
@@ -56,6 +56,7 @@ public class ZhuCeSelenium {
 		//Thread.sleep(1000 * 60 *60);
 		//args = new String[]{"2551906,2558974"};
 		//args = new String[]{"2551906,2545893",};
+		//args = new String[]{"2562658,2569089,2565106,2551906,2558974"};
 		if(ArrayUtils.isNotEmpty(args)){
 			pids = args[0];
 		}
@@ -126,6 +127,10 @@ public class ZhuCeSelenium {
 		 Ma60.login();
 		 for(int i=0;i<10000;i++){
 			 try{
+				 if(okSize > maxOkSize){
+					 System.out.println("程序退出>>>>>>>>>>>>>超过最大设置数>>>>>"+maxOkSize);
+					 System.exit(0);
+				 }
 				 execute();
 			 }catch(Exception e){
 				 errorSize +=1;
