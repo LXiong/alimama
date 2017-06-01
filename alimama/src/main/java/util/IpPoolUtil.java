@@ -80,6 +80,7 @@ public class IpPoolUtil {
 		 	        			for(String proxyurl:proxyURLList){
 		 	        				 hosts = IpUtils.getips(proxyurl);
 		 	        				 if(CollectionUtils.isNotEmpty(hosts)){
+		 	        					 System.out.println("获取ip为null>>>>>>>>>>>>>>>>>> url :"+proxyurl);
 		 	        					 break;
 		 	        				 }
 		 	        			}
