@@ -54,10 +54,12 @@ public class ZhuCeSelenium {
 		if(ArrayUtils.isNotEmpty(args) && args.length >=1){
 			sleep = Integer.valueOf(args[1]);
 		}*/
-		//Thread.sleep(1000 * 60 *60);
+		//Thread.sleep(1000 * 60 * 60 * 1);
 		//args = new String[]{"2551906,2558974"};
 		//args = new String[]{"2551906,2545893",};
 		//args = new String[]{"2562658,2569089,2565106,2551906,2558974"};
+		
+		//args = new String[]{"2562658,2581965,2570545,2577597,2579648"};
 		if(ArrayUtils.isNotEmpty(args)){
 			pids = args[0];
 		}
@@ -554,7 +556,7 @@ public class ZhuCeSelenium {
 		try{
 			try{
 				//webDriver.get("http://www.dataoke.com");
-				Thread.sleep(Cmd.getSleepTime(2000, 3000));
+				//Thread.sleep(Cmd.getSleepTime(2000, 3000));
 			}catch(Exception e){
 				
 			}
@@ -567,7 +569,7 @@ public class ZhuCeSelenium {
 		    element.click();
 		    //Thread.sleep(Cmd.getSleepTime());
 		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
-		    Thread.sleep(Cmd.getSleepTime(1000, 2000));
+		    //Thread.sleep(Cmd.getSleepTime(1000, 2000));
 		    if(map.containsKey(id)){
 		    	map.put(id, map.get(id)+1);
 		    }else{
