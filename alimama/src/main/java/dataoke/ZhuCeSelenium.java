@@ -63,7 +63,7 @@ public class ZhuCeSelenium {
 		if(ArrayUtils.isNotEmpty(args)){
 			pids = args[0];
 		}
-		
+		System.out.println("树妖刷的id======"+pids);
 		if(ArrayUtils.isNotEmpty(args) && args.length >1){
 			Integer sleep = Integer.parseInt(args[1].trim());
 			System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
