@@ -1,5 +1,7 @@
 package util;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -9,6 +11,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpHost;
 
 public class IpPoolUtil {
@@ -31,6 +34,24 @@ public class IpPoolUtil {
 			proxyURLList.add("http://www.56pu.com/api?orderId=564127255497792544&quantity=10&line=all&region=&regionEx=&beginWith=&ports=&vport=&speed=&anonymity=2,3&scheme=&duplicate=2&sarea=");
 			proxyURLList.add("http://dev.kuaidaili.com/api/getproxy/?orderid=999596535183415&num=10&b_pcchrome=1&b_pcie=1&b_pcff=1&protocol=1&method=2&an_an=1&an_ha=1&sp1=1&sp2=1&dedup=1&sep=1");
 			proxyURLList.add(proxyURL);
+		}
+		
+		
+		static{
+			try {
+				File file = new File("d:\\dataokeip.txt");
+				if(file.exists()){
+					System.out.println("配置ip文件存在，获取iP文件列表>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+file.getAbsolutePath());
+					proxyURLList.clear();
+					List<String> list = FileUtils.readLines(file);
+					proxyURLList.addAll(list);
+				}else{
+					System.out.println("配置ip文件不存在>>>>>>>>>>>>>>>>>>>>"+file.getAbsolutePath());
+				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	static{
