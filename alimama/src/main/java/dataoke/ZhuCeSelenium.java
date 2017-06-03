@@ -63,6 +63,21 @@ public class ZhuCeSelenium {
 		if(ArrayUtils.isNotEmpty(args)){
 			pids = args[0];
 		}
+		
+		if(ArrayUtils.isNotEmpty(args) && args.length >1){
+			Integer sleep = Integer.parseInt(args[1].trim());
+			System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
+			try {
+				Thread.sleep(1000 * sleep);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(ArrayUtils.isNotEmpty(args) && args.length >2){
+			Integer maxSize = Integer.parseInt(args[2].trim());
+			maxOkSize = maxSize;
+		}
 
 		
 		/* Runnable runnable = new Runnable() {  
