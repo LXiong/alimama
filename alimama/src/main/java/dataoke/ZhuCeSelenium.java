@@ -516,8 +516,8 @@ public class ZhuCeSelenium {
 				 }
 				 finally{
 					 try{
-							webDriver.get("http://www.dataoke.com/logout");
-							Thread.sleep(Cmd.getSleepTime(2000, 3000));
+							//webDriver.get("http://www.dataoke.com/logout");
+							//Thread.sleep(Cmd.getSleepTime(2000, 3000));
 						}catch(Exception e){
 							
 						}
