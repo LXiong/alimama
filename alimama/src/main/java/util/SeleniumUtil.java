@@ -350,52 +350,93 @@ public class SeleniumUtil {
                Thread.sleep(1000);
                //拖动完释放鼠标
                action.moveToElement(source).release();
+               Thread.sleep(1000);
 		       //组织完这些一系列的步骤，然后开始真实执行操作
 		       Action actions = action.build();
-		       actions.perform();
+		       //actions.perform();
 		       
 		       Thread.sleep(3000);
-		}
-		
-		   // 选取frame  
+		       
+		       System.out.println("拖动完成>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		       
+		       
+		       //nc_1_clickCaptcha
+		       WebElement captcha1 = driver.findElement(By.id("nc_1__scale_text"));
+		       
+		       //nc_1_clickCaptcha
+		       WebElement captcha2 = driver.findElement(By.id("nc_1_clickCaptcha"));
+				
+				BufferedImage inputbig = createElementImage(driver,captcha1,captcha2);  
+				File outFile = new File("d://dataoke.jpg");
+				
+				ImageIO.write(inputbig, "jpg",outFile);   
+				
+				 Point location = captcha1.getLocation();  
+                 Dimension size = captcha1.getSize();  
+				
+				
+				byte[] bytes = FileUtils.readFileToByteArray(outFile);
+				
+				String str = new RuoKuaiUnit().getImgStr(bytes,"6901");
+				System.out.println("返回坐标为：：》》》》》》》 "+str +" 开始点击>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				//164,31.161,87.238,138
+				 Actions actionCode = new Actions(driver);  
+				if(StringUtils.isNotBlank(str)){
+					for(String s:str.split("\\.")){
+						int index1 = Integer.valueOf(s.split(",")[0]);
+						int index2 = Integer.valueOf(s.split(",")[1]);
+						//actionCode.moveToElement(captcha2, index1, index2+size.getHeight()).click().perform();
+						actionCode.moveToElement(captcha2, index1, index2).perform();
+						
+						Thread.sleep(2000);
+					}
+				}
+		       
+		       
+		       
+		       
+		}else{
+			 // 选取frame  
 			driver=driver.switchTo().frame("captcha_widget");
-		
 		       
 				System.out.println("点击人机识别验证》》》》》》》》》》》》》》》》》》》");
 				webElement = driver.findElement(By.xpath("//span[@class='captcha-widget-text']"));
 				webElement.click();
-		
 				Thread.sleep(1000);
 				
 				// 跳出iframe  
-		driver=driver.switchTo().defaultContent();  
-		
-		
-		Thread.sleep(5000);
-		
-		//
-		WebElement captcha = driver.findElement(By.id("l-captcha-float"));
-		
-		BufferedImage inputbig = createElementImage(driver,captcha);  
-		File outFile = new File("d://dataoke.jpg");
-		
-		ImageIO.write(inputbig, "jpg",outFile);   
-		
-		
-		byte[] bytes = FileUtils.readFileToByteArray(outFile);
-		
-		String str = new RuoKuaiUnit().getImgStr(bytes,"6903");
-		System.out.println("返回坐标为：：》》》》》》》 "+str +" 开始点击>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		//164,31.161,87.238,138
-		 Actions action = new Actions(driver);  
-		if(StringUtils.isNotBlank(str)&& StringUtils.countMatches(str, ".")==2){
-			for(String s:str.split("\\.")){
-				int index1 = Integer.valueOf(s.split(",")[0]);
-				int index2 = Integer.valueOf(s.split(",")[1]);
-				action.moveToElement(captcha, index1, index2).click().perform();
-				Thread.sleep(2000);
-			}
+		       driver=driver.switchTo().defaultContent();  
+		       
+		       Thread.sleep(5000);
+				
+				//
+				WebElement captcha = driver.findElement(By.id("l-captcha-float"));
+				
+				BufferedImage inputbig = createElementImage(driver,captcha);  
+				File outFile = new File("d://dataoke.jpg");
+				
+				ImageIO.write(inputbig, "jpg",outFile);   
+				
+				
+				byte[] bytes = FileUtils.readFileToByteArray(outFile);
+				
+				String str = new RuoKuaiUnit().getImgStr(bytes,"6903");
+				System.out.println("返回坐标为：：》》》》》》》 "+str +" 开始点击>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				//164,31.161,87.238,138
+				 Actions action = new Actions(driver);  
+				if(StringUtils.isNotBlank(str)&& StringUtils.countMatches(str, ".")==2){
+					for(String s:str.split("\\.")){
+						int index1 = Integer.valueOf(s.split(",")[0]);
+						int index2 = Integer.valueOf(s.split(",")[1]);
+						action.moveToElement(captcha, index1, index2).click().perform();
+						Thread.sleep(2000);
+					}
+				}
+			
 		}
+		
+		  
+		
 		
 		
 		
@@ -468,6 +509,54 @@ public class SeleniumUtil {
 		 }
 		 return null;
              }  
+	 
+	 public static BufferedImage createElementImage(WebDriver driver,WebElement... webElements)  
+             throws IOException {  
+		 try{
+
+          
+             //左上顶点的坐标（x，y）、宽度和高度可以定义这个区域。
+             int x = 0;
+             int y = 0;
+             
+             
+             int width = 0;
+             int height = 0;
+             
+             int index = 0;
+             for(WebElement webElement:webElements){
+            	   // 获得webElement的位置和大小。  
+                 Point location = webElement.getLocation();  
+                 Dimension size = webElement.getSize();  
+                
+                 if(index == 0){
+                	 x = location.getX();
+                     y = location.getY();
+                 }
+                 index +=1;
+                 
+                 width = size.getWidth();
+                 height += size.getHeight();
+             
+             }
+             
+             
+             // 创建全屏截图。  
+             BufferedImage originalImage =  
+             ImageIO.read(new ByteArrayInputStream(takeScreenshot(driver)));  
+             // 截取webElement所在位置的子图。  
+             BufferedImage croppedImage = originalImage.getSubimage(  
+             x,  
+             y,  
+             width,  
+             height);  
+             return croppedImage;  
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
+		 return null;
+             }  
+	 
 	 
 	 public static byte[] takeScreenshot(WebDriver driver) throws IOException {  
 	        WebDriver augmentedDriver = new Augmenter().augment(driver);  
