@@ -31,9 +31,10 @@ public class IpPoolUtil {
 		static{
 			proxyURLList.add(proxyURL);
 			/*proxyURLList.add("http://www.xsdaili.com/get?orderid=104948606338185&num=10&an_ha=1&an_an=1&sp1=1&sp2=1&dedup=1&gj=1");*/
+			proxyURLList.add("http://www.66ip.cn/getzh.php?getzh=2017060420477&getnum=10&isp=0&anonymoustype=3&start=&ports=&export=&ipaddress=&area=0&proxytype=2&api=https");
 			proxyURLList.add("http://www.56pu.com/api?orderId=564127255497792544&quantity=10&line=all&region=&regionEx=&beginWith=&ports=&vport=&speed=&anonymity=2,3&scheme=&duplicate=2&sarea=");
 			proxyURLList.add("http://dev.kuaidaili.com/api/getproxy/?orderid=999596535183415&num=10&b_pcchrome=1&b_pcie=1&b_pcff=1&protocol=1&method=2&an_an=1&an_ha=1&sp1=1&sp2=1&dedup=1&sep=1");
-			proxyURLList.add(proxyURL);
+			
 		}
 		
 		

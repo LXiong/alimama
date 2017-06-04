@@ -38,8 +38,11 @@ public class HttpTest {
 
 	public static void main(String[] args) throws Exception {
 		HttpTest httpTest = new HttpTest();
-		httpTest.test();
+		//httpTest.test();
+		String url="http://dev.kuaidaili.com/api/getproxy/?orderid=999596535183415&num=10&b_pcchrome=1&b_pcie=1&b_pcff=1&protocol=1&method=2&an_an=1&an_ha=1&sp1=1&sp2=1&dedup=1&sep=1";
+		String st =httpTest.getContentByUrl(null, new HttpGet(url));
 		
+		System.out.println(st);
 		//new Http().executeAll();
 		// execute();
 		// getAidAndUid();

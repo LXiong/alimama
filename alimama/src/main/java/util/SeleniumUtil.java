@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.Proxy;
@@ -25,6 +26,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.CapabilityType;
@@ -283,6 +285,20 @@ public class SeleniumUtil {
 	return out.toByteArray();
 	}
 	
+	public static boolean doesWebElementExist(WebDriver driver, By selector)
+	{ 
+
+	        try 
+	        { 
+	               driver.findElement(selector); 
+	               return true; 
+	        } 
+	        catch (NoSuchElementException e) 
+	        { 
+	                return false; 
+	        } 
+	}
+	
 	public static void getImgTest()throws Exception{
 		WebDriver driver = initChromeDriver();
 		driver.manage().window().maximize();
@@ -312,8 +328,38 @@ public class SeleniumUtil {
 		
 		Thread.sleep(1000);
 		
+	
+		
+		boolean flag = doesWebElementExist(driver, By.id("nc_1__scale_text"));
+		
+		if(flag){
+			System.out.println("拖动存在>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			//
+			
+		       Actions action = new Actions(driver); 
+               //获取滑动滑块的标签元素
+	           WebElement source = driver.findElement(By.id("nc_1_n1z"));
+               //确保每次拖动的像素不同，故而使用随机数
+               action.clickAndHold(source).moveByOffset(100, 0);
+               Thread.sleep(1000);
+               //确保每次拖动的像素不同，故而使用随机数
+               action.clickAndHold(source).moveByOffset(100, 0);
+               Thread.sleep(1000);
+               //确保每次拖动的像素不同，故而使用随机数
+               action.clickAndHold(source).moveByOffset(100, 0);
+               Thread.sleep(1000);
+               //拖动完释放鼠标
+               action.moveToElement(source).release();
+		       //组织完这些一系列的步骤，然后开始真实执行操作
+		       Action actions = action.build();
+		       actions.perform();
+		       
+		       Thread.sleep(3000);
+		}
+		
 		   // 选取frame  
-		driver.switchTo().frame("captcha_widget");;  
+			driver=driver.switchTo().frame("captcha_widget");
+		
 		       
 				System.out.println("点击人机识别验证》》》》》》》》》》》》》》》》》》》");
 				webElement = driver.findElement(By.xpath("//span[@class='captcha-widget-text']"));
