@@ -571,7 +571,7 @@ public class ZhuCeSelenium {
 		try{
 			try{
 				//webDriver.get("http://www.dataoke.com");
-				//Thread.sleep(Cmd.getSleepTime(2000, 3000));
+				Thread.sleep(Cmd.getSleepTime(2000, 3000));
 			}catch(Exception e){
 				
 			}
@@ -590,7 +590,7 @@ public class ZhuCeSelenium {
 		    }else{
 		    	map.put(id, 1);
 		    }
-		    //Thread.sleep(Cmd.getSleepTime());
+		    Thread.sleep(Cmd.getSleepTime());
 		}catch(Exception e){
 			e.printStackTrace();
 		}
