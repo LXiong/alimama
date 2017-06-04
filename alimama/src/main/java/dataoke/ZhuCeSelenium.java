@@ -494,7 +494,7 @@ public class ZhuCeSelenium {
 			 js.executeScript("document.querySelectorAll(\"a[class='submit-btn register-btn']\")[0].click();");
 			 System.out.println("注册成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 
-			 okSize +=1;
+			 okSize +=15;
 			 allOkSize +=1;
 			 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 			 System.out.println("当前ip已经注册成功 >>>>>>>>>>>"+okSize+" 个号！！！！！！！！！！");
