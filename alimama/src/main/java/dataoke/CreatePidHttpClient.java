@@ -15,7 +15,7 @@ import util.IpPoolUtil;
 
 public class CreatePidHttpClient {
 	
-    static File base = new File("D:\\dataoke\\createpid\\");
+    static File base = new File("D:\\dataoke\\createpid\\20170530");
 	
 	public static int getSleepTime(int min,int max){
 		Random random = new Random();
@@ -27,7 +27,7 @@ public class CreatePidHttpClient {
 	static int count=0;
 	static int tuiguangOk=0;
 	public static void main(String[] args)throws Exception {
-		for(File file:base.listFiles()){
+		for(final File file:base.listFiles()){
 			System.out.println("开始读取文件>>>>>>>>>>"+file.getAbsolutePath());
 			List<String> lists=FileUtils.readLines(file);
 			for(String s:lists){
@@ -45,19 +45,26 @@ public class CreatePidHttpClient {
 					FutureTask<Boolean> futureTask = new FutureTask<Boolean>(new Callable<Boolean>() {
 
 						public Boolean call() throws Exception {
-							boolean flag = Test.loginHttpClient(uname, pwd);
-							System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
-							Thread.sleep(200);
-							if(flag){
-								flag = Test.createPidAllHttpClient(uname);
+							try{
+								boolean flag = Test.loginHttpClient(uname, pwd);
+								System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
+								Thread.sleep(200);
 								if(flag){
-									tuiguangOk+=1;
-									System.out.println("加pid成功》》》》》》》》》》》》》》》》》》》 uname="+uname +" 当前已成功推广："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
-								}else{
-									System.out.println("加pid失败》》》》》》》》》》》》》》》》》》》 uname="+uname);
+									flag = Test.createPidAllHttpClient(uname);
+									if(flag){
+										tuiguangOk+=1;
+										System.out.println("加pid成功》》》》》》》》》》》》》》》》》》》 uname="+uname +" 当前已成功推广："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
+									}else{
+										File dir = file.getParentFile();
+										File fiar = new File(dir,"fail.txt");
+										FileUtils.write(fiar, uname+"----"+pwd+"\r\n");
+										System.out.println("加pid失败》》》》》》》》》》》》》》》》》》》 uname="+uname);
+									}
+									
 								}
-								
+							}catch(Exception e){
 							}
+							
 							return true;
 						}
 					});
