@@ -77,11 +77,14 @@ public class Test {
 		//System.out.println(createPidAll("17189683009"));
 		
 
-		System.out.println(loginHttpClient("13528601945", "vcxtp9ptt"));
+		System.out.println(loginHttpClient("13829502088", "4dmfpch"));
 		
 		//System.out.println(createPidHtppClient("15201733860"));
 		
-		System.out.println(createPidAllHttpClient("13528601945"));
+		System.out.println(checkPidExeitHttpClient("13829502088"));
+		
+		
+		//System.out.println(createPidAllHttpClient("13829502088"));
 		
 		//System.out.println(zhuan("13411679603", "2337538"));
 		
@@ -530,9 +533,49 @@ public class Test {
 		}
 	}
 	
+	public static boolean checkPidExeitHttpClient(String uname) throws Exception {
+
+		String url = "http://www.dataoke.com/ucenter/mypid.asp";
+		HttpGet httpRequest =new HttpGet(url);
+		httpRequest.setHeader("Host", "www.dataoke.com");
+		httpRequest
+				.setHeader("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.setHeader("Referer",
+				"http://www.dataoke.com/ucenter/mypid.asp");
+		httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		httpRequest.setHeader("Connection", "keep-alive");
+		httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.setHeader("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.setHeader("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+		
+		String rc = HttpClientUtil.sendGetRequest(httpRequest, "gb2312", proxy);
+
+		//System.out.println("createPid返回结果：" + rc);
+
+		if (StringUtils.countMatches(rc, "取消")==2) {
+		    return true;
+			}
+      return false;	
+}
+	
 	public static boolean createPidAllHttpClient(String uname)throws Exception{
+		
+		System.out.println("开始检测是否设置pid>>>>>>>>>>>>>>"+uname);
+		 if(checkPidExeitHttpClient(uname)){
+			 System.out.println("pid已经存在>>>>>>>>>>>"+uname);
+			 return true;
+		 }
+		 System.out.println("没有设置pid，开始设置pid>>>>>>>>>>>>>>"+uname);
 		 String title=createPidHtppClient(uname);
 		 System.out.println("title: "+title);
+		 Thread.sleep(2000);
 		 boolean flag = false;
 		 if(StringUtils.isNotBlank(title)){
 			 System.out.println("开始查询pi========"+title);
@@ -546,7 +589,7 @@ public class Test {
 		 title=createPidHtppClient(uname);
 		 System.out.println("title: "+title);
 		 Thread.sleep(2000);
-		 if(StringUtils.isNotBlank(title)){
+		 if(StringUtils.isNotBlank(title) && flag){
 			 Thread.sleep(2000);
 			 System.out.println("开始查询pi========"+title);
 			 String pid = queryPidByNameHttpClient(uname, title);
