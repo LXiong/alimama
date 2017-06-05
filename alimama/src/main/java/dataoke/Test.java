@@ -542,7 +542,9 @@ public class Test {
 		 Thread.sleep(1000);
 		 title=createPidHtppClient(uname);
 		 System.out.println("title: "+title);
+		 Thread.sleep(1000);
 		 if(StringUtils.isNotBlank(title)){
+			 Thread.sleep(1000);
 			 String pid = queryPidByNameHttpClient(uname, title);
 			 Thread.sleep(1000);
 			 boolean flag =  pidAddHttpClient(uname, pid, "set_qq");
