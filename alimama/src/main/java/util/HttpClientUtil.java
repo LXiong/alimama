@@ -72,12 +72,20 @@ public class HttpClientUtil {
      * @param decodeCharset 解码字符集,解析响应数据时用之,其为null时默认采用UTF-8解码
      * @return 远程主机响应正文
      */
-    public static String sendGetRequest(String reqURL, String decodeCharset){
+    public static String sendGetRequest(HttpGet httpGet, String decodeCharset,HttpHost proxy){
         long responseLength = 0;       //响应长度
         String responseContent = null; //响应内容
         HttpClient httpClient = new DefaultHttpClient(); //创建默认的httpClient实例
-        HttpGet httpGet = new HttpGet(reqURL);           //创建org.apache.http.client.methods.HttpGet
+       // HttpGet httpGet = new HttpGet(reqURL);           //创建org.apache.http.client.methods.HttpGet
         try{
+        	
+        	org.apache.http.client.config.RequestConfig.Builder requestConfigBuilder = RequestConfig.custom().setSocketTimeout(30000)
+					.setConnectionRequestTimeout(30000).setConnectTimeout(30000);//设置请求和传输超时时间
+			if (null != proxy) {
+				requestConfigBuilder.setProxy(proxy);
+			}
+			httpGet.setConfig(requestConfigBuilder.build());
+        	
             HttpResponse response = httpClient.execute(httpGet); //执行GET请求
             HttpEntity entity = response.getEntity();            //获取响应实体
             if(null != entity){
@@ -234,6 +242,7 @@ public class HttpClientUtil {
         }
         return responseContent;
     }
+    
      
      
     /**

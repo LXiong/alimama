@@ -12,6 +12,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import jodd.http.Cookie;
+import jodd.http.HttpRequest;
+import jodd.http.HttpResponse;
+import jodd.http.ProxyInfo;
+import jodd.http.ProxyInfo.ProxyType;
+import jodd.http.net.SocketHttpConnectionProvider;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -19,6 +26,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
@@ -28,22 +36,17 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import fx.HttpTest;
-import jodd.http.Cookie;
-import jodd.http.HttpRequest;
-import jodd.http.HttpResponse;
-import jodd.http.ProxyInfo;
-import jodd.http.ProxyInfo.ProxyType;
-import jodd.http.net.SocketHttpConnectionProvider;
 import util.CharUtil;
 import util.HtmlUnitUtil;
 import util.HttpClientUtil;
 import util.IpPoolUtil;
 import util.IpUtils;
 import util.MyConnectionProvider;
+
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+import fx.HttpTest;
 
 public class Test {
 	
@@ -304,6 +307,40 @@ public class Test {
 			httpRequest.setHeader("Cookie", cookisStr);
 		}
 
+	}
+	
+	public static boolean pidAddHttpClient(String uname,String pid,String type) throws Exception {
+
+		//set_wx
+       //set_qq
+		String url = "http://www.dataoke.com/ucenter/mypid.asp?act="+type+"&id="+pid;
+		HttpGet httpRequest = new HttpGet(url);
+		httpRequest.setHeader("Host", "www.dataoke.com");
+		httpRequest
+				.setHeader("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.setHeader("Referer",
+				"http://www.dataoke.com/ucenter/mypid.asp");
+		httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		httpRequest.setHeader("Connection", "keep-alive");
+		httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.setHeader("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.setHeader("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+
+		String rc =  HttpClientUtil.sendGetRequest(httpRequest,"gb2312",proxy);
+		//System.out.println("pidAddwx：" + rc);
+
+		if (rc.contains("欢迎")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	
