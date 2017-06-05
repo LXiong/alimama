@@ -26,6 +26,7 @@ public class CreatePidHttpClient {
 	
 	static int count=0;
 	static int tuiguangOk=0;
+	static File fiar = new File(base,"fail.txt");
 	public static void main(String[] args)throws Exception {
 		for(final File file:base.listFiles()){
 			System.out.println("开始读取文件>>>>>>>>>>"+file.getAbsolutePath());
@@ -42,6 +43,7 @@ public class CreatePidHttpClient {
 				try{
 					final HttpHost proxy = IpPoolUtil.getHttpHost();
 					Test.proxy = proxy;
+					final StringBuffer fiarPath = new StringBuffer();
 					FutureTask<Boolean> futureTask = new FutureTask<Boolean>(new Callable<Boolean>() {
 
 						public Boolean call() throws Exception {
@@ -55,14 +57,14 @@ public class CreatePidHttpClient {
 										tuiguangOk+=1;
 										System.out.println("加pid成功》》》》》》》》》》》》》》》》》》》 uname="+uname +" 当前已成功推广："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
 									}else{
-										File dir = file.getParentFile();
-										File fiar = new File(dir,"fail.txt");
 										FileUtils.write(fiar, uname+"----"+pwd+"\r\n");
 										System.out.println("加pid失败》》》》》》》》》》》》》》》》》》》 uname="+uname);
 									}
 									
 								}
 							}catch(Exception e){
+								FileUtils.write(fiar, uname+"----"+pwd+"\r\n");
+								System.out.println("加pid失败》》》》》》》》》》》》》》》》》》》 uname="+uname);
 							}
 							
 							return true;
@@ -75,6 +77,7 @@ public class CreatePidHttpClient {
 				}catch(Exception e){
 					e.printStackTrace();
 				}finally{
+					FileUtils.write(fiar, uname+"----"+pwd+"\r\n");
 					Test.proxy = null;
 					Thread.sleep(1000);
 				}
