@@ -566,6 +566,24 @@ public class ZhuCeSelenium {
 
 	static   Map<String,Integer> map= new ConcurrentHashMap<String,Integer>();
 	
+	public static boolean sreachGoods(String taobaoId)throws Exception{
+		try{
+			try{
+				webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+				webDriver.get("http://www.dataoke.com/search/?keywords="+taobaoId+"&xuan=spid");
+			}catch(Exception e){
+				
+			}
+			Thread.sleep(Cmd.getSleepTime(5000, 8000));
+			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
+		    element.click();
+		    Thread.sleep(Cmd.getSleepTime(1000,2000));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
 	public static boolean tuijian(String id)throws Exception{
         System.out.println("当前推荐>>>>>>>>>"+map);
 		try{
