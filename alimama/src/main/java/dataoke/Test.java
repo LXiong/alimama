@@ -77,11 +77,11 @@ public class Test {
 		//System.out.println(createPidAll("17189683009"));
 		
 
-		System.out.println(loginHttpClient("15201733860", "1qaz2wsx"));
+		System.out.println(loginHttpClient("13528601945", "vcxtp9ptt"));
 		
 		//System.out.println(createPidHtppClient("15201733860"));
 		
-		System.out.println(createPidAllHttpClient("15201733860"));
+		System.out.println(createPidAllHttpClient("13528601945"));
 		
 		//System.out.println(zhuan("13411679603", "2337538"));
 		
@@ -535,18 +535,18 @@ public class Test {
 		 System.out.println("title: "+title);
 		 if(StringUtils.isNotBlank(title)){
 			 String pid = queryPidByNameHttpClient(uname, title);
-			 Thread.sleep(1000);
+			 Thread.sleep(2000);
 			 boolean flag = pidAddHttpClient(uname, pid, "set_wx");
 			 System.out.println("设为微信专用>>>>>>>>>>>>>>>"+flag);
 		 }
-		 Thread.sleep(1000);
+		 Thread.sleep(2000);
 		 title=createPidHtppClient(uname);
 		 System.out.println("title: "+title);
-		 Thread.sleep(1000);
+		 Thread.sleep(2000);
 		 if(StringUtils.isNotBlank(title)){
-			 Thread.sleep(1000);
+			 Thread.sleep(2000);
 			 String pid = queryPidByNameHttpClient(uname, title);
-			 Thread.sleep(1000);
+			 Thread.sleep(2000);
 			 boolean flag =  pidAddHttpClient(uname, pid, "set_qq");
 			 System.out.println("设为Q群专用>>>>>>>>>>>>>>>"+flag);
 		 }
