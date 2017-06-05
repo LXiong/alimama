@@ -3,6 +3,9 @@ package dataoke;
 import java.io.File;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -33,25 +36,35 @@ public class CreatePidHttpClient {
 				}
 				count++;
 				
-				String uname = s.split("\\----")[0].trim();
-				String pwd = s.split("\\----")[1].trim();
+				final String uname = s.split("\\----")[0].trim();
+				final String pwd = s.split("\\----")[1].trim();
 				System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
 				try{
-					HttpHost proxy = IpPoolUtil.getHttpHost();
+					final HttpHost proxy = IpPoolUtil.getHttpHost();
 					Test.proxy = proxy;
-					boolean flag = Test.loginHttpClient(uname, pwd);
-					System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
-					Thread.sleep(200);
-					if(flag){
-						flag = Test.createPidAllHttpClient(uname);
-						if(flag){
-							tuiguangOk+=1;
-							System.out.println("加pid成功》》》》》》》》》》》》》》》》》》》 uname="+uname +" 当前已成功推广："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
-						}else{
-							System.out.println("加pid失败》》》》》》》》》》》》》》》》》》》 uname="+uname);
+					FutureTask<Boolean> futureTask = new FutureTask<Boolean>(new Callable<Boolean>() {
+
+						public Boolean call() throws Exception {
+							boolean flag = Test.loginHttpClient(uname, pwd);
+							System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
+							Thread.sleep(200);
+							if(flag){
+								flag = Test.createPidAllHttpClient(uname);
+								if(flag){
+									tuiguangOk+=1;
+									System.out.println("加pid成功》》》》》》》》》》》》》》》》》》》 uname="+uname +" 当前已成功推广："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
+								}else{
+									System.out.println("加pid失败》》》》》》》》》》》》》》》》》》》 uname="+uname);
+								}
+								
+							}
+							return true;
 						}
-						
-					}
+					});
+					Thread thread = new Thread(futureTask);
+					thread.start();
+					boolean flag = futureTask.get(30, TimeUnit.SECONDS);
+					System.out.println("线程回调结果>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+flag);
 				}catch(Exception e){
 					e.printStackTrace();
 				}finally{
