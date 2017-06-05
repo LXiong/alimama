@@ -473,6 +473,79 @@ public class Test {
 		}
 	}
 	
+	public static String queryPidByNameHttpClient(String uname,String pname) throws Exception {
+
+		String url = "http://www.dataoke.com/ucenter/mypid.asp";
+		HttpGet httpRequest =new HttpGet(url);
+		httpRequest.setHeader("Host", "www.dataoke.com");
+		httpRequest
+				.setHeader("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.setHeader("Referer",
+				"http://www.dataoke.com/ucenter/mypid.asp");
+		httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		httpRequest.setHeader("Connection", "keep-alive");
+		httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.setHeader("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.setHeader("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+		
+		String rc = HttpClientUtil.sendGetRequest(httpRequest, "gb2312", proxy);
+
+		//System.out.println("createPid返回结果：" + rc);
+
+		if (rc.contains("PID管理")) {
+			Document document = Jsoup.parse(rc);
+			Elements elements = document.getElementsByTag("tr");
+			for(Element element:elements){
+				String html = element.html();
+				if(html.contains(pname) && !html.contains("领券优惠")){
+					//System.out.println(html);
+					//System.out.println("===============================");
+					elements = element.getElementsByTag("a");
+					for(Element e:elements){
+						//System.out.println(e.html());
+						String href = e.attr("href");
+						if(StringUtils.isNotBlank(href) && href.contains("id=")){
+							return href.replace("?act=set_qq&id=", "").replace("?act=set_wx&id=", "");
+						}
+					}
+				}
+			}
+			
+			
+			return "";
+		} else {
+			return "";
+		}
+	}
+	
+	public static boolean createPidAllHttpClient(String uname)throws Exception{
+		 String title=createPidHtppClient(uname);
+		 System.out.println("title: "+title);
+		 if(StringUtils.isNotBlank(title)){
+			 String pid = queryPidByNameHttpClient(uname, title);
+			 Thread.sleep(1000);
+			 boolean flag = pidAddHttpClient(uname, pid, "set_wx");
+			 System.out.println("设为微信专用>>>>>>>>>>>>>>>"+flag);
+		 }
+		 Thread.sleep(1000);
+		 title=createPidHtppClient(uname);
+		 System.out.println("title: "+title);
+		 if(StringUtils.isNotBlank(title)){
+			 String pid = queryPidByNameHttpClient(uname, title);
+			 Thread.sleep(1000);
+			 boolean flag =  pidAddHttpClient(uname, pid, "set_qq");
+			 System.out.println("设为Q群专用>>>>>>>>>>>>>>>"+flag);
+		 }
+		 return true;
+	}
+	
 	public static boolean createPidAll(String uname)throws Exception{
 		 String title=createPid(uname);
 		 System.out.println("title: "+title);
@@ -492,6 +565,55 @@ public class Test {
 			 System.out.println("设为Q群专用>>>>>>>>>>>>>>>"+flag);
 		 }
 		 return true;
+	}
+	
+	public static String createPidHtppClient(String uname) throws Exception {
+
+		String url = "http://www.dataoke.com/ucenter/mypid.asp?act=add";
+		HttpPost httpRequest = new HttpPost(url);
+		httpRequest.setHeader("Host", "www.dataoke.com");
+		httpRequest
+				.setHeader("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.setHeader("Referer",
+				"http://www.dataoke.com/ucenter/mypid.asp");
+		httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		httpRequest.setHeader("Connection", "keep-alive");
+		httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.setHeader("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.setHeader("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		//httpRequest.header("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+		
+		String title = CharUtil.drawRandomNum();
+		//title = "Æ¬³åÊý·Å¶¼";
+		String pid = CharUtil.getRandomPid();
+		/*httpRequest.form("title", title);
+		httpRequest.form("tong_pid", pid);
+		httpRequest.form("Submit", " ´´ ½¨ ");
+		
+		httpRequest.charset("gb2312");
+		
+		System.out.println("title: "+title + " pid : "+pid);
+
+		HttpResponse response = httpRequest.send();
+		response = response.charset("gb2312");
+		String rc = response.bodyText();
+*/
+		
+		String rc = HttpClientUtil.sendPostRequest(httpRequest, "title="+title+"&"+"tong_pid="+pid+"&"+"Submit= ´´ ½¨ ", true, "gb2312", "gb2312", proxy, null);
+		//System.out.println("createPid返回结果：" + rc);
+
+		if (rc.contains("创建成功")) {
+			//String ppid = queryPidByName(uname, title);
+			return title;
+		} else {
+			return "";
+		}
 	}
 	
 	public static String createPid(String uname) throws Exception {
