@@ -534,7 +534,9 @@ public class Test {
 		 String title=createPidHtppClient(uname);
 		 System.out.println("title: "+title);
 		 if(StringUtils.isNotBlank(title)){
+			 System.out.println("开始查询pi========"+title);
 			 String pid = queryPidByNameHttpClient(uname, title);
+			 System.out.println("pid====="+pid+" title==="+title);
 			 Thread.sleep(2000);
 			 boolean flag = pidAddHttpClient(uname, pid, "set_wx");
 			 System.out.println("设为微信专用>>>>>>>>>>>>>>>"+flag);
@@ -545,7 +547,9 @@ public class Test {
 		 Thread.sleep(2000);
 		 if(StringUtils.isNotBlank(title)){
 			 Thread.sleep(2000);
+			 System.out.println("开始查询pi========"+title);
 			 String pid = queryPidByNameHttpClient(uname, title);
+			 System.out.println("pid====="+pid+" title==="+title);
 			 Thread.sleep(2000);
 			 boolean flag =  pidAddHttpClient(uname, pid, "set_qq");
 			 System.out.println("设为Q群专用>>>>>>>>>>>>>>>"+flag);
