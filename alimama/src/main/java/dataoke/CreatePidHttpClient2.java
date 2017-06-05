@@ -79,8 +79,8 @@ public class CreatePidHttpClient2 {
 					System.out.println("线程回调结果>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+flag);
 				}catch(Exception e){
 					e.printStackTrace();
-				}finally{
 					FileUtils.write(fiar, uname+"----"+pwd+"\r\n",true);
+				}finally{
 					Test.proxy = null;
 					Thread.sleep(1000);
 				}
