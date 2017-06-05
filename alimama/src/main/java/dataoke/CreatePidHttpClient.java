@@ -22,6 +22,7 @@ public class CreatePidHttpClient {
 	}
 	
 	static int count=0;
+	static int tuiguangOk=0;
 	public static void main(String[] args)throws Exception {
 		for(File file:base.listFiles()){
 			System.out.println("开始读取文件>>>>>>>>>>"+file.getAbsolutePath());
@@ -43,7 +44,13 @@ public class CreatePidHttpClient {
 					Thread.sleep(200);
 					if(flag){
 						flag = Test.createPidAllHttpClient(uname);
-						System.out.println("创建pi===="+flag);
+						if(flag){
+							tuiguangOk+=1;
+							System.out.println("加pid成功》》》》》》》》》》》》》》》》》》》 uname="+uname +" 当前已成功推广："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
+						}else{
+							System.out.println("加pid失败》》》》》》》》》》》》》》》》》》》 uname="+uname);
+						}
+						
 					}
 				}catch(Exception e){
 					e.printStackTrace();
