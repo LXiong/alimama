@@ -533,12 +533,13 @@ public class Test {
 	public static boolean createPidAllHttpClient(String uname)throws Exception{
 		 String title=createPidHtppClient(uname);
 		 System.out.println("title: "+title);
+		 boolean flag = false;
 		 if(StringUtils.isNotBlank(title)){
 			 System.out.println("开始查询pi========"+title);
 			 String pid = queryPidByNameHttpClient(uname, title);
 			 System.out.println("pid====="+pid+" title==="+title);
 			 Thread.sleep(2000);
-			 boolean flag = pidAddHttpClient(uname, pid, "set_wx");
+			  flag = pidAddHttpClient(uname, pid, "set_wx");
 			 System.out.println("设为微信专用>>>>>>>>>>>>>>>"+flag);
 		 }
 		 Thread.sleep(2000);
@@ -551,10 +552,10 @@ public class Test {
 			 String pid = queryPidByNameHttpClient(uname, title);
 			 System.out.println("pid====="+pid+" title==="+title);
 			 Thread.sleep(2000);
-			 boolean flag =  pidAddHttpClient(uname, pid, "set_qq");
+			  flag =  pidAddHttpClient(uname, pid, "set_qq");
 			 System.out.println("设为Q群专用>>>>>>>>>>>>>>>"+flag);
 		 }
-		 return true;
+		 return flag;
 	}
 	
 	public static boolean createPidAll(String uname)throws Exception{
