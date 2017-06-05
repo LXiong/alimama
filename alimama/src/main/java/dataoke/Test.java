@@ -76,7 +76,12 @@ public class Test {
 		
 		//System.out.println(createPidAll("17189683009"));
 		
-		//System.out.println(createPid("17189683009"));
+
+		System.out.println(loginHttpClient("15201733860", "1qaz2wsx"));
+		
+		//System.out.println(createPidHtppClient("15201733860"));
+		
+		System.out.println(createPidAllHttpClient("15201733860"));
 		
 		//System.out.println(zhuan("13411679603", "2337538"));
 		
@@ -100,7 +105,7 @@ public class Test {
 		//System.out.println(tuijianHttpClient("2544577", "15544728853"));
 		//System.out.println(login("15544728853", "dbnat97"));
 
-		System.out.println(deleteAllHttpClient("15544728853", "0"));
+		//System.out.println(deleteAllHttpClient("15544728853", "0"));
 	}
 	
 	 
