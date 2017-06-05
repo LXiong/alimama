@@ -570,6 +570,7 @@ public class Test {
 		System.out.println("开始检测是否设置pid>>>>>>>>>>>>>>"+uname);
 		 if(checkPidExeitHttpClient(uname)){
 			 System.out.println("pid已经存在>>>>>>>>>>>"+uname);
+			 Thread.sleep(2000);
 			 return true;
 		 }
 		 System.out.println("没有设置pid，开始设置pid>>>>>>>>>>>>>>"+uname);
@@ -588,7 +589,6 @@ public class Test {
 		 Thread.sleep(2000);
 		 title=createPidHtppClient(uname);
 		 System.out.println("title: "+title);
-		 Thread.sleep(2000);
 		 if(StringUtils.isNotBlank(title) && flag){
 			 Thread.sleep(2000);
 			 System.out.println("开始查询pi========"+title);
