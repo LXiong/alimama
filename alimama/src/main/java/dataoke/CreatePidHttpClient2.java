@@ -15,7 +15,7 @@ import util.IpPoolUtil;
 
 public class CreatePidHttpClient2 {
 	
-    static File base = new File("D:\\dataoke\\createpid\\20170604");
+    static File base = new File("D:\\dataoke\\createpid\\fail");
 	
 	public static int getSleepTime(int min,int max){
 		Random random = new Random();
@@ -57,16 +57,16 @@ public class CreatePidHttpClient2 {
 										tuiguangOk+=1;
 										System.out.println("加pid成功》》》》》》》》》》》》》》》》》》》 uname="+uname +" 当前已成功推广："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
 									}else{
-										FileUtils.write(fiar, uname+"----"+pwd+"\r\n");
+										FileUtils.write(fiar, uname+"----"+pwd+"\r\n",true);
 										System.out.println("加pid失败》》》》》》》》》》》》》》》》》》》 uname="+uname);
 									}
 									
 								}else{
-									FileUtils.write(fiar, uname+"----"+pwd+"\r\n");
+									FileUtils.write(fiar, uname+"----"+pwd+"\r\n",true);
 									System.out.println("加pid失败》》》》》》》》》》》》》》》》》》》 uname="+uname);
 								}
 							}catch(Exception e){
-								FileUtils.write(fiar, uname+"----"+pwd+"\r\n");
+								FileUtils.write(fiar, uname+"----"+pwd+"\r\n",true);
 								System.out.println("加pid失败》》》》》》》》》》》》》》》》》》》 uname="+uname);
 							}
 							
