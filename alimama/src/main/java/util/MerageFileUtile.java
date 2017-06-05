@@ -20,6 +20,9 @@ public class MerageFileUtile {
 	public static void merageFile(File out,File... src)throws Exception{
 		if(!out.exists()){
 			out.createNewFile();
+		}else{
+			out.delete();
+			out.createNewFile();
 		}
 		for(File s :src){
 			FileUtils.writeLines(out, FileUtils.readLines(s),true);
