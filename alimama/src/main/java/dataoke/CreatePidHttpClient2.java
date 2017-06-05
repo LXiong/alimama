@@ -13,9 +13,9 @@ import org.apache.http.HttpHost;
 
 import util.IpPoolUtil;
 
-public class CreatePidHttpClient {
+public class CreatePidHttpClient2 {
 	
-    static File base = new File("D:\\dataoke\\createpid\\20170530");
+    static File base = new File("D:\\dataoke\\createpid\\20170604");
 	
 	public static int getSleepTime(int min,int max){
 		Random random = new Random();
