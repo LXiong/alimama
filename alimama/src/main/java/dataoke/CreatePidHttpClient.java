@@ -80,7 +80,7 @@ public class CreatePidHttpClient {
 				}catch(Exception e){
 					e.printStackTrace();
 				}finally{
-					FileUtils.write(fiar, uname+"----"+pwd+"\r\n");
+					FileUtils.write(fiar, uname+"----"+pwd+"\r\n",true);
 					Test.proxy = null;
 					Thread.sleep(1000);
 				}

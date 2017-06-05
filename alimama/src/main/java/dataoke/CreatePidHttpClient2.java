@@ -15,7 +15,7 @@ import util.IpPoolUtil;
 
 public class CreatePidHttpClient2 {
 	
-    static File base = new File("D:\\dataoke\\createpid\\fail");
+    static File base = new File("D:\\dataoke\\createpid\\20170604");
 	
 	public static int getSleepTime(int min,int max){
 		Random random = new Random();
@@ -80,7 +80,7 @@ public class CreatePidHttpClient2 {
 				}catch(Exception e){
 					e.printStackTrace();
 				}finally{
-					FileUtils.write(fiar, uname+"----"+pwd+"\r\n");
+					FileUtils.write(fiar, uname+"----"+pwd+"\r\n",true);
 					Test.proxy = null;
 					Thread.sleep(1000);
 				}
