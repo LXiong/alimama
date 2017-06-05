@@ -6,6 +6,9 @@ import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
+
+import util.IpPoolUtil;
 
 public class CreatePidHttpClient {
 	
@@ -33,6 +36,8 @@ public class CreatePidHttpClient {
 				String pwd = s.split("\\----")[1].trim();
 				System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
 				try{
+					HttpHost proxy = IpPoolUtil.getHttpHost();
+					Test.proxy = proxy;
 					boolean flag = Test.loginHttpClient(uname, pwd);
 					System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 					Thread.sleep(200);
@@ -43,6 +48,7 @@ public class CreatePidHttpClient {
 				}catch(Exception e){
 					e.printStackTrace();
 				}finally{
+					Test.proxy = null;
 					Thread.sleep(1000);
 				}
 				
