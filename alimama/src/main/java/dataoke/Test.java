@@ -77,14 +77,14 @@ public class Test {
 		//System.out.println(createPidAll("17189683009"));
 		
 
-		System.out.println(loginHttpClient("13829502088", "4dmfpch"));
+		//System.out.println(loginHttpClient("13829502088", "4dmfpch"));
 		
 		//System.out.println(createPidHtppClient("15201733860"));
 		
-		System.out.println(checkPidExeitHttpClient("13829502088"));
+		//System.out.println(checkPidExeitHttpClient("13829502088"));
 		
 		
-		//System.out.println(createPidAllHttpClient("13829502088"));
+		System.out.println(createPidAllHttpClient("15544729135"));
 		
 		//System.out.println(zhuan("13411679603", "2337538"));
 		
