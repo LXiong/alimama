@@ -1,8 +1,10 @@
 package dataoke;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +17,7 @@ import util.IpPoolUtil;
 
 public class CreatePidHttpClient {
 	
-    static File base = new File("D:\\dataoke\\createpid\\20170530");
+    static File base = new File("D:\\dataoke\\createpid\\20170601");
 	
 	public static int getSleepTime(int min,int max){
 		Random random = new Random();
@@ -31,7 +33,9 @@ public class CreatePidHttpClient {
 		for(final File file:base.listFiles()){
 			System.out.println("开始读取文件>>>>>>>>>>"+file.getAbsolutePath());
 			List<String> lists=FileUtils.readLines(file);
-			for(String s:lists){
+			Set<String> sets = new HashSet<String>(lists);
+			System.out.println("文件去重大小》》》》》》》》》》》"+sets.size());
+			for(String s:sets){
 				if(StringUtils.isBlank(s)){
 					continue;
 				}
