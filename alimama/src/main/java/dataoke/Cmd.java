@@ -33,9 +33,10 @@ public class Cmd {
         return s;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		
-		//args = new String[]{"2522523","dataokeuser20170528","30000,60000","1"}; 
+		//Thread.sleep(1000 * 60 * 60);
+		//args = new String[]{"2607643,2590567,2569089,2565106,2577597","30_1_60","30000,60000","1"}; 
 		
 		
 		String pids = args[0];
