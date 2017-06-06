@@ -27,7 +27,7 @@ public class IpUtils {
 	public static void main(String[] args) {
 		 //String str = getIpStr("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
 		 //System.out.println(str);
-		getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
+		getips("http://api.tkdaili.com/api/getiplist.aspx?vkey=FE66A92397841C8D653F4138B8D8864C&num=18&speed=5000&high=1&style=3&&country=CN");
 		 
 	}
 	
@@ -144,9 +144,17 @@ public  static List<HttpHost> getips(String url) {
 
 			String[] strs = str.replaceAll("\\t", "").replace("    ", "").replace("<br>", "").split("\r\n");
 			for (String ipstr : strs) {
-				String[] ip = ipstr.split(":");
-				HttpHost e = new HttpHost(ip[0], Integer.parseInt(ip[1]));
-				hosts.add(e);
+				if(StringUtils.isBlank(ipstr)){
+					continue;
+				}
+				try{
+					String[] ip = ipstr.split(":");
+					HttpHost e = new HttpHost(ip[0], Integer.parseInt(ip[1]));
+					hosts.add(e);
+				}catch(Exception e){
+					
+				}
+				
 			}
 			return hosts;
 		} catch (Exception e) {
