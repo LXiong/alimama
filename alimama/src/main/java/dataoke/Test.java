@@ -1541,6 +1541,8 @@ public class Test {
 		 
 		 if(rc.equalsIgnoreCase("ok")){
 			 return true;
+		 }else{
+			 System.out.println("推荐失败返回>>>>>>>>>>>>>>>"+rc);
 		 }
 		 
 		}catch(Exception e){
