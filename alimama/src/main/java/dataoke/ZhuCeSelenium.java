@@ -44,7 +44,7 @@ import util.SeleniumUtil;
 public class ZhuCeSelenium {
 	
 	static String pids = "";
-	static int maxOkSize = 140;
+	static int maxOkSize = 200;
 	static int allOkSize = 0;
 	public static void main(String[] args)throws Exception {
 		/*if(ArrayUtils.isNotEmpty(args)){
@@ -494,7 +494,7 @@ public class ZhuCeSelenium {
 			 js.executeScript("document.querySelectorAll(\"a[class='submit-btn register-btn']\")[0].click();");
 			 System.out.println("注册成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 
-			 okSize +=15;
+			 okSize +=1;
 			 allOkSize +=1;
 			 FileUtils.write(out, num+"----"+pwd+"\r\n",true);
 			 System.out.println("当前ip已经注册成功 >>>>>>>>>>>"+okSize+" 个号！！！！！！！！！！");
@@ -516,8 +516,8 @@ public class ZhuCeSelenium {
 				 }
 				 finally{
 					 try{
-							//webDriver.get("http://www.dataoke.com/logout");
-							//Thread.sleep(Cmd.getSleepTime(2000, 3000));
+							webDriver.get("http://www.dataoke.com/logout");
+							Thread.sleep(Cmd.getSleepTime(2000, 3000));
 						}catch(Exception e){
 							
 						}
