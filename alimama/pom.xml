@@ -74,7 +74,7 @@
 	</dependencies>
 
 	<build>
-	    <finalName>dataoke</finalName>
+	   <!--  <finalName>dataoke</finalName> -->
 		<plugins>
 		    <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -97,7 +97,8 @@
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<!-- <mainClass>dataoke.ZhuCeSelenium</mainClass> -->
-									<mainClass>dataoke.Cmd</mainClass>
+									<!-- <mainClass>dataoke.Cmd</mainClass> -->
+									<mainClass>alimama.Main</mainClass>
 								</transformer>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
