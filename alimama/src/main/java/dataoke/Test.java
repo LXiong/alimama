@@ -1552,6 +1552,51 @@ public class Test {
 		return false;
 	}
 	
+	public static boolean updatePwdHttpClient(String uname,String pwd,String newPwd)throws Exception{
+		try{
+		String url ="http://www.dataoke.com/ucenter/pwd.asp?act=edit";
+		HttpPost httpRequest = new HttpPost(url);
+		 httpRequest.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+		 httpRequest.setHeader("Host", "www.dataoke.com");
+		 httpRequest.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 httpRequest.setHeader("Referer", "http://www.dataoke.com/ucenter/pwd.asp");
+		 httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		 httpRequest.setHeader("Connection", "keep-alive");
+		 httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+		 httpRequest.setHeader("User-Agent", HttpTest.getUserAgent());
+		 
+		 setCookis(uname, httpRequest);
+/*
+		   HttpClientUtils httpClientUtils = new HttpClientUtils();
+		 
+		    List<NameValuePair> nvps = new ArrayList<NameValuePair>();  
+	        nvps.add(new BasicNameValuePair("act", "add_quan"));  
+	        nvps.add(new BasicNameValuePair("id", id));  
+	        httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  */
+	        
+		// HttpHost proxy = IpPoolUtil.getHttpHost();
+		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
+		 
+		 String param = "ymima="+pwd+"&"+"ymima="+pwd+"&"+"qmima="+newPwd+"&"+"Submit= ´´ ½¨ ";
+		 
+		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, param,true,null,null,proxy,null);
+         //System.out.println("str:"+str);
+		 
+		 
+		 if(rc.contains("密码")){
+			 return true;
+		 }else{
+			 System.out.println("修改密码失败返回>>>>>>>>>>>>>>>"+rc);
+		 }
+		 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		 
+		return false;
+	}
+
+	
 	public static boolean tuijian(String id,String uname)throws Exception{
 		return tuijian(id, uname, false);
 	}
