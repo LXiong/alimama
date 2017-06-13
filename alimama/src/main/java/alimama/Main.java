@@ -126,7 +126,7 @@ public class Main {
 	 */
 	public static void deleteYixuanZhaoshang() throws Exception {
 		webGet("http://pub.alimama.com/manage/selection/list.htm");
-		Thread.sleep(5000);
+		Thread.sleep(8000);
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		while(true){
 			try{
