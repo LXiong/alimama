@@ -1,8 +1,10 @@
 package zhuanzhuan;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import java.io.File;
 
+import org.apache.commons.io.FileUtils;
+
+import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -23,18 +25,46 @@ public class TaobaoUtils {
 	
 	   WebClient client = HtmlUnitUtil.create();
 	   HtmlPage htmlPage = client.getPage(url);
-	   
-	   
-	   
 	   Thread.sleep(5000);
 	   
-	  // System.out.println(htmlPage.asXml());
+	   String hrefValue = "window.scrollTo(0,document.body.scrollHeight);";
+	   ScriptResult s = htmlPage.executeJavaScript(hrefValue);//执行js方法
+	   htmlPage = (HtmlPage) s.getNewPage();//获得执行后的新page对象
+	   Thread.sleep(10000);
 	   
 	   
-           Document document =  Jsoup.parse(htmlPage.asXml());
+	   
+	  /* List<FrameWindow> frameWindows = htmlPage.getFrames();
+	   
+	   System.out.println("frameWindows==="+frameWindows.size());
+	   
+	   for(FrameWindow frameWindow:frameWindows){
+		   System.out.println("name=="+frameWindow.getName());
+		   //htmlPage =frameWindow.getEnclosingPage();
+		   htmlPage =(HtmlPage) frameWindow.getEnclosedPage();
+		   Thread.sleep(5000);
+		   
+		   System.out.println("==="+htmlPage.asXml());
+		   
+		   Document document =  Jsoup.parse(htmlPage.asXml());
+		   Element element =document.getElementById("description");
+		   if(element!=null&&!element.isBlock()){
+			   System.out.println(element.html());  
+		   }
+		  
+	   }*/
+	   
+	   
+	   String rc = htmlPage.asXml();
+	   System.out.println();
+	   
+	   FileUtils.write(new File("d:\\test.txt"), rc);
+	   
+	   
+        /*   Document document =  Jsoup.parse(htmlPage.asXml());
 	   
 	  // System.out.println(document.getElementsByClass("skin-box-bd clear-fix").html());
-           System.out.println(document.getElementById("shop15817541355").html());
+           System.out.println(document.getElementById("shop15817541355").html());*/
      	  
 	   
 	  // HtmlElement element =  htmlPage.getFirstByXPath("//div[@class='skin-box-bd clear-fix']");
