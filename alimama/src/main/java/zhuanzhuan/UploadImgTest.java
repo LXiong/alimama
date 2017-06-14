@@ -3,6 +3,7 @@ package zhuanzhuan;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Random;
 
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
@@ -20,17 +21,41 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 public class UploadImgTest {
 
 	static String imageName = "";
 	public static void main(String[] args) throws Exception {
+		System.out.println(getChiledCate("家居家具1"));
+	}
+	
+	public static void test()throws Exception{
 		File file = new File("g:\\test.jpg");
 		imageName = uploadimg(file);
 		Thread.sleep(5000);
 		// System.out.println(httpClientUploadFile(file));
 		addInfo();
+	}
+	
+	public static String getChiledCate(String cataN){
+		try {
+			JSONObject respDataJsonObject = JSONObject.parseObject(FileUtils.readFileToString(new File("D:\\workspace\\alimama\\alimama\\src\\main\\java\\zhuanzhuan\\cate.txt")));
+			JSONArray array = respDataJsonObject.getJSONArray("respData");
+		    for(Object object:array){
+		    	JSONObject jsonObject = (JSONObject)object;
+		    	String cataName = jsonObject.getString("cateName");
+		    	if(cataN.equals(cataName)){
+		    		array = jsonObject.getJSONArray("subCateArr");
+		    		return array.getJSONObject(new Random().nextInt(array.size())).getString("subCateName");
+		    	}
+		    } 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static void addForm(String str,HttpRequest httpRequest){
@@ -67,7 +92,7 @@ public class UploadImgTest {
 		//标题描述
 		String title = "漂亮的衣服";
 		//一级分类 encoder
-		String cateParentId="家具家具";
+		String cateParentId="家居家具";
 		//cateId 二级分类
 		String cateId = "2108014";
 		
