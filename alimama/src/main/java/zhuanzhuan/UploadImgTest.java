@@ -60,14 +60,18 @@ public class UploadImgTest {
 		
 		//String imgname = "n_f7d17baf54ff4529bc11006bf527e982.jpg";
 		//imgname = "n_8ceb01a647334ef2b0eea1f2d8f74ea8.jpg";
+		//原价
 		String oriPrice="180";
+		//现价
 		String nowPrice="100";
+		//标题描述
 		String title = "漂亮的衣服";
 		//一级分类 encoder
 		String cateParentId="家具家具";
+		//cateId 二级分类
+		String cateId = "2108014";
 		
-		
-		String p = "isnewlabel=0&lon=121.399652&oriPrice="+oriPrice+"&groupactivityid=&nowPrice="+nowPrice+"&city=2&pics="+imageName+"&cateParentId="+cateParentId+"&village=-5573351235747348960&postageExplain=2&business=6323&isblock=0&freigth=0&title="+title+"&area=6179&allowMobile=0&lat=31.165799&picMd5s=78051692deef771701a7a94e31dc048a&cateId=2108014";
+		String p = "isnewlabel=0&lon=121.399652&oriPrice="+oriPrice+"&groupactivityid=&nowPrice="+nowPrice+"&city=2&pics="+imageName+"&cateParentId="+cateParentId+"&village=-5573351235747348960&postageExplain=2&business=6323&isblock=0&freigth=0&title="+title+"&area=6179&allowMobile=0&lat=31.165799&picMd5s=78051692deef771701a7a94e31dc048a&cateId="+cateId;
 		addForm(p, httpRequest);
 		HttpResponse response = httpRequest.send();
 		String rc = response.bodyText();
