@@ -15,8 +15,8 @@ import util.SeleniumUtil;
 
 public class ShouQuan {
 
-	static String tname = "xiaomi1991222";
-	static String tpwd = "xiaomin0322";
+	static String tname = "xiaomin0322@163.com";
+	static String tpwd = "xiaomin1991";
 
 	public static void main(String[] args) throws Exception {
 		File shouquanDir = new File("D:\\dataoke\\shouquan");
@@ -60,6 +60,7 @@ public class ShouQuan {
 						System.out.println("授權成功》》》》》》》》》》》》》》》》》》》 uname=" + uname + " 当前删除成功：" + tuiguangOk
 								+ " 当前ip==" + (proxy == null ? "无" : proxy.getHostName()));
 					} else {
+						FileUtils.write(new File("D:\\dataoke\\shouquan\\fail.txt"), s+"\r\n",true);
 						System.out.println("授權失败》》》》》》》》》》》》》》》》》》uname=" + uname);
 					}
 				}else{
@@ -104,7 +105,7 @@ public class ShouQuan {
 	}
 
 	public static boolean shouquan(String uname, String pwd, String tuanme, String tpwd) throws Exception {
-
+         try{ 
 		webGet("http://www.dataoke.com/ucenter/mypid.asp");
 
 		WebElement element = webDriver.findElement(By.id("update_shouquan"));
@@ -116,8 +117,25 @@ public class ShouQuan {
 
 		Thread.sleep(2000);
 
+		
+		String str= webDriver.getPageSource();
+		
+		if(str.contains("检测到您已登录淘宝")){
+		System.out.println("检测到您已登录淘宝>>>>>>>>>>>>>>>>");
+			//sub 已檢測到登錄
+			try{
+				element = webDriver.findElement(By.id("sub"));
+				if(element!=null && element.isDisplayed()){
+					element.click();
+				}
+			}catch(Exception e){
+			 e.printStackTrace();	
+			}	
+		}else{
+		
 		webDriver = webDriver.switchTo().frame("J_loginIframe");
-
+		Thread.sleep(2000);
+		
 		element = webDriver.findElement(By.id("TPL_username_1"));
 		element.sendKeys(tuanme);
 
@@ -130,10 +148,16 @@ public class ShouQuan {
 
 		element = webDriver.findElement(By.id("J_SubmitStatic"));
 		element.click();
+		
+		}
 
 		Thread.sleep(5000);
 
 		return isShouquan();
+         }catch(Exception e){
+        	 e.printStackTrace();
+         }
+         return false;
 
 	}
 
