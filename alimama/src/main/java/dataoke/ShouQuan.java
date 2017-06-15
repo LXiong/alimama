@@ -16,7 +16,7 @@ import util.SeleniumUtil;
 public class ShouQuan {
 
 	static String tname = "xiaomin0322@163.com";
-	static String tpwd = "xiaomin1991";
+	static String tpwd = "xiaomin1991222";
 
 	public static void main(String[] args) throws Exception {
 		File shouquanDir = new File("D:\\dataoke\\shouquan");

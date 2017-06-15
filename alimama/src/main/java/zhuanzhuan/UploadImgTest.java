@@ -36,7 +36,10 @@ public class UploadImgTest {
 		System.out.println(Math.round(3.63));
 		String url="https://item.taobao.com/item.htm?spm=a219t.7900221/10.1998910419.d30ccd691.uPkZic&id=43022193676";
 		url="https://detail.tmall.com/item.htm?id=550419320748&spm=a219t.7900221/10.1998910419.d30ccd691.uPkZic";
-        TbSpPage page = TaobaoUtils.execute(url);
+        url="https://detail.tmall.com/item.htm?id=532654547293";
+		url="https://detail.tmall.com/item.htm?id=546494334651&sku_properties=1627207:90554";
+        url="https://detail.tmall.com/item.htm?id=543650781782";
+		TbSpPage page = TaobaoUtils.execute(url);
 		System.out.println("商品标题："+page.getTbGoodsTitle());
 		System.out.println("商品价格："+page.getTaoBaoprice());
 		System.out.println("商品主图大小："+page.getTbGoodsImgFiles().size());
@@ -73,6 +76,9 @@ public class UploadImgTest {
 		String title = page.getTbGoodsTitle();
 		// 现价
 		String nowPrice = page.getTaoBaoprice();
+		if(nowPrice.contains("-")){
+			nowPrice = nowPrice.split("\\-")[0];
+		}
 		nowPrice = String.valueOf(Math.round(Double.valueOf(nowPrice)));
 		System.out.println("现价》》》》》》》"+nowPrice);
 		
