@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -61,6 +62,8 @@ public class ShouQuan {
 					} else {
 						System.out.println("授權失败》》》》》》》》》》》》》》》》》》uname=" + uname);
 					}
+				}else{
+					tuiguangOk += 1;
 				}
 
 			} catch (Exception e) {
@@ -68,7 +71,7 @@ public class ShouQuan {
 			} finally {
 				proxy = null;
 				try{
-					webDriver.get("http://www.dataoke.com/logout");
+					webGet("http://www.dataoke.com/logout");
 					Thread.sleep(Cmd.getSleepTime(2000, 3000));
 				}catch(Exception e){
 					
@@ -76,6 +79,16 @@ public class ShouQuan {
 			}
 		}
 	}
+	
+	public static void webGet(String url){
+		try {
+			webGet(url);
+		} catch (Exception e) {
+			JavascriptExecutor js = (JavascriptExecutor) webDriver;
+	        js.executeScript("window.stop();");  
+	        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
+		  }
+		}
 
 	static WebDriver webDriver = SeleniumUtil.initChromeDriver();
 
@@ -92,7 +105,7 @@ public class ShouQuan {
 
 	public static boolean shouquan(String uname, String pwd, String tuanme, String tpwd) throws Exception {
 
-		webDriver.get("http://www.dataoke.com/ucenter/mypid.asp");
+		webGet("http://www.dataoke.com/ucenter/mypid.asp");
 
 		WebElement element = webDriver.findElement(By.id("update_shouquan"));
 		element.click();
@@ -125,7 +138,7 @@ public class ShouQuan {
 	}
 
 	public static boolean isShouquan() throws Exception {
-		webDriver.get("http://www.dataoke.com/ucenter/mypid.asp");
+		webGet("http://www.dataoke.com/ucenter/mypid.asp");
 		Thread.sleep(2000);
 		String str = webDriver.getPageSource();
 		if (str.contains("你还没有授权")) {
@@ -139,7 +152,7 @@ public class ShouQuan {
 
 	public static boolean login(String uname, String pwd) throws Exception {
 		try {
-			webDriver.get("http://www.dataoke.com/login");
+			webGet("http://www.dataoke.com/login");
 			Thread.sleep(Cmd.getSleepTime(1000, 2000));
 			WebElement element = webDriver.findElement(By.xpath("//input[@data-id='email']"));
 			element.sendKeys(uname);
@@ -158,7 +171,7 @@ public class ShouQuan {
 
 			}
 			// Thread.sleep(Cmd.getSleepTime());
-			// webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+			// webGet("http://www.dataoke.com/ucenter/favorites_quan.asp");
 			// Thread.sleep(Cmd.getSleepTime());
 		} catch (Exception e) {
 			e.printStackTrace();
