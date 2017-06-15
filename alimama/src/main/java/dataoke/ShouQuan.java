@@ -2,6 +2,7 @@ package dataoke;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -16,7 +17,7 @@ import util.SeleniumUtil;
 public class ShouQuan {
 
 	static String tname = "xiaomin0322@163.com";
-	static String tpwd = "xiaomin1991222";
+	static String tpwd = "xiaomin1991";
 
 	public static void main(String[] args) throws Exception {
 		File shouquanDir = new File("D:\\dataoke\\shouquan");
@@ -92,7 +93,9 @@ public class ShouQuan {
 		}
 
 	static WebDriver webDriver = SeleniumUtil.initChromeDriver();
-
+    static{
+    	webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+    }   
 	public static void execute(String uname, String pwd, String tuanme, String tpwd) throws Exception {
 		boolean flag = login(uname, pwd);
 		if (flag) {
