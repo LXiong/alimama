@@ -20,20 +20,21 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class TaobaoUtils {
+	static File outBase = new File("D:\\dataoke\\img");
 	
 	public static void main(String[] args) throws Exception{
 		String url = "https://detail.tmall.com/item.htm?id=530996956269&scm=1007.12807.73594.100200300000002&pvid=1d4b444e-5da2-4929-9546-9d9e85544d57";
 		
 		//url="https://item.taobao.com/item.htm?spm=a219t.7900221/10.1998910419.d30ccd691.uPkZic&id=43022193676";
-		File file = new File("D:\\dataoke\\img");
-		TbSpPage page = execute(url,file);
+		
+		TbSpPage page = execute(url);
 		
 		System.out.println("商品标题："+page.getTbGoodsTitle());
 		System.out.println("商品价格："+page.getTaoBaoprice());
 		System.out.println("商品主图大小："+page.getTbGoodsImgFiles().size());
 	}
 	
-	public static TbSpPage execute(String url,File outBase)throws Exception{
+	public static TbSpPage execute(String url)throws Exception{
 		if(url.contains("taobao")){
 			return parsTaoBao(url, outBase);
 		}else{

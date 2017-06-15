@@ -3,11 +3,13 @@ package zhuanzhuan;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Random;
 
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
@@ -29,7 +31,77 @@ public class UploadImgTest {
 
 	public static void main(String[] args) throws Exception {
 		// System.out.println(getChiledCate("家居家具"));
-		test();
+		//test();
+		
+		System.out.println(Math.round(3.63));
+		String url="https://item.taobao.com/item.htm?spm=a219t.7900221/10.1998910419.d30ccd691.uPkZic&id=43022193676";
+        TbSpPage page = TaobaoUtils.execute(url);
+		System.out.println("商品标题："+page.getTbGoodsTitle());
+		System.out.println("商品价格："+page.getTaoBaoprice());
+		System.out.println("商品主图大小："+page.getTbGoodsImgFiles().size());
+		
+		execute(page);
+	}
+	
+	public static void execute(TbSpPage page) throws Exception {
+		List<File> files =page.getTbGoodsImgFiles();
+		String imgNames = null;
+		if(!CollectionUtils.isEmpty(files)){
+			for(File f:files){
+				String imageName = uploadimg(f);
+				Thread.sleep(2000);
+				if(StringUtils.isNotBlank(imageName)){
+					if(imgNames==null){
+						imgNames = imageName;
+					}else{
+						imgNames = imgNames + "|" + imageName;
+					}
+				}
+				
+			}
+		}
+		
+		System.out.println("全部图片名称为:》》》》》》》》》》》》》"+imgNames);
+		
+		if(StringUtils.isBlank(imgNames)){
+			System.out.println("图片路径为null>>>>>>>>>>>>>>>>>>>>>>>");
+			return ;
+		}
+		
+		
+		String title = page.getTbGoodsTitle();
+		// 现价
+		String nowPrice = page.getTaoBaoprice();
+		nowPrice = String.valueOf(Math.round(Double.valueOf(nowPrice)));
+		System.out.println("现价》》》》》》》"+nowPrice);
+		
+		String oriPrice = String.valueOf(Math.round(Double.valueOf(nowPrice) * 1.8));
+		System.out.println("原价》》》》》》》"+oriPrice);
+		// 一级分类 encoder
+		String cateParentId = "家居家具";
+		// cateId 二级分类
+		String cateId = "2108014";
+		
+		if(StringUtils.isBlank(title)){
+			System.out.println("标题为null>>>>>>>>>>>>>>>>>>>>>>>");
+			return ;
+		}
+		
+		if(StringUtils.isBlank(nowPrice)){
+			System.out.println("nowPrice为null>>>>>>>>>>>>>>>>>>>>>>>");
+			return ;
+		}
+		
+		if(StringUtils.isBlank(nowPrice)){
+			System.out.println("oriPrice为null>>>>>>>>>>>>>>>>>>>>>>>");
+			return ;
+		}
+		
+		Thread.sleep(5000);
+		
+		boolean flag = addInfo(imgNames, title, oriPrice, nowPrice,
+				cateParentId, cateId);
+		System.out.println("发布商品结构>>>>>>>>>>>>>>" + flag);
 	}
 
 	public static void test() throws Exception {
@@ -127,8 +199,9 @@ public class UploadImgTest {
 			}
 
 		}
-
-		String p = "isnewlabel=0&lon=121.399652&oriPrice="
+        //全新的isnewlabel=1
+		//多个图片 | 分割
+		String p = "isnewlabel=1&lon=121.399652&oriPrice="
 				+ oriPrice
 				+ "&groupactivityid=&nowPrice="
 				+ nowPrice
