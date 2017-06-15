@@ -39,11 +39,14 @@ public class UploadImgTest {
         url="https://detail.tmall.com/item.htm?id=532654547293";
 		url="https://detail.tmall.com/item.htm?id=546494334651&sku_properties=1627207:90554";
         url="https://detail.tmall.com/item.htm?id=543650781782";
-		TbSpPage page = TaobaoUtils.execute(url);
+        url="https://detail.tmall.com/item.htm?id=526214790652";
+        url="https://detail.tmall.com/item.htm?id=543773518808&skuId=3273576241147";
+        url="https://detail.tmall.com/item.htm?id=525496355613"; 
+        TbSpPage page = TaobaoUtils.execute(url);
 		System.out.println("商品标题："+page.getTbGoodsTitle());
 		System.out.println("商品价格："+page.getTaoBaoprice());
 		System.out.println("商品主图大小："+page.getTbGoodsImgFiles().size());
-		
+		//page.setTaoBaoprice("400");
 		execute(page);
 	}
 	
