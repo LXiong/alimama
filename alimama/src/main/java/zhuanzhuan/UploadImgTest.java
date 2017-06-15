@@ -35,6 +35,7 @@ public class UploadImgTest {
 		
 		System.out.println(Math.round(3.63));
 		String url="https://item.taobao.com/item.htm?spm=a219t.7900221/10.1998910419.d30ccd691.uPkZic&id=43022193676";
+		url="https://detail.tmall.com/item.htm?id=550419320748&spm=a219t.7900221/10.1998910419.d30ccd691.uPkZic";
         TbSpPage page = TaobaoUtils.execute(url);
 		System.out.println("商品标题："+page.getTbGoodsTitle());
 		System.out.println("商品价格："+page.getTaoBaoprice());
