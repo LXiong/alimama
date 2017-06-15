@@ -1,5 +1,9 @@
 package zhuanzhuan;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class TbSpPage {
 	public static final String GOODS_STATUS_INVALID = "下架";
@@ -14,6 +18,9 @@ public class TbSpPage {
 	private String serviceIcon;// 承诺
 	private String payInfo;// 支付方式
 	private String tbGoodsImg;// 多图以;隔开 //List<TbSpPageImg> tbGoodsImg; // 产品主图
+	
+	private List<File> tbGoodsImgFiles = new ArrayList<File>();// 多图以;隔开 //List<TbSpPageImg> tbGoodsImg; // 产品主图
+	
 	private String tbGoodsDetailInfo; // 详细信息
 	private String tbGoodsDetailImg;// 多图以;隔开 //List<TbSpPageImg>
 									// tbGoodsDetailImg; // 详情图
@@ -24,6 +31,14 @@ public class TbSpPage {
 	
 	private String status="1";//商品状态 1:正常 ;2:下架
 	
+	public List<File> getTbGoodsImgFiles() {
+		return tbGoodsImgFiles;
+	}
+
+	public void setTbGoodsImgFiles(List<File> tbGoodsImgFiles) {
+		this.tbGoodsImgFiles = tbGoodsImgFiles;
+	}
+
 	private String pageUrl;//页面地址
 
 	private String beginTime;

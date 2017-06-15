@@ -26,20 +26,26 @@ public class TaobaoUtils {
 		
 		//url="https://item.taobao.com/item.htm?spm=a219t.7900221/10.1998910419.d30ccd691.uPkZic&id=43022193676";
 		File file = new File("D:\\dataoke\\img");
-		execute(url,file);
+		TbSpPage page = execute(url,file);
+		
+		System.out.println("商品标题："+page.getTbGoodsTitle());
+		System.out.println("商品价格："+page.getTaoBaoprice());
+		System.out.println("商品主图大小："+page.getTbGoodsImgFiles().size());
 	}
 	
-	public static void execute(String url,File outBase)throws Exception{
+	public static TbSpPage execute(String url,File outBase)throws Exception{
 		if(url.contains("taobao")){
-			parsTaoBao(url, outBase);
+			return parsTaoBao(url, outBase);
 		}else{
-			parsTianmao(url, outBase);
+			return parsTianmao(url, outBase);
 		}
 	}
 	
 	public static TbSpPage parsTaoBao(String url,File outBase)throws Exception{
 		//String url = "https://detail.tmall.com/item.htm?id=530996956269&scm=1007.12807.73594.100200300000002&pvid=1d4b444e-5da2-4929-9546-9d9e85544d57";
 		WebDriver webDriver = SeleniumUtil.initChromeDriver();
+		TbSpPage pageBean = new TbSpPage();
+		try{
 		webDriver.get(url);
 		Thread.sleep(5000);
 		
@@ -48,13 +54,19 @@ public class TaobaoUtils {
 		if(!out.exists()){
 			out.mkdirs();
 		}
-		
-		
 		/*WebElement webelement =webDriver.findElement(By.id("J_DivItemDesc"));
 		
 		System.out.println(webelement.getText());*/
 		
 		Document document =  Jsoup.parse(webDriver.getPageSource());
+		
+		String tb_main_title =document.select(".tb-main-title").text();   // webDriver.executeScript("return g_config.idata.item.title;")+""; //document.select(".tb-main-title").text();   //tbGoodsTitle
+		pageBean.setTbGoodsTitle(tb_main_title);
+		
+		
+		String tm_price =document.select("#J_PromoPriceNum").text();   
+		pageBean.setTaoBaoprice(tm_price);
+		
 		
 		//System.out.println(document.html());
 		//产品详情图
@@ -77,7 +89,10 @@ public class TaobaoUtils {
 				File imgFile = new File(out, baseName+".jpg");
 				if(!imgFile.exists()){
 					FileUtils.copyURLToFile(new URL(path), imgFile,10000,10000);
+					pageBean.getTbGoodsImgFiles().add(imgFile);
 					System.out.println(path +"下载成功>>>>>>>>>>>>");
+				}else{
+					pageBean.getTbGoodsImgFiles().add(imgFile);
 				}
 			}
 		}
@@ -98,14 +113,20 @@ public class TaobaoUtils {
 				}
 			}
 		}*/
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			webDriver.close();
+		}
 		
-		webDriver.close();
-		return null;
+		return pageBean;
 	}
 	
 	public static TbSpPage parsTianmao(String url,File outBase)throws Exception{
 		//String url = "https://detail.tmall.com/item.htm?id=530996956269&scm=1007.12807.73594.100200300000002&pvid=1d4b444e-5da2-4929-9546-9d9e85544d57";
 		WebDriver webDriver = SeleniumUtil.initChromeDriver();
+		TbSpPage pageBean = new TbSpPage();
+		try{
 		webDriver.get(url);
 		Thread.sleep(5000);
 		
@@ -120,9 +141,14 @@ public class TaobaoUtils {
 		
 		System.out.println(webelement.getText());*/
 		
-		Document document =  Jsoup.parse(webDriver.getPageSource());
 		
-		//System.out.println(document.html());
+		Document document =  Jsoup.parse(webDriver.getPageSource());
+		String tb_main_title =document.select(".tb-detail-hd").text();   // webDriver.executeScript("return g_config.idata.item.title;")+""; //document.select(".tb-main-title").text();   //tbGoodsTitle
+		pageBean.setTbGoodsTitle(tb_main_title);
+		
+		String tm_price =document.select(".tm-promo-price").select(".tm-price").text();   
+		pageBean.setTaoBaoprice(tm_price);
+		
 		//产品详情图
 		Elements DivItemDesc = null;
 			//DivItemDesc = document.select("#J_DcTopRight").select("img");
@@ -148,7 +174,10 @@ public class TaobaoUtils {
 				File imgFile = new File(out, baseName+".jpg");
 				if(!imgFile.exists()){
 					FileUtils.copyURLToFile(new URL(path), imgFile,10000,10000);
+					pageBean.getTbGoodsImgFiles().add(imgFile);
 					System.out.println(path +"下载成功>>>>>>>>>>>>");
+				}else{
+					pageBean.getTbGoodsImgFiles().add(imgFile);
 				}
 			}
 		}
@@ -167,9 +196,12 @@ public class TaobaoUtils {
 				}
 			}
 		}*/
-		
-		webDriver.close();
-		return null;
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			webDriver.close();
+		}
+		return pageBean;
 	}
 	
 	public static void test()throws Exception{
