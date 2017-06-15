@@ -82,7 +82,7 @@ public class ShouQuan {
 	
 	public static void webGet(String url){
 		try {
-			webGet(url);
+			webDriver.get(url);
 		} catch (Exception e) {
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 	        js.executeScript("window.stop();");  
