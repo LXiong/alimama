@@ -42,11 +42,13 @@ public class UploadImgTest {
         url="https://detail.tmall.com/item.htm?id=526214790652";
         url="https://detail.tmall.com/item.htm?id=543773518808&skuId=3273576241147";
         url="https://detail.tmall.com/item.htm?id=525496355613"; 
+        url="https://detail.tmall.com/item.htm?id=547550448160&skuId=3317387737930";//苹果6s手机壳6splus软胶防摔大气保护套
+        url="https://detail.tmall.com/item.htm?id=525725139230";
         TbSpPage page = TaobaoUtils.execute(url);
 		System.out.println("商品标题："+page.getTbGoodsTitle());
 		System.out.println("商品价格："+page.getTaoBaoprice());
 		System.out.println("商品主图大小："+page.getTbGoodsImgFiles().size());
-		//page.setTaoBaoprice("400");
+		page.setTaoBaoprice("15");
 		execute(page);
 	}
 	
@@ -85,7 +87,7 @@ public class UploadImgTest {
 		nowPrice = String.valueOf(Math.round(Double.valueOf(nowPrice)));
 		System.out.println("现价》》》》》》》"+nowPrice);
 		
-		String oriPrice = String.valueOf(Math.round(Double.valueOf(nowPrice) * 1.8));
+		String oriPrice = String.valueOf(Math.round(Double.valueOf(nowPrice) * 2.5));
 		System.out.println("原价》》》》》》》"+oriPrice);
 		// 一级分类 encoder
 		String cateParentId = "家居家具";
