@@ -3,6 +3,7 @@ package zhuanzhuan;
 import java.io.File;
 import java.net.URL;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -15,8 +16,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import util.SeleniumUtil;
 import dataoke.Cmd;
+import util.SeleniumUtil;
 
 public class DaTaobaoUtils {
 	static File outBase = new File("D:\\dataoke\\dataokeimg");
@@ -26,16 +27,27 @@ public class DaTaobaoUtils {
 
 		// url="https://item.taobao.com/item.htm?spm=a219t.7900221/10.1998910419.d30ccd691.uPkZic&id=43022193676";
 
-		TbSpPage page = execute(url);
-		//TbSpPage page = parsDaTaoBao(url,outBase);
-		System.out.println("商品标题：" + page.getTbGoodsTitle());
-		System.out.println("商品价格：" + page.getTaoBaoprice());
-		System.out.println("商品詳細：" + page.getTbGoodsDetailInfo());
-		System.out.println("商品主图大小：" + page.getTbGoodsImgFiles().size());
+		executeAll("http://www.dataoke.com/item?id=2688624","http://www.dataoke.com/item?id=2695293");
 	}
+	
+	
+	public static void executeAll(String...strings)throws Exception{
+		for(String url:strings){
+			TbSpPage page = execute(url);
+			//TbSpPage page = parsDaTaoBao(url,outBase);
+			System.out.println("商品标题：" + page.getTbGoodsTitle());
+			System.out.println("商品价格：" + page.getTaoBaoprice());
+			System.out.println("商品詳細：" + page.getTbGoodsDetailInfo().replace("内裤", "裤"));
+			System.out.println("商品主图大小：" + page.getTbGoodsImgFiles().size());
+			UploadImgTest.execute(page);
+		}
+		
+	}
+	
+	static String uname = "15201733860";
 
 	public static TbSpPage execute(String url) throws Exception {
-		if(login("15201733860", "1qaz2wsx1")){
+		if(login(uname, "1qaz2wsx1")){
 			System.out.println("登陸成功?》》》》》》》》》》》》》》》》》》》》》》");
 			return parsDaTaoBao(url, outBase);
 		}else{
@@ -44,6 +56,7 @@ public class DaTaobaoUtils {
 		return null;
 	}
 
+	
 	public static void webGet(String url) {
 		try {
 			webDriver.get(url);
@@ -53,9 +66,22 @@ public class DaTaobaoUtils {
 			System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
 		}
 	}
+	
+	public static boolean isLogin(){
+		String str =webDriver.getPageSource();
+		if(str.contains(uname)){
+			System.out.println("当前已登录》》》》》》》》》》");
+			return true;
+		}
+		System.out.println("当前没有登录》》》》》》》》》》");
+		return false;
+	}
 
 	public static boolean login(String uname, String pwd) throws Exception {
 		try {
+			if(isLogin()){
+				return true;
+			}
 			webGet("http://www.dataoke.com/login");
 			Thread.sleep(Cmd.getSleepTime(1000, 2000));
 			WebElement element = webDriver.findElement(By
@@ -70,7 +96,7 @@ public class DaTaobaoUtils {
 					.xpath("//a[@class='submit-btn login-btn']"));
 			element.click();
 
-			Thread.sleep(Cmd.getSleepTime(3000, 5000));
+			Thread.sleep(Cmd.getSleepTime(1000, 2000));
 
 			String str = webDriver.getPageSource();
 
@@ -87,7 +113,9 @@ public class DaTaobaoUtils {
 	}
 
 	static WebDriver webDriver = SeleniumUtil.initChromeDriver();
-
+	static{
+    	webDriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+    }
 	public static TbSpPage parsDaTaoBao(String url, File outBase)
 			throws Exception {
 
@@ -162,7 +190,7 @@ public class DaTaobaoUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			webDriver.close();
+			//webDriver.close();
 		}
 
 		return pageBean;

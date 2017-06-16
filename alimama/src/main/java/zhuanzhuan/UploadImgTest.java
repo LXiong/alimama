@@ -110,9 +110,12 @@ public class UploadImgTest {
 		}
 		
 		Thread.sleep(5000);
-		
+		String content = page.getTbGoodsDetailInfo();
+		if(StringUtils.isBlank(content)){
+			content = title;
+		}
 		boolean flag = addInfo(imgNames, title, oriPrice, nowPrice,
-				cateParentId, cateId);
+				cateParentId, cateId,content);
 		System.out.println("发布商品结构>>>>>>>>>>>>>>" + flag);
 	}
 
@@ -132,7 +135,7 @@ public class UploadImgTest {
 		// cateId 二级分类
 		String cateId = "2108014";
 		boolean flag = addInfo(imageName, title, oriPrice, nowPrice,
-				cateParentId, cateId);
+				cateParentId, cateId,"");
 		System.out.println("发布商品结构>>>>>>>>>>>>>>" + flag);
 	}
 
@@ -175,7 +178,7 @@ public class UploadImgTest {
 	}
 
 	public static boolean addInfo(String imageName, String title,
-			String oriPrice, String nowPrice, String cateParentId, String cateId)
+			String oriPrice, String nowPrice, String cateParentId, String cateId,String content)
 			throws Exception {
 		HttpRequest httpRequest = null;
 		String baseURI = "https://zhuan.58.com/zz/transfer/addInfo";
@@ -224,7 +227,8 @@ public class UploadImgTest {
 				+ "&village=-5573351235747348960&postageExplain=2&business=6323&isblock=0&freigth=0&title="
 				+ title
 				+ "&area=6179&allowMobile=0&lat=31.165799&picMd5s=78051692deef771701a7a94e31dc048a&cateId="
-				+ cateId;
+				+ cateId
+				+ "&content="+content;
 		addForm(p, httpRequest);
 		HttpResponse response = httpRequest.send();
 		String rc = response.bodyText();
