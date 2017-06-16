@@ -43,12 +43,12 @@ public class UploadImgTest {
         url="https://detail.tmall.com/item.htm?id=543773518808&skuId=3273576241147";
         url="https://detail.tmall.com/item.htm?id=525496355613"; 
         url="https://detail.tmall.com/item.htm?id=547550448160&skuId=3317387737930";//苹果6s手机壳6splus软胶防摔大气保护套
-        url="https://detail.tmall.com/item.htm?id=525725139230";
+        url="https://detail.tmall.com/item.htm?id=41416705409&sku_properties=5919063:6536025";
         TbSpPage page = TaobaoUtils.execute(url);
 		System.out.println("商品标题："+page.getTbGoodsTitle());
 		System.out.println("商品价格："+page.getTaoBaoprice());
 		System.out.println("商品主图大小："+page.getTbGoodsImgFiles().size());
-		page.setTaoBaoprice("15");
+		page.setTaoBaoprice("25");
 		execute(page);
 	}
 	
