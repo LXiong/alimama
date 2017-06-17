@@ -245,7 +245,7 @@ public class ImageHandleHelper {
 		   System.out.println("开始生成左边商品描述图片>>>>>>>>>>>>>>>>>>>>>");
 		     //左边图片
 		    File file1 = new File("d:\\dataoke", "1.jpg");  
-		    WordToPic.TextToPicTaoKe(page.getTbGoodsTitle(), /*"原价:￥"+*/page.getTaoBaopOldrice(), /*"现价:￥"+*/page.getTaoBaoprice(), "[￥"+page.getQuanPrice()+"券]", 320, 130,file1);
+		    WordToPic.TextToPicTaoKe(page.getTbGoodsTitle(), "￥"+page.getTaoBaopOldrice(), "￥"+page.getTaoBaoprice(), "[￥"+page.getQuanPrice()+"券]", 320, 130,file1);
 		   
 	        
 		    System.out.println("开始生成推荐二位吗图片>>>>>>>>>>>>>>>>>>>>>");
