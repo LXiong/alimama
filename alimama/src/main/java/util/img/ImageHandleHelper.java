@@ -264,7 +264,8 @@ public class ImageHandleHelper {
 	        //商品主图 寛450 高600
 		     System.out.println("开始缩放商品主图>>>>>>>>>>>>>>>>>>>>>");
 	        File taokeUpdate = new File("d:\\dataoke\\4.jpg");
-	        ImageHelper.zoomImage("d:\\dataoke\\taoke.jpg",taokeUpdate.getAbsolutePath(), 450, 600);	
+	        File taokeUpdateSrc = page.getTbGoodsImgFiles().get(0);
+	        ImageHelper.zoomImage(taokeUpdateSrc.getAbsolutePath(),taokeUpdate.getAbsolutePath(), 450, 600);	
 	        
 	        
 	        System.out.println("开始合并商品描述图片和二维码图片和商品主图>>>>>>>>>>>>>>>>>>>>>");
