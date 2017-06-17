@@ -119,7 +119,7 @@ public class WordToPic {
 			g2.setPaint(Color.red);
 			font = new Font("微软雅黑", Color.RED.getRed(), fontSize+10);
 			g2.setFont(font);
-			int x2 = printString(g2, oldPic, x+x1-30, 100, fontSize+10);
+			int x2 = printString(g2, newPic, x+x1-30, 100, fontSize+10);
 			
 			g2.dispose();
 			ImageIO.write(bi, "png", file);
