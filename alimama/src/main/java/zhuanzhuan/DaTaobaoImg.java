@@ -28,7 +28,7 @@ public class DaTaobaoImg {
 	public static void main(String[] args) throws Exception {
 
          
-		executeAll("http://www.dataoke.com/item?id=2695190");
+		executeAll("http://www.dataoke.com/item?id=2662277");
 	     //String url = "http://www.dataoke.com/item?id=2695190";
 	     //parsDaTaoBao(url, outBase);
 	}

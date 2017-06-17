@@ -92,7 +92,7 @@ public class WordToPic {
 			for(String str:list){
 				//标题
 				g2.setPaint(Color.black);
-				printString(g2, str, 15, indexY, fontSize);
+				printString(g2, str, 5, indexY, fontSize);
 				indexY = indexY+30;
 			}
 			
