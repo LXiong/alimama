@@ -34,6 +34,7 @@ public class DaTaobaoUtils {
 	public static void executeAll(String...strings)throws Exception{
 		for(String url:strings){
 			TbSpPage page = execute(url);
+			filter(page);
 			//TbSpPage page = parsDaTaoBao(url,outBase);
 			System.out.println("商品标题：" + page.getTbGoodsTitle());
 			System.out.println("商品价格：" + page.getTaoBaoprice());
@@ -42,6 +43,22 @@ public class DaTaobaoUtils {
 			UploadImgTest.execute(page);
 		}
 		
+	}
+	
+	public static void filter(TbSpPage page){
+		String title =page.getTbGoodsTitle();
+		if(StringUtils.isNotBlank(title)){
+			page.setTbGoodsTitle(filter(title));
+		}
+		String dtail =  page.getTbGoodsDetailInfo();
+		if(StringUtils.isNotBlank(dtail)){
+			
+			page.setTbGoodsDetailInfo(filter(dtail));
+		}
+	}
+	
+	public static String filter(String str){
+		return str.replace("内裤", "裤").replace("QQ", "");
 	}
 	
 	static String uname = "15201733860";
