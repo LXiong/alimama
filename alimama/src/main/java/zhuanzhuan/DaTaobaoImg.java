@@ -90,7 +90,7 @@ public class DaTaobaoImg {
 			page.setTbGoodsDetailInfo(page.getTbGoodsTitle());
 			
 			//详细信息
-			page.setTbGoodsDetailInfo(page.getTbGoodsDetailInfo()+"\n"+" 保存图片,淘饱app 扫一扫购买........");
+			page.setTbGoodsDetailInfo(page.getTbGoodsDetailInfo()+"\n"+" 保存图片,淘饱app扫一扫,领取优惠券，直接购买........");
 			
 			
 			if(!check(page)){
