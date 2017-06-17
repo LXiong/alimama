@@ -183,7 +183,7 @@ public class DaTaobaoUtils {
 			
 			
 			
-			String tbGoodsDetailInfo = document.select(".tui-content").text();
+			String tbGoodsDetailInfo = document.select(".wechat-tui-main clearfix").select(".tui-content").text();
 			pageBean.setTbGoodsDetailInfo(tbGoodsDetailInfo);
 			
 
