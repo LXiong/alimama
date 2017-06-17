@@ -76,14 +76,17 @@ public class WordToPic {
 			Font font = new Font("STYLE_PLAIN", Color.RED.getRed(), fontSize);
 			g2.setFont(font);
 			
+			int sgement1 = 17;
+			int sgement2 =34;
+			
 			List<String> list = new ArrayList<String>();
-			if(title.length() > 32){
-				title = title.substring(0, 32);
-				list.add(title.substring(0,16));
-				list.add(title.substring(16,32));
-			}else if(title.length() > 16){
-				list.add(title.substring(0,16));
-				list.add(title.substring(16,title.length()));
+			if(title.length() > sgement2){
+				title = title.substring(0, sgement2);
+				list.add(title.substring(0,sgement1));
+				list.add(title.substring(sgement1,sgement2));
+			}else if(title.length() > sgement1){
+				list.add(title.substring(0,sgement1));
+				list.add(title.substring(sgement1,title.length()));
 			}else{
 				list.add(title);
 			}
