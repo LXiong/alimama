@@ -33,11 +33,11 @@ public class QRCodeUtil {
 	private static final String CHARSET = "utf-8";
 	private static final String FORMAT_NAME = "JPG";
 	// 二维码尺寸
-	private static final int QRCODE_SIZE = 300;
+	private static final int QRCODE_SIZE = 130;
 	// LOGO宽度
-	private static final int WIDTH = 60;
+	private static final int WIDTH = 40;
 	// LOGO高度
-	private static final int HEIGHT = 60;
+	private static final int HEIGHT = 40;
 	
 
 	/**
@@ -125,6 +125,11 @@ public class QRCodeUtil {
 		mkdirs(destPath);
 		String file = new Random().nextInt(99999999) + ".jpg";//生成随机文件名
 		ImageIO.write(image, FORMAT_NAME, new File(destPath + "/" + file));
+	}
+	
+	public static void encode(String content, String imgPath, File out, boolean needCompress,int QRCODE_SIZE) throws Exception {
+		BufferedImage image = QRCodeUtil.createImage(content, imgPath, needCompress);
+		ImageIO.write(image, FORMAT_NAME, out);
 	}
 
 	public static void mkdirs(String destPath) {
