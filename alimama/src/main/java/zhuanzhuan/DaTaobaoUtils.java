@@ -58,7 +58,7 @@ public class DaTaobaoUtils {
 	}
 	
 	public static String filter(String str){
-		return str.replace("内裤", "裤").replace("QQ", "");
+		return str.replace("内裤", "裤").replace("QQ", "").replace("WX", "");
 	}
 	
 	static String uname = "15201733860";
