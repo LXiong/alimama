@@ -209,8 +209,8 @@ public class DaTaobaoImg {
 			if (!out.exists()) {
 				out.mkdirs();
 			}
-			
-			WebElement webelement = webDriver.findElement(By.id("J_trans_tkl"));
+			//J_trans_ehy  J_trans_tkl
+			WebElement webelement = webDriver.findElement(By.id("J_trans_ehy"));
 			webelement.click();
 			
 			Thread.sleep(1000);
