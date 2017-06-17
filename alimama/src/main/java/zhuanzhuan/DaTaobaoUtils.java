@@ -40,6 +40,10 @@ public class DaTaobaoUtils {
 			System.out.println("商品价格：" + page.getTaoBaoprice());
 			System.out.println("商品詳細：" + page.getTbGoodsDetailInfo().replace("内裤", "裤"));
 			System.out.println("商品主图大小：" + page.getTbGoodsImgFiles().size());
+			if(page.getTbGoodsDetailInfo().toLowerCase().contains("wx")){
+				System.out.println("包含微信特殊字符>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				return;
+			}
 			UploadImgTest.execute(page);
 		}
 		
@@ -58,7 +62,7 @@ public class DaTaobaoUtils {
 	}
 	
 	public static String filter(String str){
-		return str.replace("内裤", "裤").replace("QQ", "").replace("WX", "");
+		return str.replace("内裤", "裤").replace("QQ", "");
 	}
 	
 	static String uname = "15201733860";
