@@ -250,7 +250,7 @@ public class ImageHandleHelper {
 	        
 		    System.out.println("开始生成推荐二位吗图片>>>>>>>>>>>>>>>>>>>>>");
 		    //二维码图片
-		    String textt = "https://s.click.taobao.com/3SgJ3iw";
+		    String textt = page.getZhuanQQUrl();
 		    File file2 = new File("d:\\dataoke", "2.jpg");  
 			QRCodeUtil.encode(textt,"",file2,true,130);
 			
