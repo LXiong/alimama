@@ -6,9 +6,6 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Random;
 
-import jodd.http.HttpRequest;
-import jodd.http.HttpResponse;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -26,6 +23,9 @@ import org.apache.http.util.EntityUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import jodd.http.HttpRequest;
+import jodd.http.HttpResponse;
 
 public class UploadImgTest {
 
@@ -86,9 +86,17 @@ public class UploadImgTest {
 		}
 		nowPrice = String.valueOf(Math.round(Double.valueOf(nowPrice)));
 		System.out.println("现价》》》》》》》"+nowPrice);
+		String oriPrice = null;
+		if(StringUtils.isBlank(page.getTaoBaopOldrice())){
+			oriPrice = String.valueOf(Math.round(Double.valueOf(nowPrice) * 2.5));
+			System.out.println("原价》》》》》》》"+oriPrice);
+		}else{
+			 oriPrice = page.getTaoBaopOldrice();
+			 oriPrice = String.valueOf(Math.round(Double.valueOf(oriPrice)));
+			 System.out.println("原价》》》》》》》"+oriPrice);
+		}
 		
-		String oriPrice = String.valueOf(Math.round(Double.valueOf(nowPrice) * 2.5));
-		System.out.println("原价》》》》》》》"+oriPrice);
+		
 		// 一级分类 encoder
 		String cateParentId = "家居家具";
 		// cateId 二级分类

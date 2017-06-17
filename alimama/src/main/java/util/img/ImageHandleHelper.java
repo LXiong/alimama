@@ -14,7 +14,7 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-import org.apache.commons.io.FileUtils;
+import zhuanzhuan.TbSpPage;
 
 /**
  * @Description:图片处理工具
@@ -206,6 +206,72 @@ public class ImageHandleHelper {
 	        
 	        
 	        
+	}
+	public static void executeTest()throws Exception{
+		   System.out.println("开始生成左边商品描述图片>>>>>>>>>>>>>>>>>>>>>");
+		     //左边图片
+		    File file1 = new File("d:\\dataoke", "1.jpg");  
+		    WordToPic.TextToPicTaoKe("雪纺长款连衣裙夏季女2017新款短袖气质收腰印花显瘦沙滩裙子长裙", "原价:￥12", "现价:￥23", "[￥33券]", 320, 130,file1);
+		   
+	        
+		    System.out.println("开始生成推荐二位吗图片>>>>>>>>>>>>>>>>>>>>>");
+		    //二维码图片
+		    String textt = "https://s.click.taobao.com/3SgJ3iw";
+		    File file2 = new File("d:\\dataoke", "2.jpg");  
+			QRCodeUtil.encode(textt,"",file2,true,130);
+			
+			
+			 System.out.println("开始合并商品描述图片和二维码图片>>>>>>>>>>>>>>>>>>>>>");
+	        //拼接左边图片和二维码图片
+	        File file3 = new File("d:\\dataoke", "3.jpg");
+	        mergeImageX(file1,file2,file3);
+	        
+	        
+	        //商品主图 寛450 高600
+		     System.out.println("开始缩放商品主图>>>>>>>>>>>>>>>>>>>>>");
+	        File taokeUpdate = new File("d:\\dataoke\\4.jpg");
+	        ImageHelper.zoomImage("d:\\dataoke\\taoke.jpg",taokeUpdate.getAbsolutePath(), 450, 600);	
+	        
+	        
+	        System.out.println("开始合并商品描述图片和二维码图片和商品主图>>>>>>>>>>>>>>>>>>>>>");
+	        File all = new File("d:\\dataoke", "5.jpg");
+	        mergeImageY(taokeUpdate, file3, all);
+	        
+	        System.out.println("合并完毕");
+	}
+	
+	
+	public static void execute(TbSpPage page,File out)throws Exception{
+		   System.out.println("开始生成左边商品描述图片>>>>>>>>>>>>>>>>>>>>>");
+		     //左边图片
+		    File file1 = new File("d:\\dataoke", "1.jpg");  
+		    WordToPic.TextToPicTaoKe(page.getTbGoodsTitle(), "原价:￥"+page.getTaoBaopOldrice(), "现价:￥"+page.getTaoBaoprice(), "[￥"+page.getQuanPrice()+"券]", 320, 130,file1);
+		   
+	        
+		    System.out.println("开始生成推荐二位吗图片>>>>>>>>>>>>>>>>>>>>>");
+		    //二维码图片
+		    String textt = "https://s.click.taobao.com/3SgJ3iw";
+		    File file2 = new File("d:\\dataoke", "2.jpg");  
+			QRCodeUtil.encode(textt,"",file2,true,130);
+			
+			
+			 System.out.println("开始合并商品描述图片和二维码图片>>>>>>>>>>>>>>>>>>>>>");
+	        //拼接左边图片和二维码图片
+	        File file3 = new File("d:\\dataoke", "3.jpg");
+	        mergeImageX(file1,file2,file3);
+	        
+	        
+	        //商品主图 寛450 高600
+		     System.out.println("开始缩放商品主图>>>>>>>>>>>>>>>>>>>>>");
+	        File taokeUpdate = new File("d:\\dataoke\\4.jpg");
+	        ImageHelper.zoomImage("d:\\dataoke\\taoke.jpg",taokeUpdate.getAbsolutePath(), 450, 600);	
+	        
+	        
+	        System.out.println("开始合并商品描述图片和二维码图片和商品主图>>>>>>>>>>>>>>>>>>>>>");
+	        //File all = new File("d:\\dataoke", "5.jpg");
+	        mergeImageY(taokeUpdate, file3, out);
+	        
+	        System.out.println("合并完毕");
 	}
 	
 }

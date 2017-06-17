@@ -11,7 +11,20 @@ public class TbSpPage {
 	private String tbGoodsId;
 	private String tbGoodsTitle;// 产品标题:
 	private String tbGoodsSellDesc;// 产品卖点描述
-	private String taoBaoprice;//淘宝价格 
+	private String taoBaoprice;//淘宝价格
+	private String taoBaopOldrice;//淘宝价格
+	private String quanPrice;//优惠券券的价格
+	
+	private String zhuanQQUrl;//转换qq的连接
+	
+	public String getZhuanQQUrl() {
+		return zhuanQQUrl;
+	}
+
+	public void setZhuanQQUrl(String zhuanQQUrl) {
+		this.zhuanQQUrl = zhuanQQUrl;
+	}
+
 	private String stoceName;// 商店名称
 	private String distriInifo;// 配送
 	private String skuInfo; // sku组合信息
@@ -247,6 +260,14 @@ public class TbSpPage {
 		this.sibUrl = sibUrl;
 	}
 
+	public String getTaoBaopOldrice() {
+		return taoBaopOldrice;
+	}
+
+	public void setTaoBaopOldrice(String taoBaopOldrice) {
+		this.taoBaopOldrice = taoBaopOldrice;
+	}
+
 	@Override
 	public String toString() {
 		return "TbSpPage [tbGoodsId=" + tbGoodsId + ", tbGoodsTitle="
@@ -263,6 +284,14 @@ public class TbSpPage {
 				+ ", shopId=" + shopId + ", shopName=" + shopName
 				+ ", sellerId=" + sellerId + ", sellerNick=" + sellerNick
 				+ ", sibUrl=" + sibUrl + "]";
+	}
+
+	public String getQuanPrice() {
+		return quanPrice;
+	}
+
+	public void setQuanPrice(String quanPrice) {
+		this.quanPrice = quanPrice;
 	}
 	
 }
