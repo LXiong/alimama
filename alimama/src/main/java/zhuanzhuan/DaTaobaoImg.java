@@ -2,7 +2,6 @@ package zhuanzhuan;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +27,7 @@ public class DaTaobaoImg {
 	public static void main(String[] args) throws Exception {
 
          
-		executeAll("http://www.dataoke.com/item?id=2662277");
+		executeAll("http://www.dataoke.com/item?id=2702825");
 	     //String url = "http://www.dataoke.com/item?id=2695190";
 	     //parsDaTaoBao(url, outBase);
 	}
@@ -41,8 +40,6 @@ public class DaTaobaoImg {
 		System.out.println("券后商品价格：" + page.getTaoBaoprice());
 		System.out.println("原始价格：" + page.getTaoBaopOldrice());
 		System.out.println("优惠券价格：" + page.getQuanPrice());
-		//详细信息
-		page.setTbGoodsDetailInfo("保存图片,淘饱APP  扫一扫。。。。。。。。。");
 		System.out.println("转换后的qq推广连接：" + page.getZhuanQQUrl());
 		System.out.println("商品詳細：" + page.getTbGoodsDetailInfo().replace("内裤", "裤"));
 		System.out.println("商品主图大小：" + page.getTbGoodsImgFiles().size());
@@ -92,6 +89,10 @@ public class DaTaobaoImg {
 			
 			page.setTbGoodsDetailInfo(page.getTbGoodsTitle());
 			
+			//详细信息
+			page.setTbGoodsDetailInfo(page.getTbGoodsDetailInfo()+"\n"+" 保存图片,淘饱app 扫一扫购买........");
+			
+			
 			if(!check(page)){
 				return;
 			}
@@ -100,9 +101,8 @@ public class DaTaobaoImg {
 			ImageHandleHelper.execute(page, out);
 			page.getTbGoodsImgFiles().clear();
 			page.getTbGoodsImgFiles().add(out);
-			
-			
-			//UploadImgTest.execute(page);
+			page.getTbGoodsImgFiles().add(out);
+			UploadImgTest.execute(page);
 		}
 		
 	}
