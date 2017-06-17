@@ -77,13 +77,13 @@ public class WordToPic {
 			g2.setFont(font);
 			
 			List<String> list = new ArrayList<String>();
-			if(title.length() > 34){
-				title = title.substring(0, 34);
-				list.add(title.substring(0,17));
-				list.add(title.substring(17,34));
-			}else if(title.length() > 17){
-				list.add(title.substring(0,17));
-				list.add(title.substring(17,title.length()));
+			if(title.length() > 32){
+				title = title.substring(0, 32);
+				list.add(title.substring(0,16));
+				list.add(title.substring(16,32));
+			}else if(title.length() > 16){
+				list.add(title.substring(0,16));
+				list.add(title.substring(16,title.length()));
 			}else{
 				list.add(title);
 			}
