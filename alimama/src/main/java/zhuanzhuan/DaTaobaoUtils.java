@@ -23,11 +23,11 @@ public class DaTaobaoUtils {
 	static File outBase = new File("D:\\dataoke\\dataokeimg");
 
 	public static void main(String[] args) throws Exception {
-		String url = "http://www.dataoke.com/item?id=2696223";
 
-		// url="https://item.taobao.com/item.htm?spm=a219t.7900221/10.1998910419.d30ccd691.uPkZic&id=43022193676";
-
-		executeAll("http://www.dataoke.com/item?id=2688624","http://www.dataoke.com/item?id=2695293");
+         
+		executeAll("http://www.dataoke.com/item?id=2703521","http://www.dataoke.com/item?id=2695190");
+	    // String url = "http://www.dataoke.com/item?id=2695190";
+	     //parsDaTaoBao(url, outBase);
 	}
 	
 	
@@ -185,6 +185,17 @@ public class DaTaobaoUtils {
 			
 			String tbGoodsDetailInfo = document.select(".wechat-tui-main clearfix").select(".tui-content").text();
 			pageBean.setTbGoodsDetailInfo(tbGoodsDetailInfo);
+			
+			elements = document.getElementsByClass("tui-content");
+			Element element1 = elements.get(elements.size()-1);
+			tbGoodsDetailInfo = element1.text();
+			System.out.println(tbGoodsDetailInfo);
+			pageBean.setTbGoodsDetailInfo(tbGoodsDetailInfo);
+			
+			//tbGoodsDetailInfo = element1.html();
+			//System.out.println(tbGoodsDetailInfo);
+			//pageBean.setTbGoodsDetailInfo(tbGoodsDetailInfo);
+			
 			
 
 			System.out.println(DivItemDesc.size());
