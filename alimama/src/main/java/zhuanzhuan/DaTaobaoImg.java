@@ -24,12 +24,12 @@ import util.img.ImageHandleHelper;
 public class DaTaobaoImg {
 	static File outBase = new File("D:\\dataoke\\dataokeimg");
 	
-	static String taobaoUrl = "https://detail.tmall.com/item.htm?id=549048744606";
+	static String taobaoUrl = "https://detail.tmall.com/item.htm?id=40955998270";
 
 	public static void main(String[] args) throws Exception {
 
          
-		executeAll("http://www.dataoke.com/item?id=2702408");
+		executeAll("http://www.dataoke.com/item?id=2706784");
 	     //String url = "http://www.dataoke.com/item?id=2695190";
 	     //parsDaTaoBao(url, outBase);
 	}
@@ -88,6 +88,8 @@ public class DaTaobaoImg {
 
 			//原始价格
 			//page.setTaoBaopOldrice(String.valueOf(Double.valueOf(page.getTaoBaoprice())* 2.5));
+			
+			page.setTbGoodsTitle("【新人专享】"+page.getTbGoodsTitle());
 			
 			page.setTbGoodsDetailInfo(page.getTbGoodsTitle());
 			
