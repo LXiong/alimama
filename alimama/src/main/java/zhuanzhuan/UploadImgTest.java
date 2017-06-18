@@ -237,6 +237,12 @@ public class UploadImgTest {
 				+ "&area=6179&allowMobile=0&lat=31.165799&picMd5s=78051692deef771701a7a94e31dc048a&cateId="
 				+ cateId
 				+ "&content="+content;
+		
+	    //母婴圈子
+        p+="&groupsectionid=828485066064658434&cateGrandId=0&groupid=793024305616125953";
+				
+
+						
 		addForm(p, httpRequest);
 		HttpResponse response = httpRequest.send();
 		String rc = response.bodyText();

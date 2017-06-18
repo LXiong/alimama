@@ -23,11 +23,13 @@ import util.img.ImageHandleHelper;
 
 public class DaTaobaoImg {
 	static File outBase = new File("D:\\dataoke\\dataokeimg");
+	
+	static String taobaoUrl = "https://detail.tmall.com/item.htm?id=547019270957";
 
 	public static void main(String[] args) throws Exception {
 
          
-		executeAll("http://www.dataoke.com/item?id=2702825");
+		executeAll("http://www.dataoke.com/item?id=2702533");
 	     //String url = "http://www.dataoke.com/item?id=2695190";
 	     //parsDaTaoBao(url, outBase);
 	}
@@ -102,6 +104,12 @@ public class DaTaobaoImg {
 			page.getTbGoodsImgFiles().clear();
 			page.getTbGoodsImgFiles().add(out);
 			page.getTbGoodsImgFiles().add(out);
+			
+		   TbSpPage pageTaobao = TaobaoUtils.execute(taobaoUrl);
+		   if(CollectionUtils.isNotEmpty(pageTaobao.getTbGoodsImgFiles())){
+			   page.getTbGoodsImgFiles().addAll(pageTaobao.getTbGoodsImgFiles());
+		   }	
+			
 			UploadImgTest.execute(page);
 		}
 		
