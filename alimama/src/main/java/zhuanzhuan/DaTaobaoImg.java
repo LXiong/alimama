@@ -24,12 +24,12 @@ import util.img.ImageHandleHelper;
 public class DaTaobaoImg {
 	static File outBase = new File("D:\\dataoke\\dataokeimg");
 	
-	static String taobaoUrl = "https://detail.tmall.com/item.htm?id=40955998270";
+	static String taobaoUrl = "";// "https://detail.tmall.com/item.htm?id=20544199560";
 
 	public static void main(String[] args) throws Exception {
 
          
-		executeAll("http://www.dataoke.com/item?id=2706784");
+		executeAll("http://www.dataoke.com/item?id=2714650");
 	     //String url = "http://www.dataoke.com/item?id=2695190";
 	     //parsDaTaoBao(url, outBase);
 	}
@@ -262,6 +262,10 @@ public class DaTaobaoImg {
 			pageBean.setZhuanQQUrl(zhuanQQUrl);
 			
 
+			
+			//goods-big-img
+		    taobaoUrl= document.select(".goods-big-img").text();
+			
 			System.out.println(DivItemDesc.size());
 
 			for (Element element : DivItemDesc) {
