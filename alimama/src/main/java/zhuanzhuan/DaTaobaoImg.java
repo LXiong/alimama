@@ -29,7 +29,7 @@ public class DaTaobaoImg {
 	public static void main(String[] args) throws Exception {
 
          
-		executeAll("http://www.dataoke.com/item?id=2714650");
+		executeAll("http://www.dataoke.com/item?id=2714737");
 	     //String url = "http://www.dataoke.com/item?id=2695190";
 	     //parsDaTaoBao(url, outBase);
 	}
@@ -107,6 +107,7 @@ public class DaTaobaoImg {
 			page.getTbGoodsImgFiles().add(out);
 			page.getTbGoodsImgFiles().add(out);
 			
+		   System.out.println("淘宝地址："+taobaoUrl);	
 		   TbSpPage pageTaobao = TaobaoUtils.execute(taobaoUrl);
 		   if(CollectionUtils.isNotEmpty(pageTaobao.getTbGoodsImgFiles())){
 			   page.getTbGoodsImgFiles().addAll(pageTaobao.getTbGoodsImgFiles());
@@ -264,7 +265,7 @@ public class DaTaobaoImg {
 
 			
 			//goods-big-img
-		    taobaoUrl= document.select(".goods-big-img").text();
+		    taobaoUrl= document.select(".goods-big-img").select("a").attr("href");
 			
 			System.out.println(DivItemDesc.size());
 
