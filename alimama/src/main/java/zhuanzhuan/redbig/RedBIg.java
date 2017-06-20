@@ -46,11 +46,17 @@ public class RedBIg {
 					        Thread.sleep(1000);
 					        if(jsonObjectLast!=null){
 					        	String groupRedMoney = jsonObjectLast.getString("groupRedMoney");
-					        	bigRedMap.put(bigRedID, groupRedMoney);
-					        	for(Entry<String, String> map:bigRedMap.entrySet()){
-					        		System.out.println("红包id==="+map.getKey()+" 获取红包==="+map.getValue());
+					        	if(!bigRedMap.containsKey(bigRedID)){
+					        		bigRedMap.put(bigRedID, groupRedMoney);
+						        	for(Entry<String, String> map:bigRedMap.entrySet()){
+						        		System.out.println("红包id==="+map.getKey()+" 获取红包==="+map.getValue());
+						        	}
+						        	System.out.println();
+						        	System.out.println();
+						        	System.out.println();
+						        
 					        	}
-					        }
+					        	}
 					        
 						}
 					}
