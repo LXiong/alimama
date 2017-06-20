@@ -58,7 +58,7 @@ public class UploadImgTest {
 		if(!CollectionUtils.isEmpty(files)){
 			for(File f:files){
 				String imageName = uploadimg(f);
-				Thread.sleep(2000);
+				Thread.sleep(3000);
 				if(StringUtils.isNotBlank(imageName)){
 					if(imgNames==null){
 						imgNames = imageName;
@@ -120,7 +120,7 @@ public class UploadImgTest {
 			return ;
 		}
 		
-		Thread.sleep(5000);
+		//Thread.sleep(5000);
 		String content = page.getTbGoodsDetailInfo();
 		if(StringUtils.isBlank(content)){
 			content = title;
