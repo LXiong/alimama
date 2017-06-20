@@ -20,8 +20,14 @@ public class RedBIg {
         //System.out.println(getmygrouplist());
         //System.out.println(getBigRedListByGroupID4R("793024305616125953"));
 		//System.out.println(getBigRedByBigRedID4R("877144338755497984"));
-		execte();
+		execteAll();
 		
+	}
+	
+	public static void execteAll()throws Exception{
+		while(true){
+			execte();
+		}
 	}
 	
 	
