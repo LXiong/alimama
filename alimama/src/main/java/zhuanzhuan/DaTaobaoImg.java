@@ -113,7 +113,7 @@ public class DaTaobaoImg {
 			//TbSpPage page = parsDaTaoBao(url,outBase);
 
 			//原始价格
-			//page.setTaoBaopOldrice(String.valueOf(Double.valueOf(page.getTaoBaoprice())* 2.5));
+			page.setTaoBaopOldrice(String.valueOf(Double.valueOf(page.getTaoBaoprice())* 2.5));
 			
 			page.setTbGoodsTitle("【新人专享】"+page.getTbGoodsTitle());
 			
