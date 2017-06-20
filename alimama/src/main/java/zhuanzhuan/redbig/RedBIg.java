@@ -33,7 +33,7 @@ public class RedBIg {
 	
 	public static void execte()throws Exception{
 		JSONArray arraygrouplist = getmygrouplist();
-		Cmd.getSleepTime(800, 1200);
+		Thread.sleep(Cmd.getSleepTime(2000, 4000));
 		if(CollectionUtils.isNotEmpty(arraygrouplist)){
 			for(Object object:arraygrouplist){
 				JSONObject jsonObject = (JSONObject)object;
@@ -41,7 +41,7 @@ public class RedBIg {
 				String title = jsonObject.getString("title");
 				System.out.println("title："+title +" groupId:"+groupId+" 开始进去圈子>>>>>>>>>>>>>>>>>>>>获取红包列表>>>>>>>>>>>");
 				arraygrouplist = getBigRedListByGroupID4R(groupId);
-				Cmd.getSleepTime(800, 1200);
+				Thread.sleep(Cmd.getSleepTime(2000, 4000));
 				if(CollectionUtils.isNotEmpty(arraygrouplist)){
 					for(Object objectRed:arraygrouplist){
 						JSONObject jsonObjectRed = (JSONObject)objectRed;
@@ -50,8 +50,8 @@ public class RedBIg {
 						if("1".equalsIgnoreCase(status)){
 							System.out.println("开始抢红包>>>>>>>>>>>>>>>>>>>>>红包信息为json为："+jsonObject);
 					        JSONObject jsonObjectLast =getBigRedByBigRedID4R(bigRedID); 
-					        Cmd.getSleepTime(800, 1200);
-					        if(jsonObjectLast!=null){
+					        Thread.sleep(Cmd.getSleepTime(2000, 4000));
+				        if(jsonObjectLast!=null){
 					        	String groupRedMoney = jsonObjectLast.getString("groupRedMoney");
 					        	if(!bigRedMap.containsKey(bigRedID)){
 					        		bigRedMap.put(bigRedID, groupRedMoney);
