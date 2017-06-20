@@ -244,7 +244,7 @@ public class UploadImgTest {
 	    //母婴圈子
        // p+="&groupsectionid=828485066064658434&cateGrandId=0&groupid=793024305616125953";
 				
-
+        Thread.sleep(5000);
 						
 		addForm(p, httpRequest);
 		HttpResponse response = httpRequest.send();
