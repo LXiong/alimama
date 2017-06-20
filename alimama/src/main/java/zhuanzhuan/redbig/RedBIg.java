@@ -9,6 +9,7 @@ import org.apache.commons.collections.CollectionUtils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import dataoke.Cmd;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 
@@ -26,7 +27,7 @@ public class RedBIg {
 	
 	public static void execte()throws Exception{
 		JSONArray arraygrouplist = getmygrouplist();
-		Thread.sleep(1000);
+		Cmd.getSleepTime(800, 1200);
 		if(CollectionUtils.isNotEmpty(arraygrouplist)){
 			for(Object object:arraygrouplist){
 				JSONObject jsonObject = (JSONObject)object;
@@ -34,7 +35,7 @@ public class RedBIg {
 				String title = jsonObject.getString("title");
 				System.out.println("title："+title +" groupId:"+groupId+" 开始进去圈子>>>>>>>>>>>>>>>>>>>>获取红包列表>>>>>>>>>>>");
 				arraygrouplist = getBigRedListByGroupID4R(groupId);
-				Thread.sleep(1000);
+				Cmd.getSleepTime(800, 1200);
 				if(CollectionUtils.isNotEmpty(arraygrouplist)){
 					for(Object objectRed:arraygrouplist){
 						JSONObject jsonObjectRed = (JSONObject)objectRed;
@@ -43,7 +44,7 @@ public class RedBIg {
 						if("1".equalsIgnoreCase(status)){
 							System.out.println("开始抢红包>>>>>>>>>>>>>>>>>>>>>红包信息为json为："+jsonObject);
 					        JSONObject jsonObjectLast =getBigRedByBigRedID4R(bigRedID); 
-					        Thread.sleep(1000);
+					        Cmd.getSleepTime(800, 1200);
 					        if(jsonObjectLast!=null){
 					        	String groupRedMoney = jsonObjectLast.getString("groupRedMoney");
 					        	if(!bigRedMap.containsKey(bigRedID)){
