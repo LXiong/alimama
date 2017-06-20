@@ -131,7 +131,7 @@ public class DaTaobaoImg {
 			ImageHandleHelper.execute(page, out);
 			page.getTbGoodsImgFiles().clear();
 			page.getTbGoodsImgFiles().add(out);
-			page.getTbGoodsImgFiles().add(out);
+			//page.getTbGoodsImgFiles().add(out);
 			
 		   System.out.println("淘宝地址："+taobaoUrl);	
 		   TbSpPage pageTaobao = TaobaoUtils.execute(taobaoUrl);
