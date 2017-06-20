@@ -1,7 +1,11 @@
 package zhuanzhuan;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -17,9 +21,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import dataoke.Cmd;
 import util.SeleniumUtil;
 import util.img.ImageHandleHelper;
+import dataoke.Cmd;
 
 public class DaTaobaoImg {
 	static File outBase = new File("D:\\dataoke\\dataokeimg");
@@ -29,9 +33,31 @@ public class DaTaobaoImg {
 	public static void main(String[] args) throws Exception {
 
          
-		executeAll("http://www.dataoke.com/item?id=2714737");
+		executeAll(getTopTui().toArray(new String[]{}));
 	     //String url = "http://www.dataoke.com/item?id=2695190";
 	     //parsDaTaoBao(url, outBase);
+		//System.out.println(getTopTui());
+	}
+	
+	public static List<String> getTopTui(){
+		List<String> list = new ArrayList<String>();
+		try {
+			Document document = Jsoup.parse(new URL("http://www.dataoke.com/top_tui"), 10000);
+			//System.out.println(document.html());
+			Elements elements = document.select(".goods-img").select("a");
+			System.out.println(elements.size());
+			for(Element element:elements){
+				String href=element.attr("href");
+				list.add("http://www.dataoke.com"+href);
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	

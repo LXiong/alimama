@@ -100,7 +100,10 @@ public class UploadImgTest {
 		// 一级分类 encoder
 		String cateParentId = "家居家具";
 		// cateId 二级分类
-		String cateId = "2108014";
+		//String cateId = "2108014";
+		
+		String cateId = "";
+		
 		
 		if(StringUtils.isBlank(title)){
 			System.out.println("标题为null>>>>>>>>>>>>>>>>>>>>>>>");
