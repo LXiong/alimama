@@ -57,7 +57,7 @@ public class DaTaobaoImg {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return list;
 	}
 	
 	
