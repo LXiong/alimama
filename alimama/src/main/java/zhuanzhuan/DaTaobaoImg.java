@@ -33,7 +33,7 @@ public class DaTaobaoImg {
 	public static void main(String[] args) throws Exception {
 
          
-		executeAll(getTopTui().toArray(new String[]{}));
+		executeAll(getTopTui().subList(10, 20).toArray(new String[]{}));
 	     //String url = "http://www.dataoke.com/item?id=2695190";
 	     //parsDaTaoBao(url, outBase);
 		//System.out.println(getTopTui());
