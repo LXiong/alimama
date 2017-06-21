@@ -17,9 +17,9 @@ public class RedBIg {
 
 	public static void main(String[] args)throws Exception {
 		// TODO Auto-generated method stub
-        //System.out.println(getmygrouplist());
-        //System.out.println(getBigRedListByGroupID4R("793024305616125953"));
-		//System.out.println(getBigRedByBigRedID4R("877144338755497984"));
+        ////System.out.println(getmygrouplist());
+        ////System.out.println(getBigRedListByGroupID4R("793024305616125953"));
+		////System.out.println(getBigRedByBigRedID4R("877144338755497984"));
 		execteAll();
 		
 	}
@@ -39,7 +39,7 @@ public class RedBIg {
 				JSONObject jsonObject = (JSONObject)object;
 				String groupId = jsonObject.getString("groupId");
 				String title = jsonObject.getString("title");
-				System.out.println("title："+title +" groupId:"+groupId+" 开始进去圈子>>>>>>>>>>>>>>>>>>>>获取红包列表>>>>>>>>>>>");
+				//System.out.println("title："+title +" groupId:"+groupId+" 开始进去圈子>>>>>>>>>>>>>>>>>>>>获取红包列表>>>>>>>>>>>");
 				arraygrouplist = getBigRedListByGroupID4R(groupId);
 				Thread.sleep(Cmd.getSleepTime(2000, 4000));
 				if(CollectionUtils.isNotEmpty(arraygrouplist)){
@@ -48,7 +48,7 @@ public class RedBIg {
 						String status = jsonObjectRed.getString("status");//红包状态
 						String bigRedID = jsonObjectRed.getString("bigRedID");//红包ID
 						if("1".equalsIgnoreCase(status)){
-							System.out.println("开始抢红包>>>>>>>>>>>>>>>>>>>>>红包信息为json为："+jsonObject);
+							//System.out.println("开始抢红包>>>>>>>>>>>>>>>>>>>>>红包信息为json为："+jsonObject);
 					        JSONObject jsonObjectLast =getBigRedByBigRedID4R(bigRedID); 
 					        Thread.sleep(Cmd.getSleepTime(2000, 4000));
 				        if(jsonObjectLast!=null){
@@ -68,11 +68,11 @@ public class RedBIg {
 						}
 					}
 				}else{
-					System.out.println("获取红包列表信息为null>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");		
+					//System.out.println("获取红包列表信息为null>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");		
 				}
 			}
 		}else{
-           System.out.println("获取圈子信息为null>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");			
+           //System.out.println("获取圈子信息为null>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");			
 		}
 		
 	}
@@ -122,18 +122,18 @@ public class RedBIg {
 		httpRequest.header("referer", "https://m.zhuanzhuan.58.com/Mzhuanzhuan/zhuanzhuan/zzactivity/activity-quanzi-hongbao/html/hongbaoresult.html?bigredid="+bigredid+"&webview=zzn&tt=E1B6D86E10C6CEBBD2EB4107D6533BA71497965537533&zzv=3.2.1");		
 		HttpResponse response = httpRequest.send();
 		String rc = response.bodyText();
-		System.out.println("===================" + rc);
+		//System.out.println("===================" + rc);
 		
 		rc =rc.substring(rc.indexOf("(")+1, rc.lastIndexOf(")"));
 
-		System.out.println("截取后的===================" + rc);
+		//System.out.println("截取后的===================" + rc);
 		
 		JSONObject jsonObject = JSONObject.parseObject(rc);
 
 		if ("0".equalsIgnoreCase(jsonObject.getString("respCode"))) {
 			return jsonObject.getJSONObject("respData");
 		} else {
-			System.out.println("获取圈子信息为null》》》》》》》》》》》》》》》》》》》》》》》》》》");
+			//System.out.println("获取圈子信息为null》》》》》》》》》》》》》》》》》》》》》》》》》》");
 		}
 		return null;
 	}
@@ -175,18 +175,18 @@ public class RedBIg {
 		
 		HttpResponse response = httpRequest.send();
 		String rc = response.bodyText();
-		System.out.println("===================" + rc);
+		//System.out.println("===================" + rc);
 		
 		rc =rc.substring(rc.indexOf("(")+1, rc.lastIndexOf(")"));
 
-		System.out.println("截取后的===================" + rc);
+		//System.out.println("截取后的===================" + rc);
 		
 		JSONObject jsonObject = JSONObject.parseObject(rc);
 
 		if ("0".equalsIgnoreCase(jsonObject.getString("respCode"))) {
 			return jsonObject.getJSONArray("respData");
 		} else {
-			System.out.println("获取圈子信息为null》》》》》》》》》》》》》》》》》》》》》》》》》》");
+			//System.out.println("获取圈子信息为null》》》》》》》》》》》》》》》》》》》》》》》》》》");
 		}
 		return null;
 	}
@@ -226,14 +226,14 @@ public class RedBIg {
 		
 		HttpResponse response = httpRequest.send();
 		String rc = response.bodyText();
-		System.out.println("===================" + rc);
+		//System.out.println("===================" + rc);
 
 		JSONObject jsonObject = JSONObject.parseObject(rc);
 
 		if ("0".equalsIgnoreCase(jsonObject.getString("respCode"))) {
 			return jsonObject.getJSONObject("respData").getJSONArray("groupList");
 		} else {
-			System.out.println("获取圈子信息为null》》》》》》》》》》》》》》》》》》》》》》》》》》");
+			//System.out.println("获取圈子信息为null》》》》》》》》》》》》》》》》》》》》》》》》》》");
 		}
 		return null;
 	}
