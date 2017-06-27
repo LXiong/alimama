@@ -49,7 +49,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import fx.HttpTest;
 
 public class Test {
-	static String taoId = "118753669";
+	//static String taoId = "118753669";//luoyuna0905@163.com
+	
+	static String taoId = "118054027";//xiaonin0322@163.com
 	
 	static Map<String,Cookie[]> map = new HashMap<String, Cookie[]>();
 	
