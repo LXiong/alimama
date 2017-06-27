@@ -24,6 +24,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.interactions.Action;
@@ -33,8 +34,9 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import dataoke.Cmd;
 import ruokuai.RuoKuaiUnit;
+import alimama.PropertiesUtil;
+import dataoke.Cmd;
 
 /**
  * 娴忚鍣╱til
@@ -93,6 +95,41 @@ public class SeleniumUtil {
 			service.start();*/
 			System.setProperty("webdriver.chrome.driver", "D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe");
 			driver = new ChromeDriver();
+			//driver = new HtmlUnitDriver(true);
+		} catch (Exception e) {
+			logger.error("Init WebDriver is error!", e);
+			throw new RuntimeException(e);
+		}
+		logger.info("init WebDriver is success!");
+		return driver;
+	}
+	
+	/**
+	 * 如果你没找到 NPAPI 项，试试输入：chrome://flags/#enable-npapi 如果仍然没找到，那么，你需要升级你的
+	 * Chrome 浏览器到最新版，我的原来是 40.0版本，升级到42.0版本，结果就出现了。 按“启用”后，关闭 Chrome
+	 * 程序，然后再重新打开，就可以正常呼出阿里旺旺了。
+	 * 
+	 * @return
+	 */
+	public static WebDriver initChromeDriver2222() {
+		logger.info("start init WebDriver!");
+		WebDriver driver = null;
+		try {
+			/*ChromeDriverService service = new ChromeDriverService.Builder()
+					.usingDriverExecutable(new File("D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe")).usingAnyFreePort()
+					.build();
+			service.start();*/
+			ChromeOptions options = new ChromeOptions();
+			// options.addArguments(“–user-data-dir=C:/Users/xxx/AppData/Local/Google/Chrome/User
+			// Data/Default”);
+			String userDateDir = "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data";
+			if(StringUtils.isNotBlank(PropertiesUtil.getPropertiesMap("alimama.userDateDir"))){
+				userDateDir = PropertiesUtil.getPropertiesMap("alimama.userDateDir");
+			}
+			options.addArguments("--user-data-dir=" + userDateDir,"--allow-outdated-plugins");
+			// 璁剧疆璁块棶ChromeDriver鐨勮矾寰�
+			System.setProperty("webdriver.chrome.driver", "g:\\app\\chromedriver\\chromedriver.exe");
+			driver = new ChromeDriver(options);
 			//driver = new HtmlUnitDriver(true);
 		} catch (Exception e) {
 			logger.error("Init WebDriver is error!", e);
