@@ -20,6 +20,12 @@ public class CharUtil {
 		return buffer.toString();
 	}
 	
+	public static String getRandomPid(String taoId){
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("mm_").append(taoId).append("_")
+		.append((int)((Math.random()*9+1)*10000000)).append("_").append((int)((Math.random()*9+1)*10000000));;
+		return buffer.toString();
+	}
 	
 	 /**
      * 画随机汉字
