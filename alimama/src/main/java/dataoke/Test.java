@@ -80,12 +80,14 @@ public class Test {
 		//System.out.println(createPidAll("17189683009"));
 		
 
-		System.out.println(loginHttpClient("15917728864", "3pd0qu"));
+		//System.out.println(loginHttpClient("15917728864", "3pd0qu"));
 		
 		//System.out.println(getExitsSetPidExeitHttpClient("15917728864"));
 		
 		//System.out.println(createPidHtppClient("13191048115"));
-		System.out.println(createPidAllHttpClient("15917728864"));
+		//System.out.println(createPidAllHttpClient("15917728864"));
+		
+		System.out.println(getExitsSetPidFlagExeitHttpClient("13923938760"));
 		//System.out.println(deletePidHtppClient("15917728864","1684316"));
 		
 		//System.out.println(checkPidExeitHttpClient("13829502088"));
@@ -540,6 +542,53 @@ public class Test {
 		}
 	}
 	
+	
+	public static boolean getExitsSetPidFlagExeitHttpClient(String uname) throws Exception {
+
+		String url = "http://www.dataoke.com/ucenter/mypid.asp";
+		HttpGet httpRequest =new HttpGet(url);
+		httpRequest.setHeader("Host", "www.dataoke.com");
+		httpRequest
+				.setHeader("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.setHeader("Referer",
+				"http://www.dataoke.com/ucenter/mypid.asp");
+		httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		httpRequest.setHeader("Connection", "keep-alive");
+		httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.setHeader("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.setHeader("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+		
+		String rc = HttpClientUtil.sendGetRequest(httpRequest, "gb2312", proxy);
+
+		//System.out.println("createPid返回结果：" + rc);
+		List<String> pids = new ArrayList<String>();
+		Document document = Jsoup.parse(rc);
+		
+		Elements elements =document.select("a");
+        for(Element element: elements){
+        	String href = element.attr("href");
+        	if(href.contains("act=qx_bz")){
+        		String trHtml = element.parent().parent().html();
+        		if(trHtml.contains(taoId)){
+        			pids.add(href.replace("?act=qx_bz&id=", "").trim());
+        		}
+        	}
+        }
+        
+        if(pids.size()==2){
+        	return true;
+        }
+        
+        return false;	
+}
+	
 	public static List<String> getExitsSetPidExeitHttpClient(String uname) throws Exception {
 
 		String url = "http://www.dataoke.com/ucenter/mypid.asp";
@@ -614,6 +663,10 @@ public class Test {
 	public static boolean createPidAllHttpClient(String uname)throws Exception{
 		
 		System.out.println("开始检测是否设置pid>>>>>>>>>>>>>>"+uname);
+		if(getExitsSetPidFlagExeitHttpClient(uname)){
+			return true;
+		}
+		 Thread.sleep(2000);
 		 if(checkPidExeitHttpClient(uname)){
 			 System.out.println("pid已经存在>>>>>>>>>>>"+uname);
 			 Thread.sleep(2000);
