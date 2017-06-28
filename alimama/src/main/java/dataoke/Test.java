@@ -619,9 +619,26 @@ public class Test {
 			 Thread.sleep(2000);
 			
 			 List<String> pids = getExitsSetPidExeitHttpClient(uname);
+			 Thread.sleep(2000);
 			 if(CollectionUtils.isNotEmpty(pids)){
 				 boolean flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
 				 System.out.println("uname =="+uname+" 取消pid==="+flag);
+				 Thread.sleep(2000);
+				 if(!flag){
+					 pids = getExitsSetPidExeitHttpClient(uname);
+					 Thread.sleep(2000);
+					 flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
+					 System.out.println("uname =="+uname+" 取消pid==="+flag);
+					 Thread.sleep(2000);
+				 }
+				 if(!flag){
+					 pids = getExitsSetPidExeitHttpClient(uname);
+					 Thread.sleep(2000);
+					 flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
+					 System.out.println("uname =="+uname+" 取消pid==="+flag);
+					 Thread.sleep(2000);
+				  }
+				 
 			 }
  			 // return true;
 		 }
