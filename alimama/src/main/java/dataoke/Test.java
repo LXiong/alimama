@@ -605,7 +605,7 @@ public class Test {
 
 		//System.out.println("createPid返回结果：" + rc);
 
-		if (StringUtils.countMatches(rc, "取消")==2) {
+		if (StringUtils.countMatches(rc, "取消")==2 || StringUtils.countMatches(rc, "取消")>2) {
 		    return true;
 			}
       return false;	
