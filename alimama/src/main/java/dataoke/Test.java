@@ -777,7 +777,7 @@ public class Test {
 				System.out.println("pid===="+id+" 删除失败>>>>>>>>>>>>>>>>>>>>");
 				flag = false;
 			}
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		}
 		return flag;
 		
