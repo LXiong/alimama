@@ -637,6 +637,7 @@ public class Test {
 					 flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
 					 System.out.println("uname =="+uname+" 取消pid==="+flag);
 					 Thread.sleep(2000);
+					 return false;
 				  }
 				 
 			 }
