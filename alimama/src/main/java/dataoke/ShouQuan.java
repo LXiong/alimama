@@ -16,8 +16,10 @@ import util.SeleniumUtil;
 
 public class ShouQuan {
 
-	static String tname = "xiaomin0322@sina.com";
-	static String tpwd = "xiaomin1991222";
+	static String tname = "luoyuna0905@163.com";
+	static String tpwd = "xiaomin0322";
+	
+	static String taobaoName = "luoyuna0905_163";
 
 	public static void main(String[] args) throws Exception {
 		File shouquanDir = new File("D:\\dataoke\\shouquan");
@@ -165,7 +167,7 @@ public class ShouQuan {
 	}
 
 	public static boolean isShouquan() throws Exception {
-		webGet("http://www.dataoke.com/ucenter/mypid.asp");
+		/*webGet("http://www.dataoke.com/ucenter/mypid.asp");
 		Thread.sleep(2000);
 		String str = webDriver.getPageSource();
 		if (str.contains("你还没有授权")) {
@@ -173,7 +175,17 @@ public class ShouQuan {
 			return false;
 		} else {
 			System.out.println("授权成功>>>>>>>>>>>>>>>>>>>>");
+		}*/
+		webGet("http://www.dataoke.com/ucenter/mypid.asp");
+		Thread.sleep(2000);
+		String str = webDriver.getPageSource();
+		if (!str.contains(taobaoName)) {
+			System.out.println("点击进行授权登录》》》》》》》》》》》》");
+			return false;
+		} else {
+			System.out.println("授权成功>>>>>>>>>>>>>>>>>>>>");
 		}
+		
 		return true;
 	}
 
