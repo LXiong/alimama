@@ -8,6 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -23,75 +26,91 @@ public class QueryTopTui {
 
 	public static void main(String[] args) throws Exception {
 		// /item?id=2815627
-		//System.out.println(getTopIds().size());
+		// System.out.println(getTopIds().size());
 		execute();
 	}
-	
-	
-	public static void execute()throws Exception {
+
+	public static void execute() throws Exception {
 		Set<String> topIds = getTopIds();
-		System.out.println("topids="+topIds.size());
-		Map<String,String> maps = getUserPids();
-		
-		System.out.println("maps="+maps);
-		
-		for(Entry<String, String> en:maps.entrySet()){
+		System.out.println("topids=" + topIds.size());
+		Map<String, String> maps = getUserPids();
+
+		System.out.println("maps=" + maps);
+
+		for (Entry<String, String> en : maps.entrySet()) {
 			String key = en.getKey();
-			if(topIds.contains(key)){
-				System.out.println("id=="+key+"  userIds==="+en.getValue());
+			if (topIds.contains(key)) {
+				System.out.println("id==" + key + "  userIds==="
+						+ en.getValue());
 			}
 		}
-		 
-		
+
 	}
 
 	static HttpHost proxy = null;
 	static File base = new File("D:\\dataoke\\queryids");
 	static int count = 0;
 
-	public static Map<String,String> getUserPids() throws Exception {
-		Map<String,String> topUserIds = new HashMap<String,String>();
+	public static Map<String, String> getUserPids() throws Exception {
+		final Map<String, String> topUserIds = new HashMap<String, String>();
 		List<String> users = new ArrayList<String>();
 		for (File f : base.listFiles()) {
 			String u = FileUtils.readLines(f).get(0);
 			users.add(u);
 		}
-		System.out.println("用戶集合大小==="+users.size());
-		
-		for (String s : users) {
+		System.out.println("用戶集合大小===" + users.size());
+
+		for (final String s : users) {
 			if (StringUtils.isBlank(s)) {
 				continue;
 			}
 			count++;
 			try {
-				proxy = null;
-				String uname = s.split("\\----")[0].trim();
-				String pwd = s.split("\\----")[1].trim();
-				System.out.println("u = " + uname + "p = " + pwd
-						+ " 开始登陆  当前已刷>>>>>>>>>>>>>>>" + count + " 当前 文件名称：");
+				FutureTask<Boolean> futureTask = new FutureTask<Boolean>(
+						new Callable<Boolean>() {
+							public Boolean call() throws Exception {
+								proxy = null;
+								String uname = s.split("\\----")[0].trim();
+								String pwd = s.split("\\----")[1].trim();
+								System.out.println("u = " + uname + "p = "
+										+ pwd + " 开始登陆  当前已刷>>>>>>>>>>>>>>>"
+										+ count + " 当前 文件名称：");
 
-				boolean flag = Test.loginHttpClient(uname, pwd);
-				// boolean flag = true;
-				System.out.println("u = " + uname + "登陆>>>>>>>>>>>>>" + flag);
-				Thread.sleep(200);
-				if (flag) {
-					List<String> ids=Test.getUserPids(uname);
-					for(String id:ids){
-						if(!topUserIds.containsKey(id)){
-							topUserIds.put(id.trim(), uname);
-						}else{
-							topUserIds.put(id.trim(), uname+","+topUserIds.get(id));
-						}
-					}
-				} else {
-					System.out.println("denglu失败》》》》》》》》》》》》》》》》》》      uname="
-							+ uname);
-				}
+								boolean flag = Test.loginHttpClient(uname, pwd);
+								// boolean flag = true;
+								System.out.println("u = " + uname
+										+ "登陆>>>>>>>>>>>>>" + flag);
+								Thread.sleep(200);
+								if (flag) {
+									List<String> ids = Test.getUserPids(uname);
+									for (String id : ids) {
+										if (!topUserIds.containsKey(id)) {
+											topUserIds.put(id.trim(), uname);
+										} else {
+											topUserIds.put(id.trim(), uname
+													+ "," + topUserIds.get(id));
+										}
+									}
+								} else {
+									System.out
+											.println("denglu失败》》》》》》》》》》》》》》》》》》      uname="
+													+ uname);
+								}
+								return true;
+							}
+						});
+
+				Thread thread = new Thread(futureTask);
+				thread.start();
+				boolean flag = futureTask.get(30, TimeUnit.SECONDS);
+				System.out.println("线程回调结果>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+						+ flag);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				proxy = null;
-				Thread.sleep(Cmd.getSleepTime(1000,2000));
+				Thread.sleep(Cmd.getSleepTime(1000, 2000));
 			}
 
 		}
