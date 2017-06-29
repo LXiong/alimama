@@ -17,8 +17,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import util.IpPoolUtil;
-
 public class QueryTopTui {
 
 	static Set<String> topIds = new HashSet<String>();
@@ -32,7 +30,11 @@ public class QueryTopTui {
 	
 	public static void execute()throws Exception {
 		Set<String> topIds = getTopIds();
+		System.out.println("topids="+topIds.size());
 		Map<String,String> maps = getUserPids();
+		
+		System.out.println("maps="+maps);
+		
 		for(Entry<String, String> en:maps.entrySet()){
 			String key = en.getKey();
 			if(topIds.contains(key)){
@@ -55,11 +57,12 @@ public class QueryTopTui {
 			users.add(u);
 		}
 		System.out.println("用戶集合大小==="+users.size());
-		count++;
+		
 		for (String s : users) {
 			if (StringUtils.isBlank(s)) {
 				continue;
 			}
+			count++;
 			try {
 				proxy = null;
 				String uname = s.split("\\----")[0].trim();
