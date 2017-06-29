@@ -54,14 +54,14 @@ public class QueryTopTui {
 			String u = FileUtils.readLines(f).get(0);
 			users.add(u);
 		}
+		System.out.println("用戶集合大小==="+users.size());
 		count++;
 		for (String s : users) {
 			if (StringUtils.isBlank(s)) {
 				continue;
 			}
 			try {
-				proxy = IpPoolUtil.getHttpHost();
-
+				proxy = null;
 				String uname = s.split("\\----")[0].trim();
 				String pwd = s.split("\\----")[1].trim();
 				System.out.println("u = " + uname + "p = " + pwd
