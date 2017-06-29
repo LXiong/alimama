@@ -80,14 +80,16 @@ public class Test {
 		//System.out.println(createPidAll("17189683009"));
 		
 
-		//System.out.println(loginHttpClient("15917728864", "3pd0qu"));
+		System.out.println(loginHttpClient("15917728864", "3pd0qu"));
+		
+		System.out.println(getUserPids("15917728864"));
 		
 		//System.out.println(getExitsSetPidExeitHttpClient("15917728864"));
 		
 		//System.out.println(createPidHtppClient("13191048115"));
 		//System.out.println(createPidAllHttpClient("15917728864"));
 		
-		System.out.println(getExitsSetPidFlagExeitHttpClient("13923938760"));
+		//System.out.println(getExitsSetPidFlagExeitHttpClient("13923938760"));
 		//System.out.println(deletePidHtppClient("15917728864","1684316"));
 		
 		//System.out.println(checkPidExeitHttpClient("13829502088"));
@@ -793,6 +795,60 @@ public class Test {
 		} else {
 			return "";
 		}
+	}
+	
+	public static List<String> getUserPids(String uname) throws Exception {
+
+		String url = "http://www.dataoke.com/ucenter/favorites_quan.asp";
+		HttpGet httpRequest = new HttpGet(url);
+		httpRequest.setHeader("Host", "www.dataoke.com");
+		httpRequest
+				.setHeader("User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		httpRequest.setHeader("Referer",
+				"http://www.dataoke.com/ucenter/mypid.asp");
+		httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		httpRequest.setHeader("Connection", "keep-alive");
+		httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+		httpRequest
+				.setHeader("Accept",
+						"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		httpRequest.setHeader("Accept-Language",
+				"zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		//httpRequest.header("X-Requested-With", "XMLHttpRequest");
+
+		setCookis(uname, httpRequest);
+		
+		String title = CharUtil.drawRandomNum();
+		//title = "Æ¬³åÊý·Å¶¼";
+		//String pid = CharUtil.getRandomPid();
+		String pid = CharUtil.getRandomPid(taoId);
+		/*httpRequest.form("title", title);
+		httpRequest.form("tong_pid", pid);
+		httpRequest.form("Submit", " ´´ ½¨ ");
+		
+		httpRequest.charset("gb2312");
+		
+		System.out.println("title: "+title + " pid : "+pid);
+
+		HttpResponse response = httpRequest.send();
+		response = response.charset("gb2312");
+		String rc = response.bodyText();
+*/
+		
+		String rc = HttpClientUtil.sendGetRequest(httpRequest,"gb2312", proxy);
+		//System.out.println("createPid返回结果：" + rc);
+
+		List<String> users = new ArrayList<String>();
+		Document document = Jsoup.parse(rc);
+		for(Element e:document.select("a")){
+			String href= e.attr("href");
+			if(StringUtils.isNotBlank(href) && href.contains("item?id=")){
+				String id = href.replace("/item?id=", "");
+				users.add(id);
+			}
+		}
+		return users;
 	}
 	
 	/**
