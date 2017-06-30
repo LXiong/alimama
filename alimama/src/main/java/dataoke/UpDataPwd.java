@@ -90,7 +90,7 @@ public class UpDataPwd {
 						FileUtils.write(fiar, uname+"----"+pwd+"\r\n",true);
 					}finally{
 						Test.proxy = null;
-						Thread.sleep(1000);
+						Thread.sleep(Cmd.getSleepTime(1000, 2000));
 					}
 					
 				}
