@@ -37,6 +37,32 @@ public class ShouQuan {
 	static int tuiguangOk = 0;
 	static HttpHost proxy = null;
 
+	
+	public static boolean tuijian(String id)throws Exception{
+		try{
+			try{
+				//webDriver.get("http://www.dataoke.com");
+				Thread.sleep(Cmd.getSleepTime(10000, 30000));
+			}catch(Exception e){
+				
+			}
+			webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+			webDriver.get("http://www.dataoke.com/item?id="+id);
+			 
+			
+			Thread.sleep(Cmd.getSleepTime(1000, 3000));
+			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
+		    element.click();
+		    //Thread.sleep(Cmd.getSleepTime());
+		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+		    Thread.sleep(Cmd.getSleepTime(1000, 3000));
+		    //Thread.sleep(Cmd.getSleepTime());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
 	public static void executeDeleteHttpClient(File file) throws Exception {
 		List<String> lists = FileUtils.readLines(file);
 		for (String s : lists) {
@@ -62,6 +88,7 @@ public class ShouQuan {
 						tuiguangOk += 1;
 						System.out.println("授權成功》》》》》》》》》》》》》》》》》》》 uname=" + uname + " 当前删除成功：" + tuiguangOk
 								+ " 当前ip==" + (proxy == null ? "无" : proxy.getHostName()));
+						System.out.println(tuijian("2838197"));
 					} else {
 						FileUtils.write(new File("D:\\dataoke\\shouquan\\fail.txt"), s+"\r\n",true);
 						System.out.println("授權失败》》》》》》》》》》》》》》》》》》uname=" + uname);

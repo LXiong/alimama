@@ -51,6 +51,7 @@ import fx.HttpTest;
 
 public class Test {
 	static String taoId = "118753669";//luoyuna0905@163.com
+	static String pid = "mm_118753669_32220852_116226718";
 	
 	//static String taoId = "118054027";//xiaonin0322@163.com
 	
@@ -582,7 +583,7 @@ public class Test {
         	String href = element.attr("href");
         	if(href.contains("act=qx_bz")){
         		String trHtml = element.parent().parent().html();
-        		if(trHtml.contains(taoId)){
+        		if(trHtml.contains(pid)){
         			pids.add(href.replace("?act=qx_bz&id=", "").trim());
         		}
         	}
@@ -776,7 +777,8 @@ public class Test {
 		String title = CharUtil.drawRandomNum();
 		//title = "Æ¬³åÊý·Å¶¼";
 		//String pid = CharUtil.getRandomPid();
-		String pid = CharUtil.getRandomPid(taoId);
+		//String pid = CharUtil.getRandomPid(taoId);
+		//pid="mm_118753669_32220852_116226718";
 		/*httpRequest.form("title", title);
 		httpRequest.form("tong_pid", pid);
 		httpRequest.form("Submit", " ´´ ½¨ ");
