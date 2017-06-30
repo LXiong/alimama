@@ -80,9 +80,12 @@ public class Test {
 		//System.out.println(createPidAll("17189683009"));
 		
 
-		System.out.println(loginHttpClient("15917728864", "3pd0qu"));
+		//System.out.println(loginHttpClient("15917728864", "3pd0qu"));
 		
-		System.out.println(getUserPids("15917728864"));
+		//System.out.println(getUserPids("15917728864"));
+		System.out.println(loginHttpClient("15201733860", "1qaz2wsx"));
+		System.out.println(updatePwdHttpClient("15201733860", "1qaz2wsx2", "1qaz2wsx"));
+		
 		
 		//System.out.println(getExitsSetPidExeitHttpClient("15917728864"));
 		
@@ -1798,10 +1801,12 @@ public class Test {
 	        
 		// HttpHost proxy = IpPoolUtil.getHttpHost();
 		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
+		 //ymima=1qaz2wsx1&xmima=1qaz2wsx&qmima=1qaz2wsx&Submit=+%CC%E1+%BD%BB+
 		 
-		 String param = "ymima="+pwd+"&"+"ymima="+pwd+"&"+"qmima="+newPwd+"&"+"Submit= ´´ ½¨ ";
+		 //String param = "ymima="+pwd+"&"+"xmima="+newPwd+"&"+"qmima="+newPwd+"&"+"Submit= ´´ ½¨ ";
 		 
-		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, param,true,null,null,proxy,null);
+		 String param = "ymima="+pwd+"&"+"xmima="+newPwd+"&"+"qmima="+newPwd+"&"+"Submit=+%CC%E1+%BD%BB+";
+		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, param,true,"gb2312","gb2312",proxy,null);
          //System.out.println("str:"+str);
 		 
 		 
