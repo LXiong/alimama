@@ -47,7 +47,8 @@ public class UpDataPwd {
 					final String pwd = s.split("\\----")[1].trim();
 					System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
 					try{
-						final HttpHost proxy = IpPoolUtil.getHttpHost();
+						//final HttpHost proxy = IpPoolUtil.getHttpHost();
+						final HttpHost proxy = null;
 						Test.proxy = proxy;
 						FutureTask<Boolean> futureTask = new FutureTask<Boolean>(new Callable<Boolean>() {
 							public Boolean call() throws Exception {

@@ -43,6 +43,7 @@ import util.IpPoolUtil;
 import util.IpUtils;
 import util.MyConnectionProvider;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -1937,8 +1938,11 @@ public class Test {
 	          String str =  HttpClientUtil.sendPostRequest(httpRequest, "username="+uname+"&"+"password="+pwd+"&vc="+"&"+"ref=",true,null,null,proxy,list);
 	          System.out.println("str:"+str);
 	          
+	          JSONObject jsonObject = JSONObject.parseObject(str);
+	          String status = jsonObject.getString("status");
+	          
 	          cookies =  list.toArray(new Cookie[]{});
-	        
+		        
 		  
 		/* for(Cookie c:cookies){
 			 System.out.println("rp=="+c.getName()+"===="+c.getValue());
@@ -1953,7 +1957,7 @@ public class Test {
 		 //System.out.println("response.headers()");
 		
 		// System.out.println(response.headers());
-		 if(ArrayUtils.isNotEmpty(cookies)){
+		 if("1".equals(status)){
 			 System.out.println("登录成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+uname);
 			 map.put(uname, cookies);
 			 addObjTOfile(cookies, uname);
