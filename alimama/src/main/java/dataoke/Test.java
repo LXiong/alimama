@@ -1266,8 +1266,7 @@ public class Test {
 			}*/
 			
 			try{
-				proxy  = IpPoolUtil.getHttpHost();
-				
+				//proxy  = IpPoolUtil.getHttpHost();
 				
 				String uname = s.split("\\----")[0].trim();
 				String pwd = s.split("\\----")[1].trim();
@@ -1771,6 +1770,12 @@ public class Test {
 			 return true;
 		 }else{
 			 System.out.println("推荐失败返回>>>>>>>>>>>>>>>"+rc);
+			 //推荐失败返回>>>>>>>>>>>>>>>is_in
+			 if("is_in".equalsIgnoreCase(rc)){
+				 System.out.println("当前已取消推荐>>>>>>>>>>再次推荐");
+				 Thread.sleep(2000);
+				 return tuijianHttpClient(id, uname);
+			 }
 		 }
 		 
 		}catch(Exception e){
