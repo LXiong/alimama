@@ -1,7 +1,6 @@
 package dataoke;
 
 import java.io.File;
-import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,17 +8,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
-import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.text.translate.UnicodeEscaper;
 import org.apache.http.HttpHost;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -59,6 +56,9 @@ public class QueryTopTui {
 			}
 		}
 		System.out.println(map);
+		for(Entry<String, String> en:map.entrySet()){
+			System.out.println(en.getKey()+"_____"+en.getValue());
+		}
 	}
 	
 	public static List<String> getdata_tk_zs_id() throws Exception {
