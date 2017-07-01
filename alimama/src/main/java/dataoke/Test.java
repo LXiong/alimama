@@ -1537,6 +1537,7 @@ public class Test {
 								
 							}else{
 								System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+uname);
+								FileUtils.write(new File("D:\\dataoke\\推荐失败。txt"), s, true);
 							}
 						}
 						Thread.sleep(Cmd.getSleepTime());
@@ -1545,6 +1546,7 @@ public class Test {
 			
            }catch(Exception e){
 				e.printStackTrace();
+				FileUtils.write(new File("D:\\dataoke\\推荐失败。txt"), s, true);
 			}finally {
 				proxy=null;
 			}
