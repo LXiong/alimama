@@ -1,6 +1,7 @@
 package dataoke;
 
 import java.io.File;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,10 +16,19 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.text.translate.UnicodeEscaper;
 import org.apache.http.HttpHost;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
+import com.alibaba.fastjson.JSONObject;
+
+import fx.HttpTest;
+import util.HttpClientUtil;
 
 public class QueryTopTui {
 
@@ -27,7 +37,62 @@ public class QueryTopTui {
 	public static void main(String[] args) throws Exception {
 		// /item?id=2815627
 		// System.out.println(getTopIds().size());
-		execute();
+		//execute();
+		//getTeamName("3247140");
+		TeamNameAll();
+	}
+	
+	public static void TeamNameAll()throws Exception{
+		List<String> topIds = getdata_tk_zs_id();
+		System.out.println(topIds);
+		Map<String,String> map = new HashMap<String, String>();
+		
+		for(int i=0;i<topIds.size();i++){
+			String id = topIds.get(i);
+			String name = getTeamName(id);
+			//System.out.println(name);
+			Thread.sleep(1000);
+			if(!map.containsKey(name)){
+				map.put(name, "index="+i+";id="+id);
+			}else{
+				map.put(name, map.get(name)+","+"index="+i+";id="+id);
+			}
+		}
+		System.out.println(map);
+	}
+	
+	public static List<String> getdata_tk_zs_id() throws Exception {
+		List<String> topIds = new ArrayList<String>();
+		Document document = Jsoup.parse(new URL(
+				"http://www.dataoke.com/top_tui"), 100000);
+		for (Element e : document.select(".goods_team_name")) {
+			String href = e.attr("data_tk_zs_id");
+				topIds.add(href.trim());
+		}
+		return topIds;
+	}
+	
+	public static String getTeamName(String id){
+		 String baseURI="http://www.dataoke.com/get_team_name";
+		 HttpPost httpRequest = new HttpPost(baseURI);
+		 httpRequest.setHeader("Content-Type", "application/json");
+		 httpRequest.setHeader("Host", "www.dataoke.com");
+		 httpRequest.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		 httpRequest.setHeader("User-Agent", HttpTest.getUserAgent());
+		 httpRequest.setHeader("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		 httpRequest.setHeader("Referer", "http://www.dataoke.com/login");
+		 httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		 httpRequest.setHeader("Connection", "keep-alive");
+		 
+		 String sendData = "data_tk_zs_id="+id;
+		 String rs = HttpClientUtil.sendPostRequest(httpRequest, sendData, true, null, null);
+		 
+		 rs =  StringEscapeUtils.unescapeJava(rs);
+		 System.out.println("rs-=-===="+rs);
+		 
+		 
+		 JSONObject jsonObject = JSONObject.parseObject(rs);
+		 return jsonObject.getString("name");
 	}
 
 	public static void execute() throws Exception {

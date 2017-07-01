@@ -12,6 +12,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import util.IpPoolUtil;
 import util.SeleniumUtil;
 
 public class ShouQuan {
@@ -72,7 +73,8 @@ public class ShouQuan {
 			count++;
 
 			try {
-
+				final HttpHost proxy = IpPoolUtil.getHttpHost();
+				Test.proxy = proxy;
 				String uname = s.split("\\----")[0].trim();
 				String pwd = s.split("\\----")[1].trim();
 				System.out.println("u = " + uname + "p = " + pwd + " 开始登陆  当前已刷>>>>>>>>>>>>>>>" + count + "当前 文件名称："
@@ -86,9 +88,13 @@ public class ShouQuan {
 					System.out.println("授权结果>>>>>>>>>>>" + flag);
 					if (flag) {
 						tuiguangOk += 1;
+						flag = Test.loginHttpClient(uname, pwd);
+						Thread.sleep(1000);
+						flag = Test.tuijianHttpClient("2832996", uname);
 						System.out.println("授權成功》》》》》》》》》》》》》》》》》》》 uname=" + uname + " 当前删除成功：" + tuiguangOk
 								+ " 当前ip==" + (proxy == null ? "无" : proxy.getHostName()));
-						System.out.println(tuijian("2838197"));
+						//System.out.println(tuijian("2838197"));
+						
 					} else {
 						FileUtils.write(new File("D:\\dataoke\\shouquan\\fail.txt"), s+"\r\n",true);
 						System.out.println("授權失败》》》》》》》》》》》》》》》》》》uname=" + uname);
