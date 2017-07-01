@@ -55,7 +55,7 @@ public class UpDataPwd {
 								try{
 									boolean flag = Test.loginHttpClient(uname, pwd);
 									System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
-									Thread.sleep(200);
+									Thread.sleep(1000);
 									if(flag){
 										int size = new Random().nextInt(4);
 										String newPwd =  new PassWordCreate().createPassWord(6+size);
