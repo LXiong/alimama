@@ -1,7 +1,6 @@
 package alimama.qq;
 
 import java.io.File;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,19 +13,16 @@ import com.google.common.collect.Lists;
 public class MatcherUtil {
 
 	public static void main(String[] args) throws Exception{
+	File baseDir = new File("D:\\dataoke\\记录");	
+	for(File f:baseDir.listFiles()){
+		String content =	FileUtils.readFileToString(f);
+		List<String> urls = getUrl(content);
+		System.out.println(urls.size());
+		FileUtils.writeLines(new File("g:\\test.txt"), urls,true);
+	}	
 
-	String content =	FileUtils.readFileToString(new File("G:\\群聊天记录.txt"));
-	
-	List<String> urls = getUrl(content);
-	
-	System.out.println(urls.size());
-	
-	FileUtils.writeLines(new File("g:\\test.txt"), urls);
-	
-	List<List<String>> list  = new ArrayList<List<String>>();
-	
-	
-	System.out.println(URLEncoder.encode("https://item.taobao.com/item.htm?id=537764519790"));
+/*	List<List<String>> list  = new ArrayList<List<String>>();
+	System.out.println(URLEncoder.encode("https://item.taobao.com/item.htm?id=537764519790"));*/
 	
 	
 	}
