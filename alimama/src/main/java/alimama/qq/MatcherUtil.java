@@ -30,9 +30,9 @@ public class MatcherUtil {
 	 //String url = "https://s.click.taobao.com/t_js?tu=https%3A%2F%2Fs.click.taobao.com%2Ft%3Fe%3Dm%253D2%2526s%253DwZY1m4P9%2FlgcQipKwQzePOeEDrYVVa64LKpWJ%252Bin0XLjf2vlNIV67k6sUyt%2FHOxawSB8%2FImevICvY1yQ5DBpWzLoYiD2i%2FTkY5nwOqv%252B3Kn59b2%2FtIPC7sIb6W87vOnX17G9PHyDxxTdk3s4taYJInWE7%2FiS8F4aIYULNg46oBA%253D%26pvid%3D10_14.117.123.0_502_1497401257871%26sc%3Df6VAGiw%26ref%3D%26et%3D2SAeSbhRl%252FC618fjagayH%252BPmnTNy69Cr";
 	 //System.out.println(URLDecoder.decode(url));
 		//testAll();
-		testDuan();
+		//testDuan();
 		//System.out.println(getTaoLongURL("https://s.click.taobao.com/DWgHKiw"));
-		//filter();
+		filter();
 	}
 	
   public static void testDuan()throws Exception{
@@ -239,7 +239,7 @@ public class MatcherUtil {
 					&& !str.contains("market.m.taobao.com")) {
 				newList.add(str);
 				if(str.contains("click")){
-					FileUtils.write(new File("g:\\test1.txt"), str+"\r\n",true);
+					//FileUtils.write(new File("g:\\test1.txt"), str+"\r\n",true);
 				}else{
 					FileUtils.write(new File("g:\\test2.txt"), str+"\r\n",true);
 				}
