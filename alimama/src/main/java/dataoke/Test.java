@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,8 +87,8 @@ public class Test {
 		
 		//System.out.println(getUserPids("15917728864"));
 		System.out.println(loginHttpClient("15201733860", "1qaz2wsx"));
-		System.out.println(updatePwdHttpClient("15201733860", "1qaz2wsx2", "1qaz2wsx"));
-		
+		//System.out.println(updatePwdHttpClient("15201733860", "1qaz2wsx2", "1qaz2wsx"));
+		System.out.println(taoTokenHttpClient("2895505", "15201733860"));
 		
 		//System.out.println(getExitsSetPidExeitHttpClient("15917728864"));
 		
@@ -1769,16 +1770,15 @@ public class Test {
 		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "act=add_quan&id="+id,true,null,null,proxy,null);
          //System.out.println("str:"+str);
 		 
-		 
-		 if(rc.equalsIgnoreCase("ok")){
+		 if(rc != null && rc.equalsIgnoreCase("ok")){
 			 return true;
 		 }else{
 			 System.out.println("推荐失败返回>>>>>>>>>>>>>>>"+rc);
 			 //推荐失败返回>>>>>>>>>>>>>>>is_in
 			 if("is_in".equalsIgnoreCase(rc)){
-				 System.out.println("当前已取消推荐>>>>>>>>>>再次推荐");
+				/* System.out.println("当前已取消推荐>>>>>>>>>>再次推荐");
 				 Thread.sleep(2000);
-				 return tuijianHttpClient(id, uname);
+				 return tuijianHttpClient(id, uname);*/
 			 }
 		 }
 		 
@@ -1788,6 +1788,61 @@ public class Test {
 		 
 		return false;
 	}
+
+	
+	public static boolean taoTokenHttpClient(String id,String uname)throws Exception{
+		try{
+		String url ="http://www.dataoke.com/dtpwd";
+		HttpPost httpRequest = new HttpPost(url);
+		 httpRequest.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+		 httpRequest.setHeader("Host", "www.dataoke.com");
+		 httpRequest.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+		 httpRequest.setHeader("Referer", "http://www.dataoke.com/item?id="+id);
+		 httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+		 httpRequest.setHeader("Connection", "keep-alive");
+		 httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+		 httpRequest.setHeader("User-Agent", HttpTest.getUserAgent());
+		 
+		 setCookis(uname, httpRequest);
+/*
+		   HttpClientUtils httpClientUtils = new HttpClientUtils();
+		 
+		    List<NameValuePair> nvps = new ArrayList<NameValuePair>();  
+	        nvps.add(new BasicNameValuePair("act", "add_quan"));  
+	        nvps.add(new BasicNameValuePair("id", id));  
+	        httpRequest.setEntity(new UrlEncodedFormEntity(nvps));  */
+	        
+		// HttpHost proxy = IpPoolUtil.getHttpHost();
+		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
+		 
+		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "type=2&gid="+id,true,null,null,proxy,null);
+		 //System.out.println("str:"+rc);
+         JSONObject jsonObject = JSONObject.parseObject(rc);
+         String status = jsonObject.getString("status");
+		 if("1".equals(status)){
+			 httpRequest.setURI(new URI("http://www.dataoke.com/detailtpl"));
+			 rc =  HttpClientUtil.sendPostRequest(httpRequest, "gid="+id,true,null,null,proxy,null);
+			 //System.out.println("str:"+rc);
+			 jsonObject = JSONObject.parseObject(rc);
+	         status = jsonObject.getString("status");
+			 if("1".equals(status)){
+				 return true;	 
+			 }else{
+				 System.out.println("str:"+rc);
+			 }
+			 
+		 }else{
+			 System.out.println("str>>>>>>>>>>>>>>>"+rc);
+		 }
+		 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		 
+		return false;
+	}
+
+	
 	
 	public static boolean updatePwdHttpClient(String uname,String pwd,String newPwd)throws Exception{
 		try{
