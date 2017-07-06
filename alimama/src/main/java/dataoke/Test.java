@@ -1422,6 +1422,48 @@ public class Test {
 	}
 
 	
+	
+	/**
+	 * 点击商品详情
+	 * @param pid
+	 * @param uname
+	 * @return
+	 */
+	public static boolean readDetailHttpClient(String pid,String uname){
+		String url = "http://www.dataoke.com/item?id="+pid;
+		try{
+			HttpGet httpRequest = new HttpGet(url);
+			 httpRequest.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+			 httpRequest.setHeader("Host", "www.dataoke.com");
+			 //httpRequest.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0");
+			 httpRequest.setHeader("User-Agent", HttpTest.getUserAgent());
+			 //httpRequest.header("Referer", "http://www.dataoke.com/item?id="+id);
+			 //http://www.dataoke.com/search/?keywords=%E5%A4%8F%E5%AD%A3%E5%A5%B3%E5%A3%AB&xuan=keyword_miaoshu
+			 httpRequest.setHeader("Referer", "http://www.dataoke.com/top_tui");
+			 httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
+			 httpRequest.setHeader("Connection", "keep-alive");
+			 httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
+			 //setRandomIp(httpRequest);
+			 setCookis(uname, httpRequest);
+
+			 String rc = HttpClientUtil.sendGetRequest(httpRequest, "utf-8", proxy);
+			// System.out.println(rc);
+			 
+			 if(rc.contains("商家合作")){
+				 return true;
+			 }else{
+				 System.out.println("商品详情返回："+rc);
+			 }
+			 
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		   
+			 
+			return false;
+	
+	}
+	
 	/**
 	 * 点击商品详情
 	 * @param pid
@@ -1442,7 +1484,7 @@ public class Test {
 			 httpRequest.header("Upgrade-Insecure-Requests", "1");
 			 httpRequest.header("Connection", "keep-alive");
 			 httpRequest.header("X-Requested-With", "XMLHttpRequest");
-			 setRandomIp(httpRequest);
+			 //setRandomIp(httpRequest);
 			 
 			 
 			 setCookis(uname, httpRequest);
@@ -1473,7 +1515,7 @@ public class Test {
 				int cout = new Random().nextInt(3);
 				for(int i=0;i<cout;i++){
 					try {
-						boolean flag = readDetailHttp(pid, uname);
+						boolean flag = readDetailHttpClient(pid, uname);
 						System.out.println("uname :"+uname + " 刷阅读数结果 ："+flag);
 						long time = new Random().nextInt(1000)+1000l;
 						Thread.sleep(time);
@@ -1508,7 +1550,7 @@ public class Test {
 			}*/
 		
 			try{
-				proxy  = IpPoolUtil.getHttpHost();
+				//proxy  = IpPoolUtil.getHttpHost();
 			
 					String uname = s.split("\\----")[0].trim();
 					String pwd = s.split("\\----")[1].trim();
@@ -1527,6 +1569,7 @@ public class Test {
 							//boolean flagt = tuijian(pid,uname,true);
 							//boolean flagt = tuijian(pid,uname);
 							boolean flagt = tuijianHttpClient(pid,uname);
+							//boolean flagt = taoTokenHttpClient(pid,uname);
 							//flag = tuijianToFile(pid,uname);
 							//boolean flagt = zhuan(uname,pid);
 							//boolean flagt = TestSelenium.execute(pid,uname);
