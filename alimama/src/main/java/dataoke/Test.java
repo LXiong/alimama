@@ -13,13 +13,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import jodd.http.Cookie;
-import jodd.http.HttpRequest;
-import jodd.http.HttpResponse;
-import jodd.http.ProxyInfo;
-import jodd.http.ProxyInfo.ProxyType;
-import jodd.http.net.SocketHttpConnectionProvider;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -37,18 +30,23 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.alibaba.fastjson.JSONObject;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+import fx.HttpTest;
+import jodd.http.Cookie;
+import jodd.http.HttpRequest;
+import jodd.http.HttpResponse;
+import jodd.http.ProxyInfo;
+import jodd.http.ProxyInfo.ProxyType;
+import jodd.http.net.SocketHttpConnectionProvider;
 import util.CharUtil;
 import util.HtmlUnitUtil;
 import util.HttpClientUtil;
 import util.IpPoolUtil;
 import util.IpUtils;
 import util.MyConnectionProvider;
-
-import com.alibaba.fastjson.JSONObject;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import fx.HttpTest;
 
 public class Test {
 	static String taoId = "118753669";//luoyuna0905@163.com
@@ -88,7 +86,7 @@ public class Test {
 		//System.out.println(getUserPids("15917728864"));
 		System.out.println(loginHttpClient("15201733860", "1qaz2wsx"));
 		//System.out.println(updatePwdHttpClient("15201733860", "1qaz2wsx2", "1qaz2wsx"));
-		System.out.println(taoTokenHttpClient("2895505", "15201733860"));
+		System.out.println(taoTokenHttpClient("2895505", "15201733860","2"));
 		
 		//System.out.println(getExitsSetPidExeitHttpClient("15917728864"));
 		
@@ -951,15 +949,17 @@ public class Test {
 	
 	public static boolean zhuan(String uname,String ppid)throws Exception {
 		try{
-			boolean flag = tuijian2to1_1(uname, ppid);
-			System.out.println("二转一第一步>>>>>>>>>>>>>>>>>>>>>>>"+flag);
+			//boolean flag = tuijian2to1_1(uname, ppid);
+			boolean flag = taoTokenHttpClient(ppid, uname, "1");
+			
+			System.out.println("转二转一>>>>>>>>>>>>>>>>>>>>>>>"+flag);
 			
 			if(!flag){
 				return flag;
 			}
 			
-			flag = tuijian2to1_2(uname, ppid);
-			System.out.println("二转一第二步>>>>>>>>>>>>>>>>>>>>>>>"+flag);
+			flag = taoTokenHttpClient(ppid, uname, "2");
+			System.out.println("转淘口令>>>>>>>>>>>>>>>>>>>>>>>"+flag);
 			
 			return flag;
 		}catch(Exception e){
@@ -1003,7 +1003,9 @@ public class Test {
 
 		//System.out.println("createPid返回结果：" + rc);
 
-		if (rc.contains(":1")) {
+		 JSONObject jsonObject = JSONObject.parseObject(rc);
+         String status = jsonObject.getString("status");
+		 if("1".equals(status)){
 			//String ppid = queryPidByName(uname, title);
 			return true;
 		} else {
@@ -1043,7 +1045,9 @@ public class Test {
 
 		//System.out.println("createPid返回结果：" + rc);
 
-		if (rc.contains(":1")) {
+		JSONObject jsonObject = JSONObject.parseObject(rc);
+        String status = jsonObject.getString("status");
+		if("1".equals(status)){
 			//String ppid = queryPidByName(uname, title);
 			return true;
 		} else {
@@ -1550,7 +1554,7 @@ public class Test {
 			}*/
 		
 			try{
-				//proxy  = IpPoolUtil.getHttpHost();
+				proxy  = IpPoolUtil.getHttpHost();
 			
 					String uname = s.split("\\----")[0].trim();
 					String pwd = s.split("\\----")[1].trim();
@@ -1560,7 +1564,11 @@ public class Test {
 					boolean flag = loginHttpClient(uname,pwd);
 					//boolean flag = true;
 					System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
-					Thread.sleep(200);
+					Thread.sleep(Cmd.getSleepTime(400, 1000));
+					//System.out.println("开始清空所有账号>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					//flag = deleteAllHttpClient(uname,"0");
+					//Thread.sleep(Cmd.getSleepTime(400, 1000));
+					
 					for(String pid:pids){
 					    if(flag){
 					    	readExecute(pid, uname);
@@ -1568,10 +1576,12 @@ public class Test {
 							
 							//boolean flagt = tuijian(pid,uname,true);
 							//boolean flagt = tuijian(pid,uname);
-							boolean flagt = tuijianHttpClient(pid,uname);
-							//boolean flagt = taoTokenHttpClient(pid,uname);
+							//boolean flagt = tuijianHttpClient(pid,uname);
+							//boolean flagt = taoTokenHttpClient(pid,uname,"2");
+							//Thread.sleep(Cmd.getSleepTime(400, 1000));
+							//flagt = taoTokenHttpClient(pid,uname,"2");
 							//flag = tuijianToFile(pid,uname);
-							//boolean flagt = zhuan(uname,pid);
+							boolean flagt = zhuan(uname,pid);
 							//boolean flagt = TestSelenium.execute(pid,uname);
 							if(flagt){
 								tuiguangOk += 1;
@@ -1833,7 +1843,7 @@ public class Test {
 	}
 
 	
-	public static boolean taoTokenHttpClient(String id,String uname)throws Exception{
+	public static boolean taoTokenHttpClient(String id,String uname,String type)throws Exception{
 		try{
 		String url ="http://www.dataoke.com/dtpwd";
 		HttpPost httpRequest = new HttpPost(url);
@@ -1857,8 +1867,8 @@ public class Test {
 	        
 		// HttpHost proxy = IpPoolUtil.getHttpHost();
 		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
-		 
-		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "type=2&gid="+id,true,null,null,proxy,null);
+		 //type=2 淘口令 1.转二合一
+		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "type="+type+"&gid="+id,true,null,null,proxy,null);
 		 //System.out.println("str:"+rc);
          JSONObject jsonObject = JSONObject.parseObject(rc);
          String status = jsonObject.getString("status");
