@@ -238,6 +238,7 @@ public class TuiJianSelenium {
 	
 	public static void webGet(String url){
 		try {
+			webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 			webDriver.get(url);
 		} catch (Exception e) {
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
@@ -280,12 +281,7 @@ public class TuiJianSelenium {
 	
 	public static boolean sreachGoods(String taobaoId)throws Exception{
 		try{
-			try{
-				webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-				 webGet("http://www.dataoke.com/search/?keywords="+taobaoId+"&xuan=spid");
-			}catch(Exception e){
-				
-			}
+			webGet("http://www.dataoke.com/search/?keywords="+taobaoId+"&xuan=spid");
 			Thread.sleep(Cmd.getSleepTime(5000, 8000));
 			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
 		    element.click();
@@ -305,7 +301,6 @@ public class TuiJianSelenium {
 	 */
 	public static String  getGoodsDatils(String pid){
 		String uri = "http://www.dataoke.com/item?id="+pid;
-		webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 		webGet(uri);
 		//
 		WebElement webElement = webDriver.findElement(By.xpath("//a[@rel='nofollow']"));
@@ -323,8 +318,13 @@ public class TuiJianSelenium {
 	 */
 	public static boolean serachTuiJian(String keywords){
 		String uri = "http://www.dataoke.com/search/?keywords="+keywords+"&xuan=spid";
-		webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-		webGet(uri);
+		//webGet(uri);
+		try {
+			webDriver.get(uri);
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		//
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		
@@ -345,9 +345,8 @@ public class TuiJianSelenium {
 			String str = "http://www.dataoke.com/ucenter/favorites_quan.asp";
 			
 			//今日推广fav_sendtime_22334731828
-			webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 			webGet(str);
-			
+			Thread.sleep(2000);
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 			js.executeScript("document.querySelectorAll(\"*[id='fav_sendtime_"+taoBaoId+"']\")[0].click();");
 			
@@ -377,7 +376,6 @@ public class TuiJianSelenium {
 			}catch(Exception e){
 				
 			}
-			webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 			webGet("http://www.dataoke.com/item?id="+id);
 			 
 			
