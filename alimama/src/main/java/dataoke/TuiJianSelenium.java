@@ -205,8 +205,11 @@ public class TuiJianSelenium {
 					for(String pid:pids){
 					    if(flag){
 					    	String taoBaoId = getGoodsDatils(pid);
-							Thread.sleep(500);
+					    	Thread.sleep(Cmd.getSleepTime(500, 2000));
 							boolean flagt = serachTuiJian(taoBaoId);
+							Thread.sleep(Cmd.getSleepTime(500, 2000));
+							getGoodsDatils(pid);
+							Thread.sleep(Cmd.getSleepTime(500, 2000));
 							flagt = biaoJiAndJiaLog(taoBaoId, pid);
 							if(flagt){
 								tuiguangOk += 1;
