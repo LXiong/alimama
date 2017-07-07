@@ -1,6 +1,7 @@
 package alimama.qq;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,7 +33,25 @@ public class MatcherUtil {
 		//testAll();
 		//testDuan();
 		//System.out.println(getTaoLongURL("https://s.click.taobao.com/DWgHKiw"));
-		filter();
+		//filter();
+		System.out.println(getURIByQueryVal("https://detail.tmall.com/item.htm?id=22334731828", "id"));
+	}
+	
+	public static String getURIByQueryVal(String uri,String key){
+		 URL url=null;
+		try {
+			url = new URL(uri);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 String queryStr = url.getQuery();
+		 for(String q:queryStr.split("\\&")){
+			 if(StringUtils.isNotBlank(q) && q.startsWith(key)){
+				 return q.split("\\=")[1];
+			 }
+		 }
+		 return null;
 	}
 	
   public static void testDuan()throws Exception{
