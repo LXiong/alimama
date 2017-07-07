@@ -302,6 +302,11 @@ public class TuiJianSelenium {
 	public static String  getGoodsDatils(String pid){
 		String uri = "http://www.dataoke.com/item?id="+pid;
 		webGet(uri);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		//
 		WebElement webElement = webDriver.findElement(By.xpath("//a[@rel='nofollow']"));
 		String href = webElement.getAttribute("href");
