@@ -36,7 +36,7 @@ public class CmdTuiJianSelenium {
 	public static void main(String[] args) throws Exception{
 		
 		//Thread.sleep(1000 * 60 * 60);
-		args = new String[]{"2904433","88","300,600","1"}; 
+		args = new String[]{"2904025","83,84","300,600","1"}; 
 		
 		
 		String pids = args[0];

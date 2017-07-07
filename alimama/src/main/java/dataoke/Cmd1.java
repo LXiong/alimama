@@ -10,22 +10,17 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Cmd1 {
 	
-static Map<String,File> map = new HashMap<String, File>();
-	
+     static Map<String,File> map = new HashMap<String, File>();
+    static File base = new File("D:\\dataoke\\users\\");
 	static{
-		map.put("1", new File("d:\\dataoke\\大淘客帐号\\A批第1组500.txt"));
-		map.put("2", new File("d:\\dataoke\\大淘客帐号\\A批第2组500.txt"));
-		map.put("3", new File("d:\\dataoke\\大淘客帐号\\A批第3组500.txt"));
-		map.put("4", new File("d:\\dataoke\\大淘客帐号\\A批第4组390.txt"));
-		map.put("5", new File("d:\\dataoke\\大淘客帐号\\B批第1组500.txt"));
-		map.put("6", new File("d:\\dataoke\\大淘客帐号\\B批第2组500.txt"));
-		map.put("7", new File("d:\\dataoke\\大淘客帐号\\B批第3组500.txt"));
-		map.put("8", new File("d:\\dataoke\\大淘客帐号\\B批第4组410.txt"));
+		for(File f:base.listFiles()){
+			map.put(f.getName().replace(".txt", ""), f);
+		}
 	}
 	
-	public static int min = 1000;
+	public static int min = 3000;
 	
-	public static int max = 2000;
+	public static int max = 10000;
 	
 	public static int getSleepTime(){
 	   return getSleepTime(min, max);
@@ -38,7 +33,15 @@ static Map<String,File> map = new HashMap<String, File>();
         return s;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
+		
+		//Thread.sleep(1000 * 60 * 60);
+		//args = new String[]{"2882511,2895769","103","5000,20000","1"}; 
+		args = new String[]{"2884591","103","5000,20000","1"};
+		
+		//args = new String[]{"2882511,2901049,2889178,2895769","104","6000,15000","1"};
+		
+		
 		String pids = args[0];
 		String fileIds = args[1];
 		
