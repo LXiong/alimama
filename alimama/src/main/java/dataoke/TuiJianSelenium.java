@@ -24,6 +24,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -40,8 +41,7 @@ public class TuiJianSelenium {
 	   
 	}
 	
-	static WebDriver webDriver = null;
-	
+	static WebDriver webDriver = SeleniumUtil.initChromeDriver();;
 	static String tnum = "";
 	static int errorSize = 0;
 	
@@ -224,16 +224,32 @@ public class TuiJianSelenium {
 				FileUtils.write(new File("D:\\dataoke\\推荐失败.txt"), s+"\r\n", true);
 			}finally {
 				proxy=null;
+				try{
+					webGet("http://www.dataoke.com/logout");
+					Thread.sleep(Cmd.getSleepTime(2000, 3000));
+				}catch(Exception e){
+					
+				}
 			}
 			
 			
 		}
 	}
 	
+	public static void webGet(String url){
+		try {
+			webDriver.get(url);
+		} catch (Exception e) {
+			JavascriptExecutor js = (JavascriptExecutor) webDriver;
+	        js.executeScript("window.stop();");  
+	        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
+		  }
+		}
+	
 	
 	public static boolean login(String uname,String pwd)throws Exception{
 		try{
-			webDriver.get("http://www.dataoke.com/login");
+			 webGet("http://www.dataoke.com/login");
 			Thread.sleep(Cmd.getSleepTime(1000, 2000));
 			WebElement element =webDriver.findElement(By.xpath("//input[@data-id='email']"));
 		    element.sendKeys(uname);
@@ -266,7 +282,7 @@ public class TuiJianSelenium {
 		try{
 			try{
 				webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-				webDriver.get("http://www.dataoke.com/search/?keywords="+taobaoId+"&xuan=spid");
+				 webGet("http://www.dataoke.com/search/?keywords="+taobaoId+"&xuan=spid");
 			}catch(Exception e){
 				
 			}
@@ -290,7 +306,7 @@ public class TuiJianSelenium {
 	public static String  getGoodsDatils(String pid){
 		String uri = "http://www.dataoke.com/item?id="+pid;
 		webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-		webDriver.get(uri);
+		webGet(uri);
 		//
 		WebElement webElement = webDriver.findElement(By.xpath("//a[@rel='nofollow']"));
 		String href = webElement.getAttribute("href");
@@ -308,11 +324,13 @@ public class TuiJianSelenium {
 	public static boolean serachTuiJian(String keywords){
 		String uri = "http://www.dataoke.com/search/?keywords="+keywords+"&xuan=spid";
 		webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-		webDriver.get(uri);
+		webGet(uri);
 		//
-		WebElement webElement = webDriver.findElement(By.xpath("//*[@class='quan_add_u go_info']"));
-		webElement.click();
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		
+		//WebElement webElement = webDriver.findElement(By.xpath("//*[@class='quan_add_u go_info']"));
+		//webElement.click();
+		js.executeScript("document.querySelectorAll(\"*[class='quan_add_u go_info']\")[0].click();");
 		System.out.println("keywords推荐成功 ==="+keywords);
 		return true;
 	}
@@ -328,16 +346,22 @@ public class TuiJianSelenium {
 			
 			//今日推广fav_sendtime_22334731828
 			webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-			webDriver.get(str);
-			WebElement webElement = webDriver.findElement(By.xpath("//*[@class='fav_sendtime_"+taoBaoId+"']"));
-			webElement.click();
+			webGet(str);
+			
+			JavascriptExecutor js = (JavascriptExecutor) webDriver;
+			js.executeScript("document.querySelectorAll(\"*[id='fav_sendtime_"+taoBaoId+"']\")[0].click();");
+			
+			//WebElement webElement = webDriver.findElement(By.xpath("//*[@id='fav_sendtime_"+taoBaoId+"']"));
+			//webElement.click();
 			
 			System.out.println("taoBaoId 今日推广标记成功 =="+taoBaoId);
 			
 			Thread.sleep(1000);
 			
-			webElement = webDriver.findElement(By.xpath("//*[@class='fav_add_rz_"+pid+"']"));
-			webElement.click();
+			//webElement = webDriver.findElement(By.xpath("//*[@id='fav_add_rz_"+pid+"']"));
+			//webElement.click();
+			
+			js.executeScript("document.querySelectorAll(\"*[id='fav_add_rz_"+pid+"']\")[0].click();");
 			
 			System.out.println("taoBaoId 标记时间标记成功 =="+taoBaoId);
 			return true;
@@ -348,20 +372,20 @@ public class TuiJianSelenium {
         System.out.println("当前推荐>>>>>>>>>"+map);
 		try{
 			try{
-				//webDriver.get("http://www.dataoke.com");
+				//webGet("http://www.dataoke.com");
 				Thread.sleep(Cmd.getSleepTime(2000, 3000));
 			}catch(Exception e){
 				
 			}
 			webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-			webDriver.get("http://www.dataoke.com/item?id="+id);
+			webGet("http://www.dataoke.com/item?id="+id);
 			 
 			
 			Thread.sleep(Cmd.getSleepTime(5000, 8000));
 			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
 		    element.click();
 		    //Thread.sleep(Cmd.getSleepTime());
-		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+		    //webGet("http://www.dataoke.com/ucenter/favorites_quan.asp");
 		    //Thread.sleep(Cmd.getSleepTime(1000, 2000));
 		    if(map.containsKey(id)){
 		    	map.put(id, map.get(id)+1);
@@ -423,14 +447,14 @@ public class TuiJianSelenium {
 		
 		webDriver = SeleniumUtil.initChromeDriver();
 		try{
-			webDriver.get("http://www.dataoke.com/item?id="+id);
+			webGet("http://www.dataoke.com/item?id="+id);
 			setCookis(uname, webDriver);
-			webDriver.get("http://www.dataoke.com/item?id="+id);
+			webGet("http://www.dataoke.com/item?id="+id);
 			Thread.sleep(Cmd.getSleepTime());
 			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
 		    element.click();
 		    Thread.sleep(Cmd.getSleepTime());
-		    webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+		    webGet("http://www.dataoke.com/ucenter/favorites_quan.asp");
 		    Thread.sleep(Cmd.getSleepTime());
 		}catch(Exception e){
 			e.printStackTrace();
