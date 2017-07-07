@@ -216,7 +216,7 @@ public class TuiJianSelenium {
 								FileUtils.write(new File("D:\\dataoke\\推荐失败。txt"), s+"\r\n", true);
 							}
 						}
-						Thread.sleep(Cmd.getSleepTime());
+						//Thread.sleep(Cmd.getSleepTime());
 					}
 			
            }catch(Exception e){
@@ -226,7 +226,7 @@ public class TuiJianSelenium {
 				proxy=null;
 				try{
 					webGet("http://www.dataoke.com/logout");
-					Thread.sleep(Cmd.getSleepTime(2000, 3000));
+					Thread.sleep(Cmd.getSleepTime(1000, 3000));
 				}catch(Exception e){
 					
 				}
@@ -261,7 +261,7 @@ public class TuiJianSelenium {
 		    element =webDriver.findElement(By.xpath("//a[@class='submit-btn login-btn']"));
 		    element.click();
 		    
-		    Thread.sleep(Cmd.getSleepTime(3000, 5000));
+		    Thread.sleep(Cmd.getSleepTime(1000, 2000));
 		    
 		    String str = webDriver.getPageSource();
 		    
@@ -332,6 +332,11 @@ public class TuiJianSelenium {
 		//webElement.click();
 		js.executeScript("document.querySelectorAll(\"*[class='quan_add_u go_info']\")[0].click();");
 		System.out.println("keywords推荐成功 ==="+keywords);
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 	
@@ -346,7 +351,7 @@ public class TuiJianSelenium {
 			
 			//今日推广fav_sendtime_22334731828
 			webGet(str);
-			Thread.sleep(2000);
+			Thread.sleep(Cmd.getSleepTime(2000, 3000));
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 			js.executeScript("document.querySelectorAll(\"*[id='fav_sendtime_"+taoBaoId+"']\")[0].click();");
 			
@@ -426,42 +431,7 @@ public class TuiJianSelenium {
 		 }
 	}
 	
-	public static boolean execute(String id,String uname)throws Exception{
-		/*if(webDriver==null){
-			webDriver = SeleniumUtil.initChromeDriver();
-		}*/
-		
-		/* List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1");
-		 if(CollectionUtils.isEmpty(hosts)){
-			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-			 Thread.sleep(5000);
-			 return false;
-		 }else{
-			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
-		 }
-		HttpHost host = hosts.get(0); */
-		
-		//http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=%E5%9B%BD%E5%86%85&gl=1
-		
-		webDriver = SeleniumUtil.initChromeDriver();
-		try{
-			webGet("http://www.dataoke.com/item?id="+id);
-			setCookis(uname, webDriver);
-			webGet("http://www.dataoke.com/item?id="+id);
-			Thread.sleep(Cmd.getSleepTime());
-			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
-		    element.click();
-		    Thread.sleep(Cmd.getSleepTime());
-		    webGet("http://www.dataoke.com/ucenter/favorites_quan.asp");
-		    Thread.sleep(Cmd.getSleepTime());
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally {
-			webDriver.close();
-		}
-		return true;
-	}
-	
+
 	
 	public static void setCookis(String uname,WebDriver webDriver)throws Exception{
 		Map<String, String> cookisMap = new HashMap<String, String>();
