@@ -303,19 +303,28 @@ public class TuiJianSelenium {
 	 * @param keywords
 	 */
 	public static String  getGoodsDatils(String pid){
-		String uri = "http://www.dataoke.com/item?id="+pid;
-		webGet(uri);
+		String href = "";
 		try {
+			String uri = "http://www.dataoke.com/item?id="+pid;
+			webGet(uri);
 			Thread.sleep(2000);
+			//
+			WebElement webElement = webDriver.findElement(By.xpath("//a[@rel='nofollow']"));
+			 href = webElement.getAttribute("href");
+			if(StringUtils.isNotBlank(href)){
+				return alimama.qq.MatcherUtil.getURIByQueryVal(href,"id");
+			}
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			System.out.println("getGoodsDatils 出异常了>>>>>>>>>>>>>>>>>>>>>>>");
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			//e.printStackTrace();
+			return getGoodsDatils(pid);
 		}
-		//
-		WebElement webElement = webDriver.findElement(By.xpath("//a[@rel='nofollow']"));
-		String href = webElement.getAttribute("href");
-		if(StringUtils.isNotBlank(href)){
-			return alimama.qq.MatcherUtil.getURIByQueryVal(href,"id");
-		}
+		
 		return href;
 	}
 	
