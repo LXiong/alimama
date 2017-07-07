@@ -216,7 +216,7 @@ public class TuiJianSelenium {
 								FileUtils.write(new File("D:\\dataoke\\推荐失败。txt"), s+"\r\n", true);
 							}
 						}
-						//Thread.sleep(Cmd.getSleepTime());
+					    Thread.sleep(Cmd.getSleepTime(1000, 2000));
 					}
 			
            }catch(Exception e){
