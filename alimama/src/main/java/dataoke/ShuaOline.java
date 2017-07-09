@@ -15,12 +15,12 @@ public class ShuaOline {
 		String url = args[0];
 		System.out.println("url====="+url);
 		int len = 10000000;
-		if(args.length == 2){
+		if(args.length >= 2){
 			len = Integer.valueOf(args[1]);
 		    System.out.println("当前要刷====="+len);
 		}
 		
-		if(args.length == 3){
+		if(args.length >= 3){
 			Integer sleep = Integer.parseInt(args[2].trim());
 			System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
 			try {
