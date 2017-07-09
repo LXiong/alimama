@@ -12,14 +12,35 @@ public class ShuaOline {
 	static  WebDriver webDriver = util.SeleniumUtil.initChromeDriver();
 	
 	public static void main(String[] args)throws Exception {
+		String url = args[0];
+		System.out.println("url====="+url);
+		int len = 10000000;
+		if(args.length == 2){
+			len = Integer.valueOf(args[1]);
+		    System.out.println("当前要刷====="+len);
+		}
 		
-		webGet("https://login.m.taobao.com/login.htm");
+		if(args.length == 3){
+			Integer sleep = Integer.parseInt(args[2].trim());
+			System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
+			try {
+				Thread.sleep(1000 * sleep);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(!Test.check()){
+			System.out.println("校验失败>>>>>>>>>>>>>>>>>>>>>>>>>>清联系管理员");
+			return ;
+		}
+		
+		webGet("https://login.taobao.com");
 		System.in.read();
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
-		for(int i=0;i<10000000;i++){
+		for(int i=0;i<len;i++){
 			//https://detail.m.tmall.com/item.htm?id=26304648306
-			
-			webGet("https://detail.m.tmall.com/item.htm?id=39432153632");
+			webGet(url);
 			System.out.println("当前已刷>>>>>>>>>>>>>>>>>"+i);
 		}
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
