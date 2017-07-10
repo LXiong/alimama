@@ -12,7 +12,7 @@ public class ShuaOline2 {
 	static  WebDriver webDriver = util.SeleniumUtil.initChromeDriver();
 	
 	public static void main(String[] args)throws Exception {
-		webGet("https://login.m.taobao.com/login.htm");
+		webGet("https://login.taobao.com");
 		System.in.read();
 		
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
