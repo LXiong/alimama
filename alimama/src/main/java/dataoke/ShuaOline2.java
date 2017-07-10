@@ -17,7 +17,8 @@ public class ShuaOline2 {
 		
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 		for(int i=0;i<10000000;i++){
-			webGet("https://detail.m.tmall.com/item.htm?id=39432153632");
+			//webGet("https://detail.m.tmall.com/item.htm?id=39432153632");
+			webGet("http://h5.m.taobao.com/awp/core/detail.htm?id=547253791372");
 			//webGet("https://detail.tmall.com/item.htm?spm=a220o.1000855.1998025129.3.4732a2bdJAnTs3&abtest=_AB-LR32-PR32&pvid=e2ce3330-0241-428d-ae6c-ed39ad092ac9&pos=3&abbucket=_AB-M32_B3&acm=03054.1003.1.1539344&id=39432153632&scm=1007.12144.81309.23864_0&skuId=3114861259084");
 			System.out.println("当前已刷>>>>>>>>>>>>>>>>>"+i);
 		}
