@@ -1,12 +1,16 @@
 package dataoke;
 
+import github.GitHubUtils;
+
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 public class Cmd {
 	
@@ -69,13 +73,18 @@ public class Cmd {
 	}
 	
 	
-	public static void execute(String pids,String fileIds){
+	public static void execute(final String pids,final String fileIds){
 		System.out.println("输入的商品id==="+pids);
 		
 		System.out.println("文件id==="+fileIds);
 		
 		System.out.println("开始验证>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		if(Test.check()){
+			new Thread(){
+				public void run() {
+					GitHubUtils.commitDataoke("pids="+pids+"_fileIds="+fileIds);
+				};
+			}.start();
 			try {
 				Test.execteAll(pids.split(","),getFiles(fileIds));
 			} catch (Exception e) {

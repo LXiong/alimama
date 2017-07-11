@@ -23,6 +23,13 @@ public class GitHubUtils {
 		commit("xiaomin99/online",content, DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"), path, false);
 	}
 	
+	public static void commitDataoke(String content){
+		String date =DateFormatUtils.format(new Date(), "yyyyMMdd");
+		String path =date+"/"+ DateFormatUtils.format(new Date(), "yyyyMMdd_HHmmss") +".txt";
+		commit("xiaomin99/dataoke",content,DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"), path, false);
+	}
+	
+	
 	public static void commit(String rep,String content,String commitmsg,String path,boolean isAdd){
 		try{
 		GitHub github = GitHub.connectUsingPassword("xiaomin0322@sina.cn", "xiaomin0322#####");
