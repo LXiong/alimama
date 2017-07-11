@@ -1,5 +1,7 @@
 package dataoke;
 
+import github.GitHubUtils;
+
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +14,7 @@ public class ShuaOline {
 	static  WebDriver webDriver = util.SeleniumUtil.initChromeDriver();
 	
 	public static void main(String[] args)throws Exception {
-		String url = args[0];
+		final String url = args[0];
 		System.out.println("url====="+url);
 		int len = 10000000;
 		if(args.length >= 2){
@@ -38,6 +40,13 @@ public class ShuaOline {
 		webGet("https://login.taobao.com");
 		System.in.read();
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
+		
+		new Thread(){
+			public void run() {
+				GitHubUtils.commitOline(url);
+			};
+		}.start();
+		
 		for(int i=0;i<len;i++){
 			//https://detail.m.tmall.com/item.htm?id=26304648306
 			webGet(url);
