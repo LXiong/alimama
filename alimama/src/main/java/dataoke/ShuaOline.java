@@ -38,7 +38,8 @@ public class ShuaOline {
 		}
 		
 		webGet("https://login.taobao.com");
-		System.in.read();
+		//System.in.read();
+		Thread.sleep(60000);
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 		
 		new Thread(){
