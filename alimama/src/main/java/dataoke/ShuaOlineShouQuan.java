@@ -67,7 +67,7 @@ public class ShuaOlineShouQuan {
 		
 		webGet("https://login.taobao.com");
 		//System.in.read();
-		Thread.sleep(60000);
+		Thread.sleep(30000);
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 		
 		
