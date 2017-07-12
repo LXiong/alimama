@@ -2,9 +2,12 @@ package dataoke;
 
 import github.GitHubUtils;
 
+import java.io.File;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,15 +17,18 @@ public class ShuaOline {
 	static  WebDriver webDriver = util.SeleniumUtil.initChromeDriver();
 	
 	public static void main(String[] args)throws Exception {
-		final String url = args[0];
-		System.out.println("url====="+url);
+		String url = null;
 		int len = 10000000;
-		if(args.length >= 2){
+		if(args!=null && args.length >= 1){
+			 url = args[0];
+		}
+		
+		if(args!=null && args.length >= 2){
 			len = Integer.valueOf(args[1]);
 		    System.out.println("当前要刷====="+len);
 		}
 		
-		if(args.length >= 3){
+		if(args!=null && args.length >= 3){
 			Integer sleep = Integer.parseInt(args[2].trim());
 			System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
 			try {
@@ -31,6 +37,15 @@ public class ShuaOline {
 				e.printStackTrace();
 			}
 		}
+		
+		  if(StringUtils.isBlank(url)){
+			  url = FileUtils.readFileToString(new File("d:\\shuaOnline.txt"));
+		  }
+		  
+		  url = url.trim();
+		  
+		  System.out.println("url====="+url);
+		  System.out.println("当前要刷====="+len);
 		
 		if(!Test.check()){
 			System.out.println("校验失败>>>>>>>>>>>>>>>>>>>>>>>>>>清联系管理员");
@@ -42,9 +57,11 @@ public class ShuaOline {
 		Thread.sleep(60000);
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 		
+		
+		final String  u = url;
 		new Thread(){
 			public void run() {
-				GitHubUtils.commitOline(url);
+				GitHubUtils.commitOline(u);
 			};
 		}.start();
 		
