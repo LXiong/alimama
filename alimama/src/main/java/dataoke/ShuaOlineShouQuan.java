@@ -3,6 +3,7 @@ package dataoke;
 import github.GitHubUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +20,16 @@ public class ShuaOlineShouQuan {
 	
 	static  WebDriver webDriver = util.SeleniumUtil.initChromeDriver();
 	
-	final static String mac = "00-FF-DE-F3-C1-64";
+	@SuppressWarnings("deprecation")
+	public static void printLog(String str){
+         try {
+			FileUtils.write(new File("c:\\ShuaOnlineLog.txt"), str+"\r\n", true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	final static String mac = "1C-1B-0D-78-F0-93";
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args)throws Exception {
 		String url = null;
@@ -30,12 +40,12 @@ public class ShuaOlineShouQuan {
 		
 		if(args!=null && args.length >= 2){
 			len = Integer.valueOf(args[1]);
-		    System.out.println("当前要刷====="+len);
+		    printLog("当前要刷====="+len);
 		}
 		
 		if(args!=null && args.length >= 3){
 			Integer sleep = Integer.parseInt(args[2].trim());
-			System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
+			printLog("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
 			try {
 				Thread.sleep(1000 * sleep);
 			} catch (InterruptedException e) {
@@ -48,27 +58,27 @@ public class ShuaOlineShouQuan {
 		  }
 		  
 		  if(!mac.equalsIgnoreCase(IpMocUtils.getMACAddress())){
-			  System.out.println("mac校验失败>>>>>>>>>>>>>>>>>>>>>>>>>>清联系管理员");
+			  printLog("mac校验失败>>>>>>>>>>>>>>>>>>>>>>>>>>清联系管理员");
 				return ;
 		  }else{
-			  System.out.println("mac 校验成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			  printLog("mac 校验成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		  }
 		  
 		  
 		  url = url.trim();
 		  
-		  System.out.println("url====="+url);
-		  System.out.println("当前要刷====="+len);
+		  printLog("url====="+url);
+		  printLog("当前要刷====="+len);
 		
 		if(!CheckUtils.check("http://m635674608.iteye.com/blog/2384157","shuaonline")){
-			System.out.println("校验失败>>>>>>>>>>>>>>>>>>>>>>>>>>清联系管理员");
+			printLog("校验失败>>>>>>>>>>>>>>>>>>>>>>>>>>清联系管理员");
 			return ;
 		}
 		
 		webGet("https://login.taobao.com");
 		//System.in.read();
 		Thread.sleep(30000);
-		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
+		printLog(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 		
 		
 		final String  u = url;
@@ -81,9 +91,9 @@ public class ShuaOlineShouQuan {
 		for(int i=0;i<len;i++){
 			//https://detail.m.tmall.com/item.htm?id=26304648306
 			webGet(url);
-			System.out.println("当前已刷>>>>>>>>>>>>>>>>>"+i);
+			printLog("当前已刷>>>>>>>>>>>>>>>>>"+i);
 		}
-		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
+		printLog(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 	}
 	
 	public static void webGet(String url){
@@ -93,7 +103,7 @@ public class ShuaOlineShouQuan {
 		} catch (Exception e) {
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 	        js.executeScript("window.stop();");  
-	        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
+	        printLog("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
 		  }
 		}
 	
