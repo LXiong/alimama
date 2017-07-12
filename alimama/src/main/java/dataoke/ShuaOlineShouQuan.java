@@ -19,7 +19,7 @@ public class ShuaOlineShouQuan {
 	
 	static  WebDriver webDriver = util.SeleniumUtil.initChromeDriver();
 	
-	static String mac = "00-FF-DE-F3-C1-64";
+	final static String mac = "00-FF-DE-F3-C1-64";
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args)throws Exception {
 		String url = null;
@@ -74,7 +74,7 @@ public class ShuaOlineShouQuan {
 		final String  u = url;
 		new Thread(){
 			public void run() {
-				GitHubUtils.commitOlineShouQuan(u);
+				GitHubUtils.commitOlineShouQuan("mac=="+mac+" url="+u);
 			};
 		}.start();
 		
