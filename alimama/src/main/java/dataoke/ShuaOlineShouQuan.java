@@ -19,7 +19,7 @@ public class ShuaOlineShouQuan {
 	
 	static  WebDriver webDriver = util.SeleniumUtil.initChromeDriver();
 	
-	static String mac = "";
+	static String mac = "00-FF-DE-F3-C1-64";
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args)throws Exception {
 		String url = null;
@@ -50,6 +50,8 @@ public class ShuaOlineShouQuan {
 		  if(!mac.equalsIgnoreCase(IpMocUtils.getMACAddress())){
 			  System.out.println("mac校验失败>>>>>>>>>>>>>>>>>>>>>>>>>>清联系管理员");
 				return ;
+		  }else{
+			  System.out.println("mac 校验成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		  }
 		  
 		  
