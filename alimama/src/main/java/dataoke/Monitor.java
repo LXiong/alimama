@@ -2,8 +2,10 @@ package dataoke;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
@@ -14,6 +16,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import player.AudioPlayerUtils;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -22,8 +26,44 @@ public class Monitor {
 	static String tuijianURL = "http://www.dataoke.com/top_tui";
 	static String shishiURL = "http://www.dataoke.com/top_sell";
 	static String quanTianURL = "http://www.dataoke.com/top_all";
+	//多久检测一次
+	static int sleepTime = 60;
+	//少于多少在线报警
+	static int monitorSize = 3000;
+	//每次播放报警音乐时间
+	static int map2PlayTime = 20;
+	
+	static boolean isPaly = false;
+	//监控指标  1.推广帮 2.实时销量榜 3.全天销量榜 4.在线
+	
+	static String monitorStr = "1,2,3,4";
+	
 	public static void main(String[] args) throws Exception{
-		 execute("2976176","2943079");
+		args = new String[]{"2976176,2943079","1234","3000","30"};
+		
+		String[] ids = args[0].split(",");
+		
+		if(args.length >=2){
+			monitorStr = args[1];
+		}
+		
+		if(args.length >=3){
+			monitorSize = Integer.valueOf(args[2]);
+		}
+		
+		if(args.length >=4){
+			sleepTime = Integer.valueOf(args[3]);
+		}
+		
+		
+		System.out.println("当前需要监控的id==="+Arrays.toString(ids));
+		System.out.println("当前多久检测一次===="+sleepTime+ " 秒");
+		System.out.println("少于多少在线报警===="+monitorSize+"次");
+		System.out.println("监控指标===="+monitorStr);
+		
+		Thread.sleep(3000);
+		
+		execute(ids);
 	}
 	
 	public static void test(){
@@ -63,24 +103,37 @@ public class Monitor {
 		return null;
 	}
 	
-	
+	static String bangName = "";
 	public static void execute(String... ids){
 		for(;;){
 			try{
-				String tuijianb = "推荐榜  ："+paiMing(tuijianURL,ids);
-		        System.out.println(tuijianb);
-		        Thread.sleep(1000);
-		        tuijianb = "实时销量榜  ："+paiMing(shishiURL,ids);
-		        System.out.println(tuijianb);
-		        Thread.sleep(1000);
-		        tuijianb = "全天销量榜  ："+paiMing(quanTianURL,ids);
-		        System.out.println(tuijianb);
+				String tuijianb = null;
+				if(monitorStr.contains("1")){
+					bangName = "推荐榜 ";
+					 tuijianb = bangName+" ："+paiMing(tuijianURL,ids);
+			        System.out.println(tuijianb);
+			        Thread.sleep(1000);
+				}
+				
+				if(monitorStr.contains("2")){
+					 bangName = "实时销量榜";
+				        tuijianb = bangName+" ："+paiMing(shishiURL,ids);
+				        System.out.println(tuijianb);
+				        Thread.sleep(1000);
+				}
+				
+				if(monitorStr.contains("3")){
+					bangName = "全天销量榜 ";
+			        tuijianb = bangName+" ："+paiMing(quanTianURL,ids);
+			        System.out.println(tuijianb);
+				}
+		        
 		        System.out.println("当前时间>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
 				try {
-					Thread.sleep(1000 * 10);
+					TimeUnit.SECONDS.sleep(sleepTime);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -90,28 +143,68 @@ public class Monitor {
 	
 	public static String  paiMing(String url,String... ids)throws Exception{
 		List<Element> list = getTopIds(url);
-		StringBuilder builder =new StringBuilder();
+		StringBuilder builderAll =new StringBuilder();
 		for(String id:ids){
+			//System.out.println("开始监控>>>>>>>>>>>>id="+id);
+			MonitorObj monitorObj  = null;
 			for(int i=0;i<list.size();i++){
 				Element e = list.get(i);
 				String pid = e.attr("id").replace("goods-items_", "");
 				if(id.equalsIgnoreCase(pid)){
+					monitorObj = new MonitorObj();
 					String top = e.select("i").text().replace("￥", "").replace(" ", "");
-					builder.append(" id="+id+";排第="+top+"名 ");
-					String data_goodsid = e.attr("data_goodsid");
-					if(StringUtils.isNotBlank(data_goodsid)){
-						JSONObject jsonObject = getInfoTianMao("549930979963");
-						if(jsonObject!=null){
-							String view_count = jsonObject.getJSONObject("listDesc").getString("view_count");
-							builder.append(";在线="+view_count);
+					monitorObj.setId(id);
+					monitorObj.setTop(top);
+					if(monitorStr.contains("4")){
+						//在线人数>>>>>>>>>>>>>>>>>>>>
+						String data_goodsid = e.attr("data_goodsid");
+						if(StringUtils.isNotBlank(data_goodsid)){
+							JSONObject jsonObject = getInfoTianMao(data_goodsid);
+							if(jsonObject!=null){
+								String view_count = jsonObject.getJSONObject("listDesc").getString("view_count");
+								int countInt = Integer.valueOf(view_count);
+								monitorObj.setOnlineSize(countInt);
+							}
 						}
 					}
-					builder.append("|");
+					
 					break;
 				}
 			}
+			if(monitorObj==null){
+				System.out.println(" id="+id+";不在"+bangName+" 榜上 | ");
+				play();
+			}else if(monitorSize > monitorObj.getOnlineSize() && monitorStr.contains("4")){
+				System.out.println(" id="+id+" 在线:"+monitorObj.getOnlineSize());
+				play();
+			}else{
+				builderAll.append(monitorObj);
+			}
+			System.out.println();
+			TimeUnit.SECONDS.sleep(1);
 		}
-		return builder.toString();
+		return builderAll.toString();
+	}
+	
+	public static void play(){
+		new Thread(){
+			@Override
+			public void run() {
+				if(!isPaly){
+					isPaly = true;
+					AudioPlayerUtils audioPlayerUtils = new AudioPlayerUtils();
+					audioPlayerUtils.startMp3();
+					try {
+						TimeUnit.SECONDS.sleep(map2PlayTime);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					audioPlayerUtils.stopMp3();
+					isPaly = false;
+				}
+			}
+		}.start();
+		
 	}
 	
 	
@@ -125,4 +218,34 @@ public class Monitor {
 		return topIds;
 	}
 
+}
+
+class MonitorObj{
+	String id;
+	String top;
+	int onlineSize;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getTop() {
+		return top;
+	}
+	public void setTop(String top) {
+		this.top = top;
+	}
+	public int getOnlineSize() {
+		return onlineSize;
+	}
+	public void setOnlineSize(int onlineSize) {
+		this.onlineSize = onlineSize;
+	}
+	
+	@Override
+	public String toString() {
+		return "id="+id+";排名="+top+";在线="+onlineSize+"| ";
+	}
+	
 }
