@@ -4,7 +4,7 @@ import java.io.File;
 
 public class AudioPlayerUtils {
 	
-	 AudioPlayer audioPlayer =new AudioPlayer(new File("g:\\mp3.mp3"));
+	 AudioPlayer audioPlayer =new AudioPlayer(new File("c:\\mp3.mp3"));
 	
 	 public  void startMp3(){
 		 System.out.println("开始播放音乐>>>>>>>>>>>>>>>>>>>>");
