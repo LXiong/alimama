@@ -92,7 +92,7 @@
 	</dependencies>
 
 	<build>
-	    <finalName>ShuaOline</finalName>
+	    <finalName>dataokeJiankong</finalName>
 		<plugins>
 		    <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -117,7 +117,8 @@
 									<!-- <mainClass>dataoke.ZhuCeSelenium</mainClass> -->
 									<!-- <mainClass>dataoke.Cmd</mainClass> --><!-- 
 									<mainClass>alimama.Main</mainClass> -->
-									<mainClass>dataoke.ShuaOline</mainClass>
+									<!-- <mainClass>dataoke.ShuaOline</mainClass> -->
+									<mainClass>dataoke.Monitor</mainClass> 
 								</transformer>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
