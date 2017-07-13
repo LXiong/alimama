@@ -40,7 +40,7 @@ public class Monitor {
 	
 	public static void main(String[] args) throws Exception{
 		//java -jar dataokeJiankong.jar 2976176,2943079 1234 3000 30
-		//args = new String[]{"2976176,2943079","1234","3000","30"};
+		args = new String[]{"2976176,2943079","1234","3000","30"};
 		
 		String[] ids = args[0].split(",");
 		
@@ -106,30 +106,38 @@ public class Monitor {
 	
 	static String bangName = "";
 	public static void execute(String... ids){
+		 System.out.println();
 		for(;;){
 			try{
 				String tuijianb = null;
 				if(monitorStr.contains("1")){
-					bangName = "推荐榜 ";
+					bangName = " 推荐榜   ";
 					 tuijianb = bangName+" ："+paiMing(tuijianURL,ids);
 			        System.out.println(tuijianb);
 			        Thread.sleep(1000);
 				}
 				
 				if(monitorStr.contains("2")){
-					 bangName = "实时销量榜";
+					 bangName = "实时销量榜	";
 				        tuijianb = bangName+" ："+paiMing(shishiURL,ids);
 				        System.out.println(tuijianb);
 				        Thread.sleep(1000);
 				}
 				
 				if(monitorStr.contains("3")){
-					bangName = "全天销量榜 ";
+					bangName = "全天销量榜	";
 			        tuijianb = bangName+" ："+paiMing(quanTianURL,ids);
 			        System.out.println(tuijianb);
 				}
-		        
+				
+				if(monitorStr.contains("4")){
+					bangName = "监控在线	";
+			        tuijianb = bangName+" ："+moniterOnlie(ids);
+			        System.out.println(tuijianb);
+						
+				}
 		        System.out.println("当前时间>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+		        System.out.println();
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally{
@@ -140,6 +148,40 @@ public class Monitor {
 				}
 			}
 		}
+	}
+	
+	
+	public static String moniterOnlie(String... ids){
+		//在线人数>>>>>>>>>>>>>>>>>>>>
+		StringBuilder builder = new StringBuilder();
+		for(String id:ids){
+			try{
+				Document document = Jsoup.parse(new URL(
+						"http://www.dataoke.com/item?id="+id), 100000);
+				String data_goodsid = document.getElementById("goTowx").attr("href").replace("/dweixin?gid=", "");
+				if(StringUtils.isNotBlank(data_goodsid)){
+					JSONObject jsonObject = getInfoTianMao(data_goodsid);
+					if(jsonObject!=null){
+						String view_count = jsonObject.getJSONObject("listDesc").getString("view_count");
+						int countInt = Integer.valueOf(view_count);
+						builder.append(" id="+id+"; 在线:"+countInt+"| ");
+						if(monitorSize > countInt ){
+							play();
+						}
+					}
+				  }
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return builder.toString();
+		
 	}
 	
 	public static String  paiMing(String url,String... ids)throws Exception{
@@ -156,32 +198,15 @@ public class Monitor {
 					String top = e.select("i").text().replace("￥", "").replace(" ", "");
 					monitorObj.setId(id);
 					monitorObj.setTop(top);
-					if(monitorStr.contains("4")){
-						//在线人数>>>>>>>>>>>>>>>>>>>>
-						String data_goodsid = e.attr("data_goodsid");
-						if(StringUtils.isNotBlank(data_goodsid)){
-							JSONObject jsonObject = getInfoTianMao(data_goodsid);
-							if(jsonObject!=null){
-								String view_count = jsonObject.getJSONObject("listDesc").getString("view_count");
-								int countInt = Integer.valueOf(view_count);
-								monitorObj.setOnlineSize(countInt);
-							}
-						}
-					}
-					
 					break;
 				}
 			}
 			if(monitorObj==null){
-				System.out.println(" id="+id+";不在"+bangName+" 榜上 | ");
-				play();
-			}else if(monitorSize > monitorObj.getOnlineSize() && monitorStr.contains("4")){
-				System.out.println(" id="+id+" 在线:"+monitorObj.getOnlineSize());
+				builderAll.append(" id="+id+";不在	"+bangName+" 榜上 | ");
 				play();
 			}else{
 				builderAll.append(monitorObj);
 			}
-			System.out.println();
 			TimeUnit.SECONDS.sleep(1);
 		}
 		return builderAll.toString();
@@ -246,7 +271,8 @@ class MonitorObj{
 	
 	@Override
 	public String toString() {
-		return "id="+id+";排名="+top+";在线="+onlineSize+"| ";
+		//return "id="+id+";排名="+top+";在线="+onlineSize+"| ";
+		return "id="+id+";排名="+top+";| ";
 	}
 	
 }

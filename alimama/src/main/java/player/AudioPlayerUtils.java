@@ -7,13 +7,13 @@ public class AudioPlayerUtils {
 	 AudioPlayer audioPlayer =new AudioPlayer(new File("c:\\mp3.mp3"));
 	
 	 public  void startMp3(){
-		 System.out.println("开始播放音乐>>>>>>>>>>>>>>>>>>>>");
+		 //System.out.println("开始播放音乐>>>>>>>>>>>>>>>>>>>>");
 		 audioPlayer.start();
 	 }
 	 
 	 
 	 public  void stopMp3(){
-		 System.out.println("停止播放音乐>>>>>>>>>>>>>>>>>>>>");
+		// System.out.println("停止播放音乐>>>>>>>>>>>>>>>>>>>>");
 	    	audioPlayer.stopPlay();
 	 }
 	 
