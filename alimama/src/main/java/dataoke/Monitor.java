@@ -36,7 +36,7 @@ public class Monitor {
 	static boolean isPaly = false;
 	//监控指标  1.推广帮 2.实时销量榜 3.全天销量榜 4.在线
 	
-	static String monitorStr = "1,2,3,4";
+	static String monitorStr = "1234";
 	
 	public static void main(String[] args) throws Exception{
 		//java -jar dataokeJiankong.jar 2976176,2943079 1234 3000 30
