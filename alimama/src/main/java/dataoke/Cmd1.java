@@ -37,9 +37,9 @@ public class Cmd1 {
 		
 		//Thread.sleep(1000 * 60 * 60);
 		//args = new String[]{"2882511,2895769","103","5000,20000","1"}; 
-		args = new String[]{"2884591","103","5000,20000","1"};
+		//args = new String[]{"2947807","106","5000,30000","1"};
 		
-		//args = new String[]{"2882511,2901049,2889178,2895769","104","6000,15000","1"};
+		args = new String[]{"2990357","104,106","50000,60000","1"};
 		
 		
 		String pids = args[0];
@@ -47,8 +47,8 @@ public class Cmd1 {
 		
 		if(args.length > 2){
 			System.out.println("时间参数为>>>>>>>(单位毫秒)>>>>>>>>>>"+args[2]);
-			min = Integer.parseInt(args[2].split(",")[0].trim());
-			max = Integer.parseInt(args[2].split(",")[1].trim());
+			Cmd.min = Integer.parseInt(args[2].split(",")[0].trim());
+			Cmd.max = Integer.parseInt(args[2].split(",")[1].trim());
 		}
 		
 		if(args.length > 3){

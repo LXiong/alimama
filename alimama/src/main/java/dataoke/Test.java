@@ -1554,7 +1554,7 @@ public class Test {
 			}*/
 		
 			try{
-				//proxy  = IpPoolUtil.getHttpHost();
+				proxy  = IpPoolUtil.getHttpHost();
 			
 					String uname = s.split("\\----")[0].trim();
 					String pwd = s.split("\\----")[1].trim();
