@@ -27,7 +27,7 @@ public class GetGoodIdsByDataoke {
 				String goodsId = e.attr("data_goodsid");
 				String url = "https://detail.tmall.com/item.htm?id="+goodsId;
 				FileUtils.write(out, url+"\r\n",true);
-				System.out.println(url);
+				System.out.println(url+"當前是多少頁："+j);
 			}
 			
 			}catch(Exception e){
