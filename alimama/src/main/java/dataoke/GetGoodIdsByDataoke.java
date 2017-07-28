@@ -18,10 +18,10 @@ public class GetGoodIdsByDataoke {
 		for(int j=1;j<554;j++){
 			try{
 			List<Element> list = Monitor
-					.getTopIds("http://www.dataoke.com/qlist/?page=2");
+					.getTopIds("http://www.dataoke.com/qlist/?page="+j);
 			for (int i = 0; i < list.size(); i++) {
 				Element e = list.get(i);
-				System.out.println(e);
+				//System.out.println(e);
 				//String pid = e.attr("id").replace("goods-items_", "");
 				//System.out.println("pid==="+pid);
 				String goodsId = e.attr("data_goodsid");
