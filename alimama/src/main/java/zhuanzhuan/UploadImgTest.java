@@ -14,7 +14,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.FormBodyPart;
-import org.apache.http.entity.mime.FormBodyPartBuilder;
+//import org.apache.http.entity.mime.FormBodyPartBuilder;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -426,7 +426,7 @@ public class UploadImgTest {
 
 			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 
-			FormBodyPart bodyPart = FormBodyPartBuilder.create().build();
+			//FormBodyPart bodyPart = FormBodyPartBuilder.create().build();
 
 			// builder.addPart(bin);
 
