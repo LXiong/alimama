@@ -15,7 +15,7 @@ public class GetGoodIdsByDataoke {
 	static File out = new File("d:\\goodsurls.txt");
 	
 	public static void execute()throws Exception{
-		for(int j=1;j<554;j++){
+		for(int j=1;j<560;j++){
 			try{
 			List<Element> list = Monitor
 					.getTopIds("http://www.dataoke.com/qlist/?page="+j);
