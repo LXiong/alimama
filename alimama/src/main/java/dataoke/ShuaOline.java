@@ -53,8 +53,8 @@ public class ShuaOline {
 		}
 		
 		webGet("https://login.taobao.com");
-		//System.in.read();
-		Thread.sleep(60000);
+		System.in.read();
+		//Thread.sleep(60000);
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 		
 		
@@ -75,7 +75,7 @@ public class ShuaOline {
 	
 	public static void webGet(String url){
 		try {
-			webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+			webDriver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
 			webDriver.get(url);
 		} catch (Exception e) {
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;

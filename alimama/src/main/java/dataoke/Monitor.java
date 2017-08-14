@@ -40,7 +40,7 @@ public class Monitor {
 	
 	public static void main(String[] args) throws Exception{
 		//java -jar dataokeJiankong.jar 2976176,2943079 1234 3000 30
-		args = new String[]{"2976176,2943079","1234","3000","30"};
+		args = new String[]{"3104235,","1234","3000","30"};
 		
 		String[] ids = args[0].split(",");
 		
