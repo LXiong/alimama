@@ -41,9 +41,9 @@ public class ShuaOline {
 		if(args!=null && args.length >= 4){
 			path= args[3].trim();
 			System.out.println("浏览器date ："+path);
-			webDriver = util.SeleniumUtil.initChromeDriver2222(path);
 		}
-		
+		webDriver = util.SeleniumUtil.initChromeDriver2222(path);
+		webDriver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
 		
 		  if(StringUtils.isBlank(url)){
 			  url = FileUtils.readFileToString(new File("d:\\shuaOnline.txt"));
@@ -78,6 +78,7 @@ public class ShuaOline {
 				webGet(url);
 			}catch(Exception e){
 				e.printStackTrace();
+				 Thread.sleep(1000);
 			}
 			System.out.println("当前已刷>>>>>>>>>>>>>>>>>"+i);
 		}
@@ -86,9 +87,14 @@ public class ShuaOline {
 	
 	public static void webGet(String url){
 		try {
-			webDriver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
 			webDriver.get(url);
 		} catch (Exception e) {
+			e.printStackTrace();
+			 try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 			//JavascriptExecutor js = (JavascriptExecutor) webDriver;
 	        //js.executeScript("window.stop();");  
 	        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
