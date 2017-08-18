@@ -113,6 +113,9 @@ public class SeleniumUtil {
 	 */
 	public static WebDriver initChromeDriver2222(String path) {
 		logger.info("start init WebDriver!");
+		if(StringUtils.isBlank(path)){
+			return initChromeDriver();
+		}
 		WebDriver driver = null;
 		try {
 			/*ChromeDriverService service = new ChromeDriverService.Builder()
