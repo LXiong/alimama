@@ -59,8 +59,8 @@ public class ShuaOline {
 			return ;
 		}
 		
-		//webGet("https://www.taobao.com");
-		//System.in.read();
+		webGet("https://www.taobao.com");
+		System.in.read();
 		//Thread.sleep(60000);
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 		
