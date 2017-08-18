@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
 
 public class ShuaOline {
 	
-	static  WebDriver webDriver = util.SeleniumUtil.initChromeDriver();
+	static  WebDriver webDriver = null;
 	
 	public static void main(String[] args)throws Exception {
 		String url = null;
@@ -37,6 +37,13 @@ public class ShuaOline {
 				e.printStackTrace();
 			}
 		}
+		String path = null;
+		if(args!=null && args.length >= 3){
+			path= args[3].trim();
+			System.out.println("浏览器date ："+path);
+			webDriver = util.SeleniumUtil.initChromeDriver2222(path);
+		}
+		
 		
 		  if(StringUtils.isBlank(url)){
 			  url = FileUtils.readFileToString(new File("d:\\shuaOnline.txt"));
@@ -52,7 +59,7 @@ public class ShuaOline {
 			return ;
 		}
 		
-		webGet("https://login.taobao.com");
+		webGet("https://www.taobao.com");
 		System.in.read();
 		//Thread.sleep(60000);
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));

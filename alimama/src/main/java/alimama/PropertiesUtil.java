@@ -38,8 +38,9 @@ public class PropertiesUtil {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		propertiesMap.putAll((Hashtable) systemConfig);
+		if(systemConfig!=null){
+			propertiesMap.putAll((Hashtable) systemConfig);
+		}
 		System.out.println("propertiesMap :"+propertiesMap);
 	}
 

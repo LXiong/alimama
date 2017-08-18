@@ -111,7 +111,7 @@ public class SeleniumUtil {
 	 * 
 	 * @return
 	 */
-	public static WebDriver initChromeDriver2222() {
+	public static WebDriver initChromeDriver2222(String path) {
 		logger.info("start init WebDriver!");
 		WebDriver driver = null;
 		try {
@@ -122,9 +122,12 @@ public class SeleniumUtil {
 			ChromeOptions options = new ChromeOptions();
 			// options.addArguments(“–user-data-dir=C:/Users/xxx/AppData/Local/Google/Chrome/User
 			// Data/Default”);
-			String userDateDir = "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data";
+			String userDateDir = "C:\\Users\\ThinkPad\\AppData\\Local\\Google\\Chrome\\User Data";
 			if(StringUtils.isNotBlank(PropertiesUtil.getPropertiesMap("alimama.userDateDir"))){
 				userDateDir = PropertiesUtil.getPropertiesMap("alimama.userDateDir");
+			}
+			if(path!=null){
+				userDateDir = path;
 			}
 			options.addArguments("--user-data-dir=" + userDateDir,"--allow-outdated-plugins");
 			// 璁剧疆璁块棶ChromeDriver鐨勮矾寰�
