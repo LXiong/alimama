@@ -89,8 +89,8 @@ public class ShuaOline {
 			webDriver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
 			webDriver.get(url);
 		} catch (Exception e) {
-			JavascriptExecutor js = (JavascriptExecutor) webDriver;
-	        js.executeScript("window.stop();");  
+			//JavascriptExecutor js = (JavascriptExecutor) webDriver;
+	        //js.executeScript("window.stop();");  
 	        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
 		  }
 		}
