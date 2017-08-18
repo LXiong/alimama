@@ -38,7 +38,7 @@ public class ShuaOline {
 			}
 		}
 		String path = null;
-		if(args!=null && args.length >= 3){
+		if(args!=null && args.length >= 4){
 			path= args[3].trim();
 			System.out.println("浏览器date ："+path);
 			webDriver = util.SeleniumUtil.initChromeDriver2222(path);
@@ -59,8 +59,8 @@ public class ShuaOline {
 			return ;
 		}
 		
-		webGet("https://www.taobao.com");
-		System.in.read();
+		//webGet("https://www.taobao.com");
+		//System.in.read();
 		//Thread.sleep(60000);
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 		
