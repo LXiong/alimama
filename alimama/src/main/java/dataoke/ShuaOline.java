@@ -67,7 +67,11 @@ public class ShuaOline {
 		
 		for(int i=0;i<len;i++){
 			//https://detail.m.tmall.com/item.htm?id=26304648306
-			webGet(url);
+			try{
+				webGet(url);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			System.out.println("当前已刷>>>>>>>>>>>>>>>>>"+i);
 		}
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
