@@ -33,11 +33,6 @@ public class ShuaOline {
 		if(args!=null && args.length >= 3){
 			sleep = Integer.parseInt(args[2].trim());
 			System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
-			try {
-				Thread.sleep(1000 * sleep);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 		String path = null;
 		if(args!=null && args.length >= 4){
