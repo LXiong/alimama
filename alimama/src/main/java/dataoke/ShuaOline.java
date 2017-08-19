@@ -46,10 +46,10 @@ public class ShuaOline {
 		if(StringUtils.isBlank(path)){
 			webDriver = util.SeleniumUtil.initFirefoxDriver();
 		}else{
-			webDriver = util.SeleniumUtil.initChromeDriver2222(path);
+			webDriver = util.SeleniumUtil.initChromeDriver2222(null);
 		}
 		
-		webDriver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
+		webDriver.manage().timeouts().pageLoadTimeout(2, TimeUnit.SECONDS);
 		
 		  if(StringUtils.isBlank(url)){
 			  url = FileUtils.readFileToString(new File("d:\\shuaOnline.txt"));
