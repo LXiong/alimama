@@ -94,11 +94,11 @@ public class ShuaOline {
 		try {
 			webDriver.get(url);
 		} catch (Exception e) {
+			e.printStackTrace();
 			if(e instanceof NoSuchSessionException){
 				System.out.println("浏览器关闭，程序退出");
 				System.exit(0);
 			}
-			e.printStackTrace();
 			 try {
 				Thread.sleep(100);
 			} catch (InterruptedException e1) {
