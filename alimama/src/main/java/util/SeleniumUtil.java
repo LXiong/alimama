@@ -105,7 +105,8 @@ public class SeleniumUtil {
 					.usingDriverExecutable(new File("D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe")).usingAnyFreePort()
 					.build();
 			service.start();*/
-			System.setProperty("webdriver.chrome.driver", "D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe");
+			//System.setProperty("webdriver.chrome.driver", "D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "c:\\chromedriver.exe");
 			driver = new ChromeDriver();
 			//driver = new FirefoxDriver(); 
 			//driver = new HtmlUnitDriver(true);
@@ -535,8 +536,8 @@ public class SeleniumUtil {
 	public static void main(String[] args)throws Exception {
 		//testAction();
 		//getImgTest();
-		WebDriver driver = initFirefoxDriver();
-		//WebDriver driver = initChromeDriver();
+		//WebDriver driver = initFirefoxDriver();
+		WebDriver driver = initChromeDriver();
 		driver.get("https://detail.tmall.com/item.htm?id=547204429776");
 	}
 	

@@ -1,7 +1,5 @@
 package dataoke;
 
-import github.GitHubUtils;
-
 import java.io.File;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -10,7 +8,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.WebDriver;
+
+import github.GitHubUtils;
 
 public class ShuaOline {
 	
@@ -93,6 +94,10 @@ public class ShuaOline {
 		try {
 			webDriver.get(url);
 		} catch (Exception e) {
+			if(e instanceof NoSuchSessionException){
+				System.out.println("浏览器关闭，程序退出");
+				System.exit(0);
+			}
 			e.printStackTrace();
 			 try {
 				Thread.sleep(100);
