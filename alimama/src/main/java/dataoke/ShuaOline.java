@@ -18,6 +18,7 @@ public class ShuaOline {
 	
 	public static void main(String[] args)throws Exception {
 		String url = null;
+		url = "https://detail.tmall.com/item.htm?id=547204429776";
 		int len = 10000000;
 		if(args!=null && args.length >= 1){
 			 url = args[0];

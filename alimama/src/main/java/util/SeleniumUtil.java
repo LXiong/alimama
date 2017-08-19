@@ -55,11 +55,11 @@ public class SeleniumUtil {
 		try {
 			profile = new FirefoxProfile();
 			// profile = new ProfilesIni().getProfile("default");
-			profile.addExtension(new File(plugin));
+			//profile.addExtension(new File(plugin));
 			// 鍘绘帀css
 			// profile.setPreference("permissions.default.stylesheet", 2);
 			// 鍘绘帀鍥剧墖
-			// profile.setPreference("permissions.default.image", 2);
+			//profile.setPreference("permissions.default.image", 2);
 			// 鍘绘帀flash
 			profile.setPreference("dom.ipc.plugins.enabled.libflashplayer.so", false);
 			capability = DesiredCapabilities.firefox();
@@ -115,7 +115,7 @@ public class SeleniumUtil {
 					.build();
 			service.start();*/
 			System.setProperty("webdriver.gecko.driver", "c:\\geckodriver.exe");
-			driver = new FirefoxDriver(); 
+			driver = new FirefoxDriver(capability); 
 		} catch (Exception e) {
 			logger.error("Init WebDriver is error!", e);
 			throw new RuntimeException(e);
@@ -522,9 +522,9 @@ public class SeleniumUtil {
 	public static void main(String[] args)throws Exception {
 		//testAction();
 		//getImgTest();
+		WebDriver driver = initFirefoxDriver();
 		//WebDriver driver = initChromeDriver();
-		WebDriver driver = initChromeDriver();
-		driver.get("https://www.baidu.com");
+		driver.get("https://detail.tmall.com/item.htm?id=547204429776");
 	}
 	
 	
