@@ -4,9 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
 
@@ -26,7 +28,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.GeckoDriverService;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.Augmenter;
@@ -34,9 +38,12 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import ruokuai.RuoKuaiUnit;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+
 import alimama.PropertiesUtil;
 import dataoke.Cmd;
+import ruokuai.RuoKuaiUnit;
 
 /**
  * 娴忚鍣╱til
@@ -62,8 +69,13 @@ public class SeleniumUtil {
 			//profile.setPreference("permissions.default.image", 2);
 			// 鍘绘帀flash
 			profile.setPreference("dom.ipc.plugins.enabled.libflashplayer.so", false);
-			capability = DesiredCapabilities.firefox();
+			//profile.setPreference("--log", "error");
+			
+			FirefoxOptions opts = new FirefoxOptions().setLogLevel(Level.INFO);
+			capability = opts.addTo(DesiredCapabilities.firefox());
+			//capability = DesiredCapabilities.firefox();
 			capability.setCapability("firefox_profile", profile);
+			capability.setCapability("marionette", true);
 
 		} catch (Exception e) {
 			logger.error("init firefox plugin(killspinnners) is error! ", e);
@@ -114,7 +126,8 @@ public class SeleniumUtil {
 					.usingDriverExecutable(new File("D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe")).usingAnyFreePort()
 					.build();
 			service.start();*/
-			System.setProperty("webdriver.gecko.driver", "c:\\geckodriver.exe");
+			//System.setProperty("webdriver.gecko.driver", "c:\\geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", "c:\\gdrvwrapper.bat");
 			driver = new FirefoxDriver(capability); 
 		} catch (Exception e) {
 			logger.error("Init WebDriver is error!", e);
