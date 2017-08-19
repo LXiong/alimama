@@ -95,7 +95,27 @@ public class SeleniumUtil {
 			service.start();*/
 			System.setProperty("webdriver.chrome.driver", "D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe");
 			driver = new ChromeDriver();
+			//driver = new FirefoxDriver(); 
 			//driver = new HtmlUnitDriver(true);
+		} catch (Exception e) {
+			logger.error("Init WebDriver is error!", e);
+			throw new RuntimeException(e);
+		}
+		logger.info("init WebDriver is success!");
+		return driver;
+	}
+	
+	
+	public static WebDriver initFirefoxDriver() {
+		logger.info("start init WebDriver!");
+		WebDriver driver = null;
+		try {
+			/*ChromeDriverService service = new ChromeDriverService.Builder()
+					.usingDriverExecutable(new File("D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe")).usingAnyFreePort()
+					.build();
+			service.start();*/
+			System.setProperty("webdriver.gecko.driver", "c:\\geckodriver.exe");
+			driver = new FirefoxDriver(); 
 		} catch (Exception e) {
 			logger.error("Init WebDriver is error!", e);
 			throw new RuntimeException(e);
@@ -501,7 +521,10 @@ public class SeleniumUtil {
 	
 	public static void main(String[] args)throws Exception {
 		//testAction();
-		getImgTest();
+		//getImgTest();
+		//WebDriver driver = initChromeDriver();
+		WebDriver driver = initChromeDriver();
+		driver.get("https://www.baidu.com");
 	}
 	
 	

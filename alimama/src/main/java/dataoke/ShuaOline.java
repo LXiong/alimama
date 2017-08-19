@@ -42,7 +42,8 @@ public class ShuaOline {
 			path= args[3].trim();
 			System.out.println("浏览器date ："+path);
 		}
-		webDriver = util.SeleniumUtil.initChromeDriver2222(path);
+		//webDriver = util.SeleniumUtil.initChromeDriver2222(path);
+		webDriver = util.SeleniumUtil.initFirefoxDriver();
 		webDriver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
 		
 		  if(StringUtils.isBlank(url)){
