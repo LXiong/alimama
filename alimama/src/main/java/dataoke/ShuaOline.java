@@ -97,12 +97,12 @@ public class ShuaOline {
 		} catch (Exception e) {
 			e.printStackTrace();
 			 try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-			//JavascriptExecutor js = (JavascriptExecutor) webDriver;
-	        //js.executeScript("window.stop();");  
+			JavascriptExecutor js = (JavascriptExecutor) webDriver;
+	        js.executeScript("window.stop();");  
 	        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
 		  }
 		}
