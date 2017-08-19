@@ -71,11 +71,11 @@ public class SeleniumUtil {
 			profile.setPreference("dom.ipc.plugins.enabled.libflashplayer.so", false);
 			//profile.setPreference("--log", "error");
 			
-			FirefoxOptions opts = new FirefoxOptions().setLogLevel(Level.INFO);
-			capability = opts.addTo(DesiredCapabilities.firefox());
-			//capability = DesiredCapabilities.firefox();
+			//FirefoxOptions opts = new FirefoxOptions().setLogLevel(Level.INFO);
+			//capability = opts.addTo(DesiredCapabilities.firefox());
+			capability = DesiredCapabilities.firefox();
 			capability.setCapability("firefox_profile", profile);
-			capability.setCapability("marionette", true);
+			//capability.setCapability("marionette", true);
 
 		} catch (Exception e) {
 			logger.error("init firefox plugin(killspinnners) is error! ", e);

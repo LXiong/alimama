@@ -20,6 +20,7 @@ public class ShuaOline {
 		String url = null;
 		url = "https://detail.tmall.com/item.htm?id=547204429776";
 		int len = 10000000;
+		Integer sleep = 1;
 		if(args!=null && args.length >= 1){
 			 url = args[0];
 		}
@@ -30,7 +31,7 @@ public class ShuaOline {
 		}
 		
 		if(args!=null && args.length >= 3){
-			Integer sleep = Integer.parseInt(args[2].trim());
+			sleep = Integer.parseInt(args[2].trim());
 			System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
 			try {
 				Thread.sleep(1000 * sleep);
@@ -50,7 +51,7 @@ public class ShuaOline {
 			webDriver = util.SeleniumUtil.initChromeDriver2222(null);
 		}
 		
-		webDriver.manage().timeouts().pageLoadTimeout(2, TimeUnit.SECONDS);
+		webDriver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
 		
 		  if(StringUtils.isBlank(url)){
 			  url = FileUtils.readFileToString(new File("d:\\shuaOnline.txt"));
@@ -83,6 +84,7 @@ public class ShuaOline {
 			//https://detail.m.tmall.com/item.htm?id=26304648306
 			try{
 				webGet(url);
+				Thread.sleep(sleep);
 			}catch(Exception e){
 				e.printStackTrace();
 				 Thread.sleep(1000);
