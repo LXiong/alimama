@@ -57,7 +57,7 @@ public class ShuaOline {
 	static String url = null;
 
 	static int len = 10000000;
-	static Integer sleep = 2000;
+	static Integer sleep = 3000;
 
 	static AtomicInteger atomicInteger = new AtomicInteger();
 
