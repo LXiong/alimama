@@ -43,6 +43,7 @@ import com.google.common.collect.ImmutableMap;
 
 import alimama.PropertiesUtil;
 import dataoke.Cmd;
+import dataoke.ShuaOline;
 import ruokuai.RuoKuaiUnit;
 
 /**
@@ -538,7 +539,14 @@ public class SeleniumUtil {
 		//getImgTest();
 		//WebDriver driver = initFirefoxDriver();
 		WebDriver driver = initChromeDriver();
-		driver.get("https://detail.tmall.com/item.htm?id=547204429776");
+		ShuaOline.webGet(driver,"https://detail.tmall.com/item.htm?id=547204429776");
+		
+		System.in.read();
+		
+		//driver.findElement(By.id("div"));
+		
+		
+		ShuaOline.webGet(driver,"https://detail.tmall.com/item.htm?id=547204429776");
 	}
 	
 	
