@@ -1,8 +1,12 @@
 package dataoke;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -17,11 +21,52 @@ public class ShuaOline {
 	
 	static  WebDriver webDriver = null;
 	
+	
+	public static boolean switchToWindow(String windowTitle,WebDriver dr){    
+        boolean flag = false;    
+        try {   
+            //将页面上所有的windowshandle放在入set集合当中  
+            String currentHandle = dr.getWindowHandle();    
+            Set<String> handles = dr.getWindowHandles();    
+            for (String s : handles) {    
+                if (s.equals(currentHandle))    
+                    continue;    
+                else {    
+                    dr.switchTo().window(s);  
+            //和当前的窗口进行比较如果相同就切换到windowhandle  
+            //判断title是否和handles当前的窗口相同  
+                    if (dr.getTitle().contains(windowTitle)) {    
+                        flag = true;    
+                        System.out.println("Switch to window: "    
+                                + windowTitle + " successfully!");    
+                        break;    
+                    } else    
+                        continue;    
+                }    
+            }    
+        } catch (Exception e) {    
+            System.out.printf("Window: " + windowTitle    
+                    + " cound not found!", e.fillInStackTrace());    
+            flag = false;    
+        }    
+        return flag;    
+    }   
+	
+	
+	 public static void getWindowMethod2(String url){  
+	        JavascriptExecutor oJavaScriptExecutor = (JavascriptExecutor)webDriver;  
+	       // oJavaScriptExecutor.executeScript("window.open('"+url+"', '_blank');");  
+	        System.out.println("there are " + webDriver.getWindowHandles().size() + " windows");  
+	    }  
+	  static String url = null;
+		
+	  static	int len = 10000000;
+	  static Integer sleep = 2000;
+	  
+	  static AtomicInteger atomicInteger = new AtomicInteger();
+		
 	public static void main(String[] args)throws Exception {
-		String url = null;
-		url = "https://detail.tmall.com/item.htm?id=547204429776";
-		int len = 10000000;
-		Integer sleep = 1;
+		url = "https://detail.m.tmall.com/item.htm?id=551944001293";
 		if(args!=null && args.length >= 1){
 			 url = args[0];
 		}
@@ -33,7 +78,7 @@ public class ShuaOline {
 		
 		if(args!=null && args.length >= 3){
 			sleep = Integer.parseInt(args[2].trim());
-			System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
+			//System.out.println("睡眠 ："+sleep+"秒 在执行程序>>>>>>>>>>>>>>>");
 		}
 		String path = null;
 		if(args!=null && args.length >= 4){
@@ -41,13 +86,13 @@ public class ShuaOline {
 			System.out.println("浏览器date ："+path);
 		}
 		//webDriver = util.SeleniumUtil.initChromeDriver2222(path);
-		if(StringUtils.isBlank(path)){
+		if(!StringUtils.isBlank(path)){
 			webDriver = util.SeleniumUtil.initFirefoxDriver();
 		}else{
 			webDriver = util.SeleniumUtil.initChromeDriver2222(null);
 		}
 		
-		webDriver.manage().timeouts().pageLoadTimeout(3, TimeUnit.SECONDS);
+		webDriver.manage().timeouts().pageLoadTimeout(sleep, TimeUnit.MILLISECONDS);
 		
 		  if(StringUtils.isBlank(url)){
 			  url = FileUtils.readFileToString(new File("d:\\shuaOnline.txt"));
@@ -63,8 +108,12 @@ public class ShuaOline {
 			return ;
 		}
 		
-		webGet("https://login.taobao.com");
+		
+		webGet(webDriver,"https://login.taobao.com");
+		
 		System.in.read();
+		
+		
 		//Thread.sleep(60000);
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 		
@@ -76,37 +125,109 @@ public class ShuaOline {
 			};
 		}.start();
 		
+		execte(webDriver);
+		
+		/* Set<String> handles = webDriver.getWindowHandles();    
+		 for(;;){
+			 System.out.println("handles:"+handles);
+			 for (final String s : handles) { 
+				 try{
+		        	 new Thread(){
+		        		 public void run() {
+		        			 try{
+		        				 long start = System.currentTimeMillis();
+		    					 System.out.println("sname==="+s);
+		    					 final WebDriver webDriver2 = webDriver.switchTo().window(s);
+		    					 System.out.println("time======"+(System.currentTimeMillis()-start));
+		        					   JavascriptExecutor oJavaScriptExecutor = (JavascriptExecutor)webDriver2;  
+			        			        oJavaScriptExecutor.executeScript("window.location.href='"+url+"';");  
+			        					System.out.println(s+"  当前已刷>>>>>>>>>>>>>>>>>"+atomicInteger.incrementAndGet());
+			        					Thread.sleep(3000);
+		        					  // webGet(webDriver2, url);
+		    					     webDriver2.navigate().refresh();
+		        				}catch(Exception e){
+		        					e.printStackTrace();
+		        					 try {
+		        						Thread.sleep(1000);
+		        					} catch (InterruptedException e1) {
+		        						// TODO Auto-generated catch block
+		        						e1.printStackTrace();
+		        					}
+		        				}
+		        				
+		        		 };
+		        	 }.start();
+				 }catch(Exception e){
+					 e.printStackTrace();
+				 }
+			   }
+			 handles = webDriver.getWindowHandles();	
+		 }*/
+			 }
+         
+		
+		
+	//}
+	
+	public static void execte(WebDriver webDriver){
 		for(int i=0;i<len;i++){
 			//https://detail.m.tmall.com/item.htm?id=26304648306
 			try{
-				webGet(url);
-				Thread.sleep(sleep);
+				webGet(webDriver,url);
+				//Thread.sleep(sleep);
 			}catch(Exception e){
 				e.printStackTrace();
-				 Thread.sleep(1000);
+				 try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			System.out.println("当前已刷>>>>>>>>>>>>>>>>>"+i);
 		}
 		System.out.println(DateFormatUtils.format(new Date(), "yyyyMMddHHmmss"));
 	}
 	
-	public static void webGet(String url){
+	
+	public static  void webGet2(WebDriver webDriver,String url){
 		try {
 			webDriver.get(url);
+			webGet2(webDriver, url);
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			if(e instanceof NoSuchSessionException){
 				System.out.println("浏览器关闭，程序退出");
 				System.exit(0);
 			}
-			 try {
+			 /*try {
 				Thread.sleep(100);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 	        js.executeScript("window.stop();");  
-	        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
+	        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");*/
+		  }
+	}
+	
+	public static  void webGet(WebDriver webDriver,String url){
+		try {
+			webDriver.get(url);
+		} catch (Exception e) {
+			//e.printStackTrace();
+			if(e instanceof NoSuchSessionException){
+				System.out.println("浏览器关闭，程序退出");
+				System.exit(0);
+			}
+			 /*try {
+				Thread.sleep(100);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			JavascriptExecutor js = (JavascriptExecutor) webDriver;
+	        js.executeScript("window.stop();");  
+	        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");*/
 		  }
 		}
 	
