@@ -102,7 +102,7 @@
 	</dependencies>
 
 	<build>
-	    <finalName>ShuaOline</finalName>
+	    <finalName>SendMail</finalName>
 		<plugins>
 		    <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -127,7 +127,8 @@
 									<!-- <mainClass>dataoke.ZhuCeSelenium</mainClass> -->
 									<!-- <mainClass>dataoke.Cmd</mainClass> -->
 									<!-- <mainClass>dataoke.GetGoodIdsByDataoke</mainClass> -->
-									<mainClass>dataoke.ShuaOline</mainClass>
+									<!-- <mainClass>dataoke.ShuaOline</mainClass> -->
+									 <mainClass>dataoke.SendMail</mainClass> 
 									<!-- <mainClass>dataoke.Monitor</mainClass>  -->
 								</transformer>
 								<transformer
