@@ -20,6 +20,8 @@ public class SendMail {
 	
 	static List<String> Failmails = new CopyOnWriteArrayList<String>();
     static int len = 10;   
+    static int allSize = 0;
+    static int okSize = 0;
 	public static void main(String[] args) throws Exception{
 		
 		if (args != null && args.length >= 1) {
@@ -38,9 +40,14 @@ public class SendMail {
 				m = m+"@qq.com";
 			}
 			try{
+				allSize+=1;
 				proxy  = IpPoolUtil.getHttpHost();
 				System.out.println("ip================"+proxy);
-				loginHttpClient(m);
+				boolean flag = loginHttpClient(m);
+				if(flag){
+					okSize+=1;
+				}
+				System.out.println("当前已经执行："+allSize+"  当前已经成功: "+okSize);
 				TimeUnit.SECONDS.sleep(len);
 			}catch(Exception e){
 				
@@ -101,6 +108,7 @@ public class SendMail {
 		
 		if(str != null && str.contains("感谢您订阅")){
 			System.out.println("发送邮件成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+mail);
+			return true;
 		}else{
 			Failmails.add(mail);
 			System.out.println("发送频繁>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>...发送失败 "+mail);
