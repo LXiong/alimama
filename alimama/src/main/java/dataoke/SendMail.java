@@ -68,9 +68,11 @@ public class SendMail {
 		//System.out.println("str:" + str);
 		
 		if(str != null && str.contains("验证码")){
-			System.out.println("发送频繁>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>...发送失败");
+			System.out.println("发送频繁>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>...发送失败"+mail);
 		}else if(str != null && str.contains("感谢您订阅")){
 			System.out.println("发送邮件成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+mail);
+		}else{
+			System.out.println("发送频繁>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>...发送失败 "+mail);
 		}
 		return false;
 
