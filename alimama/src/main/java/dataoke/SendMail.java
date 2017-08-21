@@ -34,6 +34,9 @@ public class SendMail {
 			if(StringUtils.isBlank(m)){
 				continue;
 			}
+			if(!m.contains("@")){
+				m = m+"@qq.com";
+			}
 			try{
 				proxy  = IpPoolUtil.getHttpHost();
 				System.out.println("ip================"+proxy);
