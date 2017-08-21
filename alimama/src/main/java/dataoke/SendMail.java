@@ -1,7 +1,9 @@
 package dataoke;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -14,6 +16,8 @@ import util.IpPoolUtil;
 public class SendMail {
 	
 	static  HttpHost proxy = null;
+	
+	static List<String> Failmails = new CopyOnWriteArrayList<String>();
 
 	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
@@ -34,6 +38,22 @@ public class SendMail {
 			}
 			
 		}
+		
+		for(String m:Failmails){
+			if(StringUtils.isBlank(m)){
+				continue;
+			}
+			try{
+				proxy  = IpPoolUtil.getHttpHost();
+				System.out.println("ip================"+proxy);
+				loginHttpClient(m);
+				Thread.sleep(2000);
+			}catch(Exception e){
+				
+			}
+			
+		}
+		
 	
 	}
 
@@ -67,11 +87,10 @@ public class SendMail {
 				null, proxy, null);
 		//System.out.println("str:" + str);
 		
-		if(str != null && str.contains("验证码")){
-			System.out.println("发送频繁>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>...发送失败"+mail);
-		}else if(str != null && str.contains("感谢您订阅")){
+		if(str != null && str.contains("感谢您订阅")){
 			System.out.println("发送邮件成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+mail);
 		}else{
+			Failmails.add(mail);
 			System.out.println("发送频繁>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>...发送失败 "+mail);
 		}
 		return false;
