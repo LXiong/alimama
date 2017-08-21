@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -18,8 +19,13 @@ public class SendMail {
 	static  HttpHost proxy = null;
 	
 	static List<String> Failmails = new CopyOnWriteArrayList<String>();
-
+    static int len = 10;   
 	public static void main(String[] args) throws Exception{
+		
+		if (args != null && args.length >= 1) {
+			len = Integer.valueOf(args[1]);
+		}
+		
 		// TODO Auto-generated method stub
 		//
 		List<String> mails = FileUtils.readLines(new File("d:\\mails.txt"));
@@ -32,7 +38,7 @@ public class SendMail {
 				proxy  = IpPoolUtil.getHttpHost();
 				System.out.println("ip================"+proxy);
 				loginHttpClient(m);
-				Thread.sleep(2000);
+				TimeUnit.SECONDS.sleep(len);
 			}catch(Exception e){
 				
 			}
