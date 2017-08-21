@@ -48,7 +48,9 @@ public class SendMail {
 			
 		}
 		
-		for(String m:Failmails){
+		FileUtils.writeLines(new File("fialMail.txt"), Failmails);
+		
+		/*for(String m:Failmails){
 			if(StringUtils.isBlank(m)){
 				continue;
 			}
@@ -60,8 +62,9 @@ public class SendMail {
 			}catch(Exception e){
 				
 			}
-			
-		}
+		}*/
+		
+		
 		
 	
 	}
