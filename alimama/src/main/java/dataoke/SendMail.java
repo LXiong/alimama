@@ -21,9 +21,15 @@ public class SendMail {
     static int len = 10;   
     static int allSize = 0;
     static int okSize = 0;
+    static String id = null;
 	public static void main(String[] args) throws Exception{
 		
 		if (args != null && args.length >= 1) {
+			System.out.println("id==============="+id);
+			id = args[0];
+		}
+		
+		if (args != null && args.length >= 2) {
 			len = Integer.valueOf(args[1]);
 		}
 		
@@ -42,7 +48,7 @@ public class SendMail {
 				allSize+=1;
 				proxy  = IpPoolUtil.getHttpHost();
 				System.out.println("ip================"+proxy);
-				boolean flag = loginHttpClient(m);
+				boolean flag = loginHttpClient(m,id);
 				if(flag){
 					okSize+=1;
 				}
@@ -75,7 +81,7 @@ public class SendMail {
 	
 	}
 
-	public static boolean loginHttpClient(String mail)
+	public static boolean loginHttpClient(String mail,String id)
 			throws Exception {
 		System.out.println("开始查找cookis文件是否存在>>>>>>>>>>>>>>>>>>");
 
@@ -99,7 +105,7 @@ public class SendMail {
 		httpRequest.setHeader("Upgrade-Insecure-Requests", "1");
 		httpRequest.setHeader("Connection", "keep-alive");
 
-		String p = "t=qf_booked_feedback&id=647606dc58eb7e0c3d6544cede97ec65d2f56b477d2dcd0c&to="+mail;
+		String p = "t=qf_booked_feedback&id="+id+"&to="+mail;
 
 		String str = HttpClientUtil.sendPostRequest(httpRequest, p, true, null,
 				null, proxy, null);
