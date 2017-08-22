@@ -1,7 +1,6 @@
 package dataoke;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
@@ -55,7 +54,7 @@ public class SendMail {
 			
 		}
 		
-		FileUtils.writeLines(new File("fialMail.txt"), Failmails);
+		//FileUtils.writeLines(new File("fialMail.txt"), Failmails);
 		
 		/*for(String m:Failmails){
 			if(StringUtils.isBlank(m)){
@@ -111,6 +110,7 @@ public class SendMail {
 			return true;
 		}else{
 			Failmails.add(mail);
+			FileUtils.write(new File("fialMail.txt"), mail+"\r\n",true);
 			System.out.println("发送频繁>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>...发送失败 "+mail);
 		}
 		return false;
