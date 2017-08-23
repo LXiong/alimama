@@ -1535,7 +1535,7 @@ public class Test {
 	public static void printLog(Object content){
 		try {
 			System.out.println(content);
-			FileUtils.write(new File("d:\\dataoke.log"), content+"",true);
+			FileUtils.write(new File("d:\\dataoke.log"), content+"\r\n",true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
