@@ -87,8 +87,8 @@ public class Test {
 		//printLog(getUserPids("15917728864"));
 		printLog(loginHttpClient("15201733860", "1qaz2wsx"));
 		//printLog(updatePwdHttpClient("15201733860", "1qaz2wsx2", "1qaz2wsx"));
-		printLog(taoTokenHttpClient("3453237", "15201733860","2"));
-		
+		//printLog(taoTokenHttpClient("3453237", "15201733860","2"));
+		 printLog(tuijianHttpClient("3448718", "15201733860"));
 		//printLog(getExitsSetPidExeitHttpClient("15917728864"));
 		
 		//printLog(createPidHtppClient("13191048115"));
@@ -1586,12 +1586,12 @@ public class Test {
 							
 							//boolean flagt = tuijian(pid,uname,true);
 							//boolean flagt = tuijian(pid,uname);
-							//boolean flagt = tuijianHttpClient(pid,uname);
+							boolean flagt = tuijianHttpClient(pid,uname);
 							//boolean flagt = taoTokenHttpClient(pid,uname,"2");
 							//Thread.sleep(Cmd.getSleepTime(400, 1000));
 							//flagt = taoTokenHttpClient(pid,uname,"2");
 							//flag = tuijianToFile(pid,uname);
-							boolean flagt = zhuan(uname,pid);
+							//boolean flagt = zhuan(uname,pid);
 							//boolean flagt = TestSelenium.execute(pid,uname);
 							if(flagt){
 								tuiguangOk += 1;
