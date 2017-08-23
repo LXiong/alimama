@@ -14,6 +14,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpHost;
 
+import dataoke.Test;
+
+
 public class IpPoolUtil {
 	
 	static BlockingQueue<HttpHost> blockingQueue = new ArrayBlockingQueue<HttpHost>(100);
@@ -42,12 +45,12 @@ public class IpPoolUtil {
 			try {
 				File file = new File("d:\\dataokeip.txt");
 				if(file.exists()){
-					System.out.println("配置ip文件存在，获取iP文件列表>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+file.getAbsolutePath());
+					Test.printLog("配置ip文件存在，获取iP文件列表>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+file.getAbsolutePath());
 					proxyURLList.clear();
 					List<String> list = FileUtils.readLines(file);
 					proxyURLList.addAll(list);
 				}else{
-					System.out.println("配置ip文件不存在>>>>>>>>>>>>>>>>>>>>"+file.getAbsolutePath());
+					Test.printLog("配置ip文件不存在>>>>>>>>>>>>>>>>>>>>"+file.getAbsolutePath());
 				}
 				
 			} catch (IOException e) {
@@ -65,7 +68,7 @@ public class IpPoolUtil {
 	
 	public static HttpHost getHttpHost(){
 		for(int i=0;i<12;i++){
-			System.out.println("开始获取从队列里面获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			Test.printLog("开始获取从队列里面获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			HttpHost host=null;
 			try {
 				host = blockingQueue.poll(5,TimeUnit.SECONDS);
@@ -73,10 +76,10 @@ public class IpPoolUtil {
 				e.printStackTrace();
 			}
 			if(host!=null){
-				System.out.println("成功从ip池获取代理ip>>>>>>>>>>>>>>>>>>>>");
+				Test.printLog("成功从ip池获取代理ip>>>>>>>>>>>>>>>>>>>>");
 				return host;
 			}else{
-				System.out.println("获取代理ip失败》》》》》》当前代理ip池大小："+blockingQueue.size());
+				Test.printLog("获取代理ip失败》》》》》》当前代理ip池大小："+blockingQueue.size());
 			}
 			
 		}
@@ -92,40 +95,40 @@ public class IpPoolUtil {
 	                // task to run goes here
 	            	//synchronized(ZhuCeSelenium.class){
 	            		try{
-		            		 System.out.println("开始检测ip池ip数据数量>>>>>>>>>>>>>>>>>>");
+		            		 Test.printLog("开始检测ip池ip数据数量>>>>>>>>>>>>>>>>>>");
 		 	                int size = blockingQueue.size();
-		 	                System.out.println("当前ip池数量wei:  "+size);
+		 	                Test.printLog("当前ip池数量wei:  "+size);
 		 	                if(size<5){
-		 	                	System.out.println("开始获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 	                	Test.printLog("开始获取代理ip>>>>>>>>>>>>>>>>>>>>>>>>>");
 		 	        			//proxyURLList.get(new Random().nextInt(3))
 		 	        			//List<HttpHost> hosts = IpUtils.getips(proxyURL);
 		 	                	List<HttpHost> hosts = null;
 		 	        			for(String proxyurl:proxyURLList){
 		 	        				 hosts = IpUtils.getips(proxyurl);
 		 	        				 if(CollectionUtils.isNotEmpty(hosts)){
-		 	        					 System.out.println("获取ip为null>>>>>>>>>>>>>>>>>> url :"+proxyurl);
+		 	        					 Test.printLog("获取ip为null>>>>>>>>>>>>>>>>>> url :"+proxyurl);
 		 	        					 break;
 		 	        				 }
 		 	        			}
 		 	        			if(CollectionUtils.isEmpty(hosts)){
-		 	        				 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 	        				 Test.printLog("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		 	        			 }else{
 		 	        				 for(final HttpHost h:hosts){
 		 	        					 new Thread(){
 		 	        						 public void run() {
 		 	        							 boolean flag = IpUtils.createIPAddress(h.getHostName(),h.getPort());
 				 	        					 if(flag){
-				 	        						 System.out.println("ip==="+h+" 有效加入ip池 "+blockingQueue.offer(h));
+				 	        						 Test.printLog("ip==="+h+" 有效加入ip池 "+blockingQueue.offer(h));
 				 	        					 }else{
-				 	        						 System.out.println("ip==="+h+" 无效");
+				 	        						 Test.printLog("ip==="+h+" 无效");
 				 	        					 }
 		 	        						 };
 		 	        					 }.start();
 		 	        				 }
-		 	        				// System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+		 	        				// Test.printLog("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 		 	        			 }
 		 	                }else{
-		 	                	System.out.println("当前ip池数据量充足>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 	                	Test.printLog("当前ip池数据量充足>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		 	                }
 		            	}catch(Exception e){
 		            		e.printStackTrace();
