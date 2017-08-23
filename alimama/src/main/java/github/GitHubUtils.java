@@ -35,6 +35,11 @@ public class GitHubUtils {
 		commit("xiaomin99/dataoke",content,DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"), path, false);
 	}
 	
+	public static void commitDataokeZhanghao(String content){
+		String date =DateFormatUtils.format(new Date(), "yyyyMMdd");
+		String path =date+"/"+ DateFormatUtils.format(new Date(), "yyyyMMdd_HHmmss") +".txt";
+		commit("xiaomin99/dataokeZhanghao",content,DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"), path, false);
+	}
 	
 	public static void commit(String rep,String content,String commitmsg,String path,boolean isAdd){
 		try{

@@ -3,6 +3,7 @@ package dataoke;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URI;
@@ -58,7 +59,7 @@ public class Test {
 	
 	public static void main(String[] args) throws Exception{
 		//boolean flag = tuijian("2231931");
-		//System.out.println("推广成功》》》》》》》》》》》》》》》》》》》"+flag);
+		//printLog("推广成功》》》》》》》》》》》》》》》》》》》"+flag);
 		//execteAll("2255030",new File("G:\\taoke\\第4组.txt"));
 		//executeTest();
 	  // testck();
@@ -72,58 +73,58 @@ public class Test {
 		//check();
 		
 		
-		//System.out.println(readDetailHttp("2325753", "13411679603"));
+		//printLog(readDetailHttp("2325753", "13411679603"));
 		
-		//System.out.println(biaoji("2333730", "17189683009"));
+		//printLog(biaoji("2333730", "17189683009"));
 		
-		//System.out.println(queryPidByName("17189683009", "已破形常准"));
+		//printLog(queryPidByName("17189683009", "已破形常准"));
 		
-		//System.out.println(createPidAll("17189683009"));
+		//printLog(createPidAll("17189683009"));
 		
 
-		//System.out.println(loginHttpClient("15917728864", "3pd0qu"));
+		//printLog(loginHttpClient("15917728864", "3pd0qu"));
 		
-		//System.out.println(getUserPids("15917728864"));
-		System.out.println(loginHttpClient("15201733860", "1qaz2wsx"));
-		//System.out.println(updatePwdHttpClient("15201733860", "1qaz2wsx2", "1qaz2wsx"));
-		System.out.println(taoTokenHttpClient("2895505", "15201733860","2"));
+		//printLog(getUserPids("15917728864"));
+		printLog(loginHttpClient("15201733860", "1qaz2wsx"));
+		//printLog(updatePwdHttpClient("15201733860", "1qaz2wsx2", "1qaz2wsx"));
+		printLog(taoTokenHttpClient("3453237", "15201733860","2"));
 		
-		//System.out.println(getExitsSetPidExeitHttpClient("15917728864"));
+		//printLog(getExitsSetPidExeitHttpClient("15917728864"));
 		
-		//System.out.println(createPidHtppClient("13191048115"));
-		//System.out.println(createPidAllHttpClient("15917728864"));
+		//printLog(createPidHtppClient("13191048115"));
+		//printLog(createPidAllHttpClient("15917728864"));
 		
-		//System.out.println(getExitsSetPidFlagExeitHttpClient("13923938760"));
-		//System.out.println(deletePidHtppClient("15917728864","1684316"));
+		//printLog(getExitsSetPidFlagExeitHttpClient("13923938760"));
+		//printLog(deletePidHtppClient("15917728864","1684316"));
 		
-		//System.out.println(checkPidExeitHttpClient("13829502088"));
+		//printLog(checkPidExeitHttpClient("13829502088"));
 		
 		
-		//System.out.println(createPidAllHttpClient("15544729135"));
+		//printLog(createPidAllHttpClient("15544729135"));
 		
-		//System.out.println(zhuan("13411679603", "2337538"));
+		//printLog(zhuan("13411679603", "2337538"));
 		
-		//System.out.println(goodClickWebClient("13411679603", "2318180"));
+		//printLog(goodClickWebClient("13411679603", "2318180"));
 		
 		//testHttpclientProxy();
 		
-		//System.out.println(tuijian("2359220", "17774505172"));
+		//printLog(tuijian("2359220", "17774505172"));
 		
-		//System.out.println(deleteAll("17774505172","0"));
+		//printLog(deleteAll("17774505172","0"));
 		
 		/*for(int i=0;i<500;i++){
-			System.out.println(readDetailHttp("2378064", "15201733860"));
+			printLog(readDetailHttp("2378064", "15201733860"));
 			Thread.sleep(Cmd.getSleepTime());
 		}*/
 		
-		//System.out.println(tuijian("2449218", "13532300165"));
-		//System.out.println(tuijianHttpClient("2516967", "15544728853"));
+		//printLog(tuijian("2449218", "13532300165"));
+		//printLog(tuijianHttpClient("2516967", "15544728853"));
 	
-		//System.out.println(loginHttpClient("15544728853", "dbnat97"));
-		//System.out.println(tuijianHttpClient("2544577", "15544728853"));
-		//System.out.println(login("15544728853", "dbnat97"));
+		//printLog(loginHttpClient("15544728853", "dbnat97"));
+		//printLog(tuijianHttpClient("2544577", "15544728853"));
+		//printLog(login("15544728853", "dbnat97"));
 
-		//System.out.println(deleteAllHttpClient("15544728853", "0"));
+		//printLog(deleteAllHttpClient("15544728853", "0"));
 	}
 	
 	 
@@ -134,14 +135,14 @@ public class Test {
 		 HttpClientUtils httpClientUtils = new HttpClientUtils();
 		 HttpHost proxy = getProxy();
 		 String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
-			 System.out.println(rc);
+			 printLog(rc);
 		}
 	
 	public static void testjoddProxy()throws Exception{
 		HttpRequest httpRequest = HttpRequest.get("http://ip.chinaz.com/");
 		HttpResponse httpResponse = httpRequest.open(getSocketHttpConnectionProvider()).send();
 		 String rc = httpResponse.bodyText();
-		 System.out.println(rc);
+		 printLog(rc);
 	}
 	
 	public static boolean check(){
@@ -151,10 +152,10 @@ public class Test {
 			 HttpResponse response = httpRequest.send();
 			 String rc = response.bodyText();
 			 if(rc.contains("dataoke")){
-				 System.out.println("验证码通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				 printLog("验证码通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				 return true;
 			 }else{
-				 System.out.println("验证码不通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				 printLog("验证码不通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 }
 		}catch(Exception e)
 		{
@@ -172,10 +173,10 @@ public class Test {
 			 HttpResponse response = httpRequest.send();
 			 String rc = response.bodyText();
 			 if(rc.contains("dataoke")){
-				 System.out.println("验证码通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				 printLog("验证码通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				 return true;
 			 }else{
-				 System.out.println("验证码不通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				 printLog("验证码不通过>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 }
 		}catch(Exception e)
 		{
@@ -193,18 +194,18 @@ public class Test {
 		   String uname = "17071610350";
 		   String pwd = "1qaz2wsx";
 		
-			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆");
+			printLog("u = "+uname + "p = "+pwd +" 开始登陆");
 			
 			boolean flag = login(uname,pwd);
-			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
+			printLog("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(3000);
 			if(flag){
 				flag = tuijian(pid,uname);
 				//flag = tuijianToFile(pid,uname);
 				if(flag){
-					System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
+					printLog("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname);
 				}else{
-					System.out.println("推广失败》》》》》》》》》》》》》》》》》》pid="+pid+"uname="+uname);
+					printLog("推广失败》》》》》》》》》》》》》》》》》》pid="+pid+"uname="+uname);
 				}
 			}
 			Thread.sleep(5000);
@@ -213,27 +214,27 @@ public class Test {
 	
 	public static void testck()throws Exception{
 		//boolean flag = login("15201733860","1qaz2wsx");
-		//System.out.println(flag);
+		//printLog(flag);
 		
 		 boolean flag = getSlftConent("2217018","15201733860");
 		Thread.sleep(1000);
 		if(flag){
-			System.out.println("商品已存在商品列表..删除商品");
+			printLog("商品已存在商品列表..删除商品");
 			flag = deleteId("2217018","15201733860");
 			if(flag){
-				System.out.println("商品删除==="+flag);
+				printLog("商品删除==="+flag);
 			}else{
-				System.out.println("商品删除失败结束>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				printLog("商品删除失败结束>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			}
 		}else{
-			System.out.println("不在推广列表>>>>>>>>>>>>>>>>>>>>>>>>");
+			printLog("不在推广列表>>>>>>>>>>>>>>>>>>>>>>>>");
 		}
 		/*Thread.sleep(1000);
 		flag = tuijianToFile("2217018","15201733860");
 		if(flag){
-			System.out.println("推广成功》》》》》》》》》》》》》》》》》》》");
+			printLog("推广成功》》》》》》》》》》》》》》》》》》》");
 		}else{
-			System.out.println("推广失败》》》》》》》》》》》》》》》》》》》");
+			printLog("推广失败》》》》》》》》》》》》》》》》》》》");
 		}*/
 	}
 	
@@ -262,7 +263,7 @@ public class Test {
 		 HttpResponse response = httpRequest.send();
 		 response = response.charset("gb2312");
 		 String rc = response.bodyText();
-		 System.out.println(rc);
+		 printLog(rc);
 		 
 		 if(rc.contains(id)){
 			 return true;
@@ -285,7 +286,7 @@ public class Test {
 		Cookie[] cks = getObjToFile(uname);
 		if(ArrayUtils.isNotEmpty(cks)){
 			for (Cookie c : getObjToFile(uname)) {
-				// System.out.println(c.getName()+"===="+c.getValue());
+				// printLog(c.getName()+"===="+c.getValue());
 				// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
 				cookisMap.put(c.getName().trim(), c.getValue());
 			}
@@ -301,7 +302,7 @@ public class Test {
 			httpRequest.header("Cookie", cookisStr);
 		}
 
-		// System.out.println(buffer.toString());
+		// printLog(buffer.toString());
 
 		
 	}
@@ -359,7 +360,7 @@ public class Test {
 		setCookis(uname, httpRequest);
 
 		String rc =  HttpClientUtil.sendGetRequest(httpRequest,"gb2312",proxy);
-		//System.out.println("pidAddwx：" + rc);
+		//printLog("pidAddwx：" + rc);
 
 		if (rc.contains("欢迎")) {
 			return true;
@@ -397,7 +398,7 @@ public class Test {
 		response = response.charset("gb2312");
 		String rc = response.bodyText();
 
-		//System.out.println("pidAddwx：" + rc);
+		//printLog("pidAddwx：" + rc);
 
 		if (rc.contains("欢迎")) {
 			return true;
@@ -434,7 +435,7 @@ public class Test {
 		response = response.charset("gb2312");
 		String rc = response.bodyText();
 
-		//System.out.println("pidAddwx：" + rc);
+		//printLog("pidAddwx：" + rc);
 
 		if (rc.contains("欢迎")) {
 			return true;
@@ -470,7 +471,7 @@ public class Test {
 		response = response.charset("gb2312");
 		String rc = response.bodyText();
 
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 
 		if (rc.contains("PID管理")) {
 			Document document = Jsoup.parse(rc);
@@ -478,11 +479,11 @@ public class Test {
 			for(Element element:elements){
 				String html = element.html();
 				if(html.contains(pname) && !html.contains("领券优惠")){
-					//System.out.println(html);
-					//System.out.println("===============================");
+					//printLog(html);
+					//printLog("===============================");
 					elements = element.getElementsByTag("a");
 					for(Element e:elements){
-						//System.out.println(e.html());
+						//printLog(e.html());
 						String href = e.attr("href");
 						if(StringUtils.isNotBlank(href) && href.contains("id=")){
 							return href.replace("?act=set_qq&id=", "").replace("?act=set_wx&id=", "");
@@ -522,7 +523,7 @@ public class Test {
 		
 		String rc = HttpClientUtil.sendGetRequest(httpRequest, "gb2312", proxy);
 
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 
 		if (rc.contains("PID管理")) {
 			Document document = Jsoup.parse(rc);
@@ -530,11 +531,11 @@ public class Test {
 			for(Element element:elements){
 				String html = element.html();
 				if(html.contains(pname) && !html.contains("领券优惠")){
-					//System.out.println(html);
-					//System.out.println("===============================");
+					//printLog(html);
+					//printLog("===============================");
 					elements = element.getElementsByTag("a");
 					for(Element e:elements){
-						//System.out.println(e.html());
+						//printLog(e.html());
 						String href = e.attr("href");
 						if(StringUtils.isNotBlank(href) && href.contains("id=")){
 							return href.replace("?act=set_qq&id=", "").replace("?act=set_wx&id=", "");
@@ -575,7 +576,7 @@ public class Test {
 		
 		String rc = HttpClientUtil.sendGetRequest(httpRequest, "gb2312", proxy);
 
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 		List<String> pids = new ArrayList<String>();
 		Document document = Jsoup.parse(rc);
 		
@@ -621,7 +622,7 @@ public class Test {
 		
 		String rc = HttpClientUtil.sendGetRequest(httpRequest, "gb2312", proxy);
 
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 		List<String> pids = new ArrayList<String>();
 		Document document = Jsoup.parse(rc);
 		
@@ -660,7 +661,7 @@ public class Test {
 		
 		String rc = HttpClientUtil.sendGetRequest(httpRequest, "gb2312", proxy);
 
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 
 		if (StringUtils.countMatches(rc, "取消")==2 || StringUtils.countMatches(rc, "取消")>2) {
 		    return true;
@@ -670,33 +671,33 @@ public class Test {
 	
 	public static boolean createPidAllHttpClient(String uname)throws Exception{
 		
-		System.out.println("开始检测是否设置pid>>>>>>>>>>>>>>"+uname);
+		printLog("开始检测是否设置pid>>>>>>>>>>>>>>"+uname);
 		if(getExitsSetPidFlagExeitHttpClient(uname)){
 			return true;
 		}
 		 Thread.sleep(2000);
 		 if(checkPidExeitHttpClient(uname)){
-			 System.out.println("pid已经存在>>>>>>>>>>>"+uname);
+			 printLog("pid已经存在>>>>>>>>>>>"+uname);
 			 Thread.sleep(2000);
 			
 			 List<String> pids = getExitsSetPidExeitHttpClient(uname);
 			 Thread.sleep(2000);
 			 if(CollectionUtils.isNotEmpty(pids)){
 				 boolean flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
-				 System.out.println("uname =="+uname+" 取消pid==="+flag);
+				 printLog("uname =="+uname+" 取消pid==="+flag);
 				 Thread.sleep(2000);
 				 if(!flag){
 					 pids = getExitsSetPidExeitHttpClient(uname);
 					 Thread.sleep(2000);
 					 flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
-					 System.out.println("uname =="+uname+" 取消pid==="+flag);
+					 printLog("uname =="+uname+" 取消pid==="+flag);
 					 Thread.sleep(2000);
 				 }
 				 if(!flag){
 					 pids = getExitsSetPidExeitHttpClient(uname);
 					 Thread.sleep(2000);
 					 flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
-					 System.out.println("uname =="+uname+" 取消pid==="+flag);
+					 printLog("uname =="+uname+" 取消pid==="+flag);
 					 Thread.sleep(2000);
 					 return false;
 				  }
@@ -704,51 +705,51 @@ public class Test {
 			 }
  			 // return true;
 		 }
-		 System.out.println("没有设置pid，开始设置pid>>>>>>>>>>>>>>"+uname);
+		 printLog("没有设置pid，开始设置pid>>>>>>>>>>>>>>"+uname);
 		 String title=createPidHtppClient(uname);
-		 System.out.println("title: "+title);
+		 printLog("title: "+title);
 		 Thread.sleep(2000);
 		 boolean flag = false;
 		 if(StringUtils.isNotBlank(title)){
-			 System.out.println("开始查询pi========"+title);
+			 printLog("开始查询pi========"+title);
 			 String pid = queryPidByNameHttpClient(uname, title);
-			 System.out.println("pid====="+pid+" title==="+title);
+			 printLog("pid====="+pid+" title==="+title);
 			 Thread.sleep(2000);
 			  flag = pidAddHttpClient(uname, pid, "set_wx");
-			 System.out.println("设为微信专用>>>>>>>>>>>>>>>"+flag);
+			 printLog("设为微信专用>>>>>>>>>>>>>>>"+flag);
 		 }
 		 Thread.sleep(2000);
 		 title=createPidHtppClient(uname);
-		 System.out.println("title: "+title);
+		 printLog("title: "+title);
 		 if(StringUtils.isNotBlank(title) && flag){
 			 Thread.sleep(2000);
-			 System.out.println("开始查询pi========"+title);
+			 printLog("开始查询pi========"+title);
 			 String pid = queryPidByNameHttpClient(uname, title);
-			 System.out.println("pid====="+pid+" title==="+title);
+			 printLog("pid====="+pid+" title==="+title);
 			 Thread.sleep(2000);
 			  flag =  pidAddHttpClient(uname, pid, "set_qq");
-			 System.out.println("设为Q群专用>>>>>>>>>>>>>>>"+flag);
+			 printLog("设为Q群专用>>>>>>>>>>>>>>>"+flag);
 		 }
 		 return flag;
 	}
 	
 	public static boolean createPidAll(String uname)throws Exception{
 		 String title=createPid(uname);
-		 System.out.println("title: "+title);
+		 printLog("title: "+title);
 		 if(StringUtils.isNotBlank(title)){
 			 String pid = queryPidByName(uname, title);
 			 Thread.sleep(1000);
 			 boolean flag = pidAdd(uname, pid, "set_wx");
-			 System.out.println("设为微信专用>>>>>>>>>>>>>>>"+flag);
+			 printLog("设为微信专用>>>>>>>>>>>>>>>"+flag);
 		 }
 		 Thread.sleep(1000);
 		 title=createPid(uname);
-		 System.out.println("title: "+title);
+		 printLog("title: "+title);
 		 if(StringUtils.isNotBlank(title)){
 			 String pid = queryPidByName(uname, title);
 			 Thread.sleep(1000);
 			 boolean flag =  pidAdd(uname, pid, "set_qq");
-			 System.out.println("设为Q群专用>>>>>>>>>>>>>>>"+flag);
+			 printLog("设为Q群专用>>>>>>>>>>>>>>>"+flag);
 		 }
 		 return true;
 	}
@@ -786,7 +787,7 @@ public class Test {
 		
 		httpRequest.charset("gb2312");
 		
-		System.out.println("title: "+title + " pid : "+pid);
+		printLog("title: "+title + " pid : "+pid);
 
 		HttpResponse response = httpRequest.send();
 		response = response.charset("gb2312");
@@ -794,7 +795,7 @@ public class Test {
 */
 		
 		String rc = HttpClientUtil.sendPostRequest(httpRequest, "title="+title+"&"+"tong_pid="+pid+"&"+"Submit= ´´ ½¨ ", true, "gb2312", "gb2312", proxy, null);
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 
 		if (rc.contains("创建成功")) {
 			//String ppid = queryPidByName(uname, title);
@@ -836,7 +837,7 @@ public class Test {
 		
 		httpRequest.charset("gb2312");
 		
-		System.out.println("title: "+title + " pid : "+pid);
+		printLog("title: "+title + " pid : "+pid);
 
 		HttpResponse response = httpRequest.send();
 		response = response.charset("gb2312");
@@ -844,7 +845,7 @@ public class Test {
 */
 		
 		String rc = HttpClientUtil.sendGetRequest(httpRequest,"gb2312", proxy);
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 
 		List<String> users = new ArrayList<String>();
 		Document document = Jsoup.parse(rc);
@@ -887,11 +888,11 @@ public class Test {
 		setCookis(uname, httpRequest);
 		
 		String rc = HttpClientUtil.sendGetRequest(httpRequest, "gb2312", proxy);
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 			if (rc.contains("授权管理")) {
-				System.out.println("pid===="+id+" 删除成功>>>>>>>>>>>>>>>>>>>>");
+				printLog("pid===="+id+" 删除成功>>>>>>>>>>>>>>>>>>>>");
 			} else {
-				System.out.println("pid===="+id+" 删除失败>>>>>>>>>>>>>>>>>>>>");
+				printLog("pid===="+id+" 删除失败>>>>>>>>>>>>>>>>>>>>");
 				flag = false;
 			}
 			Thread.sleep(2000);
@@ -931,13 +932,13 @@ public class Test {
 		
 		httpRequest.charset("gb2312");
 		
-		System.out.println("title: "+title + " pid : "+pid);
+		printLog("title: "+title + " pid : "+pid);
 
 		HttpResponse response = httpRequest.send();
 		response = response.charset("gb2312");
 		String rc = response.bodyText();
 
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 
 		if (rc.contains("创建成功")) {
 			//String ppid = queryPidByName(uname, title);
@@ -952,14 +953,14 @@ public class Test {
 			//boolean flag = tuijian2to1_1(uname, ppid);
 			boolean flag = taoTokenHttpClient(ppid, uname, "1");
 			
-			System.out.println("转二转一>>>>>>>>>>>>>>>>>>>>>>>"+flag);
+			printLog("转二转一>>>>>>>>>>>>>>>>>>>>>>>"+flag);
 			
 			if(!flag){
 				return flag;
 			}
 			
 			flag = taoTokenHttpClient(ppid, uname, "2");
-			System.out.println("转淘口令>>>>>>>>>>>>>>>>>>>>>>>"+flag);
+			printLog("转淘口令>>>>>>>>>>>>>>>>>>>>>>>"+flag);
 			
 			return flag;
 		}catch(Exception e){
@@ -1001,7 +1002,7 @@ public class Test {
 		response = response.charset("gb2312");
 		String rc = response.bodyText();
 
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 
 		 JSONObject jsonObject = JSONObject.parseObject(rc);
          String status = jsonObject.getString("status");
@@ -1043,7 +1044,7 @@ public class Test {
 		response = response.charset("gb2312");
 		String rc = response.bodyText();
 
-		//System.out.println("createPid返回结果：" + rc);
+		//printLog("createPid返回结果：" + rc);
 
 		JSONObject jsonObject = JSONObject.parseObject(rc);
         String status = jsonObject.getString("status");
@@ -1076,7 +1077,7 @@ public class Test {
 	 response = response.charset("gb2312");
 	 String rc = response.bodyText();
 	 
-	 System.out.println("标记返回结果："+rc);
+	 printLog("标记返回结果："+rc);
 	 
 	 if(rc.contains("成功")){
 		 return true;
@@ -1093,11 +1094,11 @@ public class Test {
 		 List<HttpHost> hosts = IpUtils.getips("http://ip.memories1999.com/api.php?dh=2764810913906166&sl=1&xl=国内&gl=1");
 		 
 		 if(CollectionUtils.isEmpty(hosts)){
-			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 printLog("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 Thread.sleep(5000);
 			 return null;
 		 }else{
-			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+			 printLog("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 		 }
 		HttpHost host = hosts.get(0); 
 	    return host;
@@ -1106,11 +1107,11 @@ public class Test {
 	public static SocketHttpConnectionProvider getSocketHttpConnectionProviderOld()throws Exception{
 		 List<HttpHost> hosts = IpUtils.getips("http://tvp.daxiangdaili.com/ip/?tid=557335383289182&num=1&category=2&exclude_ports=8080,80,8081,8089&filter=on");
 		 if(CollectionUtils.isEmpty(hosts)){
-			 System.out.println("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			 printLog("获取ip为kong>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			 Thread.sleep(5000);
 			 return null;
 		 }else{
-			 System.out.println("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
+			 printLog("获取代理ip成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip="+hosts.get(0).getHostName()+" prot:"+hosts.get(0).getPort());
 		 }
 		HttpHost host = hosts.get(0); 
 		ProxyInfo proxyInfoObj = new ProxyInfo(ProxyType.HTTP, host.getHostName(), host.getPort(), "", "");
@@ -1152,16 +1153,16 @@ public class Test {
 		 
 		Element elementId = document.getElementById("fav_add_rz_"+id);
 		
-		//System.out.println(elementId.attr("title"));
+		//printLog(elementId.attr("title"));
 		
 		elementId = elementId.previousElementSibling();
 		String goodsId = elementId.attr("id");
-		 System.out.println("id==="+id+" 获取商品id为："+goodsId);
+		 printLog("id==="+id+" 获取商品id为："+goodsId);
 		 if(StringUtils.isNotBlank(goodsId)){
 			 goodsId = goodsId.replace("fav_sendtime_", "");
 			 Thread.sleep(1000);
 			 boolean bflag = biaojiAction(goodsId, uname);
-			 System.out.println("商品："+id +" 标记结果："+bflag);
+			 printLog("商品："+id +" 标记结果："+bflag);
 			 return bflag;
 		 }
 		
@@ -1169,12 +1170,12 @@ public class Test {
 		 if(CollectionUtils.isNotEmpty(elements)){
 			 Element element = elements.get(0);
 			 String goodsId = element.attr("id");
-			 System.out.println("获取商品id为："+goodsId);
+			 printLog("获取商品id为："+goodsId);
 			 if(StringUtils.isNotBlank(goodsId)){
 				 goodsId = goodsId.replace("fav_sendtime_", "");
 				 Thread.sleep(1000);
 				 boolean bflag = biaojiAction(goodsId, uname);
-				 System.out.println("商品："+id +" 标记结果："+bflag);
+				 printLog("商品："+id +" 标记结果："+bflag);
 				 return bflag;
 			 }
 		 }*/
@@ -1196,7 +1197,7 @@ public class Test {
 		 
 		 Cookie[]  cookies = map.get(uname);
 		 if(ArrayUtils.isNotEmpty(cookies)){
-			 System.out.println("uanem ==="+uname+"  cookis 存在");
+			 printLog("uanem ==="+uname+"  cookis 存在");
 			 httpRequest.cookies(cookies);
 		 }else{
 			 cookies = getObjToFile(uname);
@@ -1205,7 +1206,7 @@ public class Test {
 		 
 		 HttpResponse response = httpRequest.send().charset("utf-8");
 		 String rc = response.bodyText();
-		 System.out.println(rc);
+		 printLog(rc);
 		 
 		 if(rc.contains("成功")){
 			 return true;
@@ -1233,7 +1234,7 @@ public class Test {
 	}
 	
 	public static Cookie[] getObjToFile(String id)throws Exception{
-		System.out.println("id=="+id+"读取cookid文件");
+		printLog("id=="+id+"读取cookid文件");
 		File file = new File(fileStoreBase, id);
 		if(!file.exists()){
 			return null;
@@ -1268,7 +1269,7 @@ public class Test {
 			count++;
 			
 			/*if(lists.size() == count){
-				System.out.println("执行完毕>>>>>>>>>>>>程序退出");
+				printLog("执行完毕>>>>>>>>>>>>程序退出");
 				System.exit(0);
 			}*/
 			
@@ -1277,10 +1278,10 @@ public class Test {
 				
 				String uname = s.split("\\----")[0].trim();
 				String pwd = s.split("\\----")[1].trim();
-				System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count +"当前 文件名称："+file.getName());
+				printLog("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count +"当前 文件名称："+file.getName());
 				
 				boolean flag = loginHttpClient(uname,pwd);
-				System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
+				printLog("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 				Thread.sleep(1000);
 				if(flag){
 					//flag = deleteAll(uname,"1");
@@ -1290,9 +1291,9 @@ public class Test {
 					//flag = tuijianToFile(pid,uname);
 					if(flag){
 						tuiguangOk+=1;
-						System.out.println("删除成功》》》》》》》》》》》》》》》》》》》 uname="+uname+ " 当前删除成功："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
+						printLog("删除成功》》》》》》》》》》》》》》》》》》》 uname="+uname+ " 当前删除成功："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
 					}else{
-						System.out.println("删除失败》》》》》》》》》》》》》》》》》》uname="+uname);
+						printLog("删除失败》》》》》》》》》》》》》》》》》》uname="+uname);
 					}
 				}
 				//Thread.sleep(1000);
@@ -1314,10 +1315,10 @@ public class Test {
 			count++;
 			String uname = s.split("\\----")[0].trim();
 			String pwd = s.split("\\----")[1].trim();
-			System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count +"当前 文件名称："+file.getName());
+			printLog("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count +"当前 文件名称："+file.getName());
 			
 			boolean flag = login(uname,pwd);
-			System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
+			printLog("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 			Thread.sleep(1000);
 			if(flag){
 				//flag = deleteAll(uname,"1");
@@ -1326,9 +1327,9 @@ public class Test {
 				flag = deleteAll(uname,"0");
 				//flag = tuijianToFile(pid,uname);
 				if(flag){
-					System.out.println("删除成功》》》》》》》》》》》》》》》》》》》 uname="+uname);
+					printLog("删除成功》》》》》》》》》》》》》》》》》》》 uname="+uname);
 				}else{
-					System.out.println("删除失败》》》》》》》》》》》》》》》》》》uname="+uname);
+					printLog("删除失败》》》》》》》》》》》》》》》》》》uname="+uname);
 				}
 			}
 			//Thread.sleep(1000);
@@ -1338,7 +1339,7 @@ public class Test {
 	static String ip = "";
 	public static void setRandomIp(HttpRequest httpRequest){
 		 //String ip = IpUtils.getRandomIp();
-		 System.out.println("获取随机ip>>>>>>>>>>>>>>"+ip);
+		 printLog("获取随机ip>>>>>>>>>>>>>>"+ip);
 		 if(StringUtils.isNotBlank(ip)){
 			 httpRequest.header("X-FORWARDED-FOR", ip);
 			 httpRequest.header("CLIENT-IP", ip);
@@ -1372,7 +1373,7 @@ public class Test {
 			htmlPage = (HtmlPage)HtmlUnitUtil.click(htmlPage, "//*[@class='add-tui J_add_tui']");
 			Thread.sleep(3000);
 			
-			System.out.println(htmlPage.asXml());
+			printLog(htmlPage.asXml());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1404,7 +1405,7 @@ public class Test {
 		}
 
 		for (Cookie c : getObjToFile(uname)) {
-			// System.out.println(c.getName()+"===="+c.getValue());
+			// printLog(c.getName()+"===="+c.getValue());
 			// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
 			cookisMap.put(c.getName().trim(), c.getValue());
 		}
@@ -1421,7 +1422,7 @@ public class Test {
 					
 		}
 
-		// System.out.println(buffer.toString());
+		// printLog(buffer.toString());
 
 	}
 
@@ -1451,12 +1452,12 @@ public class Test {
 			 setCookis(uname, httpRequest);
 
 			 String rc = HttpClientUtil.sendGetRequest(httpRequest, "utf-8", proxy);
-			// System.out.println(rc);
+			// printLog(rc);
 			 
 			 if(rc.contains("商家合作")){
 				 return true;
 			 }else{
-				 System.out.println("商品详情返回："+rc);
+				 printLog("商品详情返回："+rc);
 			 }
 			 
 			}catch(Exception e){
@@ -1496,12 +1497,12 @@ public class Test {
 			 HttpResponse response = httpRequest.open().send();
 			 response=  response.charset("utf-8");
 			 String rc = response.bodyText();
-			// System.out.println(rc);
+			// printLog(rc);
 			 
 			 if(rc.contains("商家合作")){
 				 return true;
 			 }else{
-				 System.out.println("商品详情返回："+rc);
+				 printLog("商品详情返回："+rc);
 			 }
 			 
 			}catch(Exception e){
@@ -1520,7 +1521,7 @@ public class Test {
 				for(int i=0;i<cout;i++){
 					try {
 						boolean flag = readDetailHttpClient(pid, uname);
-						System.out.println("uname :"+uname + " 刷阅读数结果 ："+flag);
+						printLog("uname :"+uname + " 刷阅读数结果 ："+flag);
 						long time = new Random().nextInt(1000)+1000l;
 						Thread.sleep(time);
 					} catch (InterruptedException e) {
@@ -1531,12 +1532,21 @@ public class Test {
 		}.start();
 	}
 	
+	public static void printLog(Object content){
+		try {
+			System.out.println(content);
+			FileUtils.write(new File("d:\\dataoke.log"), content+"",true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	static int count = 0;
 	static int tuiguangOk=0;
 	public static void execute(String[] pids,File file)throws Exception{
 		//String pid ="2247791";
 		//List<String> lists=FileUtils.readLines(new File("G:\\taoke\\第2组500.txt"));
-		System.out.println("开始读取文件>>>>>>>>>>"+file.getAbsolutePath());
+		printLog("开始读取文件>>>>>>>>>>"+file.getAbsolutePath());
 		List<String> lists=FileUtils.readLines(file);
 		for(String s:lists){
 			if(StringUtils.isBlank(s)){
@@ -1545,7 +1555,7 @@ public class Test {
 			count++;
 			
 			/*if(lists.size() == count){
-				System.out.println("执行完毕>>>>>>>>>>>>程序退出");
+				printLog("执行完毕>>>>>>>>>>>>程序退出");
 				System.exit(0);
 			}*/
 			
@@ -1558,14 +1568,14 @@ public class Test {
 			
 					String uname = s.split("\\----")[0].trim();
 					String pwd = s.split("\\----")[1].trim();
-					System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
+					printLog("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
 					
 					//boolean flag = login(uname,pwd);
 					boolean flag = loginHttpClient(uname,pwd);
 					//boolean flag = true;
-					System.out.println("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
+					printLog("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 					Thread.sleep(Cmd.getSleepTime(400, 1000));
-					//System.out.println("开始清空所有账号>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					//printLog("开始清空所有账号>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 					//flag = deleteAllHttpClient(uname,"0");
 					//Thread.sleep(Cmd.getSleepTime(400, 1000));
 					
@@ -1585,14 +1595,14 @@ public class Test {
 							//boolean flagt = TestSelenium.execute(pid,uname);
 							if(flagt){
 								tuiguangOk += 1;
-								System.out.println("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname +" 当前已成功推广："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
+								printLog("推广成功》》》》》》》》》》》》》》》》》》》pid="+pid+" uname="+uname +" 当前已成功推广："+tuiguangOk+" 当前ip=="+(proxy==null?"无":proxy.getHostName()));
 								//boolean bflag = biaoji(pid, uname);
-								//System.out.println("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
+								//printLog("标记结果》》》》》》》》》"+bflag+"》》》》》》》》pid="+pid+" uname="+uname);
 								//Thread.sleep(1000);
-								//System.out.println("删除>>>>>>>>>>>>>>>>>>推广>>>>>>>>>>>>>>>>"+deleteAll(uname,"0"));
+								//printLog("删除>>>>>>>>>>>>>>>>>>推广>>>>>>>>>>>>>>>>"+deleteAll(uname,"0"));
 								
 							}else{
-								System.out.println("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+uname);
+								printLog("推广失败》》》》》》》》》》》》》》》》》》     pid="+pid+"   uname="+uname);
 								FileUtils.write(new File("D:\\dataoke\\推荐失败。txt"), s+"\r\n", true);
 							}
 						}
@@ -1625,7 +1635,7 @@ public class Test {
 		 
 		 Cookie[]  cookies = getObjToFile(uname);
 		 if(ArrayUtils.isNotEmpty(cookies)){
-			 System.out.println("uanem ==="+uname+"  cookis 存在");
+			 printLog("uanem ==="+uname+"  cookis 存在");
 			 httpRequest.cookies(cookies);
 		 }
 		 //act=add_quan&id=2231931
@@ -1634,7 +1644,7 @@ public class Test {
 		 
 		 HttpResponse response = httpRequest.send();
 		 String rc = response.bodyText();
-		 System.out.println("tuijianToFile===="+rc);
+		 printLog("tuijianToFile===="+rc);
 		 
 		 if(rc.equalsIgnoreCase("ok")){
 			 return true;
@@ -1668,7 +1678,7 @@ public class Test {
           
 		 
 		 for(Cookie c:getObjToFile(uname)){
-				// System.out.println(c.getName()+"===="+c.getValue());
+				// printLog(c.getName()+"===="+c.getValue());
 				// buffer.append(c.getName()).append("=").append(c.getValue()).append("; ");
 			 cookisMap.put(c.getName(), c.getValue());
 			 }
@@ -1679,7 +1689,7 @@ public class Test {
 			 buffer.append( en.getKey()).append("=").append(en.getValue()).append("; ");
 		 }
 		 
-		 System.out.println(buffer.toString());
+		 printLog(buffer.toString());
 			
 		httpRequest.header("Cookie",buffer.toString());	
 			
@@ -1689,7 +1699,7 @@ public class Test {
 			
 		 /*Cookie[]  cookies = map.get(uname);
 		 if(ArrayUtils.isNotEmpty(cookies)){
-			 System.out.println("uanem ==="+uname+"  cookis 存在");
+			 printLog("uanem ==="+uname+"  cookis 存在");
 			 httpRequest.cookies(cookies);
 		 }else{
 			 cookies = getObjToFile(uname);
@@ -1699,14 +1709,14 @@ public class Test {
 		 
 		 HttpResponse response = httpRequest.send();
 		 String rc = response.bodyText();
-		 System.out.println(rc);
+		 printLog(rc);
 		
 		
 		//String rc = "";
 		 
 		 
 		 if(rc.equalsIgnoreCase("ok")){
-			 System.out.println("id=="+id+" 删除成功>>>>>>>>>>>>>>>");
+			 printLog("id=="+id+" 删除成功>>>>>>>>>>>>>>>");
 			 return true;
 		 }
 		 
@@ -1745,12 +1755,12 @@ public class Test {
 		 /*HttpResponse response = httpRequest.send();
 		 response.charset("gb2312");
 		 String rc = response.bodyText();*/
-		// System.out.println(rc);
+		// printLog(rc);
 		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000,"gb2312");
 		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "leibie="+type+"&zh_que_bt=%C8%B7%C8%CF%C9%BE%B3%FD",true,"gb2312","gb2312",proxy,null);
 		 
 		 if(rc.contains("删除成功")){
-			 System.out.println("id=="+uname+" 删除成功>>>>>>>>>>>>>>>");
+			 printLog("id=="+uname+" 删除成功>>>>>>>>>>>>>>>");
 			 return true;
 		 }
 		 
@@ -1784,11 +1794,11 @@ public class Test {
 		 HttpResponse response = httpRequest.send();
 		 response.charset("gb2312");
 		 String rc = response.bodyText();
-		// System.out.println(rc);
+		// printLog(rc);
 		 
 		 
 		 if(rc.contains("删除成功")){
-			 System.out.println("id=="+uname+" 删除成功>>>>>>>>>>>>>>>");
+			 printLog("id=="+uname+" 删除成功>>>>>>>>>>>>>>>");
 			 return true;
 		 }
 		 
@@ -1821,15 +1831,15 @@ public class Test {
 		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
 		 
 		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "act=add_quan&id="+id,true,null,null,proxy,null);
-         //System.out.println("str:"+str);
+         //printLog("str:"+str);
 		 
 		 if(rc != null && rc.equalsIgnoreCase("ok")){
 			 return true;
 		 }else{
-			 System.out.println("推荐失败返回>>>>>>>>>>>>>>>"+rc);
+			 printLog("推荐失败返回>>>>>>>>>>>>>>>"+rc);
 			 //推荐失败返回>>>>>>>>>>>>>>>is_in
 			 if("is_in".equalsIgnoreCase(rc)){
-				/* System.out.println("当前已取消推荐>>>>>>>>>>再次推荐");
+				/* printLog("当前已取消推荐>>>>>>>>>>再次推荐");
 				 Thread.sleep(2000);
 				 return tuijianHttpClient(id, uname);*/
 			 }
@@ -1869,23 +1879,23 @@ public class Test {
 		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
 		 //type=2 淘口令 1.转二合一
 		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "type="+type+"&gid="+id,true,null,null,proxy,null);
-		 //System.out.println("str:"+rc);
+		 //printLog("str:"+rc);
          JSONObject jsonObject = JSONObject.parseObject(rc);
          String status = jsonObject.getString("status");
 		 if("1".equals(status)){
 			 httpRequest.setURI(new URI("http://www.dataoke.com/detailtpl"));
 			 rc =  HttpClientUtil.sendPostRequest(httpRequest, "gid="+id,true,null,null,proxy,null);
-			 //System.out.println("str:"+rc);
+			 //printLog("str:"+rc);
 			 jsonObject = JSONObject.parseObject(rc);
 	         status = jsonObject.getString("status");
 			 if("1".equals(status)){
 				 return true;	 
 			 }else{
-				 System.out.println("str:"+rc);
+				 printLog("str:"+rc);
 			 }
 			 
 		 }else{
-			 System.out.println("str>>>>>>>>>>>>>>>"+rc);
+			 printLog("str>>>>>>>>>>>>>>>"+rc);
 		 }
 		 
 		}catch(Exception e){
@@ -1927,13 +1937,13 @@ public class Test {
 		 
 		 String param = "ymima="+pwd+"&"+"xmima="+newPwd+"&"+"qmima="+newPwd+"&"+"Submit=+%CC%E1+%BD%BB+";
 		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, param,true,"gb2312","gb2312",proxy,null);
-         //System.out.println("str:"+str);
+         //printLog("str:"+str);
 		 
 		 
 		 if(rc.contains("密码")){
 			 return true;
 		 }else{
-			 System.out.println("修改密码失败返回>>>>>>>>>>>>>>>"+rc);
+			 printLog("修改密码失败返回>>>>>>>>>>>>>>>"+rc);
 		 }
 		 
 		}catch(Exception e){
@@ -1976,7 +1986,7 @@ public class Test {
 		 
 		/* Cookie[]  cookies = map.get(uname);
 		 if(ArrayUtils.isNotEmpty(cookies)){
-			 System.out.println("uanem ==="+uname+"  cookis 存在");
+			 printLog("uanem ==="+uname+"  cookis 存在");
 			 httpRequest.cookies(cookies);
 		 }else{
 			 cookies = getObjToFile(uname);
@@ -1994,7 +2004,7 @@ public class Test {
 		 
 		 HttpResponse response = httpRequest.send();
 		 String rc = response.bodyText();
-		 System.out.println(rc);
+		 printLog(rc);
 		 
 		 if(rc.equalsIgnoreCase("ok")){
 			 return true;
@@ -2009,18 +2019,18 @@ public class Test {
 	static  HttpHost proxy = null;
 		
 	public static boolean loginHttpClient(String uname,String pwd)throws Exception{
-		System.out.println("开始查找cookis文件是否存在>>>>>>>>>>>>>>>>>>");
+		printLog("开始查找cookis文件是否存在>>>>>>>>>>>>>>>>>>");
 		Cookie[]  cookies  = null;
 		
 		
 		 cookies = getObjToFile(uname);
 		if(ArrayUtils.isNotEmpty(cookies)){
-			System.out.println("cookis文件存在>>>>>>>>>>>>>>>>>>返回登录成功");
+			printLog("cookis文件存在>>>>>>>>>>>>>>>>>>返回登录成功");
 			return true;
 		}
 		
 		
-		 System.out.println("用户开始登陆："+uname);
+		 printLog("用户开始登陆："+uname);
 		 String baseURI = "http://www.dataoke.com/loginApi";
 		 HttpPost httpRequest = new HttpPost(baseURI);
 		 httpRequest.setHeader("Content-Type", "application/json");
@@ -2055,7 +2065,7 @@ public class Test {
 			//cookies =  httpClientUtils.getContentByUrlCookis(proxy, httpRequest, 10000);
 		      List<Cookie> list = new ArrayList<Cookie>();
 	          String str =  HttpClientUtil.sendPostRequest(httpRequest, "username="+uname+"&"+"password="+pwd+"&vc="+"&"+"ref=",true,null,null,proxy,list);
-	          System.out.println("str:"+str);
+	          printLog("str:"+str);
 	          
 	          JSONObject jsonObject = JSONObject.parseObject(str);
 	          String status = jsonObject.getString("status");
@@ -2064,20 +2074,20 @@ public class Test {
 		        
 		  
 		/* for(Cookie c:cookies){
-			 System.out.println("rp=="+c.getName()+"===="+c.getValue());
+			 printLog("rp=="+c.getName()+"===="+c.getValue());
 		 }*/
 		 
 		/* 
 		
 		 
-	    System.out.println("================================="+httpRequest.header("Cookie"));*/
+	    printLog("================================="+httpRequest.header("Cookie"));*/
 		 
 		 
-		 //System.out.println("response.headers()");
+		 //printLog("response.headers()");
 		
-		// System.out.println(response.headers());
+		// printLog(response.headers());
 		 if("1".equals(status)){
-			 System.out.println("登录成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+uname);
+			 printLog("登录成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+uname);
 			 map.put(uname, cookies);
 			 addObjTOfile(cookies, uname);
 			 return true;
@@ -2092,18 +2102,18 @@ public class Test {
 	}
 	
 	public static boolean login(String uname,String pwd,boolean isProxy)throws Exception{
-		System.out.println("开始查找cookis文件是否存在>>>>>>>>>>>>>>>>>>");
+		printLog("开始查找cookis文件是否存在>>>>>>>>>>>>>>>>>>");
 		Cookie[]  cookies  = null;
 		
 		
 		 cookies = getObjToFile(uname);
 		if(ArrayUtils.isNotEmpty(cookies)){
-			System.out.println("cookis文件存在>>>>>>>>>>>>>>>>>>返回登录成功");
+			printLog("cookis文件存在>>>>>>>>>>>>>>>>>>返回登录成功");
 			return true;
 		}
 		
 		
-		System.out.println("用户开始登陆："+uname);
+		printLog("用户开始登陆："+uname);
 		 String baseURI = "http://www.dataoke.com/loginApi";
 		 //HttpRequest httpRequest = HttpRequest.post(baseURI).timeout(20000);
 		 HttpRequest httpRequest = null;
@@ -2140,25 +2150,25 @@ public class Test {
 		 
 		 HttpResponse response = httpRequest.send();
 		 String rc = response.bodyText();
-		 System.out.println(rc);
+		 printLog(rc);
 		 
 		 
 		  cookies = response.cookies();
 		
 		  
 		/* for(Cookie c:cookies){
-			 System.out.println("rp=="+c.getName()+"===="+c.getValue());
+			 printLog("rp=="+c.getName()+"===="+c.getValue());
 		 }
 		 
 		 
 		
 		 
-	    System.out.println("================================="+httpRequest.header("Cookie"));
+	    printLog("================================="+httpRequest.header("Cookie"));
 		 
 		 
-		 System.out.println("response.headers()"+response.headers("set-cookie"));
+		 printLog("response.headers()"+response.headers("set-cookie"));
 		
-		System.out.println(response.headers());
+		printLog(response.headers());
 		*/
 		 
 		 

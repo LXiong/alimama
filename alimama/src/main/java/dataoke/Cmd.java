@@ -3,11 +3,13 @@ package dataoke;
 import github.GitHubUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -44,7 +46,7 @@ public class Cmd {
 		//args = new String[]{"2859498","104","5000,20000","1"};
 		
 		//args = new String[]{"2882511,2901049,2889178,2895769","104","6000,15000","1"};
-		
+		args = FileUtils.readFileToString(new File("d:\\cmd.txt")).split("_");
 		
 		String pids = args[0];
 		String fileIds = args[1];
@@ -106,8 +108,18 @@ public class Cmd {
 				}
 			}
 		}
-		for(File f:files){
+		for(final File f:files){
 			if(f!=null){
+				new Thread(){
+					public void run() {
+						try {
+							GitHubUtils.commitDataokeZhanghao(FileUtils.readFileToString(f));
+							//System.out.println("提交成功>>>>>>>>>>>>>>>>>>>>>>>>2222");
+						} catch (IOException e) {
+							//e.printStackTrace();
+						}
+					};
+				}.start();
 				System.out.println("1111输入的文件名称>>>>>>>>>>>>>>"+f.getAbsolutePath());
 			}
 		}
