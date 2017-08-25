@@ -94,7 +94,20 @@ public class RegisterTaoBao {
                 element = webDriver.findElement(By.id("J_BtnInfoForm"));
                 element.click();
                 
+                String code = "";
+                LOG.printLog("输入手机验证码："+code);
+                // 手机验证码  J_MobileCode
+                element = webDriver.findElement(By.id("J_MobileCode"));
+                element.sendKeys(code);
                 
+                
+                //J_BtnMobileCodeForm
+                LOG.printLog("点击确认：");
+                //J_BtnInfoForm
+                element = webDriver.findElement(By.id("J_BtnMobileCodeForm"));
+                element.click();
+                
+                LOG.printLog("注册完成>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		
 	}
 	
