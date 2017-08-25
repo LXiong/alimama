@@ -22,8 +22,15 @@ public class RegisterTaoBao {
 	
 	
 	public static void main(String[] args)throws Exception {
-		start1("eduardsvro@hotmail.com","v65cx2HqH");
+		execute("eduardsvro@hotmail.com","v65cx2HqH");
+		//start1("eduardsvro@hotmail.com","v65cx2HqH");
 		//start2("https://passport.alibaba.com/member/request_dispatcher.htm?from=ACTIVE_BY_URL&amp;_ap_action=registerActive&amp;t=CN-SPLIT-ARCAxgoiCFJFR0lTVEVSMgEBOIPvo8XhK0ABShB8pauX7nxkC7V_nOI7Tnghu-_vbBLsLvrtQGrS0UXP5u-2BqU");
+	}
+	
+	
+	public static void execute(String u,String p)throws Exception{
+		String url = start1(u, p);
+		start2(url);
 	}
 	
 	public static String receiveMail(String u,String p){
