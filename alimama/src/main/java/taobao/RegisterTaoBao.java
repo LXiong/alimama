@@ -19,6 +19,7 @@ public class RegisterTaoBao {
 	
 	static WebDriver webDriver = SeleniumUtil.initChromeDriver();
 	
+	public static String phoneNum = null;
 	
 	
 	public static void main(String[] args)throws Exception {
@@ -28,9 +29,10 @@ public class RegisterTaoBao {
 	}
 	
 	
-	public static void execute(String u,String p)throws Exception{
+	public static boolean execute(String u,String p)throws Exception{
 		String url = start1(u, p);
 		start2(url);
+		return true;
 	}
 	
 	public static String receiveMail(String u,String p){
