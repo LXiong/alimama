@@ -27,6 +27,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
+import util.StringUtils;
+
 /**
  * 使用POP3协议接收邮件
  */
@@ -104,6 +106,7 @@ public class POP3ReceiveMailTest {
 			} 
 			StringBuffer content = new StringBuffer(30);
 			getMailTextContent(msg, content);
+			System.out.println("连接地址："+StringUtils.getLink(content.toString()));
 			System.out.println("邮件正文：" + /*(content.length() > 100 ? content.substring(0,100) + "..." : */content);
 			System.out.println("------------------第" + msg.getMessageNumber() + "封邮件解析结束-------------------- ");
 			System.out.println();
