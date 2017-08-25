@@ -53,10 +53,10 @@ public class SimpleSendReceiveMessage {
 	private String sendHost="smtp.sina.com";*/
 
 	
-	String username="petrv9zvev@hotmail.com";
-	private String passwd="Mo8yOU8u";
-	private String receiveHost="imap-mail.outlook.com";
-	private String sendHost="smtp-mail.outlook.com";
+	public String username="petrv9zvev@hotmail.com";
+	public String passwd="Mo8yOU8u";
+	public String receiveHost="imap-mail.outlook.com";
+	public String sendHost="smtp-mail.outlook.com";
 	
 	
 	/**
@@ -182,8 +182,8 @@ public class SimpleSendReceiveMessage {
 	 * 接收邮件
 	 * @throws Exception 
 	 */
-	public void receive() throws Exception{
-		browseMessageFromFolder("INBOX");
+	public Object receive() throws Exception{
+		return browseMessageFromFolder("INBOX");
 	}
 
 	/**
@@ -191,11 +191,11 @@ public class SimpleSendReceiveMessage {
 	 * @param folderName
 	 * @throws Exception
 	 */
-	private void browseMessageFromFolder(String folderName) throws Exception {
+	private Object browseMessageFromFolder(String folderName) throws Exception {
 		// TODO Auto-generated method stub
 		Folder folder=store.getFolder(folderName);
 		if(folder==null) throw new Exception(folderName+"邮件夹不存在");
-		browseMessageFromFolder(folder);
+		return browseMessageFromFolder(folder);
 	}
 
 	/**
@@ -204,18 +204,19 @@ public class SimpleSendReceiveMessage {
 	 * @throws MessagingException 
 	 * @throws IOException 
 	 */
-	private void browseMessageFromFolder(Folder folder) throws Exception {
+	private Object browseMessageFromFolder(Folder folder) throws Exception {
 		// TODO Auto-generated method stub
 		folder.open(Folder.READ_ONLY);
 		System.out.println("总共有"+folder.getMessageCount()+"封邮件");
 		System.out.println("总共有"+folder.getUnreadMessageCount()+"封未读邮件");
 		Message[] messages=folder.getMessages();
-		for (int i = 1; i <=messages.length; i++) {
+		return call(messages);
+		/*for (int i = 1; i <=messages.length; i++) {
 			System.out.println("这是第"+i+"封邮件");
 			//getMessageHeader(folder.getMessage(i));
 			writeSubjectToOutPutStream(folder.getMessage(i));;
-		}
-		folder.close(false);
+		}*/
+		//folder.close(false);
 	}
 	
 	/**
@@ -245,8 +246,8 @@ public class SimpleSendReceiveMessage {
 		IMAPMessage imapMessage = (IMAPMessage )message;
 		try{
 			
-			POP3ReceiveMailTest.parseMessage(message);
-			
+			//POP3ReceiveMailTest.parseMessage(message);
+			call(imapMessage);
 			// TODO Auto-generated method stub
 			//System.out.println("邮件主题为:"+imapMessage.getSubject());
 			//System.out.println(" 内容为："+imapMessage.getContentID());
@@ -254,6 +255,19 @@ public class SimpleSendReceiveMessage {
 			e.printStackTrace();
 		}
 	    Thread.sleep(1000);
+	}
+	
+	public  Object call(Message... message) {
+		try {
+			POP3ReceiveMailTest.parseMessage(message);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static void main(String[] args){
