@@ -30,4 +30,13 @@ public class StringUtils {
 		
 		System.out.println(getLink(str));
 	}
+	 
+	 public static String getTaoBaoZhuCeURL(String str){
+		 for(String s : getLink(str)){
+			 if(s.startsWith("https://passport.alibaba.com")){
+				 return s;
+			 }
+		 }
+		 return null;
+	 }
 }
