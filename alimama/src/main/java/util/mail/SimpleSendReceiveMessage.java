@@ -63,7 +63,7 @@ public class SimpleSendReceiveMessage {
 	 * 邮件配置参数和连接接收邮件服务器
 	 * @throws MessagingException
 	 */
-	private void init() throws MessagingException{
+	public void init() throws MessagingException{
 		Properties properties=new Properties();
 		//设置发送和接收协议
 		properties.put("mail.transport.protocal", "smtp");

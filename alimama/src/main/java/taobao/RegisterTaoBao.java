@@ -48,6 +48,7 @@ public class RegisterTaoBao {
 			};
 			sendReceiveMessage.username = u;
 			sendReceiveMessage.passwd = p ;
+			sendReceiveMessage.init();
 			String url = (String) sendReceiveMessage.receive();
 			if(org.apache.commons.lang3.StringUtils.isNotBlank(url)&&url.contains("http")){
 				return url;
@@ -159,10 +160,10 @@ public class RegisterTaoBao {
 	    	 LOG.printLog("检测到拖动验证码>>>>>>>>>>>>>>>>>>>请手动拖动，拖动后按回车键继续");
 	    	 System.in.read();
 	    }
-	   Thread.sleep(1000);
+	  /* Thread.sleep(2000);
 	   LOG.printLog("点击下一步"); 
 	   element = webDriver.findElement(By.id("J_BtnEmailForm"));
-	   element.click();
+	   element.click();*/
 	   
 	   String url = null;
 	   for(int i=0;i<20;i++){
