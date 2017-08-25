@@ -25,6 +25,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import com.sun.mail.imap.IMAPMessage;
+
 
 /**
  * 简单发送和接收邮件
@@ -39,10 +41,17 @@ public class SimpleSendReceiveMessage {
 	Store store;
 	
 	//连接邮件发送的账号与密码
+/*	String username="Ucm5tal@mail.ru";
+	private String passwd="FOEyAx2m";
+	private String receiveHost="imap.mail.ru";
+	private String sendHost="smtp.mail.ru";
+*/	
+	
 	String username="xiaomin0322@sina.com";
-	private String passwd="";
+	private String passwd="#####";
 	private String receiveHost="imap.sina.com";
 	private String sendHost="smtp.sina.com";
+
 	
 	/**
 	 * 邮件配置参数和连接接收邮件服务器
@@ -189,7 +198,7 @@ public class SimpleSendReceiveMessage {
 	 * @throws MessagingException 
 	 * @throws IOException 
 	 */
-	private void browseMessageFromFolder(Folder folder) throws MessagingException, IOException {
+	private void browseMessageFromFolder(Folder folder) throws Exception {
 		// TODO Auto-generated method stub
 		folder.open(Folder.READ_ONLY);
 		System.out.println("总共有"+folder.getMessageCount()+"封邮件");
@@ -223,9 +232,22 @@ public class SimpleSendReceiveMessage {
 	 * @param message
 	 * @throws MessagingException 
 	 */
-	private void writeSubjectToOutPutStream(Message message) throws MessagingException {
-		// TODO Auto-generated method stub
-		System.out.println("邮件主题为:"+message.getSubject());
+	private void writeSubjectToOutPutStream(Message message) throws Exception {
+		if(message == null){
+			return ;
+		}
+		IMAPMessage imapMessage = (IMAPMessage )message;
+		try{
+			
+			POP3ReceiveMailTest.parseMessage(message);
+			
+			// TODO Auto-generated method stub
+			System.out.println("邮件主题为:"+imapMessage.getSubject());
+			System.out.println(" 内容为："+imapMessage.getContentID());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	    Thread.sleep(1000);
 	}
 
 	public static void main(String[] args){
