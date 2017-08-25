@@ -152,7 +152,9 @@ public class RegisterTaoBao {
 	
 	public static String start1(String mail,String pwd)throws Exception{
 		webDriver.get("https://passport.alibaba.com/member/reg/enter_fill_email.htm?_regfrom=TB_ENTERPRISE&_lang=");
-		Thread.sleep(4000);
+		Thread.sleep(1000);
+		webDriver.navigate().refresh();
+		Thread.sleep(3000);
 		 webDriver = webDriver.switchTo().frame("alibaba-register-box");
 		 Thread.sleep(1000);
 		   
