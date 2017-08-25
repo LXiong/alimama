@@ -44,6 +44,7 @@ public class Main {
 					 boolean flag = DaTaoKe.login(uname, pwd);
 					 LOG.printLog("开始登陆大淘客>>>>>>>>>>>>>>>>>结果："+flag);
 					 if(flag){
+						 LOG.printLog("开始淘宝注册>>>>>>>>>>>>>>>>>");
 						 boolean flagTaoBao = RegisterTaoBao.execute(mailU, mailP);
 						 LOG.printLog("淘宝注册结果>>>>>>>>>>>>>>>>>结果："+flagTaoBao);
 						 if(flagTaoBao){
