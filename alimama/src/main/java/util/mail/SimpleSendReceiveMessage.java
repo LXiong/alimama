@@ -53,8 +53,8 @@ public class SimpleSendReceiveMessage {
 	private String sendHost="smtp.sina.com";*/
 
 	
-	public String username="petrv9zvev@hotmail.com";
-	public String passwd="Mo8yOU8u";
+	public String username="eduardsvro@hotmail.com";
+	public String passwd="v65cx2HqH";
 	public String receiveHost="imap-mail.outlook.com";
 	public String sendHost="smtp-mail.outlook.com";
 	

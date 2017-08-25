@@ -1,11 +1,14 @@
 package taobao;
 
+import java.util.Random;
+
 import javax.mail.Message;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import dataoke.PassWordCreate;
 import util.LOG;
 import util.StringUtils;
 import util.mail.POP3ReceiveMailTest;
@@ -51,8 +54,54 @@ public class RegisterTaoBao {
 	}
 	
 	
+	public static void start2(String url)throws Exception{
+                webDriver.get(url);
+                Thread.sleep(4000);
+                int size = new Random().nextInt(4);
+				String newPwd =  new PassWordCreate().createPassWord(6+size);
+				LOG.printLog("输入密码："+newPwd);
+                WebElement element = webDriver.findElement(By.id("J_Password"));
+                element.sendKeys(newPwd);
+                
+                LOG.printLog("输入密码："+newPwd);
+                
+                element = webDriver.findElement(By.id("J_RePassword"));
+                element.sendKeys(newPwd);
+                
+                newPwd =  new PassWordCreate().createPassWord(6+size);
+                LOG.printLog("输入会员名称："+newPwd);
+                //J_Nick
+                element = webDriver.findElement(By.id("J_Nick"));
+                element.sendKeys(newPwd);
+                //J_Company
+                newPwd =  new PassWordCreate().createPassWord(6+size);
+                LOG.printLog("输入公司名称："+newPwd);
+                //J_Nick
+                element = webDriver.findElement(By.id("J_Company"));
+                element.sendKeys(newPwd);
+                
+                
+              
+                String phone = "";
+                LOG.printLog("输入电话号码："+phone);
+                //J_Mobile
+                element = webDriver.findElement(By.id("J_Mobile"));
+                element.sendKeys(phone);
+                
+                
+                LOG.printLog("点击确认：");
+                //J_BtnInfoForm
+                element = webDriver.findElement(By.id("J_BtnInfoForm"));
+                element.click();
+                
+                
+		
+	}
+	
+	
 	public static String start1(String mail,String pwd)throws Exception{
 		webDriver.get("https://passport.alibaba.com/member/reg/enter_fill_email.htm?_regfrom=TB_ENTERPRISE&_lang=");
+		Thread.sleep(4000);
 		WebElement element =webDriver.findElement(By.id("J_Email"));
 	    element.sendKeys(mail);
 	    LOG.printLog("输入邮箱："+mail);
