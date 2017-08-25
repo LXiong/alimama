@@ -41,17 +41,23 @@ public class SimpleSendReceiveMessage {
 	Store store;
 	
 	//连接邮件发送的账号与密码
-/*	String username="Ucm5tal@mail.ru";
+	/*String username="Ucm5tal@mail.ru";
 	private String passwd="FOEyAx2m";
 	private String receiveHost="imap.mail.ru";
-	private String sendHost="smtp.mail.ru";
-*/	
+	private String sendHost="smtp.mail.ru";*/
 	
-	String username="xiaomin0322@sina.com";
-	private String passwd="#####";
+	
+	/*String username="xiaomin0322@sina.com";
+	private String passwd="xiaomin0322#####";
 	private String receiveHost="imap.sina.com";
-	private String sendHost="smtp.sina.com";
+	private String sendHost="smtp.sina.com";*/
 
+	
+	String username="petrv9zvev@hotmail.com";
+	private String passwd="Mo8yOU8u";
+	private String receiveHost="imap-mail.outlook.com";
+	private String sendHost="smtp-mail.outlook.com";
+	
 	
 	/**
 	 * 邮件配置参数和连接接收邮件服务器
@@ -206,7 +212,7 @@ public class SimpleSendReceiveMessage {
 		Message[] messages=folder.getMessages();
 		for (int i = 1; i <=messages.length; i++) {
 			System.out.println("这是第"+i+"封邮件");
-			getMessageHeader(folder.getMessage(i));
+			//getMessageHeader(folder.getMessage(i));
 			writeSubjectToOutPutStream(folder.getMessage(i));;
 		}
 		folder.close(false);
@@ -242,8 +248,8 @@ public class SimpleSendReceiveMessage {
 			POP3ReceiveMailTest.parseMessage(message);
 			
 			// TODO Auto-generated method stub
-			System.out.println("邮件主题为:"+imapMessage.getSubject());
-			System.out.println(" 内容为："+imapMessage.getContentID());
+			//System.out.println("邮件主题为:"+imapMessage.getSubject());
+			//System.out.println(" 内容为："+imapMessage.getContentID());
 		}catch(Exception e){
 			e.printStackTrace();
 		}

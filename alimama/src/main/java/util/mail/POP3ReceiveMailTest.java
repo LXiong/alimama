@@ -43,13 +43,13 @@ public class POP3ReceiveMailTest {
 		// 准备连接服务器的会话信息
 		Properties props = new Properties();
 		props.setProperty("mail.store.protocol", "pop3");		// 协议
-		props.setProperty("mail.pop3.port", "110");				// 端口
-		props.setProperty("mail.pop3.host", "pop3.163.com");	// pop3服务器
+		props.setProperty("mail.pop3.port", "995");				// 端口
+		props.setProperty("mail.pop3.host", "pop3.live.com");	// pop3服务器
 		
 		// 创建Session实例对象
 		Session session = Session.getInstance(props);
 		Store store = session.getStore("pop3");
-		store.connect("xyang0917@163.com", "123456abc");
+		store.connect("petrv9zvev@hotmail.com", "Mo8yOU8u");
 		
 		// 获得收件箱
 		Folder folder = store.getFolder("INBOX");
@@ -104,7 +104,7 @@ public class POP3ReceiveMailTest {
 			} 
 			StringBuffer content = new StringBuffer(30);
 			getMailTextContent(msg, content);
-			System.out.println("邮件正文：" + (content.length() > 100 ? content.substring(0,100) + "..." : content));
+			System.out.println("邮件正文：" + /*(content.length() > 100 ? content.substring(0,100) + "..." : */content);
 			System.out.println("------------------第" + msg.getMessageNumber() + "封邮件解析结束-------------------- ");
 			System.out.println();
 		}
