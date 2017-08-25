@@ -116,7 +116,7 @@ public class RegisterTaoBao {
 	   element.click();
 	   
 	   String url = null;
-	   for(int i=0;i<12;i++){
+	   for(int i=0;i<20;i++){
 		   LOG.printLog("等待接受邮件>>>>>>>>>>>>>>>>>>>>>>>>5秒一次查询邮件");
 		   Thread.sleep(5000);
 		    url = receiveMail(mail, pwd);
@@ -127,6 +127,10 @@ public class RegisterTaoBao {
 		   }
 	   }
 	   LOG.printLog("获取url打开连接==="+url);
+	   if(org.apache.commons.lang3.StringUtils.isBlank(url)){
+		   LOG.printLog("程序退出，获取不到邮件url地址");
+		   System.exit(0);
+	   }
 	   return url;
 	}
 
