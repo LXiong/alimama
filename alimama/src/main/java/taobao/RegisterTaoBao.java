@@ -94,6 +94,11 @@ public class RegisterTaoBao {
                 element = webDriver.findElement(By.id("J_BtnInfoForm"));
                 element.click();
                 
+                LOG.printLog("点击获取手机验证码：");
+                // J_BtnMobileCode
+                element = webDriver.findElement(By.id("J_BtnMobileCode"));
+                element.click();
+                
                 String code = "";
                 LOG.printLog("输入手机验证码："+code);
                 // 手机验证码  J_MobileCode
