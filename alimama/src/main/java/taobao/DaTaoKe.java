@@ -1,13 +1,18 @@
 package taobao;
 
+import java.io.File;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import dataoke.Cmd;
+import util.LOG;
 
 public class DaTaoKe {
 	static WebDriver webDriver = Main.webDriver;
@@ -22,6 +27,27 @@ public class DaTaoKe {
 	        System.out.println("已停止加载页面》》》》》》》》》》》》》》》》》》》》》》》》");
 		  }
 		}
+	
+	public static void main(String[] args)throws Exception {
+		List<String> lists=FileUtils.readLines(new File("d:\\ddd.txt"));
+		for(String s:lists){
+			if(StringUtils.isBlank(s)){
+				continue;
+			}
+					 String uname = s.split("\\----")[0].trim();
+					 String pwd = s.split("\\----")[1].trim();
+					 String mailU = s.split("\\----")[2].trim();
+					 String mailP = s.split("\\----")[3].trim();
+					 System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>");
+					 LOG.printLog("开始登陆大淘客>>>>>>>>>>>>>>>>>");
+					 boolean flag = DaTaoKe.login(uname, pwd);
+					 LOG.printLog("开始登陆大淘客>>>>>>>>>>>>>>>>>结果："+flag);
+					 shouquan(uname, pwd, mailU, mailP);
+					 
+		} 
+		
+		
+	}
 	
 	public static boolean login(String uname,String pwd)throws Exception{
 		try{
@@ -59,10 +85,15 @@ public class DaTaoKe {
 
 		WebElement element = webDriver.findElement(By.id("update_shouquan"));
 		element.click();
+		Thread.sleep(1000);
+		//*[@id="ying-attention"]/div[1]/a
+		
+		element = webDriver.findElement(By.xpath("//*[@id='ying-attention']/div[1]/a"));
+	    element.click();
 
 		Thread.sleep(5000);
 
-		webDriver = webDriver.switchTo().frame("layui-layer-iframe1");
+		webDriver = webDriver.switchTo().frame(0);
 
 		Thread.sleep(2000);
 

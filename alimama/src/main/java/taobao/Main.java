@@ -48,9 +48,7 @@ public class Main {
 							 LOG.printLog("开始大淘客授权>>>>>>>>>>>>>>>>>");
 							 flagTaoBao = DaTaoKe.shouquan(uname, pwd, mailU, mailP);
 							 LOG.printLog("开始大淘客授权结果>>>>>>>>>>>>>>>>>结果："+flagTaoBao);
-							if(flagTaoBao){
-								FileUtils.write(new File("D:\\OKtaobao.txt"), s+"----"+RegisterTaoBao.phoneNum+"\r\n", true);
-							}
+							 FileUtils.write(new File("D:\\OKtaobao.txt"), s+"----"+RegisterTaoBao.phoneNum+"\r\n", true);
 						 }
 					 }
            }catch(Exception e){
@@ -58,13 +56,12 @@ public class Main {
 				FileUtils.write(new File("D:\\ERRORtaobao.txt"), s+"\r\n", true);
 			}finally {
 				try{
-					 LOG.printLog("关闭浏览器");
-					 webDriver.close();
 					 LOG.printLog("按回车键后重启打开浏览器开始注册>>>>>>>>>>>>>>>>>>>>>>>");
 					 System.in.read();
+					 LOG.printLog("关闭浏览器");
+					 webDriver.close();
 					 webDriver = SeleniumUtil.initChromeDriver();
-					//DaTaoKe.webGet("http://www.dataoke.com/logout");
-					//Thread.sleep(Cmd.getSleepTime(1000, 3000));
+					Thread.sleep(1000);
 				}catch(Exception e){
 					
 				}

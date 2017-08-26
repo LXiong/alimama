@@ -85,9 +85,8 @@ public class RegisterTaoBao {
 			e.printStackTrace();
 		}finally {
 			 try{
-				 LOG.printLog("释放手机号码并加入黑号");
+				 LOG.printLog("释放手机号码");
 				 Ma60.resleNum(taoBaoType,phoneNum);
-				 Ma60.jiaheiNum(taoBaoType,phoneNum);
 			 }catch(Exception e){
 				 e.printStackTrace();
 			 }
@@ -151,13 +150,13 @@ public class RegisterTaoBao {
                 WebElement element = webDriver.findElement(By.id("J_Password"));
                 element.sendKeys(pwd);
                 
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 LOG.printLog("输入密码："+pwd);
                 
                 element = webDriver.findElement(By.id("J_RePassword"));
                 element.sendKeys(pwd);
                 
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                // newPwd =  new PassWordCreate().createPassWord(6+size);
                 LOG.printLog("输入会员名称："+pwd);
                 
@@ -170,35 +169,35 @@ public class RegisterTaoBao {
                 
                 newPwd =  new PassWordCreate().createPassWord(6+size);
                 
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 LOG.printLog("输入公司名称："+newPwd);
                 //J_Nick
                 element = webDriver.findElement(By.id("J_Company"));
                 element.sendKeys(newPwd);
                 
                 
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 String phone = phoneNum;
                 LOG.printLog("输入电话号码："+phone);
                 //J_Mobile
                 element = webDriver.findElement(By.id("J_Mobile"));
                 element.sendKeys(phone);
                 
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 LOG.printLog("点击确认：");
                 //J_BtnInfoForm
                 element = webDriver.findElement(By.id("J_BtnInfoForm"));
                 element.click();
                 
                 
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 LOG.printLog("点击获取手机验证码：");
                 // J_BtnMobileCode
                 element = webDriver.findElement(By.id("J_BtnMobileCode"));
                 element.click();
                 
                 
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 String code = getCode();
                 LOG.printLog("输入手机验证码："+code);
                 
@@ -211,7 +210,7 @@ public class RegisterTaoBao {
                 element = webDriver.findElement(By.id("J_MobileCode"));
                 element.sendKeys(code);
                 
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 //J_BtnMobileCodeForm
                 LOG.printLog("点击确认：");
                 //J_BtnInfoForm
@@ -224,6 +223,15 @@ public class RegisterTaoBao {
                 	 LOG.printLog("注册失败，验证码不正确>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
                 	 return false;
                 }
+                
+                
+                if(webDriver.getPageSource().contains("请更换手机号")){
+                	 LOG.printLog("注册失败，请更换手机号>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                	 LOG.printLog("加入黑号");
+                	 Ma60.jiaheiNum(taoBaoType,phoneNum);
+                	 return false;
+                }
+                
                 LOG.printLog("注册完成>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		}catch(Exception e){
 			e.printStackTrace();
@@ -260,7 +268,7 @@ public class RegisterTaoBao {
 		
 		 WebElement element =webDriver.findElement(By.id("J_Email"));
 	     element.sendKeys(mail);
-		 Thread.sleep(1000);
+		 Thread.sleep(2000);
 	    
 	    LOG.printLog("输入邮箱："+mail);
 	    
