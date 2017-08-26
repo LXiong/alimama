@@ -25,6 +25,8 @@ public class RegisterTaoBao {
 	
 	public static String phoneNum = null;
 	
+	public static String taoBaoType = "BA4E0F33A9F5952";
+	
 	
 	
 	static{
@@ -46,7 +48,7 @@ public class RegisterTaoBao {
 			 String code = "";
 			 LOG.printLog("获取短信内容");
 			 for(int i=0;i<20;i++){
-				 String str = Ma60.getmsg();
+				 String str = Ma60.getmsg(taoBaoType,phoneNum);
 				 if(org.apache.commons.lang.StringUtils.isBlank(str)){
 					 Thread.sleep(4000);
 					 continue;
@@ -69,7 +71,7 @@ public class RegisterTaoBao {
 	public static boolean execute(String u,String p)throws Exception{
 		String url = start1(u, p);
 		try{
-			phoneNum = Ma60.getnum("BA4E0F33A9F5952");
+			phoneNum = Ma60.getnum(taoBaoType);
 			if(org.apache.commons.lang.StringUtils.isBlank(phoneNum)){
 				LOG.printLog("获取手机号码有问题》》》》》》》》》》》》》》");
 				return false;
@@ -84,8 +86,8 @@ public class RegisterTaoBao {
 		}finally {
 			 try{
 				 LOG.printLog("释放手机号码并加入黑号");
-				 Ma60.resleNum(phoneNum);
-				 Ma60.jiaheiNum();
+				 Ma60.resleNum(taoBaoType,phoneNum);
+				 Ma60.jiaheiNum(taoBaoType,phoneNum);
 			 }catch(Exception e){
 				 e.printStackTrace();
 			 }

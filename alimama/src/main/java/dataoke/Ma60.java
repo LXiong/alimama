@@ -166,6 +166,40 @@ public class Ma60 {
 
 		return "";
 	}
+	
+	
+	/**
+	 * 获取短信
+	 * 
+	 * @return
+	 */
+	public static String getmsg(String dockcode,String num) {
+		String url = "http://sms.60ma.net/newsmssrv?cmd=getsms&dtype=json&encode=utf-8&userid="
+				+ userId
+				+ "&userkey="
+				+ userKey
+				+ "&dockcode="+dockcode+"&telnum="
+				+ num;
+		HttpRequest httpRequest = HttpRequest.get(url).timeout(20000);
+		HttpResponse response = httpRequest.send();
+		// response.accept("utf-8");
+		// response.acceptEncoding("utf-8");
+		response.charset("utf-8");
+		String rc = response.bodyText();
+		System.out.println(rc);
+		JSONObject jsonObject = JSON.parseObject(rc);
+		jsonObject = jsonObject.getJSONObject("Return");
+
+		String staus = jsonObject.getString("Staus");
+		if ("0".equals(staus)) {
+			System.out.println("获取短信成功");
+			String SmsContent = jsonObject.getString("SmsContent");
+			System.out.println(SmsContent);
+			return SmsContent;
+		}
+
+		return "";
+	}
 
 	// 释放所有号码
 	public static void resleNum() {
@@ -192,6 +226,20 @@ public class Ma60 {
 			System.out.println(rc);
 
 		}
+		
+		
+		// 释号码
+		public static void resleNum(String docks,String num) {
+	         System.out.println("释放号码"+num);
+			String url = "http://sms.60ma.net/newsmssrv?cmd=freetelnum&encode=utf-8&docks="+docks+"&userid="
+					+ userId + "&userkey=" + userKey+"&telnum="+num;
+			HttpRequest httpRequest = HttpRequest.get(url).timeout(10000);
+			HttpResponse response = httpRequest.send();
+			response.charset("utf-8");
+			String rc = response.bodyText();
+			System.out.println(rc);
+
+		}
 	
 	// 释放所有号码
 		public static void jiaheiNum() {
@@ -204,5 +252,18 @@ public class Ma60 {
 			System.out.println(rc);
 
 		}
+		
+		
+		// 释放所有号码
+				public static void jiaheiNum(String docks,String num) {
+			         System.out.println("加入黑号");
+					String url = "http://sms.60ma.net/newsmssrv?cmd=addblacktelnum&encode=utf-8&docks="+docks+"&userid="+userId+"&userkey="+userKey+"&telnum="+num;
+					HttpRequest httpRequest = HttpRequest.get(url).timeout(10000);
+					HttpResponse response = httpRequest.send();
+					response.charset("utf-8");
+					String rc = response.bodyText();
+					System.out.println(rc);
+
+				}
 
 }
