@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 
 import util.LOG;
 import util.SeleniumUtil;
+import util.mail.SimpleSendReceiveMessage;
 
 public class Main {
 
@@ -37,6 +38,16 @@ public class Main {
 					 String mailU = s.split("\\----")[2].trim();
 					 String mailP = s.split("\\----")[3].trim();
 					 System.out.println("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count);
+					 
+					 LOG.printLog("开始检测邮箱密码是否正确>>>>>>>>>>>>>>>>>u="+mailU +" p="+mailP);
+					 String r= RegisterTaoBao.receiveMail(mailU, mailP);
+					 if("error".equals(r)){
+						 LOG.printLog("邮政账号密码错误>>>>>>>>>>>>>>>>>继续注册");
+						 continue;
+					 }else{
+						 LOG.printLog("开始检测邮箱密码正确>>>>>>>>>>>>>>>>>");
+					 }
+					 
 					 LOG.printLog("开始登陆大淘客>>>>>>>>>>>>>>>>>");
 					 boolean flag = DaTaoKe.login(uname, pwd);
 					 LOG.printLog("开始登陆大淘客>>>>>>>>>>>>>>>>>结果："+flag);
@@ -60,10 +71,11 @@ public class Main {
 					 System.in.read();
 					 LOG.printLog("关闭浏览器");
 					 webDriver.close();
+					 LOG.printLog("重新打开浏览器");
 					 webDriver = SeleniumUtil.initChromeDriver();
 					Thread.sleep(1000);
 				}catch(Exception e){
-					
+					e.printStackTrace();
 				}
 			}
 		}

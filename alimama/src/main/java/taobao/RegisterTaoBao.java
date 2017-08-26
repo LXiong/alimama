@@ -36,8 +36,8 @@ public class RegisterTaoBao {
 	
 	
 	public static void main(String[] args)throws Exception {
-		//receiveMail("valeriytgahf@hotmail.com","iFrk06V1");
-		execute("andreysv03@hotmail.com","d40rfJ493");
+		receiveMail("yaroslavdwda@hotmail.com","bhSW3I95");
+		//execute("andreysv03@hotmail.com","d40rfJ493");
 		//start1("eduardsvro@hotmail.com","v65cx2HqH");
 		//start2("https://passport.alibaba.com/member/request_dispatcher.htm?from=ACTIVE_BY_URL&amp;_ap_action=registerActive&amp;t=CN-SPLIT-ARCAxgoiCFJFR0lTVEVSMgEBOIPvo8XhK0ABShB8pauX7nxkC7V_nOI7Tnghu-_vbBLsLvrtQGrS0UXP5u-2BqU");
 	}
@@ -135,6 +135,9 @@ public class RegisterTaoBao {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+			if(e instanceof javax.mail.AuthenticationFailedException){
+				return "error";
+			}
 		}
 		return null;
 	}
@@ -251,7 +254,7 @@ public class RegisterTaoBao {
 		//webDriver.findElement(By.id("J_AgreementBtn")).click();
 		
 		
-		Thread.sleep(4000);
+		Thread.sleep(3000);
 		//webDriver = webDriver.switchTo().frame("alibaba-register-box");
 
 		LOG.printLog("检测是否有验证码");
