@@ -1,7 +1,6 @@
 package taobao;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 import javax.mail.Message;
@@ -35,8 +34,8 @@ public class RegisterTaoBao {
 	
 	
 	public static void main(String[] args)throws Exception {
-		receiveMail("andreysv03@hotmail.com","d40rfJ493");
-		//execute("eduardsvro@hotmail.com","v65cx2HqH");
+		//receiveMail("valeriytgahf@hotmail.com","iFrk06V1");
+		execute("andreysv03@hotmail.com","d40rfJ493");
 		//start1("eduardsvro@hotmail.com","v65cx2HqH");
 		//start2("https://passport.alibaba.com/member/request_dispatcher.htm?from=ACTIVE_BY_URL&amp;_ap_action=registerActive&amp;t=CN-SPLIT-ARCAxgoiCFJFR0lTVEVSMgEBOIPvo8XhK0ABShB8pauX7nxkC7V_nOI7Tnghu-_vbBLsLvrtQGrS0UXP5u-2BqU");
 	}
@@ -78,13 +77,14 @@ public class RegisterTaoBao {
 				 System.exit(0);
 			 }
 			
-			start2(url);
+			start2(url,p);
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally {
 			 try{
-				 LOG.printLog("释放手机号码");
+				 LOG.printLog("释放手机号码并加入黑号");
 				 Ma60.resleNum(phoneNum);
+				 Ma60.jiaheiNum();
 			 }catch(Exception e){
 				 e.printStackTrace();
 			 }
@@ -138,30 +138,33 @@ public class RegisterTaoBao {
 	}
 	
 	
-	public static boolean start2(String url)throws Exception{
+	public static boolean start2(String url,String pwd)throws Exception{
 		try{
                 webDriver.get(url);
                 Thread.sleep(4000);
                 int size = new Random().nextInt(4);
-				String newPwd =  new PassWordCreate().createPassWord(6+size);
-				LOG.printLog("输入密码："+newPwd);
+				
+				LOG.printLog("输入密码："+pwd);
                 WebElement element = webDriver.findElement(By.id("J_Password"));
-                element.sendKeys(newPwd);
+                element.sendKeys(pwd);
                 
                 Thread.sleep(1000);
-                LOG.printLog("输入密码："+newPwd);
+                LOG.printLog("输入密码："+pwd);
                 
                 element = webDriver.findElement(By.id("J_RePassword"));
-                element.sendKeys(newPwd);
+                element.sendKeys(pwd);
                 
                 Thread.sleep(1000);
-                newPwd =  new PassWordCreate().createPassWord(6+size);
-                LOG.printLog("输入会员名称："+newPwd);
+               // newPwd =  new PassWordCreate().createPassWord(6+size);
+                LOG.printLog("输入会员名称："+pwd);
                 
+                
+                String newPwd = new PassWordCreate().createPassWord(6+size);
                 //J_Nick
                 element = webDriver.findElement(By.id("J_Nick"));
                 element.sendKeys(newPwd);
                 //J_Company
+                
                 newPwd =  new PassWordCreate().createPassWord(6+size);
                 
                 Thread.sleep(1000);
@@ -228,9 +231,17 @@ public class RegisterTaoBao {
 	
 	
 	public static String start1(String mail,String pwd)throws Exception{
-		webDriver.get("https://passport.alibaba.com/member/reg/enter_fill_email.htm?_regfrom=TB_ENTERPRISE&_lang=");
-		Thread.sleep(1000);
-		webDriver = webDriver.switchTo().frame("alibaba-register-box");
+		webDriver.get("https://passport.alibaba.com/reg/enter_reg.htm?_regfrom=TB_ENTERPRISE");
+		//webDriver.get("https://reg.taobao.com/member/reg/fill_mobile.htm");
+		
+		
+		//Thread.sleep(5000);
+		
+		//webDriver.findElement(By.id("J_AgreementBtn")).click();
+		
+		
+		Thread.sleep(4000);
+		//webDriver = webDriver.switchTo().frame("alibaba-register-box");
 
 		LOG.printLog("检测是否有验证码");
 		if(webDriver.getPageSource().contains("拖动到最右边")){
@@ -240,9 +251,9 @@ public class RegisterTaoBao {
 	    	LOG.printLog("没有验证码");
 	    }
 		
-		if(webDriver.getPageSource().contains("alibaba-register-box")){
+		/*if(webDriver.getPageSource().contains("alibaba-register-box")){
 			webDriver = webDriver.switchTo().frame("alibaba-register-box");
-		}
+		}*/
 		
 		 WebElement element =webDriver.findElement(By.id("J_Email"));
 	     element.sendKeys(mail);
