@@ -1,10 +1,14 @@
 package taobao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import javax.mail.Message;
+import javax.mail.MessagingException;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,8 +35,9 @@ public class RegisterTaoBao {
 	
 	
 	public static void main(String[] args)throws Exception {
+		receiveMail("andreysv03@hotmail.com","d40rfJ493");
 		//execute("eduardsvro@hotmail.com","v65cx2HqH");
-		start1("eduardsvro@hotmail.com","v65cx2HqH");
+		//start1("eduardsvro@hotmail.com","v65cx2HqH");
 		//start2("https://passport.alibaba.com/member/request_dispatcher.htm?from=ACTIVE_BY_URL&amp;_ap_action=registerActive&amp;t=CN-SPLIT-ARCAxgoiCFJFR0lTVEVSMgEBOIPvo8XhK0ABShB8pauX7nxkC7V_nOI7Tnghu-_vbBLsLvrtQGrS0UXP5u-2BqU");
 	}
 	
@@ -64,7 +69,7 @@ public class RegisterTaoBao {
 	public static boolean execute(String u,String p)throws Exception{
 		String url = start1(u, p);
 		try{
-			phoneNum = Ma60.getnum("A44F4F80A11B290");
+			phoneNum = Ma60.getnum("BA4E0F33A9F5952");
 			if(org.apache.commons.lang.StringUtils.isBlank(phoneNum)){
 				LOG.printLog("获取手机号码有问题》》》》》》》》》》》》》》");
 				return false;
@@ -94,6 +99,17 @@ public class RegisterTaoBao {
 				@Override
 				public Object call(Message... messages) {
 					for(Message message:messages){
+						Date sendDate=new Date();
+						try {
+							sendDate = message.getSentDate();
+							LOG.printLog("发送邮件时间为："+DateFormatUtils.format(sendDate, "yyyy-MM-dd HH:mm:ss"));
+						} catch (MessagingException e1) {
+							e1.printStackTrace();
+						}
+						sendDate = DateUtils.addSeconds(sendDate, 200);
+						if(sendDate.getTime() < new Date().getTime()){
+							continue;
+						}
 						StringBuffer content = new StringBuffer(30);
 						try {
 							POP3ReceiveMailTest.getMailTextContent(message, content);
