@@ -12,9 +12,9 @@ public class Ma60 {
 
 	public static void main(String[] args) {
 		login();
-		 String str = Ma60.getnum("BA4E0F33A9F5952");
+		// String str = Ma60.getnum("BA4E0F33A9F5952");
 		
-		 System.out.println(str);
+		 //System.out.println(str);
 		 //resleNum();
 		
 	}
