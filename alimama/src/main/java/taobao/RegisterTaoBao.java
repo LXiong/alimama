@@ -80,7 +80,7 @@ public class RegisterTaoBao {
 				 System.exit(0);
 			 }
 			
-			start2(url,p);
+			return start2(url,p);
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally {
@@ -283,6 +283,13 @@ public class RegisterTaoBao {
 		   LOG.printLog("验证码不正确，请手动处理后按回车键继续>>>>>>>>>>>>>");
 		   System.in.read();
 	   }
+	   
+	   //登录名已存在
+	   
+	  /* if(webDriver.getPageSource().contains("登录名已存在")){
+		   LOG.printLog("登录名已存在>>>>>>>>>>>>>");
+		   return null;
+	   }*/
 	   
 	   String url = null;
 	   for(int i=0;i<20;i++){
