@@ -9,8 +9,6 @@ import org.openqa.selenium.WebDriver;
 
 import util.LOG;
 import util.SeleniumUtil;
-import dataoke.Cmd;
-import dataoke.Ma60;
 
 public class Main {
 
@@ -60,8 +58,13 @@ public class Main {
 				FileUtils.write(new File("D:\\ERRORtaobao.txt"), s+"\r\n", true);
 			}finally {
 				try{
-					DaTaoKe.webGet("http://www.dataoke.com/logout");
-					Thread.sleep(Cmd.getSleepTime(1000, 3000));
+					 LOG.printLog("关闭浏览器");
+					 webDriver.close();
+					 LOG.printLog("按回车键后重启打开浏览器开始注册>>>>>>>>>>>>>>>>>>>>>>>");
+					 System.in.read();
+					 webDriver = SeleniumUtil.initChromeDriver();
+					//DaTaoKe.webGet("http://www.dataoke.com/logout");
+					//Thread.sleep(Cmd.getSleepTime(1000, 3000));
 				}catch(Exception e){
 					
 				}
