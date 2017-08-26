@@ -30,7 +30,14 @@ public class RegisterTaoBao {
 	
 	
 	static{
-		Ma60.login();
+		try{
+			LOG.printLog("开始登陆60码");
+			Ma60.login();
+			LOG.printLog("登陆60码成功");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
