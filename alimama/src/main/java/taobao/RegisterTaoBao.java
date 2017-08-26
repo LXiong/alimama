@@ -1,5 +1,6 @@
 package taobao;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.Message;
@@ -8,30 +9,82 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import dataoke.Ma60;
 import dataoke.PassWordCreate;
 import util.LOG;
-import util.SeleniumUtil;
 import util.StringUtils;
 import util.mail.POP3ReceiveMailTest;
 import util.mail.SimpleSendReceiveMessage;
 
 public class RegisterTaoBao {
 	
-	static WebDriver webDriver = SeleniumUtil.initChromeDriver();
+	static WebDriver webDriver = Main.webDriver;
 	
 	public static String phoneNum = null;
 	
 	
+	
+	static{
+		Ma60.login();
+	}
+	
+	
+	
 	public static void main(String[] args)throws Exception {
-		execute("eduardsvro@hotmail.com","v65cx2HqH");
-		//start1("eduardsvro@hotmail.com","v65cx2HqH");
+		//execute("eduardsvro@hotmail.com","v65cx2HqH");
+		start1("eduardsvro@hotmail.com","v65cx2HqH");
 		//start2("https://passport.alibaba.com/member/request_dispatcher.htm?from=ACTIVE_BY_URL&amp;_ap_action=registerActive&amp;t=CN-SPLIT-ARCAxgoiCFJFR0lTVEVSMgEBOIPvo8XhK0ABShB8pauX7nxkC7V_nOI7Tnghu-_vbBLsLvrtQGrS0UXP5u-2BqU");
+	}
+	
+	
+	public static String getCode(){
+		try{
+			 String code = "";
+			 LOG.printLog("获取短信内容");
+			 for(int i=0;i<8;i++){
+				 String str = Ma60.getmsg();
+				 if(org.apache.commons.lang.StringUtils.isBlank(str)){
+					 Thread.sleep(4000);
+					 continue;
+				 }else{
+					 if(str.contains("淘宝")){
+						 code = str.substring(str.length()-6, str.length());
+						 return code;
+					 }
+				 }
+			 }
+			 LOG.printLog("验证码为："+code);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	
 	public static boolean execute(String u,String p)throws Exception{
 		String url = start1(u, p);
-		start2(url);
+		try{
+			phoneNum = Ma60.getnum("A44F4F80A11B290");
+			if(org.apache.commons.lang.StringUtils.isBlank(phoneNum)){
+				LOG.printLog("获取手机号码有问题》》》》》》》》》》》》》》");
+				return false;
+			 }else if(phoneNum.contains("余额不足")){
+				 LOG.printLog("余额不足退出程序>>>>>>>>>>>>>>>>>>>>>>>>>.");
+				 System.exit(0);
+			 }
+			
+			start2(url);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			 try{
+				 LOG.printLog("释放手机号码");
+				 Ma60.resleNum(phoneNum);
+			 }catch(Exception e){
+				 e.printStackTrace();
+			 }
+		}
+		
 		return true;
 	}
 	
@@ -103,7 +156,7 @@ public class RegisterTaoBao {
                 
                 
                 Thread.sleep(1000);
-                String phone = "15201733654";
+                String phone = phoneNum;
                 LOG.printLog("输入电话号码："+phone);
                 //J_Mobile
                 element = webDriver.findElement(By.id("J_Mobile"));
@@ -124,8 +177,14 @@ public class RegisterTaoBao {
                 
                 
                 Thread.sleep(1000);
-                String code = "123456";
+                String code = getCode();
                 LOG.printLog("输入手机验证码："+code);
+                
+                if(org.apache.commons.lang.StringUtils.isBlank(code)){
+                	LOG.printLog("验证码为null>>>>>>>>>>>>>>>>>>>>>");
+                	 return false;
+                }
+                
                 // 手机验证码  J_MobileCode
                 element = webDriver.findElement(By.id("J_MobileCode"));
                 element.sendKeys(code);
@@ -155,26 +214,37 @@ public class RegisterTaoBao {
 	public static String start1(String mail,String pwd)throws Exception{
 		webDriver.get("https://passport.alibaba.com/member/reg/enter_fill_email.htm?_regfrom=TB_ENTERPRISE&_lang=");
 		Thread.sleep(1000);
-		webDriver.navigate().refresh();
-		Thread.sleep(3000);
-		 webDriver = webDriver.switchTo().frame("alibaba-register-box");
+		webDriver = webDriver.switchTo().frame("alibaba-register-box");
+
+		LOG.printLog("检测是否有验证码");
+		if(webDriver.getPageSource().contains("拖动到最右边")){
+	    	 LOG.printLog("检测到拖动验证码>>>>>>>>>>>>>>>>>>>请手动拖动，拖动后按回车键继续");
+	    	 System.in.read();
+	    }else{
+	    	LOG.printLog("没有验证码");
+	    }
+		
+		if(webDriver.getPageSource().contains("alibaba-register-box")){
+			webDriver = webDriver.switchTo().frame("alibaba-register-box");
+		}
+		
+		 WebElement element =webDriver.findElement(By.id("J_Email"));
+	     element.sendKeys(mail);
 		 Thread.sleep(1000);
-		   
-		WebElement element =webDriver.findElement(By.id("J_Email"));
-	    element.sendKeys(mail);
-	    
-	 
 	    
 	    LOG.printLog("输入邮箱："+mail);
 	    
-	    if(webDriver.getPageSource().contains("拖动到最右边")){
-	    	 LOG.printLog("检测到拖动验证码>>>>>>>>>>>>>>>>>>>请手动拖动，拖动后按回车键继续");
-	    	 System.in.read();
-	    }
-	  /* Thread.sleep(2000);
+	    
+	   Thread.sleep(2000);
 	   LOG.printLog("点击下一步"); 
 	   element = webDriver.findElement(By.id("J_BtnEmailForm"));
-	   element.click();*/
+	   element.click();
+	   
+	   
+	   if(webDriver.getPageSource().contains("不正确")){
+		   LOG.printLog("验证码不正确，请手动处理后按回车键继续>>>>>>>>>>>>>");
+		   System.in.read();
+	   }
 	   
 	   String url = null;
 	   for(int i=0;i<20;i++){

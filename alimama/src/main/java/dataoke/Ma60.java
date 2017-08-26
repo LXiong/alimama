@@ -12,7 +12,10 @@ public class Ma60 {
 
 	public static void main(String[] args) {
 		login();
-		resleNum();
+		 String str = Ma60.getnum("0A24B2BBB848220");
+		
+		 System.out.println(str);
+		 //resleNum();
 		
 	}
 	
@@ -70,6 +73,40 @@ public class Ma60 {
 	 */
 	public static String getnum() {
 		String url = "http://sms.60ma.net/newsmssrv?cmd=gettelnum&encode=utf-8&dtype=json&docks=10692408025D0DB&userid="
+				+ userId
+				+ "&userkey="
+				+ userKey
+				+ "&province=0&city=0&operator=0"
+				+ "&telback=17";
+		HttpRequest httpRequest = HttpRequest.get(url).timeout(20000);
+		HttpResponse response = httpRequest.send();
+		// response.accept("utf-8");
+		// response.acceptEncoding("utf-8");
+		response.charset("utf-8");
+		String rc = response.bodyText();
+		System.out.println(rc);
+
+		JSONObject jsonObject = JSON.parseObject(rc);
+		jsonObject = jsonObject.getJSONObject("Return");
+
+		String staus = jsonObject.getString("Staus");
+		if ("0".equals(staus)) {
+			System.out.println("获取手机号码成功");
+			telnum = jsonObject.getString("Telnum");
+		}else if(jsonObject.toJSONString().contains("余额不足")){
+			System.out.println(jsonObject.toString()+" >>>>> 退出程序");
+			System.exit(0);
+		}
+		return telnum;
+	}
+	
+	/**
+	 * 获取手机号码
+	 * 
+	 * @return
+	 */
+	public static String getnum(String docks) {
+		String url = "http://sms.60ma.net/newsmssrv?cmd=gettelnum&encode=utf-8&dtype=json&docks="+docks+"&userid="
 				+ userId
 				+ "&userkey="
 				+ userKey

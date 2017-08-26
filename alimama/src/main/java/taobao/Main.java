@@ -14,9 +14,9 @@ import dataoke.Ma60;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		// TODO Auto-generated method stub
-
+		executeAll();
 	}
 	
 	
@@ -27,8 +27,7 @@ public class Main {
 	static int errorSize = 0;
 	static int count = 0;
 	public static void executeAll()throws Exception{
-		Ma60.login();
-		List<String> lists=FileUtils.readLines(new File(""));
+		List<String> lists=FileUtils.readLines(new File("d:\\ddd.txt"));
 		for(String s:lists){
 			if(StringUtils.isBlank(s)){
 				continue;
