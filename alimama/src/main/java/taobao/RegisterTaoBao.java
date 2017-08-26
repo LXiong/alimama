@@ -45,12 +45,13 @@ public class RegisterTaoBao {
 		try{
 			 String code = "";
 			 LOG.printLog("获取短信内容");
-			 for(int i=0;i<8;i++){
+			 for(int i=0;i<20;i++){
 				 String str = Ma60.getmsg();
 				 if(org.apache.commons.lang.StringUtils.isBlank(str)){
 					 Thread.sleep(4000);
 					 continue;
 				 }else{
+					 LOG.printLog("短信内容为："+str);
 					 if(str.contains("淘宝")){
 						 code = str.substring(str.length()-6, str.length());
 						 return code;
