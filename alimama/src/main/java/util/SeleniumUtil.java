@@ -384,6 +384,8 @@ public class SeleniumUtil {
 		//capture(driver,"http://www.dataoke.com/login/?user=reg","d:\\dataoke.jpg");
 		
 		
+		//driver.manage().getCookies();
+		
           JavascriptExecutor js = (JavascriptExecutor) driver;
 		
 		
@@ -534,19 +536,64 @@ public class SeleniumUtil {
 		 
 	}
 	
+	
+	public static void dataokeLoginTest()throws Exception{
+		WebDriver driver = initChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("http://www.dataoke.com/login");
+		
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+		
+		
+		
+		boolean flag = doesWebElementExist(driver, By.id("nc_1__scale_text"));
+		
+		if(flag){
+			System.out.println("拖动存在>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			//
+			
+		       Actions action = new Actions(driver); 
+               //获取滑动滑块的标签元素
+	           WebElement source = driver.findElement(By.id("nc_1__scale_text"));
+               //确保每次拖动的像素不同，故而使用随机数
+               //action.clickAndHold(source).moveByOffset(100, 0);
+               //Thread.sleep(1000);
+               //确保每次拖动的像素不同，故而使用随机数
+               //action.clickAndHold(source).moveByOffset(200, 0);
+               //Thread.sleep(1000);
+               //确保每次拖动的像素不同，故而使用随机数
+               action.clickAndHold(source).moveByOffset(300, 0);
+               Thread.sleep(1000);
+               //拖动完释放鼠标
+               action.moveToElement(source).release();
+               Thread.sleep(1000);
+		       //组织完这些一系列的步骤，然后开始真实执行操作
+		       Action actions = action.build();
+		       actions.perform();
+		       
+		       Thread.sleep(3000);
+		       
+		       System.out.println("拖动完成>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		       
+		}
+		 
+	}
+	
 	public static void main(String[] args)throws Exception {
 		//testAction();
 		//getImgTest();
 		//WebDriver driver = initFirefoxDriver();
-		WebDriver driver = initChromeDriver();
-		ShuaOline.webGet(driver,"https://detail.tmall.com/item.htm?id=547204429776");
+		//WebDriver driver = initChromeDriver();
+		//ShuaOline.webGet(driver,"https://detail.tmall.com/item.htm?id=547204429776");
 		
-		System.in.read();
+	//	System.in.read();
 		
 		//driver.findElement(By.id("div"));
 		
 		
-		ShuaOline.webGet(driver,"https://detail.tmall.com/item.htm?id=547204429776");
+		//ShuaOline.webGet(driver,"https://detail.tmall.com/item.htm?id=547204429776");
+	
+		dataokeLoginTest();
 	}
 	
 	
