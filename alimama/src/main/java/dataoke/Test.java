@@ -85,10 +85,10 @@ public class Test {
 		//printLog(loginHttpClient("15917728864", "3pd0qu"));
 		
 		//printLog(getUserPids("15917728864"));
-		printLog(loginHttpClient("15201733860", "1qaz2wsx"));
+		//printLog(loginHttpClient("15201733860", "1qaz2wsx"));
 		//printLog(updatePwdHttpClient("15201733860", "1qaz2wsx2", "1qaz2wsx"));
 		//printLog(taoTokenHttpClient("3453237", "15201733860","2"));
-		 printLog(tuijianHttpClient("3448718", "15201733860"));
+		 printLog(tuijianHttpClient("3964480", "15201733860"));
 		//printLog(getExitsSetPidExeitHttpClient("15917728864"));
 		
 		//printLog(createPidHtppClient("13191048115"));
@@ -1819,6 +1819,10 @@ public class Test {
 		 httpRequest.setHeader("User-Agent", HttpTest.getUserAgent());
 		 
 		 setCookis(uname, httpRequest);
+		 
+		 //String testCK= "UM_distinctid=15e0fa82d60da-0fdc8d80f896c1-3a3e5e06-1fa400-15e0fa82d61251A; tj_cid=864e6625-77db-424f-61ac-a72bc9115defA; _uab_collina=150650917885513423249654; _umdata=0823A424438F76AB662C07C35ABB19CD7E6CF2849366957A50CFC63CF123B531E9261C88222E7BF3CD43AD3E795C914CB0214C2EC9B26B6A389460DA864C8447; userid=537000; user_email=15201733861; user%5Femail=15201733861; upe=a2766ec2; upi=927f9c25; browserCode=c5818e19fdb4867f5e5f414721f7451a; dtk_web=clo1aqqutbnmeeeevheepqd632; token=d78a9d8d10cac2f0ffb9512015cd0728; random=6910; CNZZDATA1257179126=1264628945-1503496208-%7C1506953339";
+		 //httpRequest.setHeader("Cookie",testCK);
+		 
 /*
 		   HttpClientUtils httpClientUtils = new HttpClientUtils();
 		 
@@ -1831,7 +1835,7 @@ public class Test {
 		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
 		 
 		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "act=add_quan&id="+id,true,null,null,proxy,null);
-         //printLog("str:"+str);
+         printLog("str:"+rc);
 		 
 		 if(rc != null && rc.equalsIgnoreCase("ok")){
 			 return true;
