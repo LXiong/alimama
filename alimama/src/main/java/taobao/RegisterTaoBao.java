@@ -261,11 +261,11 @@ public class RegisterTaoBao {
 		//webDriver.findElement(By.id("J_AgreementBtn")).click();
 		
 		
-		Thread.sleep(3000);
+		Thread.sleep(5000);
 		//webDriver = webDriver.switchTo().frame("alibaba-register-box");
 
 		LOG.printLog("检测是否有验证码");
-		if(webDriver.getPageSource().contains("拖动到最右边")){
+		if(webDriver.getPageSource().contains("最右边")){
 	    	 LOG.printLog("检测到拖动验证码>>>>>>>>>>>>>>>>>>>请手动拖动，拖动后按回车键继续");
 	    	 System.in.read();
 	    }else{

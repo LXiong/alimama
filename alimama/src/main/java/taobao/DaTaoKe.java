@@ -52,6 +52,9 @@ public class DaTaoKe {
 	public static boolean login(String uname,String pwd)throws Exception{
 		try{
 			 webGet("http://www.dataoke.com/login");
+			 
+			 webDriver.manage().window().maximize();
+				
 			Thread.sleep(Cmd.getSleepTime(1000, 2000));
 			WebElement element =webDriver.findElement(By.xpath("//input[@data-id='email']"));
 		    element.sendKeys(uname);
