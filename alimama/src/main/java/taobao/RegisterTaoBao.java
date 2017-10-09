@@ -43,9 +43,9 @@ public class RegisterTaoBao {
 	
 	
 	public static void main(String[] args)throws Exception {
-		receiveMail("yaroslavdwda@hotmail.com","bhSW3I95");
+		//receiveMail("yaroslavdwda@hotmail.com","bhSW3I95");
 		//execute("andreysv03@hotmail.com","d40rfJ493");
-		//start1("eduardsvro@hotmail.com","v65cx2HqH");
+		start1("eduardsvro@hotmail.com","v65cx2HqH");
 		//start2("https://passport.alibaba.com/member/request_dispatcher.htm?from=ACTIVE_BY_URL&amp;_ap_action=registerActive&amp;t=CN-SPLIT-ARCAxgoiCFJFR0lTVEVSMgEBOIPvo8XhK0ABShB8pauX7nxkC7V_nOI7Tnghu-_vbBLsLvrtQGrS0UXP5u-2BqU");
 	}
 	
@@ -264,13 +264,17 @@ public class RegisterTaoBao {
 		Thread.sleep(5000);
 		//webDriver = webDriver.switchTo().frame("alibaba-register-box");
 
-		LOG.printLog("检测是否有验证码");
+		/*LOG.printLog("检测是否有验证码");
 		if(webDriver.getPageSource().contains("最右边")){
 	    	 LOG.printLog("检测到拖动验证码>>>>>>>>>>>>>>>>>>>请手动拖动，拖动后按回车键继续");
 	    	 System.in.read();
 	    }else{
 	    	LOG.printLog("没有验证码");
-	    }
+	    }*/
+		
+		LOG.printLog("按回车键继续>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		 System.in.read();
+		  
 		
 		/*if(webDriver.getPageSource().contains("alibaba-register-box")){
 			webDriver = webDriver.switchTo().frame("alibaba-register-box");
