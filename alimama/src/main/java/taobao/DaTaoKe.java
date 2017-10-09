@@ -59,10 +59,13 @@ public class DaTaoKe {
 		    element =webDriver.findElement(By.xpath("//input[@data-id='pwd']"));
 		    element.sendKeys(pwd);
 		    
+		    System.in.read();
+		    
+		    
 		    element =webDriver.findElement(By.xpath("//a[@class='submit-btn login-btn']"));
 		    element.click();
 		    
-		    Thread.sleep(Cmd.getSleepTime(1000, 2000));
+		    //Thread.sleep(Cmd.getSleepTime(1000, 2000));
 		    
 		    String str = webDriver.getPageSource();
 		    
