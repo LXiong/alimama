@@ -23,6 +23,9 @@ public class ShouQuan {
 	static String taobaoName = "luoyuna0905_163";
 
 	public static void main(String[] args) throws Exception {
+	  webDriver =SeleniumUtil.initChromeDriver();
+    	webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+    	
 		File shouquanDir = new File("D:\\dataoke\\shouquan");
 		// execute("13283422058", "gk3qhvz",tname, tpwd);
 		executeAll(shouquanDir.listFiles());
@@ -53,6 +56,32 @@ public class ShouQuan {
 			
 			Thread.sleep(Cmd.getSleepTime(1000, 3000));
 			WebElement element =webDriver.findElement(By.xpath("//*[@class='add-tui J_add_tui']"));
+		    element.click();
+		    //Thread.sleep(Cmd.getSleepTime());
+		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
+		    Thread.sleep(Cmd.getSleepTime(1000, 3000));
+		    //Thread.sleep(Cmd.getSleepTime());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	
+	public static boolean zhuan2and1(String id)throws Exception{
+		try{
+			try{
+				//webDriver.get("http://www.dataoke.com");
+				Thread.sleep(Cmd.getSleepTime(1000, 3000));
+			}catch(Exception e){
+				
+			}
+			webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+			webDriver.get("http://www.dataoke.com/item?id="+id);
+			 
+			
+			Thread.sleep(Cmd.getSleepTime(1000, 3000));
+			WebElement element =webDriver.findElement(By.xpath("//*[@class='trans-ehy']"));
 		    element.click();
 		    //Thread.sleep(Cmd.getSleepTime());
 		    //webDriver.get("http://www.dataoke.com/ucenter/favorites_quan.asp");
@@ -127,9 +156,10 @@ public class ShouQuan {
 		  }
 		}
 
-	static WebDriver webDriver = SeleniumUtil.initChromeDriver();
+	static WebDriver webDriver = null;
     static{
-    	webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+    	/*	webDriver =SeleniumUtil.initChromeDriver();
+    	webDriver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);*/
     }   
 	public static void execute(String uname, String pwd, String tuanme, String tpwd) throws Exception {
 		boolean flag = login(uname, pwd);
@@ -149,6 +179,12 @@ public class ShouQuan {
 		WebElement element = webDriver.findElement(By.id("update_shouquan"));
 		element.click();
 
+		if(webDriver.getPageSource().contains("使用淘宝账号授权")){
+			element = webDriver.findElement(By.linkText("使用淘宝账号授权"));
+			element.click();
+		}
+		
+		
 		Thread.sleep(5000);
 
 		webDriver = webDriver.switchTo().frame("layui-layer-iframe1");
@@ -196,6 +232,70 @@ public class ShouQuan {
         	 e.printStackTrace();
          }
          return false;
+
+	}
+	
+	public static boolean shouquan2(String uname, String pwd, String tuanme, String tpwd) throws Exception {
+        try{ 
+		webGet("http://www.dataoke.com/ucenter/mypid.asp");
+
+		WebElement element = webDriver.findElement(By.id("update_shouquan"));
+		element.click();
+
+		if(webDriver.getPageSource().contains("使用淘宝账号授权")){
+			element = webDriver.findElement(By.linkText("使用淘宝账号授权"));
+			element.click();
+		}
+		
+		
+		Thread.sleep(2000);
+
+		webDriver = webDriver.switchTo().frame("layui-layer-iframe2");
+
+		Thread.sleep(2000);
+
+		
+		String str= webDriver.getPageSource();
+		
+		if(str.contains("检测到您已登录淘宝")){
+		System.out.println("检测到您已登录淘宝>>>>>>>>>>>>>>>>");
+			//sub 已檢測到登錄
+			try{
+				element = webDriver.findElement(By.id("sub"));
+				if(element!=null && element.isDisplayed()){
+					element.click();
+				}
+			}catch(Exception e){
+			 e.printStackTrace();	
+			}	
+		}else{
+		
+		webDriver = webDriver.switchTo().frame("J_loginIframe");
+		Thread.sleep(2000);
+		
+		element = webDriver.findElement(By.id("TPL_username_1"));
+		element.clear();
+		element.sendKeys(tuanme);
+
+		Thread.sleep(1000);
+
+		element = webDriver.findElement(By.id("TPL_password_1"));
+		element.sendKeys(tpwd);
+
+		Thread.sleep(1000);
+
+		element = webDriver.findElement(By.id("J_SubmitStatic"));
+		element.click();
+		
+		}
+
+		Thread.sleep(1000);
+
+		//return isShouquan();
+        }catch(Exception e){
+       	 e.printStackTrace();
+        }
+        return true;
 
 	}
 

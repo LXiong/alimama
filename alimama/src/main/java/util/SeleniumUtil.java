@@ -120,6 +120,43 @@ public class SeleniumUtil {
 	}
 	
 	
+	/**
+	 * 如果你没找到 NPAPI 项，试试输入：chrome://flags/#enable-npapi 如果仍然没找到，那么，你需要升级你的
+	 * Chrome 浏览器到最新版，我的原来是 40.0版本，升级到42.0版本，结果就出现了。 按“启用”后，关闭 Chrome
+	 * 程序，然后再重新打开，就可以正常呼出阿里旺旺了。
+	 * 
+	 * @return
+	 */
+	public static WebDriver initChromeDriverLocal() {
+		logger.info("start init WebDriver!");
+		WebDriver driver = null;
+		try {
+			/*ChromeDriverService service = new ChromeDriverService.Builder()
+					.usingDriverExecutable(new File("D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe")).usingAnyFreePort()
+					.build();
+			service.start();*/
+			//System.setProperty("webdriver.chrome.driver", "D:\\workspace\\alimama\\alimama\\chromedriver\\chromedriver.exe");
+			ChromeOptions options = new ChromeOptions();
+			// options.addArguments(“–user-data-dir=C:/Users/xxx/AppData/Local/Google/Chrome/User
+			// Data/Default”);
+			String userDateDir = "C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data";
+			if(StringUtils.isNotBlank(PropertiesUtil.getPropertiesMap("alimama.userDateDir"))){
+				userDateDir = PropertiesUtil.getPropertiesMap("alimama.userDateDir");
+			}
+			options.addArguments("--user-data-dir=" + userDateDir,"--allow-outdated-plugins");
+			System.setProperty("webdriver.chrome.driver", "c:\\chromedriver.exe");
+			driver = new ChromeDriver(options);
+			//driver = new FirefoxDriver(); 
+			//driver = new HtmlUnitDriver(true);
+		} catch (Exception e) {
+			logger.error("Init WebDriver is error!", e);
+			throw new RuntimeException(e);
+		}
+		logger.info("init WebDriver is success!");
+		return driver;
+	}
+	
+	
 	public static WebDriver initFirefoxDriver() {
 		logger.info("start init WebDriver!");
 		WebDriver driver = null;
