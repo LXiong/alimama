@@ -33,6 +33,15 @@ public class CKUtils {
 		return map;
 	}
 	
+	
+	public static synchronized Map<String,String> getAll(File[] files)throws Exception {
+		 Map<String,String> map = new LinkedHashMap<String, String>();
+		for(File f:files){
+			map.putAll(getCks(f));
+		}
+		return map;
+	}
+	
 	public static Map<String,String> getCks(File file) throws IOException{
 		Map<String,String> map = new LinkedHashMap<String, String>();
 		List<String> lists = FileUtils.readLines(file);

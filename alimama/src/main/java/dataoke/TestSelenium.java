@@ -1,5 +1,7 @@
 package dataoke;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -12,12 +14,18 @@ import org.openqa.selenium.WebElement;
 import util.LOG;
 import util.SeleniumUtil;
 
+
+/**
+ * ck登录大淘客，授权二合一
+ * @author zzm
+ *
+ */
 public class TestSelenium {
 
 	public static void main(String[] args)throws Exception {
 		for(Entry<String, String> m :CKUtils.getAll().entrySet()){
 			String key = m.getKey();
-			shouquanAndTuiGuang("4023755",key);
+			shouquanAndTuiGuang(new String[]{"4019565"},key);
 		}
 		
 	}
@@ -25,7 +33,18 @@ public class TestSelenium {
 	static WebDriver webDriver = null;
 	
 	
-	public static void shouquanAndTuiGuang(String id,String uname)throws Exception{
+	public static void shouquanAndTuiGuang(String[] ids,File[] files)throws Exception{
+		for(Entry<String, String> m :CKUtils.getAll(files).entrySet()){
+			try{
+				LOG.printLog("开始刷name="+m.getKey()+" pids=="+Arrays.toString(ids));
+				shouquanAndTuiGuang(ids, m.getKey());
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void shouquanAndTuiGuang(String[] ids,String uname)throws Exception{
 		if(webDriver==null){
 			webDriver = SeleniumUtil.initChromeDriver();
 		}
@@ -37,8 +56,12 @@ public class TestSelenium {
 	    boolean flag = ShouQuan.shouquan2(null, null, "粟范德萨", "wen195861111");
 	    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag);
 	    if(flag){
-	    	flag =  ShouQuan.zhuan2and1(id);
-	  	    LOG.printLog("推荐结果>>>>>>>>>>>>>"+flag);
+	    	for(String id:ids){
+	    		flag =  ShouQuan.zhuan2and1(id);
+		  	    LOG.printLog("推荐结果>>>>>>>>>>>>>"+flag);
+		  	    Thread.sleep(1000);
+	    	}
+	    	
 	    }
 	    
 	    //webDriver.close();
