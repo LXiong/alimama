@@ -51,7 +51,7 @@ import util.MyConnectionProvider;
 
 public class Test {
 	static String taoId = "118753669";//luoyuna0905@163.com
-	static String pid = "mm_118753669_32220852_116226718";
+	public static String pid = "mm_118753669_32220852_116226718";
 	
 	//static String taoId = "118054027";//xiaonin0322@163.com
 	
@@ -672,6 +672,73 @@ public class Test {
 			}
       return false;	
 }
+	
+	
+	
+public static boolean createPidAllHttpClientCK(String uname,String pidStr)throws Exception{
+		
+		printLog("开始检测是否设置pid>>>>>>>>>>>>>>"+uname);
+		/*if(getExitsSetPidFlagExeitHttpClient(uname)){
+			return true;
+		}
+		 Thread.sleep(2000);
+		 */
+		 if(checkPidExeitHttpClient(uname)){
+			 printLog("pid已经存在>>>>>>>>>>>"+uname);
+			 Thread.sleep(2000);
+			
+			 List<String> pids = getExitsSetPidExeitHttpClient(uname);
+			 Thread.sleep(2000);
+			 if(CollectionUtils.isNotEmpty(pids)){
+				 boolean flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
+				 printLog("uname =="+uname+" 取消pid==="+flag);
+				 Thread.sleep(2000);
+				 if(!flag){
+					 pids = getExitsSetPidExeitHttpClient(uname);
+					 Thread.sleep(2000);
+					 flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
+					 printLog("uname =="+uname+" 取消pid==="+flag);
+					 Thread.sleep(2000);
+				 }
+				 if(!flag){
+					 pids = getExitsSetPidExeitHttpClient(uname);
+					 Thread.sleep(2000);
+					 flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
+					 printLog("uname =="+uname+" 取消pid==="+flag);
+					 Thread.sleep(2000);
+					 return false;
+				  }
+				 
+			 }
+ 			 // return true;
+		 }
+		 printLog("没有设置pid，开始设置pid>>>>>>>>>>>>>>"+uname);
+		 String title=createPidHtppClient(uname);
+		 printLog("title: "+title);
+		 Thread.sleep(2000);
+		 boolean flag = false;
+		 if(StringUtils.isNotBlank(title)){
+			 printLog("开始查询pi========"+title);
+			 String pid = queryPidByNameHttpClient(uname, title);
+			 printLog("pid====="+pid+" title==="+title);
+			 Thread.sleep(2000);
+			  flag = pidAddHttpClient(uname, pid, "set_wx");
+			 printLog("设为微信专用>>>>>>>>>>>>>>>"+flag);
+		 }
+		 Thread.sleep(2000);
+		 title=createPidHtppClient(uname);
+		 printLog("title: "+title);
+		 if(StringUtils.isNotBlank(title) && flag){
+			 Thread.sleep(2000);
+			 printLog("开始查询pi========"+title);
+			 String pid = queryPidByNameHttpClient(uname, title);
+			 printLog("pid====="+pid+" title==="+title);
+			 Thread.sleep(2000);
+			  flag =  pidAddHttpClient(uname, pid, "set_qq");
+			 printLog("设为Q群专用>>>>>>>>>>>>>>>"+flag);
+		 }
+		 return flag;
+	}
 	
 	public static boolean createPidAllHttpClient(String uname)throws Exception{
 		

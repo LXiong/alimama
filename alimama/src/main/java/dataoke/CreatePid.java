@@ -52,7 +52,8 @@ public class CreatePid {
 				try{
 					String uname = m.getKey();
 					String pid="mm_118996717_32880557_117086796";
-					boolean flag = Test.createPidAllCK(uname, pid);
+					Test.pid=pid;
+					boolean flag = Test.createPidAllHttpClientCK(uname, pid);
 					LOG.printLog("uname==="+uname+"  flag =="+flag);
 				}catch(Exception e){
 					e.printStackTrace();
