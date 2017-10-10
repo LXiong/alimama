@@ -7,10 +7,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Map.Entry;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+
+import util.LOG;
 
 public class CreatePid {
 	
@@ -39,6 +43,26 @@ public class CreatePid {
 	
 	static int count=0;
 	public static void main(String[] args)throws Exception {
+		setPidMainCK();
+		
+	}
+	
+	public static void setPidMainCK()throws Exception{
+		for(Entry<String, String> m :CKUtils.getAll().entrySet()){
+				try{
+					String uname = m.getKey();
+					String pid="mm_118996717_32880557_117086796";
+					boolean flag = Test.createPidAllCK(uname, pid);
+					LOG.printLog("uname==="+uname+"  flag =="+flag);
+				}catch(Exception e){
+					e.printStackTrace();
+				}finally{
+					Thread.sleep(1000);
+				}
+		}
+	}
+	
+	public static void setPidMain()throws Exception{
 		Collection<File> files=new ArrayList<File>();
 		files.add(map.get("1"));
 		files.add(map.get("2"));
@@ -67,7 +91,6 @@ public class CreatePid {
 				
 			}
 		}
-		
 	}
 	
 	

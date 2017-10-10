@@ -14,9 +14,10 @@ import util.SeleniumUtil;
 public class TestSelenium {
 
 	public static void main(String[] args)throws Exception {
-		// TODO Auto-generated method stub
-		//Test.login("13411679603", "1qaz2wsx");
-		shouquanAndTuiGuang("4023755","15989716682");
+		for(Entry<String, String> m :CKUtils.getAll().entrySet()){
+			String key = m.getKey();
+			shouquanAndTuiGuang("4023755",key);
+		}
 		
 	}
 	
@@ -32,7 +33,7 @@ public class TestSelenium {
 		webDriver.get("http://www.dataoke.com/ucenter/mypid.asp");
 		
 	    ShouQuan.webDriver = webDriver;
-	    boolean flag = ShouQuan.shouquan2(null, null, "xiaomi1991222", "zhangmm0322#");
+	    boolean flag = ShouQuan.shouquan2(null, null, "粟范德萨", "wen195861111");
 	    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag);
 	    if(flag){
 	    	flag =  ShouQuan.zhuan2and1(id);
