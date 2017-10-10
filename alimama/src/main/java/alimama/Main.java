@@ -77,7 +77,8 @@ public class Main {
 		String localWebDriver=PropertiesUtil.getPropertiesMap("localWebDriver");
 		if("true".equals(localWebDriver)){
 			//webDriver = new FirefoxDriver();
-			webDriver = SeleniumUtil.initChromeDriver();
+			webDriver = util.SeleniumUtil.initChromeDriver();
+			
 		}else{
 			webDriver =SeleniumUtil.initWebDriver("http://192.168.1.120:4444/wd/hub");
 		}
