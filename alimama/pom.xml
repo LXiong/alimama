@@ -121,7 +121,8 @@
 
 	<build>
 	    <!-- <finalName>SendMail</finalName> -->
-	    <finalName>taobaoZhuce</finalName>
+	    <!-- <finalName>taobaoZhuce</finalName> -->
+	    <!-- <finalName>cmdTestSelenium</finalName> -->
 		<plugins>
 		    <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -148,7 +149,8 @@
 									<!-- <mainClass>dataoke.GetGoodIdsByDataoke</mainClass> -->
 									<!-- <mainClass>dataoke.ShuaOline</mainClass> -->
 									 <!-- <mainClass>dataoke.SendMail</mainClass>  -->
-									 <mainClass>taobao.Main</mainClass>
+									 <!-- <mainClass>taobao.Main</mainClass> -->
+									 <mainClass>dataoke.CmdTestSelenium</mainClass>
 									<!-- <mainClass>dataoke.Monitor</mainClass>  -->
 								</transformer>
 								<transformer

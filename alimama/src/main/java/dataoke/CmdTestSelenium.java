@@ -39,7 +39,7 @@ public class CmdTestSelenium {
 		//args = new String[]{"2882511,2895769","103","5000,20000","1"}; 
 		//args = new String[]{"2947807","106","5000,30000","1"};
 		
-		args = new String[]{"4021765,4041550","1","50,100","1"};
+		//args = new String[]{"4021765,4041550","1","50,100","1"};
 		
 		
 		String pids = args[0];

@@ -40,6 +40,8 @@ public class TestSelenium {
 				shouquanAndTuiGuang(ids, m.getKey());
 			}catch(Exception e){
 				e.printStackTrace();
+			}finally {
+				Thread.sleep(Cmd.getSleepTime());
 			}
 		}
 	}
