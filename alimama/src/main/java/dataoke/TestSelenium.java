@@ -30,7 +30,7 @@ public class TestSelenium {
 			shouquanAndTuiGuang(new String[]{"4019565"},key);
 		}*/
 		
-		shouquan(FileUtils.readLines(new File("D:\\dataoke\\cks\\all.txt")));
+		shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20170902\\all.txt")));
 		
 	}
 	
