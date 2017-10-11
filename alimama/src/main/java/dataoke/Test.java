@@ -674,6 +674,44 @@ public class Test {
 }
 	
 	
+public static boolean deletePidAllHttpClientCK(String uname)throws Exception{
+		
+		/*if(getExitsSetPidFlagExeitHttpClient(uname)){
+			return true;
+		}
+		 Thread.sleep(2000);
+		 */
+		 if(checkPidExeitHttpClient(uname)){
+			 printLog("pid已经存在>>>>>>>>>>>"+uname);
+			 Thread.sleep(2000);
+			
+			 List<String> pids = getExitsSetPidExeitHttpClient(uname);
+			 Thread.sleep(2000);
+			 if(CollectionUtils.isNotEmpty(pids)){
+				 boolean flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
+				 printLog("uname =="+uname+" 取消pid==="+flag);
+				 Thread.sleep(2000);
+				 if(!flag){
+					 pids = getExitsSetPidExeitHttpClient(uname);
+					 Thread.sleep(2000);
+					 flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
+					 printLog("uname =="+uname+" 取消pid==="+flag);
+					 Thread.sleep(2000);
+				 }
+				 if(!flag){
+					 pids = getExitsSetPidExeitHttpClient(uname);
+					 Thread.sleep(2000);
+					 flag = deletePidHtppClient(uname, pids.toArray(new String[]{}));
+					 printLog("uname =="+uname+" 取消pid==="+flag);
+					 Thread.sleep(2000);
+					 return false;
+				  }
+				 
+			 }
+ 			 // return true;
+		 }
+		 return true;
+	}
 	
 public static boolean createPidAllHttpClientCK(String uname,String pidStr)throws Exception{
 		

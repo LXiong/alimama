@@ -43,9 +43,24 @@ public class CreatePid {
 	
 	static int count=0;
 	public static void main(String[] args)throws Exception {
-		setPidMainCK();
+		deletePidMainCK();
 		
 	}
+	
+	public static void deletePidMainCK()throws Exception{
+		for(Entry<String, String> m :CKUtils.getAll().entrySet()){
+				try{
+					String uname = m.getKey();
+					boolean flag = Test.deletePidAllHttpClientCK(uname);
+					LOG.printLog("uname==="+uname+"  flag =="+flag);
+				}catch(Exception e){
+					e.printStackTrace();
+				}finally{
+					Thread.sleep(1000);
+				}
+		}
+	}
+	
 	
 	public static void setPidMainCK()throws Exception{
 		for(Entry<String, String> m :CKUtils.getAll().entrySet()){
@@ -62,6 +77,9 @@ public class CreatePid {
 				}
 		}
 	}
+	
+	
+	
 	
 	public static void setPidMain()throws Exception{
 		Collection<File> files=new ArrayList<File>();
