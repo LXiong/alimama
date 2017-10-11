@@ -3,9 +3,11 @@ package dataoke;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,10 +25,12 @@ import util.SeleniumUtil;
 public class TestSelenium {
 
 	public static void main(String[] args)throws Exception {
-		for(Entry<String, String> m :CKUtils.getAll().entrySet()){
+		/*for(Entry<String, String> m :CKUtils.getAll().entrySet()){
 			String key = m.getKey();
 			shouquanAndTuiGuang(new String[]{"4019565"},key);
-		}
+		}*/
+		
+		shouquan(FileUtils.readLines(new File("D:\\dataoke\\cks\\all.txt")));
 		
 	}
 	
@@ -45,6 +49,42 @@ public class TestSelenium {
 			}
 		}
 	}
+	static int count=0;
+	public static void shouquan(List<String> lists)throws Exception{
+		if(webDriver==null){
+			webDriver = SeleniumUtil.initChromeDriver();
+		}
+		
+		String uname = null;
+		String pwd = null;
+		
+		String tuname = null;
+		String tpwd = null;
+		
+		for(String s:lists){
+			 uname = s.split("\\----")[0].trim();
+			 pwd = s.split("\\----")[1].trim();
+			 tuname = s.split("\\----")[2].trim();
+			 tpwd = s.split("\\----")[3].trim();
+			  LOG.printLog("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count);
+			  try{
+				    webDriver.get("http://www.dataoke.com/ucenter/mypid.asp");
+					setCookis(uname, webDriver);
+					webDriver.get("http://www.dataoke.com/ucenter/mypid.asp");
+				    ShouQuan.webDriver = webDriver;
+				    boolean flag = ShouQuan.shouquan2(uname, pwd, tuname, tpwd);
+				    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag+" uname==="+uname);
+			  }catch(Exception exceptio){
+				  exceptio.printStackTrace();
+			  }finally{
+				  count++;
+			  }
+        	
+		}
+		
+	}  	
+	    
+	
 	
 	public static void shouquanAndTuiGuang(String[] ids,String uname)throws Exception{
 		if(webDriver==null){
