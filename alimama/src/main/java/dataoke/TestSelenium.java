@@ -56,12 +56,12 @@ public class TestSelenium {
 		
 	    ShouQuan.webDriver = webDriver;
 	    boolean flag = ShouQuan.shouquan2(null, null, "粟范德萨", "wen195861111");
-	    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag);
+	    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag+" uname==="+uname);
 	    if(flag){
 	    	for(String id:ids){
 	    		//flag =  ShouQuan.zhuan2and1(id);
 	    		flag = Test.tuijian2to1_1(uname, id);
-		  	    LOG.printLog("推荐结果>>>>>>>>>>>>>"+flag);
+		  	    LOG.printLog("推荐结果>>>>>>>>>>>>>"+flag+" pid==="+id+" uname==="+uname);
 		  	    Thread.sleep(1000);
 	    	}
 	    	
