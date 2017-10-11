@@ -47,7 +47,7 @@ public class CKUtils {
 		List<String> lists = FileUtils.readLines(file);
 	
 		for(int i=0;i<lists.size();i+=3){
-			String s = lists.get(i).replace("[", "]");
+			String s = lists.get(i).replace("[", "").replace("]", "");
 			String ss = lists.get(i+1);
 		    map.put(s, ss);
 		}
