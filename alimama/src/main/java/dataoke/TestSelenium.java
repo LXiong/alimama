@@ -30,7 +30,7 @@ public class TestSelenium {
 			shouquanAndTuiGuang(new String[]{"4019565"},key);
 		}*/
 		
-		shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20170902\\all.txt")));
+		shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20171011\\all.txt")));
 		
 	}
 	
@@ -72,12 +72,32 @@ public class TestSelenium {
 					setCookis(uname, webDriver);
 					webDriver.get("http://www.dataoke.com/ucenter/mypid.asp");
 				    ShouQuan.webDriver = webDriver;
+					if(webDriver.getPageSource().contains(tuname)){
+						LOG.printLog("uname==="+uname+"已经授权"+" tname==="+tuname);
+						count++;
+						continue;
+					}
+				    
 				    boolean flag = ShouQuan.shouquan2(uname, pwd, tuname, tpwd);
-				    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag+" uname==="+uname);
+				    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag+" uname==="+uname+" tname=="+tuname);
+				    if(flag){
+				    	count++;
+				    }else{
+				    	flag = ShouQuan.shouquan2(uname, pwd, tuname, tpwd);
+				    	LOG.printLog("授权结果>>>>>>>>>>>>>"+flag+" uname==="+uname+" tname=="+tuname);
+				    	if(flag){
+				    		count++;
+				    	}else{
+				    		FileUtils.write(new File("d:\\testSelenium.txt"), s+"\r\n");
+				    	}
+				    }
 			  }catch(Exception exceptio){
 				  exceptio.printStackTrace();
+				  LOG.printLog("失败>>>>>>>>>>>>>"+uname);
 			  }finally{
-				  count++;
+				  webDriver.close();
+				  webDriver = SeleniumUtil.initChromeDriver();
+				  Thread.sleep(2000);
 			  }
         	
 		}

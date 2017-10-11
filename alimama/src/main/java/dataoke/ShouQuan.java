@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import util.IpPoolUtil;
+import util.LOG;
 import util.SeleniumUtil;
 
 public class ShouQuan {
@@ -239,6 +240,12 @@ public class ShouQuan {
         try{ 
 		webGet("http://www.dataoke.com/ucenter/mypid.asp");
 
+		if(webDriver.getPageSource().contains(tuanme)){
+			LOG.printLog("uname==="+uname+"已经授权");
+			return true;
+		}
+		
+		
 		WebElement element = webDriver.findElement(By.id("update_shouquan"));
 		element.click();
 
@@ -248,7 +255,7 @@ public class ShouQuan {
 		}
 		
 		
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 
 		webDriver = webDriver.switchTo().frame("layui-layer-iframe2");
 
@@ -284,14 +291,30 @@ public class ShouQuan {
 
 		Thread.sleep(1000);
 
+		WebElement ckE=null;
+		try{
+			ckE=webDriver.findElement(By.id("nc_1__scale_text"));
+		}catch(Exception e){
+			
+		}
+		/*if(webDriver.getPageSource().contains("滑块")|| ckE!=null){
+			LOG.printLog("有拖动验证码");
+			//System.in.read();
+			Thread.sleep(20000);
+		}
+		*/
+		
 		element = webDriver.findElement(By.id("J_SubmitStatic"));
 		element.click();
 		
 		}
 
-		Thread.sleep(1000);
+		Thread.sleep(3000);
+		
+		
+		
 
-		//return isShouquan();
+		return isShouquan(tuanme);
         }catch(Exception e){
        	 e.printStackTrace();
         }
@@ -300,6 +323,9 @@ public class ShouQuan {
 	}
 
 	public static boolean isShouquan() throws Exception {
+		return isShouquan(taobaoName);
+	}
+	public static boolean isShouquan(String taobaoName) throws Exception {
 		/*webGet("http://www.dataoke.com/ucenter/mypid.asp");
 		Thread.sleep(2000);
 		String str = webDriver.getPageSource();
