@@ -88,7 +88,7 @@ public class TestSelenium {
 				    	if(flag){
 				    		count++;
 				    	}else{
-				    		FileUtils.write(new File("d:\\testSelenium.txt"), s+"\r\n");
+				    		FileUtils.write(new File("d:\\testSeleniumError.txt"), s+"\r\n");
 				    	}
 				    }
 			  }catch(Exception exceptio){
