@@ -59,7 +59,8 @@ public class TestSelenium {
 	    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag);
 	    if(flag){
 	    	for(String id:ids){
-	    		flag =  ShouQuan.zhuan2and1(id);
+	    		//flag =  ShouQuan.zhuan2and1(id);
+	    		flag = Test.tuijian2to1_1(uname, id);
 		  	    LOG.printLog("推荐结果>>>>>>>>>>>>>"+flag);
 		  	    Thread.sleep(1000);
 	    	}
