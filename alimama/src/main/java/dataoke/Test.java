@@ -18,6 +18,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -47,6 +48,7 @@ import util.HtmlUnitUtil;
 import util.HttpClientUtil;
 import util.IpPoolUtil;
 import util.IpUtils;
+import util.LOG;
 import util.MyConnectionProvider;
 
 public class Test {
@@ -87,8 +89,8 @@ public class Test {
 		//printLog(getUserPids("15917728864"));
 		//printLog(loginHttpClient("15201733860", "1qaz2wsx"));
 		//printLog(updatePwdHttpClient("15201733860", "1qaz2wsx2", "1qaz2wsx"));
-		//printLog(taoTokenHttpClient("3453237", "15201733860","2"));
-		 printLog(tuijianHttpClient("3964481", "15201733860"));
+		printLog(taoTokenHttpClient("4045355", "13923923806","1"));
+		// printLog(tuijianHttpClient("3964481", "15201733860"));
 		//printLog(getExitsSetPidExeitHttpClient("15917728864"));
 		
 		//printLog(createPidHtppClient("13191048115"));
@@ -316,10 +318,12 @@ public class Test {
 		//String cookisStr = "random=8696; ASPSESSIONIDSQCRRSDT=PMFGMKPANNDIPLFIEAGFOJHD; dtk_web=mgbpf1uvaohssnvee7m02u1lt7; UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1492777462; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=537e2926; e88a8013345a8f05461081898691958c=834b4337570611838d9b6989521575fb85ae30b6a%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22537000%22%3Bi%3A1%3Bs%3A11%3A%2215201733860%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDSSBQSTCT=ICEPOLPACLKKGLDMHNNFFFIA; ASPSESSIONIDQSCRRTDS=CACEBLPAJEAMCMJMGPHFAEOB; ASPSESSIONIDSQCTQTCS=HNCMFMPAEKHOCBIEFGDHDDLH; ASPSESSIONIDQQCTRTCS=OMKMBNPAOFLEBJBEGOKDNIIF; ASPSESSIONIDQSBTQSCS=OHDGKNPACFIHDDFNANILEPKF; token=8f5d2c916cf9a2051dea789e96780d5d; ASPSESSIONIDSQBQSSDT=KNFMMBABCBPCEFDLDGGAGLJO; ASPSESSIONIDQSASQTDT=CDAFIBABKOLMLCOGGMEINGBM";
 		//cookisStr ="UM_distinctid=15b906fc3d99a-0ca45cd09b0c9d-12616a4a-1fa400-15b906fc3db105; CNZZDATA1257179126=1538129784-1492772062-http%253A%252F%252Fwww.dataoke.com%252F%7C1495022035; upe=20d3785a; userid=577118; user_email=13751442412; user%5Femail=13751442412; e88a8013345a8f05461081898691958c=7d9adb0eb6afa7a4eecc7c18902e6085c5ff7f4aa%3A4%3A%7Bi%3A0%3Bs%3A6%3A%22577118%22%3Bi%3A1%3Bs%3A11%3A%2213751442412%22%3Bi%3A2%3Bi%3A2592000%3Bi%3A3%3Ba%3A0%3A%7B%7D%7D; ASPSESSIONIDCSDRDTDQ=GMMCEACCDGPMDPPGONLJOKOE; dtk_web=mbc6880vo5it1sf371aqbiasa5; ASPSESSIONIDSSBQRSDS=JDDNOPBCONNOEFIGOLFPKLPI; token=6d2ae79ff668877fd32526c96d116e4b; random=1366";
 		String cookisStr = CKUtils.getAll().get(uname);
+		LOG.printLog("getHttpClient ck=="+cookisStr);
 		for (String str : cookisStr.split("\\;")) {
 			cookisMap.put(str.split("\\=")[0].trim(), str.split("\\=")[1]);
 		}
 
+		
 		Cookie[] cks = getObjToFile(uname);
 		if(ArrayUtils.isNotEmpty(cks)){
 			for (Cookie c : getObjToFile(uname)) {
@@ -1127,7 +1131,7 @@ public static boolean createPidAllHttpClientCK(String uname,String pidStr)throws
 		response = response.charset("gb2312");
 		String rc = response.bodyText();
 
-		//printLog("createPid返回结果：" + rc);
+		printLog("createPid返回结果：" + rc);
 
 		 JSONObject jsonObject = JSONObject.parseObject(rc);
          String status = jsonObject.getString("status");
@@ -1998,6 +2002,7 @@ public static boolean createPidAllHttpClientCK(String uname,String pidStr)throws
 		 httpRequest.setHeader("X-Requested-With", "XMLHttpRequest");
 		 httpRequest.setHeader("User-Agent", HttpTest.getUserAgent());
 		 
+		 //httpRequest.setHeader("Cookie", "tj_cid=a0c10d59-67b2-9bd9-4e4d-e280cfa41b12; dtk_web=j8bckgkk86iq8bgpps943mhes6; user_email=13923923806; _umdata=2BA477700510A7DFB42EDA82C3702FAC291F194EE2A17DE718821F57FA82D7C60879D0AD0CAF3F25CD43AD3E795C914CA3A5E6DB6FE6E5C4677C92AD86AA5449; upe=d4f5a768; userid=635803; UM_distinctid=15f10dc41bd2ac-023abc850a51c68-6c247513-13c680-15f10dc41be13c; upi=7b73b38b; token=fca3e07a72f502e66c50690e7510820b; browserCode=c5818e19fdb4867f5e5f414721f7451a; random=9974; _uab_collina=150765240810101551656821; user%5Femail=13923923806; CNZZDATA1257179126=1166768952-1507812679-%7C1507812679");
 		 setCookis(uname, httpRequest);
 /*
 		   HttpClientUtils httpClientUtils = new HttpClientUtils();
@@ -2011,7 +2016,7 @@ public static boolean createPidAllHttpClientCK(String uname,String pidStr)throws
 		 //String rc =  httpClientUtils.getContentByUrl(proxy, httpRequest, 10000);
 		 //type=2 淘口令 1.转二合一
 		 String rc =  HttpClientUtil.sendPostRequest(httpRequest, "type="+type+"&gid="+id,true,null,null,proxy,null);
-		 //printLog("str:"+rc);
+		 printLog("str:"+rc);
          JSONObject jsonObject = JSONObject.parseObject(rc);
          String status = jsonObject.getString("status");
 		 if("1".equals(status)){

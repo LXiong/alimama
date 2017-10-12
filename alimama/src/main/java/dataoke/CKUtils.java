@@ -12,7 +12,7 @@ import org.apache.commons.io.FileUtils;
 
 public class CKUtils {
 	
-	static Map<String,String> map = new LinkedHashMap<String, String>();
+	public static Map<String,String> map = new LinkedHashMap<String, String>();
 
 	
 	public static void main(String[] args) throws Exception {

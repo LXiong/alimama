@@ -47,7 +47,7 @@ public class ShouQuan {
 		try{
 			try{
 				//webDriver.get("http://www.dataoke.com");
-				Thread.sleep(Cmd.getSleepTime(10000, 30000));
+				Thread.sleep(Cmd.getSleepTime(1000, 3000));
 			}catch(Exception e){
 				
 			}
