@@ -34,7 +34,7 @@ public class CKUtils {
 	}
 	
 	
-	public static synchronized Map<String,String> getAll(File[] files)throws Exception {
+	public static synchronized Map<String,String> getAll(File... files)throws Exception {
 		 Map<String,String> map = new LinkedHashMap<String, String>();
 		for(File f:files){
 			map.putAll(getCks(f));

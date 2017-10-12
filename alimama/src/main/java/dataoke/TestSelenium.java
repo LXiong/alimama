@@ -29,9 +29,10 @@ public class TestSelenium {
 			String key = m.getKey();
 			shouquanAndTuiGuang(new String[]{"4019565"},key);
 		}*/
-		
+		shouquanAndTuiGuang(new String[]{""}, new File("D:\\dataoke\\cks\\cookies72.txt"));
 		//shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20171011\\all.txt")));
-		post(new String[]{"4045325"});
+		//post(new String[]{"4045325"});
+		
 	}
 	
 	static WebDriver webDriver = null;
@@ -60,7 +61,7 @@ public class TestSelenium {
 		}
 	}
 	
-	public static void shouquanAndTuiGuang(String[] ids,File[] files)throws Exception{
+	public static void shouquanAndTuiGuang(String[] ids,File... files)throws Exception{
 		for(Entry<String, String> m :CKUtils.getAll(files).entrySet()){
 			try{
 				LOG.printLog("开始刷name="+m.getKey()+" pids=="+Arrays.toString(ids));
@@ -142,8 +143,8 @@ public class TestSelenium {
 	    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag+" uname==="+uname);
 	    if(flag){
 	    	for(String id:ids){
-	    		//flag =  ShouQuan.zhuan2and1(id);
-	    		flag = Test.tuijian2to1_1(uname, id);
+	    		flag =  ShouQuan.zhuan2and1(id);
+	    		//flag = Test.tuijian2to1_1(uname, id);
 		  	    LOG.printLog("推荐结果>>>>>>>>>>>>>"+flag+" pid==="+id+" uname==="+uname);
 		  	    Thread.sleep(1000);
 	    	}

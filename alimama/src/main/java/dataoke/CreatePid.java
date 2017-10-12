@@ -43,8 +43,8 @@ public class CreatePid {
 	
 	static int count=0;
 	public static void main(String[] args)throws Exception {
-		deletePidMainCK();
-		
+		//deletePidMainCK();
+		setPidMainCK();
 	}
 	
 	public static void deletePidMainCK()throws Exception{
@@ -63,7 +63,7 @@ public class CreatePid {
 	
 	
 	public static void setPidMainCK()throws Exception{
-		for(Entry<String, String> m :CKUtils.getAll().entrySet()){
+		for(Entry<String, String> m :CKUtils.getAll(new File("D:\\dataoke\\cks\\cookies72.txt")).entrySet()){
 				try{
 					String uname = m.getKey();
 					String pid="mm_118996717_32880557_117086796";
