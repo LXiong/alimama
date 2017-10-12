@@ -1696,7 +1696,8 @@ public static boolean createPidAllHttpClientCK(String uname,String pidStr)throws
 					printLog("u = "+uname + "p = "+pwd +" 开始登陆  当前已刷>>>>>>>>>>>>>>>"+count+" 当前 文件名称："+file.getName());
 					
 					//boolean flag = login(uname,pwd);
-					boolean flag = loginHttpClient(uname,pwd);
+					//boolean flag = loginHttpClient(uname,pwd);
+					boolean flag = true;
 					//boolean flag = true;
 					printLog("u = "+uname + "登陆>>>>>>>>>>>>>"+flag);
 					Thread.sleep(Cmd.getSleepTime(400, 1000));
