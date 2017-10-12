@@ -31,7 +31,7 @@ public class TestSelenium {
 			String key = m.getKey();
 			shouquanAndTuiGuang(new String[]{"4019565"},key);
 		}*/
-		shouquanAndTuiGuang(new String[]{"4045355"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
+		shouquanAndTuiGuang(new String[]{"4007316"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
 		//shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20171011\\all.txt")));
 		//post(new String[]{"4045325"});
 		
