@@ -39,7 +39,7 @@ public class Cmd1 {
 		//args = new String[]{"2882511,2895769","103","5000,20000","1"}; 
 		//args = new String[]{"2947807","106","5000,30000","1"};
 		
-		args = new String[]{"4053276","1","3000,10000","1"};
+		args = new String[]{"4057791","1","3000,10000","1"};
 		
 		
 		String pids = args[0];

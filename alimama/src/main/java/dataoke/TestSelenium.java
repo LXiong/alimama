@@ -30,12 +30,35 @@ public class TestSelenium {
 			shouquanAndTuiGuang(new String[]{"4019565"},key);
 		}*/
 		
-		shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20171011\\all.txt")));
-		
+		//shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20171011\\all.txt")));
+		post(new String[]{"4045325"});
 	}
 	
 	static WebDriver webDriver = null;
 	
+	public static void post(String[] ids)throws Exception{
+		for(Entry<String, String> m :CKUtils.getAll().entrySet()){
+			try{
+				LOG.printLog("开始刷name="+m.getKey()+" pids=="+Arrays.toString(ids));
+				for(String id:ids){
+					try{
+						String name = m.getKey();
+					 boolean flag = 	Test.tuijian(id,name );
+					 System.out.println("name=="+name+" 结果："+flag+" pid="+id);
+					 Cmd.getSleepTime();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+					
+				}
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}finally {
+				Thread.sleep(Cmd.getSleepTime());
+			}
+		}
+	}
 	
 	public static void shouquanAndTuiGuang(String[] ids,File[] files)throws Exception{
 		for(Entry<String, String> m :CKUtils.getAll(files).entrySet()){
