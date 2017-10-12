@@ -45,12 +45,12 @@ public class Cmd {
 	final static String mac = "1C-1B-0D-78-F0-93";
 	public static void main(String[] args) throws Exception{
 		
-		if(!mac.equalsIgnoreCase(IpMocUtils.getMACAddress())){
+		/*if(!mac.equalsIgnoreCase(IpMocUtils.getMACAddress())){
 			  Test.printLog("mac校验失败>>>>>>>>>>>>>>>>>>>>>>>>>>清联系管理员");
 				return ;
 		  }else{
 			  Test.printLog("mac 校验成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		  }
+		  }*/
 		
 		//Thread.sleep(1000 * 60 * 60);
 		//args = new String[]{"2882511,2895769","103","5000,20000","1"}; 
