@@ -120,6 +120,7 @@
 	</dependencies>
 
 	<build>
+	    <finalName>dataoke</finalName> 
 	    <!-- <finalName>SendMail</finalName> -->
 	    <!-- <finalName>taobaoZhuce</finalName> -->
 	    <!-- <finalName>cmdTestSelenium</finalName> -->
@@ -145,12 +146,12 @@
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<!-- <mainClass>dataoke.ZhuCeSelenium</mainClass> -->
-									<!-- <mainClass>dataoke.Cmd</mainClass> -->
+									<mainClass>dataoke.Cmd</mainClass>
 									<!-- <mainClass>dataoke.GetGoodIdsByDataoke</mainClass> -->
 									<!-- <mainClass>dataoke.ShuaOline</mainClass> -->
 									 <!-- <mainClass>dataoke.SendMail</mainClass>  -->
 									 <!-- <mainClass>taobao.Main</mainClass> -->
-									 <mainClass>dataoke.CmdTestSelenium</mainClass>
+									<!--  <mainClass>dataoke.CmdTestSelenium</mainClass> -->
 									<!-- <mainClass>dataoke.Monitor</mainClass>  -->
 								</transformer>
 								<transformer
