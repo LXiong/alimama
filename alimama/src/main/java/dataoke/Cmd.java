@@ -57,7 +57,10 @@ public class Cmd {
 		//args = new String[]{"2859498","104","5000,20000","1"};
 		
 		//args = new String[]{"2882511,2901049,2889178,2895769","104","6000,15000","1"};
-		args = FileUtils.readFileToString(new File("d:\\cmd.txt")).split("_");
+		if(args==null){
+			args = FileUtils.readFileToString(new File("d:\\cmd.txt")).split("_");
+			
+		}
 		
 		String pids = args[0];
 		String fileIds = args[1];
