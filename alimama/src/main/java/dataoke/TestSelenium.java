@@ -31,7 +31,9 @@ public class TestSelenium {
 			String key = m.getKey();
 			shouquanAndTuiGuang(new String[]{"4019565"},key);
 		}*/
-		shouquanAndTuiGuang(new String[]{"4007316"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
+		
+		shouquanAndTuiGuang(new String[]{"4056690"}, new File("D:\\dataoke\\cks\\cookies.txt"));
+		//shouquanAndTuiGuang(new String[]{"4007316"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
 		//shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20171011\\all.txt")));
 		//post(new String[]{"4045325"});
 		
@@ -67,7 +69,8 @@ public class TestSelenium {
 		for(Entry<String, String> m :CKUtils.getAll(files).entrySet()){
 			try{
 				LOG.printLog("开始刷name="+m.getKey()+" pids=="+Arrays.toString(ids));
-				shouquanAndTuiGuang(ids, m.getKey());
+				//shouquanAndTuiGuang(ids, m.getKey());
+				tuiGuang(ids,  m.getKey());
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally {
@@ -129,7 +132,32 @@ public class TestSelenium {
 		}
 		
 	}  	
+
+	public static void tuiGuang(String[] ids,String uname)throws Exception{
+		if(webDriver==null){
+			webDriver = SeleniumUtil.initChromeDriver();
+		}
+		webDriver.get("http://www.dataoke.com/ucenter/mypid.asp");
+		setCookis(uname, webDriver);
+		
+		
+	    ShouQuan.webDriver = webDriver;
+	    	for(String id:ids){
+	    		//webDriver.get("http://www.dataoke.com/item?id="+id);
+	    		//flag =  ShouQuan.zhuan2and1(id);
+	    		getWebDriverCKSet(webDriver, uname);
+	    		boolean flag =  ShouQuan.zhuan2and1(id);
+	    		getWebDriverCKSet(webDriver, uname);
+	    		flag = Test.tuijian(id, uname);
+	    		flag = Test.tuijian(id, uname);
+	    		LOG.printLog("推荐结果>>>>>>>>>>>>>"+flag+" pid==="+id+" uname==="+uname);
+		  	    Thread.sleep(1000);
+	    	}
+	    	
+	    }
 	    
+	    //webDriver.close();
+	
 	
 	
 	public static void shouquanAndTuiGuang(String[] ids,String uname)throws Exception{
