@@ -32,7 +32,7 @@ public class TestSelenium {
 			shouquanAndTuiGuang(new String[]{"4019565"},key);
 		}*/
 		
-		shouquanAndTuiGuang(new String[]{"4056690"}, new File("D:\\dataoke\\cks\\cookies.txt"));
+		shouquanAndTuiGuang(new String[]{"4065074","4071462"}, new File("D:\\dataoke\\cks\\cookies.txt"));
 		//shouquanAndTuiGuang(new String[]{"4007316"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
 		//shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20171011\\all.txt")));
 		//post(new String[]{"4045325"});
@@ -145,11 +145,11 @@ public class TestSelenium {
 	    	for(String id:ids){
 	    		//webDriver.get("http://www.dataoke.com/item?id="+id);
 	    		//flag =  ShouQuan.zhuan2and1(id);
-	    		getWebDriverCKSet(webDriver, uname);
-	    		boolean flag =  ShouQuan.zhuan2and1(id);
-	    		getWebDriverCKSet(webDriver, uname);
-	    		flag = Test.tuijian(id, uname);
-	    		flag = Test.tuijian(id, uname);
+	    		//getWebDriverCKSet(webDriver, uname);
+	    		boolean flag =  ShouQuan.tuijian(id);
+	    		//getWebDriverCKSet(webDriver, uname);
+	    		//flag = Test.tuijian(id, uname);
+	    		//flag = Test.tuijian(id, uname);
 	    		LOG.printLog("推荐结果>>>>>>>>>>>>>"+flag+" pid==="+id+" uname==="+uname);
 		  	    Thread.sleep(1000);
 	    	}
@@ -174,10 +174,10 @@ public class TestSelenium {
 	    if(flag){
 	    	for(String id:ids){
 	    		//flag =  ShouQuan.zhuan2and1(id);
-	    		getWebDriverCKSet(webDriver, uname);
+	    		//getWebDriverCKSet(webDriver, uname);
 	    		flag =  ShouQuan.tuijian(id);
-	    		getWebDriverCKSet(webDriver, uname);
-	    		flag = Test.taoTokenHttpClient(id, uname, "1");
+	    		//getWebDriverCKSet(webDriver, uname);
+	    		//flag = Test.taoTokenHttpClient(id, uname, "1");
 		  	    LOG.printLog("推荐结果>>>>>>>>>>>>>"+flag+" pid==="+id+" uname==="+uname);
 		  	    Thread.sleep(1000);
 	    	}
