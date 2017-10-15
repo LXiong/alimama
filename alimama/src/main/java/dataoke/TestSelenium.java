@@ -33,7 +33,7 @@ public class TestSelenium {
 		}*/
 		
 		//shouquanAndTuiGuang(new String[]{"4065074","4071462"}, new File("D:\\dataoke\\cks\\cookies.txt"));
-		shouquanAndTuiGuang(new String[]{"4007316"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
+		shouquanAndTuiGuang(new String[]{"4007316","4096508"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
 		//shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20171011\\all.txt")));
 		//post(new String[]{"4045325"});
 		
@@ -171,6 +171,7 @@ public class TestSelenium {
 	    ShouQuan.webDriver = webDriver;
 	    //boolean flag = ShouQuan.shouquan2(null, null, "粟范德萨", "wen195861111");
 	    boolean flag = ShouQuan.shouquan2(null, null, "17030921884", "!QAZ2wsx");
+	    flag = true;
 	    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag+" uname==="+uname);
 	    if(flag){
 	    	for(String id:ids){
