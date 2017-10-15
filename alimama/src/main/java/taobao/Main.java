@@ -49,7 +49,9 @@ public class Main {
 					 }
 					 
 					 LOG.printLog("开始登陆大淘客>>>>>>>>>>>>>>>>>");
-					 boolean flag = DaTaoKe.login(uname, pwd);
+					 //boolean flag = DaTaoKe.login(uname, pwd);
+					 boolean flag = true;
+					 
 					 LOG.printLog("开始登陆大淘客>>>>>>>>>>>>>>>>>结果："+flag);
 					 if(flag){
 						 LOG.printLog("开始淘宝注册>>>>>>>>>>>>>>>>>");

@@ -32,8 +32,8 @@ public class TestSelenium {
 			shouquanAndTuiGuang(new String[]{"4019565"},key);
 		}*/
 		
-		shouquanAndTuiGuang(new String[]{"4065074","4071462"}, new File("D:\\dataoke\\cks\\cookies.txt"));
-		//shouquanAndTuiGuang(new String[]{"4007316"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
+		//shouquanAndTuiGuang(new String[]{"4065074","4071462"}, new File("D:\\dataoke\\cks\\cookies.txt"));
+		shouquanAndTuiGuang(new String[]{"4007316"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
 		//shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20171011\\all.txt")));
 		//post(new String[]{"4045325"});
 		
@@ -69,8 +69,8 @@ public class TestSelenium {
 		for(Entry<String, String> m :CKUtils.getAll(files).entrySet()){
 			try{
 				LOG.printLog("开始刷name="+m.getKey()+" pids=="+Arrays.toString(ids));
-				//shouquanAndTuiGuang(ids, m.getKey());
-				tuiGuang(ids,  m.getKey());
+				shouquanAndTuiGuang(ids, m.getKey());
+				//tuiGuang(ids,  m.getKey());
 			}catch(Exception e){
 				e.printStackTrace();
 			}finally {
@@ -169,7 +169,8 @@ public class TestSelenium {
 		webDriver.get("http://www.dataoke.com/ucenter/mypid.asp");
 		
 	    ShouQuan.webDriver = webDriver;
-	    boolean flag = ShouQuan.shouquan2(null, null, "粟范德萨", "wen195861111");
+	    //boolean flag = ShouQuan.shouquan2(null, null, "粟范德萨", "wen195861111");
+	    boolean flag = ShouQuan.shouquan2(null, null, "17030921884", "!QAZ2wsx");
 	    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag+" uname==="+uname);
 	    if(flag){
 	    	for(String id:ids){
