@@ -22,8 +22,7 @@ public class OsChainSDK {
 	static String client_secret = "";
 	
 	
-	static String ck  = "_user_behavior_=c8fb9227-9234-40a7-b054-e4ef95a29128; __DAYU_PP=qiaUA236bfMEB2MiFAVr3d1386561de7; oscid=Qgdg8wRz2OcsdD4fp3FCcYwgebG1JwCmSPlVjKxReUbSNKmwdJT1KHu7q3xEwVlbKnTr%2FnXJ0phWKE%2Byr1pxcwGqY1FTfsDxg4t8O2Dr9el%2BbZSWQHtE6Sn7okJzEcTRkJ488fKQSm0ApT7CsKI%2BlwUb4rXZ3uJo1j4%2BJnWf3o46ZSBYvrRDow%3D%3D; aliyungf_tc=AQAAAGlKMhL34wsAKArnc+lbb+SsR3EA; Hm_lvt_a411c4d1664dd70048ee98afe7b28f0b=1513166342,1513349920,1513478141,1514543795; Hm_lpvt_a411c4d1664dd70048ee98afe7b28f0b=1514545234";
-	
+	static String ck  = null;
 	
 	public static void main(String[] args) {
 		//test();
