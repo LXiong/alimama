@@ -1,9 +1,14 @@
 package blog;
 
 import java.io.File;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,21 +30,200 @@ import util.HttpClientUtil;
 
 public class OSchainBlog {
 	
-	static File fileDir=new File("E:\\javaeye"); 
+	static File fileDir=new File("E:\\javaeye2"); 
 	
 	static String baseURL="http://m635674608.iteye.com";
+	
+	
+	static  String ck=null;
 	
 	public static void main(String[] args)throws Exception {
 		
 	     String url="http://m635674608.iteye.com/blog/2376153";
 		//send("vvvvvvvvvv", "%3Cp%3Eweqrqerqer%3C%2Fp%3E%0A&");
-		javaeye();
+		//javaeye();
 		//System.out.println(getjavaeyeBlogContent(url));
 	          
-	         // fileDir=new File(fileDir, "1");
+	       //  fileDir=new File(fileDir, "1");
 			  //sendAll(fileDir);
-			//System.out.println(getTitle("1395728"));
+			 sendCreateAll(fileDir);
+	   // donwloadErrorFIle();
+	   //sendCreateCataAll(fileDir);	
+	     
+	     //System.out.println(getTitle("1395728"));
+	     
+	     //String title = "你好";
+	     //createType(title);
+	     
+	    //();
+	}
+	
+	public static boolean createType(String title)throws Exception{
+			Thread.sleep(1000);
+			String sendData="name="+title+"&sort_order=0";
+			String reqURL="https://my.oschina.net/action/blog/add_blog_catalog?space=866802&id=0";
+			HttpPost httpPost   = new HttpPost(reqURL);
+			httpPost.setHeader("Cookie",ck);
+					httpPost.setHeader("Referer","https://my.oschina.net/xiaominmin/blog/edit");
+		    httpPost.setHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0");
+		    httpPost.setHeader("Host","my.oschina.net");
+			String str = HttpClientUtil.sendPostRequest(httpPost, sendData, true, "UTF-8","UTF-8");
+		    System.out.println(str);
+		    if(StringUtils.isNotBlank(str) && str.contains("id")){
+		    	return true;
+		    }
+		return false;
+	    
+	}
+	
+	
+	public static Map<String,String> getCataLog(){
+		Map<String,String> map = new HashMap<String, String>();
+		String reqURL="https://my.oschina.net/xiaominmin/blog/";
+		//HttpGet httpPost   = new HttpGet(reqURL);
+		HttpPost httpPost   = new HttpPost(reqURL);
+		httpPost.setHeader("Cookie",ck);
+				httpPost.setHeader("Referer","https://my.oschina.net/xiaominmin/blog/");
+	    httpPost.setHeader("User-Agent","Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0");
+	    httpPost.setHeader("Host","my.oschina.net");
+		//String str = HttpClientUtil.sendGetRequest(httpPost, "utf-8",null);
+	    String str = HttpClientUtil.sendPostRequest(httpPost, "", false, "UTF-8","UTF-8");
 		
+	    //System.out.println(str);
+		
+	    Document document = Jsoup.parse(str);
+	    org.jsoup.select.Elements elements =document.select(".sort-list").select("a");
+		for(Element element :elements){
+			String href = element.attr("href");
+			String id = href.replace("https://my.oschina.net/xiaominmin/blog?catalog=", "");
+			String name = element.select(".name").text();
+			System.out.println("id==="+id+" name=="+name);
+			map.put(name, id);
+		}
+		
+	    return map;
+	}
+	
+	/**
+	 * 创建分类
+	 */
+	
+	public static void sendCreateCataAll(File file)throws Exception{
+		Set<String> list  = new HashSet<String>();
+		if(file.exists()){
+			for(File f:file.listFiles()){
+				fileDir = f;
+				list.addAll(sendCreateCata(f));
+			}
+		}	
+		
+		System.out.println(list);
+		
+		System.out.println(list.size());
+		int index = 0;
+		for(String c:list){
+			Map<String,String> map = getCataLog();
+			if(map.containsKey(c)){
+				System.out.println(c+"已经存在》》》》》》》》》》》》》");
+				index ++;
+				continue;
+			}
+			Thread.sleep(2000);
+			createType(c);
+			index++;
+			
+		}
+		System.out.println("index======"+index);
+		
+	}
+	
+	public static Set<String> sendCreateCata(File file)throws Exception{
+		//File file = new File(fileDir, "1");
+		Set<String> list  = new HashSet<String>();
+		if(file.exists()){
+			for(File f:file.listFiles()){
+				String name=f.getName();
+				if(!name.contains("error")){
+					boolean flag = false;
+						//Map<String,String> map = getCataLog();
+						//map.get("");
+						String type = getType(name);
+						if(StringUtils.isBlank(type)){
+							continue;
+						}
+						type = URLDecoder.decode(type);
+						//System.out.println(name+"======================="+type);
+						list.add(type);
+					}
+					//return ;
+				}
+		}
+		//System.out.println(list);
+		return list;
+	}
+	static Map<String,String> map = null;
+	
+	public static void sendCreateAll(File file)throws Exception{
+		map = getCataLog();
+		if(file.exists()){
+			for(File f:file.listFiles()){
+				fileDir = f;
+				sendCreate(f);
+			}
+		}	
+	}
+	
+	
+	
+	public static void sendCreate(File file)throws Exception{
+		//File file = new File(fileDir, "1");
+	
+		File okFile = new File("e:\\oschainOks.txt");
+		String oks = FileUtils.readFileToString(okFile);
+		
+		if(file.exists()){
+			for(File f:file.listFiles()){
+				String name=f.getName();
+				if(oks.contains(name)){
+					System.out.println("文件名称已经包含>>>>>>>>>>>"+name);
+					continue;
+				}
+				
+				try{
+				if(!name.contains("error")){
+					boolean flag = false;
+					for(int i=0;i<2;i++){
+						if((flag=sendOschinaSDK(name))){
+							System.out.println("文件名称："+name+" 上传结果："+flag+"上传成功>>>>>>>>>"); 
+							Thread.sleep(10);
+							break;
+						}else{
+							System.out.println("文件名称："+name+" 上传结果："+flag+"上传失败>>>>>>>>>"+i); 
+							Thread.sleep(10);
+						}
+					}
+					if(!flag){
+						try{
+							FileUtils.write(new File("d:\\errorjavaeye2.txt"), f.getAbsolutePath()+"\r\n", true);
+						}catch(Exception e){
+							e.printStackTrace();
+						}
+					}else{
+						FileUtils.write(new File("d:\\oschainOK.txt"), f.getAbsolutePath()+"\r\n", true);
+					}
+					System.out.println("文件名称："+name+" 上传结果："+flag); 
+					//return ;
+				}
+				
+				}catch(Exception e){
+					e.printStackTrace();
+					FileUtils.write(new File("d:\\errorjavaeye2.txt"), f.getAbsolutePath()+"\r\n", true);
+				}	finally {
+					FileUtils.write(okFile, f.getAbsolutePath()+"\r\n", true);
+					
+				}
+			}
+		}
 	}
 	
 	
@@ -61,13 +245,49 @@ public class OSchainBlog {
 						}
 					}
 					if(!flag){
-						FileUtils.write(new File("g:\\errorjavaeye.txt"), f.getAbsolutePath()+"\r\n", true);
+						FileUtils.write(new File("d:\\errorjavaeye.txt"), f.getAbsolutePath()+"\r\n", true);
 					}
 					System.out.println("文件名称："+name+" 上传结果："+flag); 
 					//return ;
 				}
 			}
 		}
+	}
+	
+	
+	public static boolean sendOschinaSDK(String id)throws Exception{
+		 try{
+				String content = getCentent(id);
+				String title = getTitle(id);
+				String type = getType(id);
+				String typeId = map.get(type);
+				
+				if(StringUtils.isBlank(title) || StringUtils.isBlank(content) ){
+					System.out.println("id===="+id+" type==="+type+" 内容为null");
+					return false;
+				}
+				
+				
+				if(StringUtils.isBlank(typeId)){
+					System.out.println("id===="+id+" type==="+type+" 获取不到分类");
+					//return false;
+					typeId = "3427650";
+				}
+				
+				String origin_url = "http://m635674608.iteye.com/admin/blogs/"+id;
+				boolean flag = OsChainSDK.execute(null, title, content, origin_url, typeId);
+				
+				//System.out.println(content);
+				//System.out.println(title);
+			    //boolean flag =   send(title, content);
+			    //System.out.println(flag);
+			    return flag;
+				//return true;
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
+		return false;
+		
 	}
 	
 	public static boolean sendOschina(String id)throws Exception{
@@ -107,7 +327,21 @@ public class OSchainBlog {
 		String title = document.select(".blog_title").text();
 		content = title + content;
 		if(StringUtils.isNotBlank(content)){
-			content = URLEncoder.encode(content);
+			//content = URLEncoder.encode(content);
+			return content;
+		}
+		
+		return null;
+	}
+	
+	
+	public static String getType(String id)throws Exception{
+		File file = new File(fileDir,id);
+		Document document = Jsoup.parse(FileUtils.readFileToString(file));
+		Elements elements = document.select(".blog_categories").select("a");
+		String content =elements.size()>0?elements.get(0).text():"";
+		if(StringUtils.isNotBlank(content)){
+			content = URLDecoder.decode(content);
 			return content;
 		}
 		
@@ -135,9 +369,12 @@ public class OSchainBlog {
 	public static String getTitle(String id)throws Exception{
 		File file = new File(fileDir,id);
 		Document document = Jsoup.parse(FileUtils.readFileToString(file));
-		String content = document.select(".blog_title").select("a").text();
+		//String content = document.select(".blog_title").select("a").text();
+		Elements elements = document.select(".blog_title").select("a");
+		String content =elements.size()>0?elements.get(0).text():"";
+		
 		if(StringUtils.isNotBlank(content)){
-			content = URLEncoder.encode(content);
+			//content = URLEncoder.encode(content);
 			return content;
 		}
 		return ""+content;
@@ -145,8 +382,6 @@ public class OSchainBlog {
 	
 	
 	
-	
-	static  String ck="_user_behavior_=c8fb9227-9234-40a7-b054-e4ef95a29128; __DAYU_PP=rvYMqBMra3b6iAaf3rfE3d13865607b8; oscid=Qgdg8wRz2OcsdD4fp3FCcYwgebG1JwCmSPlVjKxReUbSNKmwdJT1KHu7q3xEwVlbKnTr%2FnXJ0phWKE%2Byr1pxcwGqY1FTfsDxg4t8O2Dr9el%2BbZSWQHtE6Sn7okJzEcTRkJ488fKQSm0ApT7CsKI%2BlwUb4rXZ3uJo1j4%2BJnWf3o46ZSBYvrRDow%3D%3D; aliyungf_tc=AQAAAO99zFF2kg4A6/g/O9Km1c5JbjvV; Hm_lvt_a411c4d1664dd70048ee98afe7b28f0b=1512817615,1512819582,1512826071,1512869593; Hm_lpvt_a411c4d1664dd70048ee98afe7b28f0b=1512869593";
 	
 	
 	public static boolean send(String title,String content)throws Exception{
@@ -207,7 +442,7 @@ public class OSchainBlog {
 	    
 	    //WebDriver firefoxDriver = SeleniumUtil.initChromeDriverLocal();
 	    //firefoxDriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-	    for(int i=30;i<=190;i++){
+	    for(int i=166;i<=190;i++){
 	    	try{
 	    		for(int j=0;j<10;j++){
 	    			boolean flag =javaPage2(i);
@@ -219,6 +454,32 @@ public class OSchainBlog {
 	    		e.printStackTrace();
 	    	}
 	    }
+	}
+	
+	
+	public static void donwloadErrorFIle()throws Exception{
+		  for(String url:FileUtils.readLines(new File("d:\\errorjavaeye2.txt"))){
+			  try {
+				  String id = url.split("\\\\")[3];
+				  File eyeFile = new File(new File("E:\\javaeye2\\200\\"),""+id);
+				  if(eyeFile.exists()){
+					  continue;
+				  }
+				  url = "http://m635674608.iteye.com/blog/"+id;
+				  System.out.println("url==="+url+" 开始下载");
+				  String content =getjavaeyeBlogContent(url);
+				  if(StringUtils.isNotBlank(content) && content.contains("m635674608")){
+					  FileUtils.write(eyeFile, content);
+					  Thread.sleep(2000);
+				  }else{
+					  System.out.println("文件加载不成功>>>>>>>>>>>>>>>"+content);
+					  FileUtils.write(new File(eyeFile,"error_"+id), content);
+					  Thread.sleep(2000);
+				  }
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		  }
 	}
 	
 	

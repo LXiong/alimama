@@ -89,8 +89,8 @@ public class Test {
 		//printLog(getUserPids("15917728864"));
 		//printLog(loginHttpClient("15201733860", "1qaz2wsx"));
 		//printLog(updatePwdHttpClient("15201733860", "1qaz2wsx2", "1qaz2wsx"));
-		printLog(taoTokenHttpClient("4045355", "13923923806","1"));
-		// printLog(tuijianHttpClient("3964481", "15201733860"));
+		//printLog(taoTokenHttpClient("4045355", "13923923806","1"));
+		 printLog(tuijianHttpClient("4098095", "15889224347"));
 		//printLog(getExitsSetPidExeitHttpClient("15917728864"));
 		
 		//printLog(createPidHtppClient("13191048115"));
@@ -1950,10 +1950,10 @@ public static boolean createPidAllHttpClientCK(String uname,String pidStr)throws
 		 
 		 setCookis(uname, httpRequest);
 		 
-		 //String testCK= "UM_distinctid=15e0fa82d60da-0fdc8d80f896c1-3a3e5e06-1fa400-15e0fa82d61251A; tj_cid=864e6625-77db-424f-61ac-a72bc9115defA; _uab_collina=150650917885513423249654; _umdata=0823A424438F76AB662C07C35ABB19CD7E6CF2849366957A50CFC63CF123B531E9261C88222E7BF3CD43AD3E795C914CB0214C2EC9B26B6A389460DA864C8447; userid=537000; user_email=15201733861; user%5Femail=15201733861; upe=a2766ec2; upi=927f9c25; browserCode=c5818e19fdb4867f5e5f414721f7451a; dtk_web=clo1aqqutbnmeeeevheepqd632; token=d78a9d8d10cac2f0ffb9512015cd0728; random=6910; CNZZDATA1257179126=1264628945-1503496208-%7C1506953339";
+		 String testCK= "UM_distinctid=15e0fa82d60da-0fdc8d80f896c1-3a3e5e06-1fa400-15e0fa82d61251A; tj_cid=864e6625-77db-424f-61ac-a72bc9115defA; _uab_collina=150650917885513423249654; _umdata=0823A424438F76AB662C07C35ABB19CD7E6CF2849366957A50CFC63CF123B531E9261C88222E7BF3CD43AD3E795C914CB0214C2EC9B26B6A389460DA864C8447; userid=537000; user_email=15201733861; user%5Femail=15201733861; upe=a2766ec2; upi=927f9c25; browserCode=c5818e19fdb4867f5e5f414721f7451a; dtk_web=clo1aqqutbnmeeeevheepqd632; token=d78a9d8d10cac2f0ffb9512015cd0728; random=6910; CNZZDATA1257179126=1264628945-1503496208-%7C1506953339";
 		 //testCK="UM_distinctid=15db713ac1d3-0ce5e05938e0c08-41554130-1fa400-15db713ac1f143; CNZZDATA1257179126=2050176312-1502010160-%7C1504532038; browserCode=f958a9eacaf4d4d244f75497cf4f5fa2; tj_cid=e23b49e5-197f-20c1-7452-90baef759650; token=2583479153087d7dcc0de4015560bfdd; random=7222; dtk_web=p3vnnvvunhpootindb3tahhim6; _uab_collina=150764260183485975487133; _umdata=55F3A8BFC9C50DDA002B45A73004ACD120748500108A7D0D2BD4413A5F4DC3893D5979534E208EB8CD43AD3E795C914CC6858E199167E17A4505FBC8D51EF6AB; userid=537000; user_email=15201733860; user%5Femail=15201733860; upe=a2766ec2; upi=e1c693b8";
-		 
-		 //httpRequest.setHeader("Cookie",testCK);
+		 testCK="dtk_web=8o949skba5nttc3mnc7humncb7; tj_cid=c393a2b5-fe49-931a-c3d6-cc082bc1485f; CNZZDATA1257179126=1500208092-1507812679-http%253A%252F%252Fwww.dataoke.com%252F%7C1507812679; token=c2b81e993cd61a51da8841ed74812d2b; random=2076; _uab_collina=150781645573793230695804; _umdata=2BA477700510A7DFB42EDA82C3702FAC291F194EE2A17DE718821F57FA82D7C60879D0AD0CAF3F25CD43AD3E795C914CFCDC6F683E6B43CCCBDD4532E86D9B16; userid=635799; user_email=15889224347; user%5Femail=15889224347; upe=f184d520; upi=7b73b38b; UM_distinctid=15f10dd39a633c-0402e5d387bc624-6c247513-13c680-15f10dd39a71df";
+		 httpRequest.setHeader("Cookie",testCK);
 		 
 /*
 		   HttpClientUtils httpClientUtils = new HttpClientUtils();

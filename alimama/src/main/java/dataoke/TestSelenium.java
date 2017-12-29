@@ -15,6 +15,7 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import util.IpPoolUtil;
 import util.LOG;
 import util.SeleniumUtil;
 
@@ -33,7 +34,7 @@ public class TestSelenium {
 		}*/
 		
 		//shouquanAndTuiGuang(new String[]{"4065074","4071462"}, new File("D:\\dataoke\\cks\\cookies.txt"));
-		shouquanAndTuiGuang(new String[]{"4007316","4096508"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
+		shouquanAndTuiGuang(new String[]{"4092660"}, new File("D:\\dataoke\\cks\\cookies72.txt"));
 		//shouquan(FileUtils.readLines(new File("D:\\dataoke\\邮箱账号\\20171011\\all.txt")));
 		//post(new String[]{"4045325"});
 		
@@ -69,7 +70,8 @@ public class TestSelenium {
 		for(Entry<String, String> m :CKUtils.getAll(files).entrySet()){
 			try{
 				LOG.printLog("开始刷name="+m.getKey()+" pids=="+Arrays.toString(ids));
-				shouquanAndTuiGuang(ids, m.getKey());
+				shouquanAndTuiGuangProxyIP(ids, m.getKey());
+				//shouquanAndTuiGuang(ids, m.getKey());
 				//tuiGuang(ids,  m.getKey());
 			}catch(Exception e){
 				e.printStackTrace();
@@ -158,7 +160,48 @@ public class TestSelenium {
 	    
 	    //webDriver.close();
 	
-	
+	public static void shouquanAndTuiGuangProxyIP(String[] ids,String uname)throws Exception{
+		if(webDriver==null){
+			webDriver = SeleniumUtil.initChromeDriver();
+		}
+		webDriver.get("http://www.dataoke.com/ucenter/mypid.asp");
+		setCookis(uname, webDriver);
+		webDriver.get("http://www.dataoke.com/ucenter/mypid.asp");
+		
+	    ShouQuan.webDriver = webDriver;
+	    //boolean flag = ShouQuan.shouquan2(null, null, "粟范德萨", "wen195861111");
+	    boolean flag = ShouQuan.shouquan2(null, null, "17030921884", "!QAZ2wsx");
+	    flag = true;
+	    LOG.printLog("授权结果>>>>>>>>>>>>>"+flag+" uname==="+uname);
+	    if(flag){
+	    	for(String id:ids){
+	    		//flag =  ShouQuan.zhuan2and1(id);
+	    		//getWebDriverCKSet(webDriver, uname);
+	    		try{
+	    			Test.proxy = IpPoolUtil.getHttpHost();
+	    			flag =  ShouQuan.tuijian(id);
+		    		getWebDriverCKSet(webDriver, uname);
+		    		id="4095843";
+		    		//flag = Test.taoTokenHttpClient(id, uname, "1");
+		    		flag = Test.tuijianHttpClient(id, uname);
+		    		if(flag){
+		    			count++;
+		    			System.out.println("成功"+count);
+		    		}
+			  	    LOG.printLog("推荐结果>>>>>>>>>>>>>"+flag+" pid==="+id+" uname==="+uname);
+			  	    Thread.sleep(1000);
+	    		}catch(Exception e){
+	    			e.printStackTrace();
+	    		}finally {
+	    			Test.proxy  = null;
+				}
+	    		
+	    	}
+	    	
+	    }
+	    
+	    //webDriver.close();
+	}
 	
 	public static void shouquanAndTuiGuang(String[] ids,String uname)throws Exception{
 		if(webDriver==null){

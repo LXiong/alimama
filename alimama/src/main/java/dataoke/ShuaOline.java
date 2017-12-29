@@ -62,7 +62,7 @@ public class ShuaOline {
 	static AtomicInteger atomicInteger = new AtomicInteger();
 
 	public static void main(String[] args) throws Exception {
-		url = "https://detail.m.tmall.com/item.htm?id=551944001293";
+		url = "https://detail.m.tmall.com/item.htm?id=541180914384";
 		if (args != null && args.length >= 1) {
 			url = args[0];
 		}
