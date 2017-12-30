@@ -6,7 +6,9 @@ import java.util.concurrent.Executors;
 
 
 /**
- *  一个业务一个DelayQueue队列相当于是DelayQueue = BlockingQueue +PriorityQueue + Delayed个有序的队列+延迟
+ * 一个业务一个DelayQueue队列相当于是DelayQueue = BlockingQueue +PriorityQueue + Delayed个有序的队列+延迟
+同一个业务场景，延迟的时间必须要是一样的Delayed，否则会出问题。类似于rocketmq的一个时间定义1 3 5
+如果同一个业务，有不同的时间延迟Delayed，这种感觉不太适合，这种场景用时间轮定时器
  * @author zzm
  *
  */
