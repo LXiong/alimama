@@ -1,7 +1,9 @@
 package thread;
 
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -16,8 +18,70 @@ public class ThreadTest {
 	
 	
    public static void main(String[] args) {
-	test7();
+	test8();
 }
+   
+   
+   
+   /**
+    * 打印
+    */
+   public static void test9(){
+	   ThreadFactory threadFactory = new ThreadFactoryBuilder()
+		        .setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+					public void uncaughtException(Thread t, Throwable e) {
+						System.out.println("=="+t.getName()+"e:"+e);
+					}
+				})
+		        .build();
+	   java.util.concurrent.ExecutorService executorService= Executors.newSingleThreadExecutor(threadFactory);
+	   Future<Object> future = executorService.submit(() -> {
+		            throw new RuntimeException("test");
+		        });
+		
+		Object object;
+		try {
+             //future.get 会触发异常
+			 object = future.get();
+			 System.out.println("======================"+object);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		} catch (ExecutionException e1) {
+			e1.printStackTrace();
+		}
+      
+   }
+
+   
+   /**
+    * 打印 future.get(); 会抛出异常，一般要在 线程中处理异常
+    */
+   public static void test8(){
+	   ThreadFactory threadFactory = new ThreadFactoryBuilder()
+		        .setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+					public void uncaughtException(Thread t, Throwable e) {
+						System.out.println("=="+t.getName()+"e:"+e);
+					}
+				})
+		        .build();
+		Future<Object> future = Executors.newSingleThreadExecutor(threadFactory)
+		        .submit(() -> {
+		            throw new RuntimeException("test");
+		        });
+		
+		Object object;
+		try {
+             //future.get 会触发异常
+			 object = future.get();
+			 System.out.println("======================"+object);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		} catch (ExecutionException e1) {
+			e1.printStackTrace();
+		}
+      
+   }
+
    
    
    /**
