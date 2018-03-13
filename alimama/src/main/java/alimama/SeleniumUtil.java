@@ -84,7 +84,12 @@ public class SeleniumUtil {
 			}
 			options.addArguments("--user-data-dir=" + userDateDir,"--allow-outdated-plugins");
 			// 璁剧疆璁块棶ChromeDriver鐨勮矾寰�
-			System.setProperty("webdriver.chrome.driver", "e:\\app\\chromedriver\\chromedriver.exe");
+			String driverPath = "e:\\app\\chromedriver\\chromedriver.exe";
+			String	driverPathUser =	PropertiesUtil.getPropertiesMap("alimama.driverPath");;
+			if(StringUtils.isNotBlank(driverPathUser)){
+				driverPath = driverPathUser;
+			}
+			System.setProperty("webdriver.chrome.driver", driverPath);
 			driver = new ChromeDriver(options);
 		} catch (Exception e) {
 			logger.error("Init WebDriver is error!", e);
