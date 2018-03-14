@@ -82,7 +82,9 @@ public class SeleniumUtil {
 			if(StringUtils.isNotBlank(PropertiesUtil.getPropertiesMap("alimama.userDateDir"))){
 				userDateDir = PropertiesUtil.getPropertiesMap("alimama.userDateDir");
 			}
-			options.addArguments("--user-data-dir=" + userDateDir,"--allow-outdated-plugins");
+			if(!"false".equalsIgnoreCase(userDateDir)){
+				options.addArguments("--user-data-dir=" + userDateDir,"--allow-outdated-plugins");
+			}
 			// 璁剧疆璁块棶ChromeDriver鐨勮矾寰�
 			String driverPath = "e:\\app\\chromedriver\\chromedriver.exe";
 			String	driverPathUser =	PropertiesUtil.getPropertiesMap("alimama.driverPath");;
