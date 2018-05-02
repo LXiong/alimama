@@ -15,6 +15,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -135,7 +137,7 @@ public class Main {
 				System.out.println("已选择招商数====="+longLen);
 				if(longLen!=null && longLen > 0){
 					js.executeScript("document.querySelectorAll(\"a[class='close']\")[0].click();");
-					Thread.sleep(1000);
+					Thread.sleep(2000);
 					js.executeScript("document.querySelectorAll(\"button[class='btn btn-brand w100']\")[0].click();");
 					System.out.println("已选择招商删除成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 					Thread.sleep(800);
@@ -275,7 +277,7 @@ public class Main {
 			
 		    //webDriver.navigate().refresh();
 			
-			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr+"&perPageSize=100";
+			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr+"&perPageSize=50";
 			webGet(queryURL);
 			
 			
@@ -780,7 +782,7 @@ public class Main {
 		try{
 		//webDriver.navigate().refresh();	
 		webGet("http://pub.alimama.com/manage/selection/list.htm");
-		Thread.sleep(2000);
+		Thread.sleep(5000);
 		WebElement element =null;
 		try{
 		// link-area
@@ -790,15 +792,27 @@ public class Main {
 		if (text.contains(name)) {
 			System.out.println("招商选择正确>>>>>>>>>>>>>>>>>>>>");
 		}
-		JavascriptExecutor js = (JavascriptExecutor) webDriver;
-		js.executeScript("document.querySelectorAll(\"a[class='btn btn-white']\")[0].click();");
+		//JavascriptExecutor js = (JavascriptExecutor) webDriver;
+		//js.executeScript("document.querySelectorAll(\"a[class='btn btn-white']\")[0].click();");
 		
+		org.jsoup.nodes.Document document = Jsoup.parse(webDriver.getPageSource());
+		
+		Element e = document.getElementById("sList").child(1).select(".link-area").first();
+		if(e!=null){
+			//http://pub.alimama.com/manage/selection/detail.htm?groupId=17189488
+			String href = e.attr("href");
+			//http://pub.alimama.com/manage/zhaoshang/create.htm?groupId=17189488
+			href = href.replace("selection", "zhaoshang").replace("detail", "create");
+			String zhaoshangCreate = "http://pub.alimama.com"+href;
+			System.out.println("zhaoshangCreate:"+zhaoshangCreate);
+			webGet(zhaoshangCreate);
+		}
 		
 		// 发起招商 btn btn-white
 		/*element = webDriver.findElement(By.xpath("//a[@class='btn btn-white']"));
 		element.click();
 		*/
-		Thread.sleep(1000);
+		Thread.sleep(5000);
 
 		
 		
@@ -1053,7 +1067,7 @@ public class Main {
 		if (page.contains("招商需求创建成功")) {
 			System.out.println("招商需求创建成功 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		}
-		Thread.sleep(1000);
+		Thread.sleep(5000);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
