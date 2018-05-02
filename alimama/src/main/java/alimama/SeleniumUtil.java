@@ -12,7 +12,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -93,6 +92,13 @@ public class SeleniumUtil {
 			}
 			System.setProperty("webdriver.chrome.driver", driverPath);
 			driver = new ChromeDriver(options);
+			
+			 driver.manage().timeouts().implicitlyWait(60,
+			 TimeUnit.SECONDS);
+			 driver.manage().timeouts().pageLoadTimeout(60,
+			 TimeUnit.SECONDS);
+			 driver.manage().timeouts().setScriptTimeout(60,TimeUnit.SECONDS);
+			
 		} catch (Exception e) {
 			logger.error("Init WebDriver is error!", e);
 			throw new RuntimeException(e);
