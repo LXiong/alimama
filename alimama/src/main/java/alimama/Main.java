@@ -279,7 +279,7 @@ public class Main {
 			webGet(queryURL);
 			
 			
-			Thread.sleep(2000);
+			Thread.sleep(5000);
 			
 			// 搜索
 			WebElement elementQuery = null;
@@ -325,7 +325,7 @@ public class Main {
 			System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
 
 			while (Integer.valueOf(size) < maxSize) {
-				Thread.sleep(2000);
+				Thread.sleep(5000);
 				//获取最大页数  检测
 				elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
 				String text2 = elementQuery.getText();
@@ -353,7 +353,7 @@ public class Main {
 				js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
 				
 				
-				//Thread.sleep(1000);
+				Thread.sleep(3000);
 
 				// 已选数
 				elementQuery = webDriver.findElement(By.xpath("//*[@class='color-brand']"));
@@ -380,7 +380,7 @@ public class Main {
 			js.executeScript("document.querySelectorAll(\"a[class='btn-brand add-selection']\")[0].click();");
 						
 			
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			// 新建普通分组 btn btn-common w140
 			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-common w140']"));
 			element.click();
@@ -389,14 +389,14 @@ public class Main {
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-common w140']\")[0].click();");
 			
 			
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 			// 分组输入框 J_groupTitle
 			element = webDriver.findElement(By.id("J_groupTitle"));
 			element.click();
 			// 设置分组名称
 			getFenzuName();
 			element.sendKeys(fenzuName);
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 
 			// 点击创建 btn btn-brand w80 mr10
 			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w80 mr10']"));
@@ -404,7 +404,7 @@ public class Main {
 			*/
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w80 mr10']\")[0].click();");
 			
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 
 			// 点击加入 btn btn-brand w100 mr10
 			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w100 mr10 ']"));
