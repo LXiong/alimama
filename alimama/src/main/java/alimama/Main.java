@@ -414,7 +414,7 @@ public class Main {
 			*/
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w100 mr10 ']\")[0].click();");
 			
-			Thread.sleep(1000);
+			Thread.sleep(5000+new Random().nextInt(1000));
 			System.out.println("加入成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		} catch (Exception e) {
 			e.printStackTrace();
