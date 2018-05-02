@@ -160,7 +160,7 @@ public class Main {
 	 */
 	public static void deleteXuanPingKu() throws Exception {
 		webGet("http://pub.alimama.com/manage/zhaoshang/list.htm?status=5&pageIndex=1");
-		Thread.sleep(5000);
+		Thread.sleep(7500);
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		while(true){
 			try{
@@ -272,7 +272,7 @@ public class Main {
 			// 搜索 btn btn-brand search-btn
 			elementQuery = webDriver.findElement(By.xpath("//*[@class='btn btn-brand search-btn']"));
 			elementQuery.click();
-			Thread.sleep(5000);*/
+			Thread.sleep(7500);*/
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 			
 		    //webDriver.navigate().refresh();
@@ -281,7 +281,7 @@ public class Main {
 			webGet(queryURL);
 			
 			
-			Thread.sleep(5000);
+			Thread.sleep(7500);
 			
 			// 搜索
 			WebElement elementQuery = null;
@@ -327,7 +327,7 @@ public class Main {
 			System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
 
 			while (Integer.valueOf(size) < maxSize) {
-				Thread.sleep(5000);
+				Thread.sleep(7500);
 				//获取最大页数  检测
 				elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
 				String text2 = elementQuery.getText();
@@ -355,7 +355,7 @@ public class Main {
 				js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
 				
 				
-				Thread.sleep(3000);
+				Thread.sleep(4500);
 
 				// 已选数
 				elementQuery = webDriver.findElement(By.xpath("//*[@class='color-brand']"));
@@ -382,7 +382,7 @@ public class Main {
 			js.executeScript("document.querySelectorAll(\"a[class='btn-brand add-selection']\")[0].click();");
 						
 			
-			Thread.sleep(3000);
+			Thread.sleep(4500);
 			// 新建普通分组 btn btn-common w140
 			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-common w140']"));
 			element.click();
@@ -391,14 +391,14 @@ public class Main {
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-common w140']\")[0].click();");
 			
 			
-			Thread.sleep(3000);
+			Thread.sleep(4500);
 			// 分组输入框 J_groupTitle
 			element = webDriver.findElement(By.id("J_groupTitle"));
 			element.click();
 			// 设置分组名称
 			getFenzuName();
 			element.sendKeys(fenzuName);
-			Thread.sleep(3000);
+			Thread.sleep(4500);
 
 			// 点击创建 btn btn-brand w80 mr10
 			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w80 mr10']"));
@@ -406,7 +406,7 @@ public class Main {
 			*/
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w80 mr10']\")[0].click();");
 			
-			Thread.sleep(3000);
+			Thread.sleep(4500);
 
 			// 点击加入 btn btn-brand w100 mr10
 			/*element = webDriver.findElement(By.xpath("//*[@class='btn btn-brand w100 mr10 ']"));
@@ -414,7 +414,7 @@ public class Main {
 			*/
 			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w100 mr10 ']\")[0].click();");
 			
-			Thread.sleep(5000+new Random().nextInt(1000));
+			Thread.sleep(7500+new Random().nextInt(1000));
 			System.out.println("加入成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -447,7 +447,7 @@ public class Main {
 			// 搜索 btn btn-brand search-btn
 			elementQuery = webDriver.findElement(By.xpath("//*[@class='btn btn-brand search-btn']"));
 			elementQuery.click();
-			Thread.sleep(5000);*/
+			Thread.sleep(7500);*/
 			JavascriptExecutor js = (JavascriptExecutor) webDriver;
 			
 		    //webDriver.navigate().refresh();
@@ -535,7 +535,7 @@ public class Main {
 				queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40"+queryStr;
 				System.out.println("queryURL :"+queryURL);
 				webGet(queryURL);
-				Thread.sleep(3000);
+				Thread.sleep(4500);
 			}
 
 			Thread.sleep(1000);
@@ -600,7 +600,7 @@ public class Main {
 
 		try {
 			webGet("http://pub.alimama.com/promo/search/index.htm");
-			Thread.sleep(5000);
+			Thread.sleep(7500);
 
 			// 搜索
 			WebElement elementQuery = webDriver.findElement(By.id("q"));
@@ -633,7 +633,7 @@ public class Main {
 				WebElement aElement = webDriver
 						.findElement(By.xpath("//*[@class='btn-last btn btn-xlarge btn-white']"));
 				aElement.click();
-				Thread.sleep(3000);
+				Thread.sleep(4500);
 
 			}
 
@@ -683,7 +683,7 @@ public class Main {
 	public static boolean addshangping(String queryName) throws Exception {
 
 		webGet("http://pub.alimama.com/promo/search/index.htm");
-		Thread.sleep(5000);
+		Thread.sleep(7500);
 
 		// 搜索
 		WebElement elementQuery = webDriver.findElement(By.id("q"));
@@ -727,7 +727,7 @@ public class Main {
 			// 下一页 btn-last btn btn-xlarge btn-white
 			WebElement aElement = webDriver.findElement(By.xpath("//*[@class='btn-last btn btn-xlarge btn-white']"));
 			aElement.click();
-			Thread.sleep(3000);
+			Thread.sleep(4500);
 
 		}
 
@@ -782,7 +782,7 @@ public class Main {
 		try{
 		//webDriver.navigate().refresh();	
 		webGet("http://pub.alimama.com/manage/selection/list.htm");
-		Thread.sleep(5000);
+		Thread.sleep(7500);
 		WebElement element =null;
 		try{
 		// link-area
@@ -812,7 +812,7 @@ public class Main {
 		/*element = webDriver.findElement(By.xpath("//a[@class='btn btn-white']"));
 		element.click();
 		*/
-		Thread.sleep(5000);
+		Thread.sleep(7500);
 
 		
 		
@@ -1061,13 +1061,13 @@ public class Main {
 		element.click();
 		*/
 		js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w120']\")[0].click();");
-		Thread.sleep(3000);
+		Thread.sleep(4500);
 
 		String page = webDriver.getPageSource();
 		if (page.contains("招商需求创建成功")) {
 			System.out.println("招商需求创建成功 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		}
-		Thread.sleep(5000);
+		Thread.sleep(7500);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -1084,7 +1084,7 @@ public class Main {
 	public static boolean login2() throws Exception {
 		try{
 			webGet("https://login.taobao.com/member/login.jhtml?style=minisimple&from=alimama&qq-pf-to=pcqq.c2c");
-			Thread.sleep(5000);
+			Thread.sleep(7500);
 			// webGet("https://login.taobao.com/member/login.jhtml?style=mini&amp;newMini2=true&amp;from=alimama&amp;redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&amp;full_redirect=true&amp;disableQuickLogin=true");
 		}catch(Exception e){
 			e.printStackTrace();
@@ -1101,7 +1101,7 @@ public class Main {
 	 */
 	public static boolean login() throws Exception {
 		webGet("http://pub.alimama.com/");
-		Thread.sleep(5000);
+		Thread.sleep(7500);
 
 		// webGet("https://login.taobao.com/member/login.jhtml?style=mini&amp;newMini2=true&amp;from=alimama&amp;redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&amp;full_redirect=true&amp;disableQuickLogin=true");
 		webDriver.switchTo().frame("taobaoLoginIfr");
@@ -1143,7 +1143,7 @@ public class Main {
 		element = webDriver.findElement(By.id("J_SubmitStatic"));
 		element.click();
 
-		Thread.sleep(5000);
+		Thread.sleep(7500);
 
 		String pageStr = webDriver.getPageSource();
 		System.in.read();
