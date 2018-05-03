@@ -128,7 +128,7 @@ public class Main {
 	 * @throws Exception
 	 */
 	public static void deleteYixuanZhaoshang() throws Exception {
-		webGet("http://pub.alimama.com/manage/selection/list.htm");
+		webGet("http://pub.alimama.com/manage/selection/list.htm?spm="+System.currentTimeMillis());
 		Thread.sleep(8000);
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		while(true){
@@ -277,7 +277,7 @@ public class Main {
 			
 		    //webDriver.navigate().refresh();
 			
-			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr+"&perPageSize=50";
+			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr+"&perPageSize=100";
 			webGet(queryURL);
 			
 			
@@ -790,13 +790,13 @@ public class Main {
 		Thread.sleep(7500);
 		WebElement element =null;
 		try{
-		// link-area
+		/*// link-area
 		List<WebElement> elements = webDriver.findElements(By.xpath("//a[@class='link-area']"));
 		element= elements.get(0);
 		String text = element.getText();
 		if (text.contains(name)) {
 			System.out.println("招商选择正确>>>>>>>>>>>>>>>>>>>>");
-		}
+		}*/
 		//JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		//js.executeScript("document.querySelectorAll(\"a[class='btn btn-white']\")[0].click();");
 		
