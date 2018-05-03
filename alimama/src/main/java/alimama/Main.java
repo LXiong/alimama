@@ -790,7 +790,7 @@ public class Main {
 		webGet("http://pub.alimama.com/manage/selection/list.htm?spm="+System.currentTimeMillis());
 		Thread.sleep(7500);
 		WebElement element =null;
-		try{
+		/*try{*/
 			//发起招商需求的个数已达上限50个，无法继续发起
 			String pageS = webDriver.getPageSource();
 			if(pageS.contains("上限")){
@@ -811,10 +811,10 @@ public class Main {
 		
 		org.jsoup.nodes.Document document = Jsoup.parse(webDriver.getPageSource());
 		
-		Element e = document.getElementById("sList").child(1).select(".link-area").first();
-		if(e!=null){
+		Element ee = document.getElementById("sList").child(1).select(".link-area").first();
+		if(ee!=null){
 			//http://pub.alimama.com/manage/selection/detail.htm?groupId=17189488
-			String href = e.attr("href");
+			String href = ee.attr("href");
 			//http://pub.alimama.com/manage/zhaoshang/create.htm?groupId=17189488
 			href = href.replace("selection", "zhaoshang").replace("detail", "create");
 			String zhaoshangCreate = "http://pub.alimama.com"+href;
@@ -830,11 +830,11 @@ public class Main {
 
 		
 		
-		}catch (Exception e) {
+		/*}catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("已经超过招商数>>>>>>>>>>>>>>>>>>>>>>>>");
 			System.exit(0);
-		}
+		}*/
 		// Q群淘客打造爆款联系QQ77662857
 
 		// 招商活动名称
@@ -938,7 +938,7 @@ public class Main {
 			
 		}
 		
-		}catch(Exception e){
+		}catch(Exception e1){
 			System.out.println("error data >>>>>>");
 		}	
 			
