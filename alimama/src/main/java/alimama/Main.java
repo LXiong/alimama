@@ -791,6 +791,14 @@ public class Main {
 		Thread.sleep(7500);
 		WebElement element =null;
 		try{
+			//发起招商需求的个数已达上限50个，无法继续发起
+			String pageS = webDriver.getPageSource();
+			if(pageS.contains("上限")){
+				for(int i=0;i<10;i++){
+					System.out.println("招商数量已满>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				}
+				System.exit(0);
+			}
 		/*// link-area
 		List<WebElement> elements = webDriver.findElements(By.xpath("//a[@class='link-area']"));
 		element= elements.get(0);
