@@ -1088,7 +1088,8 @@ public class Main {
 	 */
 	public static boolean login2() throws Exception {
 		try{
-			webGet("https://login.taobao.com/member/login.jhtml?style=minisimple&from=alimama&qq-pf-to=pcqq.c2c");
+			//webGet("https://login.taobao.com/member/login.jhtml?style=minisimple&from=alimama&qq-pf-to=pcqq.c2c");
+			webGet("https://www.alimama.com/index.htm");
 			Thread.sleep(7500);
 			// webGet("https://login.taobao.com/member/login.jhtml?style=mini&amp;newMini2=true&amp;from=alimama&amp;redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&amp;full_redirect=true&amp;disableQuickLogin=true");
 		}catch(Exception e){
