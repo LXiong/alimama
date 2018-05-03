@@ -418,9 +418,9 @@ public class Main {
 			
 			System.out.println("加入成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>点击我的选品");
 			
-			js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w110 mr20']\")[0].click();");
+			//js.executeScript("document.querySelectorAll(\"*[class='btn btn-brand w110 mr20']\")[0].click();");
 			
-			Thread.sleep(4500+new Random().nextInt(1000));
+			//Thread.sleep(4500+new Random().nextInt(1000));
 		} catch (Exception e) {
 			e.printStackTrace();
 			Thread.sleep(1000);
@@ -786,8 +786,8 @@ public class Main {
 	public static void faqizhaoshang(String name) throws Exception {
 		try{
 		//webDriver.navigate().refresh();	
-		//webGet("http://pub.alimama.com/manage/selection/list.htm");
-		//Thread.sleep(7500);
+		webGet("http://pub.alimama.com/manage/selection/list.htm?spm="+System.currentTimeMillis());
+		Thread.sleep(7500);
 		WebElement element =null;
 		try{
 		// link-area
