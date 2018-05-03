@@ -423,7 +423,8 @@ public class Main {
 			//Thread.sleep(4500+new Random().nextInt(1000));
 		} catch (Exception e) {
 			e.printStackTrace();
-			Thread.sleep(1000);
+			webGet("https://www.alimama.com/index.htm");
+			Thread.sleep(3500);
 			System.out.println("失败>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			return false;
 		}
@@ -1075,6 +1076,8 @@ public class Main {
 		Thread.sleep(7500);
 		}catch(Exception e){
 			e.printStackTrace();
+			webGet("https://www.alimama.com/index.htm");
+			Thread.sleep(3500);
 		}
 
 	}
