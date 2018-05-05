@@ -9,8 +9,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -21,6 +23,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class Main {
     //用户名
@@ -101,6 +106,38 @@ public class Main {
 		 * System.out.println(fenzuName.replace("date", date));
 		 */
 		//if(validate()){
+		
+		/*
+		init();
+		webDriver.get("http://pub.alimama.com/promo/search/index.htm?q=%E5%A5%B3%E5%AD%A9%E7%9A%84&_t=1525512364768");
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+		
+		Set<Integer> gouList = Sets.newConcurrentHashSet();
+		List<WebElement> elementsCK =webDriver.findElements(By.xpath("//*[@title='点击进入店铺推广详情页']"));
+		Set<String> dianNameSet = Sets.newConcurrentHashSet();
+		for(int i=0;i<elementsCK.size();i++){
+			WebElement webElement = elementsCK.get(i);
+			String name = webElement.getText();
+			if(dianNameSet.contains(name)){
+				gouList.add(i);
+			}else{
+				dianNameSet.add(name);
+			}
+		}
+		
+		if(CollectionUtils.isNotEmpty(gouList)){
+			for(int i=0;i<50;i++){
+				if(!gouList.contains(i)){
+					js.executeScript("document.querySelectorAll(\"a[class='box-btn-right']\")["+i+"].click();");
+					Thread.sleep(10);
+
+				}
+							}
+		}
+		*/
+		
+		
+		
 		if(true){
 			System.out.println("验证成功>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			execute();
@@ -352,7 +389,40 @@ public class Main {
 				//WebElement elements = webDriver.findElement(By.xpath("//a[@class='select-btn select-all ']"));
 				//elements.click();
 				
-				js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
+				//全部勾选
+				//js.executeScript("document.querySelectorAll(\"a[class='select-btn select-all ']\")[0].click();");
+				
+				//document.querySelectorAll("a[class='box-btn-right']")[0].click();
+				
+				//检查过滤上重复商家
+				
+				//<a href="javascript:void(0);" mx-click="selectItem(0)" data-spm-click="gostr=/alimama.11;locaid=d272c3d68;itemid=554141358926&amp;pvid=10_139.226.165.27_527_1525509192631&amp;actionid=1001" class="box-btn-right" p-id="773"><span class="pubfont" p-id="774"></span>选取</a>
+				
+				
+				Set<Integer> gouList = Sets.newConcurrentHashSet();
+				List<WebElement> elementsCK =webDriver.findElements(By.xpath("//*[@title='点击进入店铺推广详情页']"));
+				Set<String> dianNameSet = Sets.newConcurrentHashSet();
+				for(int i=0;i<elementsCK.size();i++){
+					WebElement webElement = elementsCK.get(i);
+					String name = webElement.getText();
+					if(dianNameSet.contains(name)){
+						gouList.add(i);
+					}else{
+						dianNameSet.add(name);
+					}
+				}
+				System.out.println("重复的店家>>>>>>>>>>>>>>"+gouList);
+				if(CollectionUtils.isNotEmpty(gouList)){
+					for(int i=0;i<100;i++){
+						if(!gouList.contains(i)){
+							js.executeScript("document.querySelectorAll(\"a[class='box-btn-right']\")["+i+"].click();");
+							Thread.sleep(10);
+
+						}
+									}
+				}
+				
+				
 				
 				
 				Thread.sleep(4500);
