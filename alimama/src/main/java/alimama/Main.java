@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -23,8 +24,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 public class Main {
@@ -44,6 +46,10 @@ public class Main {
 
 	//招商title
 	static final String zhaoshangTitle = "淘客打造爆款联系Q"+qq;
+	
+	//开始结束等级
+	static  Integer djStart = 5;
+	static  Integer djEnd = 12;
 	
 
 	public static WebDriver webDriver = null;
@@ -107,8 +113,8 @@ public class Main {
 		 */
 		//if(validate()){
 		
-		/*
-		init();
+		
+	/*	init();
 		webDriver.get("http://pub.alimama.com/promo/search/index.htm?q=%E5%A5%B3%E5%AD%A9%E7%9A%84&_t=1525512364768");
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		
@@ -117,6 +123,8 @@ public class Main {
 		Set<String> dianNameSet = Sets.newConcurrentHashSet();
 		for(int i=0;i<elementsCK.size();i++){
 			WebElement webElement = elementsCK.get(i);
+			new Actions(webDriver).moveToElement(webElement).perform();
+			Thread.sleep(10);
 			String name = webElement.getText();
 			if(dianNameSet.contains(name)){
 				gouList.add(i);
@@ -124,6 +132,28 @@ public class Main {
 				dianNameSet.add(name);
 			}
 		}
+		
+		if(djStart !=null && djEnd !=null){
+			List<WebElement> elementsDj =webDriver.findElements(By.xpath("//div[@class='shop-rank']"));
+			for(int i=0;i<elementsDj.size();i++){
+				WebElement webElement = elementsCK.get(i);
+				String name = webElement.getText();
+				boolean djflage = false;
+				//将名字相同的商品加到过滤中
+				for(java.util.Map.Entry<String, Integer> en:dengjiMap.entrySet()){
+					if(StringUtils.isNotBlank(name) && name.toLowerCase().contains(en.getKey())){
+						Integer cdj = en.getValue();
+						if(djStart <= cdj || cdj <=  djEnd){
+							djflage = true;
+						}
+					}
+				}
+				if(!djflage){
+					gouList.add(i);
+				}
+			}
+		}
+	
 		
 		if(CollectionUtils.isNotEmpty(gouList)){
 			for(int i=0;i<50;i++){
@@ -289,6 +319,49 @@ public class Main {
 
 	
 	
+	static Map<String,Integer> dengjiMap = Maps.newConcurrentMap();
+	
+	static
+	{
+		//心 https://img.alicdn.com/newrank/s_red_5.gif
+		dengjiMap.put("s_red_1", 1);	
+		dengjiMap.put("s_red_2", 2);	
+		dengjiMap.put("s_red_3", 3);	
+		dengjiMap.put("s_red_4", 4);	
+		dengjiMap.put("s_red_5", 5);	
+		
+		
+		
+		//http://img.alicdn.com/newrank/s_blue_4.gif 砖石
+		dengjiMap.put("s_blue_1", 6);	
+		dengjiMap.put("s_blue_2", 7);	
+		dengjiMap.put("s_blue_3", 8);	
+		dengjiMap.put("s_blue_4", 9);	
+		dengjiMap.put("s_blue_5", 10);	
+		
+		//蓝冠 img.alicdn.com/newrank/s_cap_4.gif
+		dengjiMap.put("s_cap_1", 11);	
+		dengjiMap.put("s_cap_2", 12);	
+		dengjiMap.put("s_cap_3", 13);	
+		dengjiMap.put("s_cap_4", 14);	
+		dengjiMap.put("s_cap_5", 15);	
+		
+		
+		//金冠  http://img.alicdn.com/newrank/s_crown_2.gif
+		dengjiMap.put("s_crown_1", 16);	
+		dengjiMap.put("s_crown_2", 17);	
+		dengjiMap.put("s_crown_3", 18);	
+		dengjiMap.put("s_crown_4", 19);	
+		dengjiMap.put("s_crown_5", 20);	
+		
+		//天猫 //img.alicdn.com/tps/i1/TB1JCr_IpXXXXcAXFXXOK.sIXXX-190-27.png
+		
+		//img.alicdn.com/tps/i1/TB1JCr_IpXXXXcAXFXXOK.sIXXX-190-27.png
+		
+		
+		
+	}
+	
 	/**
 	 * 添加商品 页数随机
 	 * 
@@ -405,19 +478,48 @@ public class Main {
 				
 				//<a href="javascript:void(0);" mx-click="selectItem(0)" data-spm-click="gostr=/alimama.11;locaid=d272c3d68;itemid=554141358926&amp;pvid=10_139.226.165.27_527_1525509192631&amp;actionid=1001" class="box-btn-right" p-id="773"><span class="pubfont" p-id="774"></span>选取</a>
 				
-				
+				//需要过滤的商品
 				Set<Integer> gouList = Sets.newConcurrentHashSet();
+				
+				//过滤重复商店名称
 				List<WebElement> elementsCK =webDriver.findElements(By.xpath("//*[@title='点击进入店铺推广详情页']"));
 				Set<String> dianNameSet = Sets.newConcurrentHashSet();
 				for(int i=0;i<elementsCK.size();i++){
 					WebElement webElement = elementsCK.get(i);
 					String name = webElement.getText();
+					//将名字相同的商品加到过滤中
 					if(dianNameSet.contains(name)){
 						gouList.add(i);
 					}else{
 						dianNameSet.add(name);
 					}
 				}
+				
+				
+			
+				
+			/*	if(djStart !=null && djEnd !=null){	
+					List<WebElement> elementsDj =webDriver.findElements(By.xpath("//div[@class='shop-rank']"));
+				for(int i=0;i<elementsDj.size();i++){
+					WebElement webElement = elementsCK.get(i);
+					String name = webElement.getText();
+					boolean djflage = false;
+					//将名字相同的商品加到过滤中
+					for(java.util.Map.Entry<String, Integer> en:dengjiMap.entrySet()){
+						if(StringUtils.isNotBlank(name) && name.toLowerCase().contains(en.getKey())){
+							Integer cdj = en.getValue();
+							if(djStart <= cdj || cdj <=  djEnd){
+								djflage = true;
+							}
+						}
+					}
+					if(!djflage){
+						gouList.add(i);
+					}
+				}
+				}*/
+				
+				
 				System.out.println("重复的店家>>>>>>>>>>>>>>"+gouList);
 				if(CollectionUtils.isNotEmpty(gouList)){
 					for(int i=0;i<100;i++){
