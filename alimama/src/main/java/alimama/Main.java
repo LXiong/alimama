@@ -362,8 +362,15 @@ public class Main {
 			// 已选数据 <span p-id="110">1</span>
 			String size = "0";
 			System.out.println("已选>>>>>>>>>>>>>>>>>>>>>>>" + size);
-
+            int lunXunSize = 0;
+            //已选商品小于 最大已选商品 就继续选择。
 			while (Integer.valueOf(size) < maxSize) {
+				//最多轮训5次，防止死循环
+				if(lunXunSize >= 5){
+					System.out.println("搜索关键字已循环5次》》》》》》》》》"+queryName);
+					return false;
+				}
+				lunXunSize++;
 				Thread.sleep(7500);
 				//获取最大页数  检测
 				elementQuery = webDriver.findElement(By.xpath("//*[@class='pagination-statistics-simplify']"));
