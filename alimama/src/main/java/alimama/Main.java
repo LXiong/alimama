@@ -1,5 +1,6 @@
 package alimama;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,6 +15,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -26,6 +28,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
@@ -288,8 +291,45 @@ public class Main {
 		}
 	}
 	
+	//已经搜索过的关键词
+	static File sreachDist = new File("c://sreachDist.txt"); 
+	
+	static Set<String> sreachDistSet = Sets.newConcurrentHashSet();
+	
+	public static boolean checkDistKeyExit(String key){
+		//如果文件不存在
+		if(sreachDist.exists()){
+			try {
+				if(CollectionUtils.isEmpty(sreachDistSet)){
+					sreachDistSet = Sets.newConcurrentHashSet(FileUtils.readLines(sreachDist));
+				}
+				//如果包含该key
+				if(sreachDistSet.contains(key)){
+					return true;
+				}else{
+					//如果不包含
+					sreachDistSet.add(key);
+					FileUtils.writeLines(sreachDist, Lists.newArrayList(key),true);
+				}
+			 } catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else{
+			try {
+				FileUtils.writeLines(sreachDist, Lists.newArrayList(key));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
 	public static void run(String key){
 		System.out.println("key :" + key);
+		if(checkDistKeyExit(key)){
+			System.out.println("key已经跑过了>>>>>>>>>>>>>>>================"+key);
+			return ;
+		}
 		// 添加商品
 		try {
 			//boolean addflag = addshangpingAll(key);
@@ -301,6 +341,8 @@ public class Main {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			
 		}
 	}
 
@@ -416,10 +458,10 @@ public class Main {
 				maxPage = 1;
 			}
 				
-			if(maxPage <= 1 ){
+			/*if(maxPage <= 1 ){
 				System.out.println("页数太少跳出>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>》");
 				return false;
-			}
+			}*/
 			
 			//默认开始为第一页
 			int cPage = 1;
@@ -460,7 +502,12 @@ public class Main {
 					maxPage2 = 1;
 				}
 					
-				if(maxPage2 <= 1 ){
+				/*if(maxPage2 <= 1 ){
+					System.out.println("页数太少跳出>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>》");
+					return false;
+				}*/
+				
+				if(maxPage2 < cPage){
 					System.out.println("页数太少跳出>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>》");
 					return false;
 				}
@@ -1279,7 +1326,8 @@ public class Main {
 	public static boolean login2() throws Exception {
 		try{
 			//webGet("https://login.taobao.com/member/login.jhtml?style=minisimple&from=alimama&qq-pf-to=pcqq.c2c");
-			webGet("https://www.alimama.com/index.htm");
+			//webGet("https://www.alimama.com/index.htm");
+			webGet("https://login.taobao.com/member/login.jhtml?style=mini&newMini2=true&from=alimama&redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&full_redirect=true");
 			Thread.sleep(7500);
 			// webGet("https://login.taobao.com/member/login.jhtml?style=mini&amp;newMini2=true&amp;from=alimama&amp;redirectURL=http%3A%2F%2Flogin.taobao.com%2Fmember%2Ftaobaoke%2Flogin.htm%3Fis_login%3d1&amp;full_redirect=true&amp;disableQuickLogin=true");
 		}catch(Exception e){
