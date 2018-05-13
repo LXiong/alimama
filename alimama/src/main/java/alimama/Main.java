@@ -364,6 +364,9 @@ public class Main {
 	//最大数
 	static int maxSize = StringUtils.isBlank(PropertiesUtil.getPropertiesMap("alimama.maxSize")) ? 198 :Integer.valueOf(PropertiesUtil.getPropertiesMap("alimama.maxSize"));
 
+	//最大销量
+	static int maxXiaoLiang = StringUtils.isBlank(PropertiesUtil.getPropertiesMap("alimama.maxXiaoLiang")) ? 300 :Integer.valueOf(PropertiesUtil.getPropertiesMap("alimama.maxXiaoLiang"));
+
 	
 	public static int getRandom(int min, int max) {
 		Random random = new Random();
@@ -562,7 +565,7 @@ public class Main {
 					String name = webElement.getText();
                     if(StringUtils.isNotBlank(name)){
                     	int liaoliang = Integer.valueOf(name);
-    					if(liaoliang > 300){
+    					if(liaoliang > maxXiaoLiang){
     						gouList.add(i);
     					}
                     }  
