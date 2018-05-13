@@ -116,8 +116,8 @@ public class Main {
 		 */
 		//if(validate()){
 		
-		
-	/*	init();
+	/*	
+		init();
 		webDriver.get("http://pub.alimama.com/promo/search/index.htm?q=%E5%A5%B3%E5%AD%A9%E7%9A%84&_t=1525512364768");
 		JavascriptExecutor js = (JavascriptExecutor) webDriver;
 		
@@ -136,7 +136,21 @@ public class Main {
 			}
 		}
 		
-		if(djStart !=null && djEnd !=null){
+		//过滤销量高于300的 
+		List<WebElement> elementsXiaoLiang =webDriver.findElements(By.xpath("//span[@class='fr']//span[@class='color-d']"));
+		for(int i=0;i<elementsXiaoLiang.size();i++){
+			WebElement webElement = elementsXiaoLiang.get(i);
+			String name = webElement.getText();
+            if(StringUtils.isNotBlank(name)){
+            	int liaoliang = Integer.valueOf(name);
+				if(liaoliang > 300){
+					gouList.add(i);
+				}
+            }  
+		}
+
+		
+	/*	if(djStart !=null && djEnd !=null){
 			List<WebElement> elementsDj =webDriver.findElements(By.xpath("//div[@class='shop-rank']"));
 			for(int i=0;i<elementsDj.size();i++){
 				WebElement webElement = elementsCK.get(i);
@@ -156,7 +170,7 @@ public class Main {
 				}
 			}
 		}
-	
+
 		
 		if(CollectionUtils.isNotEmpty(gouList)){
 			for(int i=0;i<50;i++){
@@ -167,8 +181,7 @@ public class Main {
 				}
 							}
 		}
-		*/
-		
+*/			
 		
 		
 		if(true){
@@ -466,9 +479,10 @@ public class Main {
 			//默认开始为第一页
 			int cPage = 1;
 			
-			if(maxPage > 3){
+			//随机页数
+			/*if(maxPage > 3){
 				cPage = getRandom(1, maxPage);
-			}
+			}*/
 			
 			 queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
 			System.out.println("queryURL :"+queryURL);
@@ -541,7 +555,18 @@ public class Main {
 						dianNameSet.add(name);
 					}
 				}
-				
+				//过滤销量高于300的 
+				List<WebElement> elementsXiaoLiang =webDriver.findElements(By.xpath("//span[@class='fr']//span[@class='color-d']"));
+				for(int i=0;i<elementsXiaoLiang.size();i++){
+					WebElement webElement = elementsXiaoLiang.get(i);
+					String name = webElement.getText();
+                    if(StringUtils.isNotBlank(name)){
+                    	int liaoliang = Integer.valueOf(name);
+    					if(liaoliang > 300){
+    						gouList.add(i);
+    					}
+                    }  
+				}
 				
 			
 				
