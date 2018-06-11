@@ -483,9 +483,12 @@ public class Main {
 			int cPage = 1;
 			
 			//随机页数
-			/*if(maxPage > 3){
+			if(maxPage > 3){
 				cPage = getRandom(1, maxPage);
-			}*/
+			}
+			
+			//最多只加2页
+			int maxCPage = cPage + 1;
 			
 			 queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
 			System.out.println("queryURL :"+queryURL);
@@ -502,6 +505,13 @@ public class Main {
 					System.out.println("搜索关键字已循环5次》》》》》》》》》"+queryName);
 					return false;
 				}
+				
+				//当超过2页时，退出
+				if(cPage > maxCPage ) {
+					System.out.println("搜索关键字已加载2页》》》》》》》》》"+queryName);
+					return false;
+				}
+				
 				lunXunSize++;
 				Thread.sleep(7500);
 				//获取最大页数  检测
