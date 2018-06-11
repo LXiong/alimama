@@ -598,7 +598,7 @@ public class Main {
 				*/
 				//过滤非营销商品
 				Document document = Jsoup.parse(webDriver.getPageSource());
-				Elements elements = document.select("box-shop-info");
+				Elements elements = document.select(".box-shop-info");
 				if(elements !=null && elements.size() > 0) {
 					for(int i=0;i<elements.size();i++) {
 						String str = elements.get(i).html();
