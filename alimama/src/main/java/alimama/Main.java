@@ -21,7 +21,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -579,6 +581,31 @@ public class Main {
     						gouList.add(i);
     					}
                     }  
+				}
+				
+				//过滤非营销商品 
+				/*List<WebElement> yingxiaoList =webDriver.findElements(By.xpath("//*[@class='tags-container fr']"));
+				for(int i=0;i<yingxiaoList.size();i++){
+					WebElement webElement = yingxiaoList.get(i);
+					String name = webElement.getText();
+                    if(StringUtils.isNotBlank(name)){
+                    	int liaoliang = Integer.valueOf(name);
+    					if(liaoliang > maxXiaoLiang){
+    						gouList.add(i);
+    					}
+                    }  
+				}
+				*/
+				//过滤非营销商品
+				Document document = Jsoup.parse(webDriver.getPageSource());
+				Elements elements = document.select("box-shop-info");
+				if(elements !=null && elements.size() > 0) {
+					for(int i=0;i<elements.size();i++) {
+						String str = elements.get(i).html();
+						if(str!=null && !str.contains("查看营销计划介绍")) {
+							gouList.add(i);
+						}
+					}
 				}
 				
 			
