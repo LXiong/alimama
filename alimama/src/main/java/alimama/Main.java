@@ -509,10 +509,10 @@ public class Main {
 				}
 				
 				//当超过2页时，退出
-				if(cPage > maxCPage ) {
+				/*if(cPage > maxCPage ) {
 					System.out.println("搜索关键字已加载2页》》》》》》》》》"+queryName);
 					return false;
-				}
+				}*/
 				
 				lunXunSize++;
 				Thread.sleep(7500);
