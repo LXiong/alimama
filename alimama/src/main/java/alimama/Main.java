@@ -485,7 +485,7 @@ public class Main {
 			//随机页数
 			if(maxPage > 3){
 				cPage = getRandom(1, maxPage);
-			}
+			} 
 			
 			//最多只加2页
 			int maxCPage = cPage + 1;
