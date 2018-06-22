@@ -220,7 +220,7 @@ public class Main {
 			try{
 				Long  longLen = (Long)js.executeScript("return document.querySelectorAll(\"a[class='close']\").length;");
 				System.out.println("已选择招商数====="+longLen);
-				if(longLen!=null && longLen > 0){
+				if(longLen!=null && longLen > 1){
 					js.executeScript("document.querySelectorAll(\"a[class='close']\")[0].click();");
 					Thread.sleep(2000);
 					js.executeScript("document.querySelectorAll(\"button[class='btn btn-brand w100']\")[0].click();");
