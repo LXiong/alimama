@@ -46,9 +46,14 @@ public class Main {
 	//设置百分比
 	static String baifenbi = PropertiesUtil.getPropertiesMap("alimama.baifenbi");
 	
-	
+	//查詢條件
 	static String queryStr = PropertiesUtil.getPropertiesMap("alimama.queryStr");
 
+	static String queryPrefixDef = "http://pub.alimama.com/promo/search/index.htm?q=";
+	//查詢前綴
+	static String queryPrefix = StringUtils.isBlank(PropertiesUtil.getPropertiesMap("alimama.queryPrefix")) ? queryPrefixDef : PropertiesUtil.getPropertiesMap("alimama.queryPrefix");
+	
+	
 	//招商title
 	static final String zhaoshangTitle = "淘客打造爆款联系Q"+qq;
 	
@@ -422,6 +427,7 @@ public class Main {
 		
 	}
 	
+	
 	/**
 	 * 添加商品 页数随机
 	 * 
@@ -447,7 +453,7 @@ public class Main {
 			
 		    //webDriver.navigate().refresh();
 			
-			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr+"&perPageSize=100";
+			String queryURL = queryPrefix+queryName+queryStr+"&perPageSize=100";
 			webGet(queryURL);
 			
 			
@@ -492,7 +498,7 @@ public class Main {
 			//最多只加2页
 			int maxCPage = cPage + 1;
 			
-			 queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
+			 queryURL = queryPrefix+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
 			System.out.println("queryURL :"+queryURL);
 			webGet(queryURL);
 			
@@ -597,7 +603,7 @@ public class Main {
 				}
 				*/
 				//过滤非营销商品
-				Document document = Jsoup.parse(webDriver.getPageSource());
+				/*Document document = Jsoup.parse(webDriver.getPageSource());
 				Elements elements = document.select(".box-shop-info");
 				if(elements !=null && elements.size() > 0) {
 					for(int i=0;i<elements.size();i++) {
@@ -606,7 +612,7 @@ public class Main {
 							gouList.add(i);
 						}
 					}
-				}
+				}*/
 				
 			
 				
@@ -658,7 +664,7 @@ public class Main {
 
 				cPage++;
 				// 下一页 btn-last btn btn-xlarge btn-white
-				queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
+				queryURL = queryPrefix+queryName+"&toPage="+cPage+"&perPageSize=100"+queryStr;
 				System.out.println("queryURL :"+queryURL);
 				webGet(queryURL);
 				//Thread.sleep(1000);
@@ -749,7 +755,7 @@ public class Main {
 			
 		    //webDriver.navigate().refresh();
 			
-			String queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+queryStr;
+			String queryURL = queryPrefix+queryName+queryStr;
 			webGet(queryURL);
 			Thread.sleep(6000);
 			
@@ -781,7 +787,7 @@ public class Main {
 				cPage = getRandom(1, maxPage-5);
 			}
 			
-			 queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40"+queryStr;
+			 queryURL = queryPrefix+queryName+"&toPage="+cPage+"&perPageSize=40"+queryStr;
 			System.out.println("queryURL :"+queryURL);
 			webGet(queryURL);
 			Thread.sleep(4000);
@@ -829,7 +835,7 @@ public class Main {
 
 				cPage++;
 				// 下一页 btn-last btn btn-xlarge btn-white
-				queryURL = "http://pub.alimama.com/promo/search/index.htm?q="+queryName+"&toPage="+cPage+"&perPageSize=40"+queryStr;
+				queryURL = queryPrefix+queryName+"&toPage="+cPage+"&perPageSize=40"+queryStr;
 				System.out.println("queryURL :"+queryURL);
 				webGet(queryURL);
 				Thread.sleep(4500);
