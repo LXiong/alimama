@@ -54,6 +54,14 @@ public class Main {
 	static String queryPrefix = StringUtils.isBlank(PropertiesUtil.getPropertiesMap("alimama.queryPrefix")) ? queryPrefixDef : PropertiesUtil.getPropertiesMap("alimama.queryPrefix");
 	
 	
+	//ye=1(从第一页开始      ye=2(从随机一页开始.，默认随机
+	static boolean queryYe = "1".equals(PropertiesUtil.getPropertiesMap("alimama.queryYe")) ? true : false;
+	
+	
+	// yxjh=1(只要营销计划      yxjh=2（全部要   也就是不管
+	static boolean yxjh = "1".equals(PropertiesUtil.getPropertiesMap("alimama.yxjh")) ? true : false;
+	
+	
 	//招商title
 	static final String zhaoshangTitle = "淘客打造爆款联系Q"+qq;
 	
@@ -490,10 +498,14 @@ public class Main {
 			//默认开始为第一页
 			int cPage = 1;
 			
-			//随机页数
-			if(maxPage > 3){
-				cPage = getRandom(1, maxPage);
-			} 
+			//如果是随机一页
+			if(!queryYe) {
+				//随机页数
+				if(maxPage > 3){
+					cPage = getRandom(1, maxPage);
+				} 
+				
+			}
 			
 			//最多只加2页
 			int maxCPage = cPage + 1;
@@ -600,20 +612,21 @@ public class Main {
     						gouList.add(i);
     					}
                     }  
-				}
-				*/
-				//过滤非营销商品
-				/*Document document = Jsoup.parse(webDriver.getPageSource());
-				Elements elements = document.select(".box-shop-info");
-				if(elements !=null && elements.size() > 0) {
-					for(int i=0;i<elements.size();i++) {
-						String str = elements.get(i).html();
-						if(str!=null && !str.contains("查看营销计划介绍")) {
-							gouList.add(i);
-						}
-					}
 				}*/
 				
+				//过滤非营销商品
+				if(yxjh) {
+					Document document = Jsoup.parse(webDriver.getPageSource());
+					Elements elements = document.select(".box-shop-info");
+					if(elements !=null && elements.size() > 0) {
+						for(int i=0;i<elements.size();i++) {
+							String str = elements.get(i).html();
+							if(str!=null && !str.contains("查看营销计划介绍")) {
+								gouList.add(i);
+							}
+						}
+					}
+				}
 			
 				
 			/*	if(djStart !=null && djEnd !=null){	
