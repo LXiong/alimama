@@ -63,7 +63,8 @@ public class Main {
 	
 	
 	//招商title
-	static final String zhaoshangTitle = "淘客打造爆款联系Q"+qq;
+	//static final String zhaoshangTitle = "淘客打造爆款联系Q"+qq;
+	static final String zhaoshangTitle = PropertiesUtil.getPropertiesMap("alimama.zhaoshangTitle");;
 	
 	//开始结束等级
 	static  Integer djStart = 5;
@@ -73,13 +74,13 @@ public class Main {
 	public static WebDriver webDriver = null;
 	
 
-	// 分组名称
+	// 加入分组名称
 		public static String getFenzuName() {
 			String fenzuNameF = "dateQ群打造爆款联系"+qq;
-			//String fenzuNameF = "date新年推广联系qq"+qq;
 			String date = DateFormatUtils.format(new Date(), "HH:mm:ss");
 			fenzuName = fenzuNameF.replace("date", date);
 			return fenzuName;
+			//fenzuName = qq;
 		}
 	
 	public static boolean validate(){
@@ -374,6 +375,7 @@ public class Main {
 		}
 	}
 
+	//招商分组名称
 	static String fenzuName = "8.16.072打造爆款联系"+qq;
 
 	//最大数
