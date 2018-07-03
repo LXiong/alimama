@@ -6,8 +6,10 @@ package alimama;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -16,9 +18,6 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 
 public class PropertiesUtil {
 	public static final Map<String, String> propertiesMap = new HashMap<String, String>();
@@ -33,8 +32,12 @@ public class PropertiesUtil {
 				System.err.println("load /configParameterSys.properties >>>>>>>>>>>>>>>>>>>>>>>>>>");
 				file = new File("/configParameterSys.properties");
 			}
-			systemConfig = PropertiesUtil.getProperty(FileUtils.openInputStream(
+			
+			/*systemConfig = PropertiesUtil.getProperty(FileUtils.openInputStream(
 					file));
+			*/
+			systemConfig = new Properties();
+			systemConfig.load(new InputStreamReader(new FileInputStream(file),"utf-8"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -101,8 +104,7 @@ public class PropertiesUtil {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(Boolean.parseBoolean("true"));
-		System.out.println(Boolean.parseBoolean(""));
+		System.out.println(PropertiesUtil.getPropertiesMap("alimama.baifenbi"));
 	}
 
 }
