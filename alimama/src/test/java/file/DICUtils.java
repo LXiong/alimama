@@ -19,15 +19,12 @@ public class DICUtils {
 		Set<String> readLinesOut =Sets.newHashSet();
 		for(String s :readLines) {
 			if(StringUtils.isNotBlank(s)) {
-				if(s.length() >= 2) {
-					/*s = s.substring(0, 2);
-					FileUtils.write(fileOut, s, true);*/
-					readLinesOut.add( s.substring(0, 1));
+				char[] c = s.toCharArray();
+				for(int i= 0;i<c.length;i++)
+					readLinesOut.add( String.valueOf(c[i]));
 				}
 		}
-	}
 		FileUtils.writeLines(fileOut, readLinesOut);
-		
 		
 	}
 
