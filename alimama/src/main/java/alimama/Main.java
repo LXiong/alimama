@@ -353,6 +353,7 @@ public class Main {
 		return false;
 	}
 	
+	
 	public static void run(String key){
 		System.out.println("key :" + key);
 		if(checkDistKeyExit(key)){
@@ -468,6 +469,12 @@ public class Main {
 			
 			
 			Thread.sleep(7500);
+			
+			//检查登录，没有登录就跳转
+			String pageStr = webDriver.getPageSource();
+			if(pageStr.contains("登录")) {
+				login2();
+			}
 			
 			// 搜索
 			WebElement elementQuery = null;
@@ -1393,7 +1400,7 @@ public class Main {
 		if (page.contains("招商需求创建成功")) {
 			System.out.println("招商需求创建成功 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		}
-		Thread.sleep(7500);
+		Thread.sleep(11000);
 		}catch(Exception e){
 			e.printStackTrace();
 			webGet("https://www.alimama.com/index.htm");
