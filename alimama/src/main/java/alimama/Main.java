@@ -471,8 +471,8 @@ public class Main {
 			Thread.sleep(7500);
 			
 			//检查登录，没有登录就跳转
-			String pageStr = webDriver.getPageSource();
-			if(pageStr.contains("登录")) {
+			String uname = webDriver.findElement(By.className("menu-username")).getText().replace("你好", "").replace(" ", "");
+			if(StringUtils.isBlank(uname)) {
 				for(int i=0;i<10;i++) {
 					System.out.println("请扫码登录>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 				}
