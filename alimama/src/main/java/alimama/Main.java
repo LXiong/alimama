@@ -473,6 +473,9 @@ public class Main {
 			//检查登录，没有登录就跳转
 			String pageStr = webDriver.getPageSource();
 			if(pageStr.contains("登录")) {
+				for(int i=0;i<10;i++) {
+					System.out.println("请扫码登录>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+				}
 				login2();
 			}
 			
